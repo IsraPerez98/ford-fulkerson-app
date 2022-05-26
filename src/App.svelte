@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ModeSwitcher from './ModeSwitcher.svelte';
 	import Tailwindcss from './Tailwindcss.svelte';
-	import Canvas from './components/graph/canvas.svelte';
+	import Canvas from './components/grafo/canvas.svelte';
 	export let name: string;
 </script>
 
