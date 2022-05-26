@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import type Arista from "../../interfaces/Arista";
+    import type Arista from "../../../interfaces/Arista";
 
     export let arista: Arista;
     export let svgarista: any;

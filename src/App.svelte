@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ModeSwitcher from './ModeSwitcher.svelte';
 	import Tailwindcss from './Tailwindcss.svelte';
-	import Canvas from './components/grafo/canvas.svelte';
+	import Grafo from './components/Grafo/Grafo.svelte';
 	export let name: string;
 </script>
 
@@ -15,5 +15,6 @@
 		<a href="https://svelte.dev/tutorial" class="text-blue-500 underline">Svelte tutorial</a>
 		to learn how to build Svelte apps.
 	</p>
-	<Canvas />
+	<Grafo />
+
 </main>

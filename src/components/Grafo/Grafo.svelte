@@ -1,13 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import Nodo from "./nodo.svelte";
-    import Arista from "./arista.svelte";
+    import * as d3 from 'd3';
+    
+    import Nodo from "./Nodo/Nodo.svelte";
+    import Arista from "./Arista/Arista.svelte";
 
-    export let svggrafo: any;
+    let bindcanvas;
 
-    $: if(svggrafo) {
-        draw();
-    }
+    let svggrafo;
 
     let nodos = [
         {
@@ -65,18 +65,23 @@
     
 
     function draw() {
-        if(!svggrafo) {
-            return;
-        }
-        svggrafo.html(null); //borrar todo
+        const canvas = d3.select(bindcanvas);
+
+        canvas.html(null); //borrar todo
+
+        svggrafo = canvas.append('svg')
+            .attr('width', 800)
+            .attr('height', 800)
     }
 </script>
 
 <main>
-    {#each aristas as arista }
-        <Arista svggrafo={svggrafo} arista={arista} />
-    {/each}
-    {#each nodos as nodo}
-        <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />
-    {/each}
+    <div bind:this={bindcanvas}>
+        {#each aristas as arista }
+            <Arista svggrafo={svggrafo} arista={arista} />
+        {/each}
+        {#each nodos as nodo}
+            <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />
+        {/each}
+    </div>
 </main>

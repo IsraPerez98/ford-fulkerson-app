@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import * as d3 from 'd3';
     
-    import type Nodo from "../../interfaces/Nodo";
+    import type  Nodo  from '../../../interfaces/Nodo';
 
     export let svggrafo: any;
     export let nodo: Nodo;

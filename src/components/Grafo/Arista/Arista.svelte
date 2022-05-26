@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import type Arista from "../../interfaces/Arista";
+    import type Arista from "../../../interfaces/Arista";
 
-    import Flecha from "./flecha.svelte";
+    import Flecha from "./Flecha.svelte";
 
     export let svggrafo: any;
     export let arista: Arista;
