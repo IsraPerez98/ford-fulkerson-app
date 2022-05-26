@@ -11,21 +11,21 @@
 
     let nodos = [
         {
-            id: 1,
+            id: 0,
             nombre: "test",
             color: "red",
             posX: 30,
             posY: 30,
         },
         {
-            id: 2,
+            id: 1,
             nombre: "test2",
             color: "blue",
             posX: 100,
             posY: 200,
         },
         {
-            id: 3,
+            id: 2,
             nombre: "test3",
             color: "green",
             posX: 500,
@@ -57,22 +57,15 @@
         },
     ];
 
-    async function moverAzar() {
-        while (false) {
-            for (const nodo of nodos) {
-                nodo.posX += Math.random() * 5 - 2.5;
-                nodo.posY += Math.random() * 5 - 2.5;
-                nodos = nodos;
-                aristas = aristas;
-            }
-            //sleep for 1 s
-            await new Promise(resolve => setTimeout(resolve, 10));
-        }
+    function moverNodo(id, posX, posY) {
+        nodos[id].posX = posX;
+        nodos[id].posY = posY;
+        nodos = nodos;
+        aristas =aristas;
     }
 
     onMount(() => {
         draw();
-        moverAzar();
     });
 
     
@@ -90,6 +83,6 @@
         <Arista svggrafo={svggrafo} arista={arista} />
     {/each}
     {#each nodos as nodo}
-        <Nodo svggrafo={svggrafo} nodo={nodo} />
+        <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />
     {/each}
 </main>
