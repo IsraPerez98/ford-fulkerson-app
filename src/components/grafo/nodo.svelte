@@ -8,7 +8,7 @@
 
     let svgnodo: any;
 
-    const radio = 30;
+    const radio = 35;
 
     $: if(svggrafo && nodo) {
         draw();

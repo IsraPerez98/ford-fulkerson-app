@@ -52,16 +52,16 @@
             id: 3,
             desde: nodos[2],
             hasta: nodos[0],
-            peso: 3,
+            peso: 400,
             color: "green",
         },
     ];
 
     async function moverAzar() {
-        while (true) {
+        while (false) {
             for (const nodo of nodos) {
-                nodo.posX += Math.random() * 1 - 0.3;
-                nodo.posY += Math.random() * 1 - 0.3;
+                nodo.posX += Math.random() * 5 - 2.5;
+                nodo.posY += Math.random() * 5 - 2.5;
                 nodos = nodos;
                 aristas = aristas;
             }
