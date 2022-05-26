@@ -13,21 +13,18 @@
         {
             id: 0,
             nombre: "test",
-            color: "red",
             posX: 30,
             posY: 30,
         },
         {
             id: 1,
             nombre: "test2",
-            color: "blue",
             posX: 100,
             posY: 200,
         },
         {
             id: 2,
             nombre: "test3",
-            color: "green",
             posX: 500,
             posY: 300,
         },
@@ -39,21 +36,18 @@
             desde: nodos[0],
             hasta: nodos[1],
             peso: 1,
-            color: "red",
         },
         {
             id: 2,
             desde: nodos[1],
             hasta: nodos[2],
             peso: 2,
-            color: "blue",
         },
         {
             id: 3,
             desde: nodos[2],
             hasta: nodos[0],
             peso: 400,
-            color: "green",
         },
     ];
 

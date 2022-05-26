@@ -5,7 +5,6 @@ interface Arista {
     desde: Nodo;
     hasta: Nodo;
     peso: number;
-    //color: string | null;
 }
 
 export default Arista;
