@@ -1,7 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import type Arista from "../../interfaces/Arista";
-    
+
+    import Flecha from "./flecha.svelte";
 
     export let svggrafo: any;
     export let arista: Arista;
@@ -46,28 +47,6 @@
             .attr("x2", x2)
             .attr("y2", y2)
 
-        const angulo = Math.atan2(y2 - y1, x2 - x1) + Math.PI / 2;
-
-        const angulodeg = angulo * 180 / Math.PI
-
-        //console.log(arista.id, x1, y1, x2, y2, angulodeg);
-
-        //TODO: RESTAR EL RADIO DE LOS NODOS A AMBOS PUNTOS DE LA ARISTA
-        function interpolar(x1, y1, x2, y2, frac) {
-            const x = x1 + frac * (x2 - x1);
-            const y = y1 + frac * (y2 - y1);
-            return [x, y];
-        }
-
-        const posFlecha = interpolar(x1, y1, x2, y2, 0.8);
-
-        const flecha = svgarista.append("polygon")
-            .attr("class", "fill-indigo-500")
-            .attr("points", "-15,25 0,0 15,25, 0,15")
-            //ponerla al medio y rotarla
-            //.attr("transform", `translate( ${(x2 + x1)/2} , ${ (y2 + y1)/2} ) rotate(${angulodeg})`);
-            //mejor ponerla casi al final
-            .attr("transform", `translate( ${posFlecha[0]}, ${posFlecha[1]} ) rotate(${angulodeg})`);
         
         const radiopeso = 20;
 
@@ -90,3 +69,7 @@
     }
 
 </script>
+
+<main>
+    <Flecha arista={arista} svgarista={svgarista} />
+</main>
