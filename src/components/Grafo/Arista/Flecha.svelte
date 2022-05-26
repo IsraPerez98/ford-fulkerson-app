@@ -16,7 +16,7 @@
     });
 
     function draw() {
-        console.log("dibujando flecha");
+        //console.log("dibujando flecha");
         if(!svgarista || !arista) {
             return;
         }

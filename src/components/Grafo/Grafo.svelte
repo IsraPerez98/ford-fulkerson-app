@@ -32,19 +32,19 @@
 
     let aristas = [
         {
-            id: 1,
+            id: 0,
             desde: nodos[0],
             hasta: nodos[1],
             peso: 1,
         },
         {
-            id: 2,
+            id: 1,
             desde: nodos[1],
             hasta: nodos[2],
             peso: 2,
         },
         {
-            id: 3,
+            id: 2,
             desde: nodos[2],
             hasta: nodos[0],
             peso: 400,
@@ -55,7 +55,13 @@
         nodos[id].posX = posX;
         nodos[id].posY = posY;
         nodos = nodos;
-        aristas =aristas;
+        aristas = aristas;
+    }
+
+    function cambiarPeso(id, peso) {
+        aristas[id].peso = peso;
+        nodos = nodos;
+        aristas = aristas;
     }
 
     onMount(() => {
@@ -78,7 +84,7 @@
 <main>
     <div bind:this={bindcanvas}>
         {#each aristas as arista }
-            <Arista svggrafo={svggrafo} arista={arista} />
+            <Arista svggrafo={svggrafo} arista={arista} cambiarPeso={cambiarPeso} />
         {/each}
         {#each nodos as nodo}
             <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />
