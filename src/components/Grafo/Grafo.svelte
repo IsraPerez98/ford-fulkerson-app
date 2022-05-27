@@ -1,6 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import * as d3 from 'd3';
+
+    import Menu from "./Menu/Menu.svelte";
     
     import Nodo from "./Nodo/Nodo.svelte";
     import Arista from "./Arista/Arista.svelte";
@@ -13,8 +15,8 @@
         {
             id: 0,
             nombre: "test",
-            posX: 30,
-            posY: 30,
+            posX: 600,
+            posY: 50,
         },
         {
             id: 1,
@@ -51,6 +53,18 @@
         },
     ];
 
+    function AgregarNodo(posX, posY) {
+        let nodo = {
+            id: nodos.length,
+            nombre: "Nodo" + nodos.length,
+            posX: posX,
+            posY: posY,
+        };
+
+        nodos.push(nodo);
+        nodos = nodos;
+    }
+
     function moverNodo(id, posX, posY) {
         nodos[id].posX = posX;
         nodos[id].posY = posY;
@@ -68,7 +82,6 @@
         draw();
     });
 
-    
 
     function draw() {
         const canvas = d3.select(bindcanvas);
@@ -83,6 +96,7 @@
 
 <div>
     <div bind:this={bindcanvas}>
+        <Menu svggrafo={svggrafo} agregarNodo={AgregarNodo}/>
         {#each aristas as arista }
             <Arista svggrafo={svggrafo} arista={arista} cambiarPeso={cambiarPeso} />
         {/each}
