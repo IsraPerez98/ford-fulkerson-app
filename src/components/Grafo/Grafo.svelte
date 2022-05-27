@@ -81,7 +81,7 @@
     }
 </script>
 
-<main>
+<div>
     <div bind:this={bindcanvas}>
         {#each aristas as arista }
             <Arista svggrafo={svggrafo} arista={arista} cambiarPeso={cambiarPeso} />
@@ -90,4 +90,4 @@
             <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />
         {/each}
     </div>
-</main>
+</div>

@@ -53,7 +53,7 @@
 
 </script>
 
-<main>
+<div>
     <Flecha arista={arista} svgarista={svgarista} />
     <Peso arista={arista} svgarista={svgarista} cambiarPeso={cambiarPeso} />
-</main>
+</div>
