@@ -6,6 +6,7 @@
     import Peso from "./Peso.svelte";
 
     export let svggrafo: any;
+    export let nodosARedibujar: Array<number>;
     export let arista: Arista;
     export let cambiarPeso: Function;
 
@@ -24,6 +25,12 @@
         if(!svggrafo || !arista) {
             return;
         }
+
+        if(nodosARedibujar.length > 0 && !(nodosARedibujar.includes(arista.desde.id)) && !(nodosARedibujar.includes(arista.hasta.id))) {
+            return;
+        }
+
+        //console.log("Dibujando arista " + arista.desde.id + " - " + arista.hasta.id);
 
         if(svgarista){
             svgarista.remove();

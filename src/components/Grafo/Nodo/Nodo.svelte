@@ -6,6 +6,7 @@
 
     export let svggrafo: any;
     export let nodo: Nodo;
+    export let nodosARedibujar: Array<number>;
     export let moverNodo: Function;
 
     let svgnodo: any;
@@ -29,6 +30,14 @@
         if(!svggrafo || !nodo) {
             return;
         }
+
+        //console.log({nodosARedibujar});
+
+        if(nodosARedibujar.length > 0 && !(nodosARedibujar.includes(nodo.id))) {
+            return;
+        }
+
+        //console.log("Dibujando nodo " + nodo.id);
 
         if(svgnodo){
             svgnodo.remove();

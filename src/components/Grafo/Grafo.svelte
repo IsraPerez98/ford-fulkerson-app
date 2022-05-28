@@ -38,29 +38,7 @@
         [400, 0, 0],
     ];
 
-    /*
-
-    let aristas = [
-        {
-            id: 0,
-            desde: nodos[0],
-            hasta: nodos[1],
-            peso: 1,
-        },
-        {
-            id: 1,
-            desde: nodos[1],
-            hasta: nodos[2],
-            peso: 2,
-        },
-        {
-            id: 2,
-            desde: nodos[2],
-            hasta: nodos[0],
-            peso: 400,
-        },
-    ];
-    */
+    let nodosARedibujar = []; //contiene los id de los nodos que se deben actualizar con d3
 
     function AgregarNodo(posX, posY) {
         let nodo = {
@@ -71,20 +49,45 @@
         };
 
         nodos.push(nodo);
-        nodos = nodos;
+
+        //agregamos una dimension a la matriz de adyacencia
+        for (let i = 0; i < aristas.length; i++) {
+            aristas[i].push(0);
+        }
+        aristas.push(Array(aristas.length + 1).fill(0));
+        //console.log({aristas});
+        //nodos = nodos;
+        nodosARedibujar = [nodo.id];
     }
 
     function moverNodo(id, posX, posY) {
         nodos[id].posX = posX;
         nodos[id].posY = posY;
-        nodos = nodos;
-        aristas = aristas;
+        //nodos = nodos;
+        //aristas = aristas;
+
+        //tenemos que redibujar el nodo y todos los nodos adyacentes con peso distinto a 0
+        nodosARedibujar = [id];
+
+        //codigo feo, pero no se genera un bug de z-fighting
+        for (let i = 0; i < aristas.length; i++) {
+            if (aristas[id][i] != 0) {
+                nodosARedibujar.push(i);
+            }
+        }
+        for (let i = 0; i < aristas.length; i++) {
+            if (aristas[i][id] != 0) {
+                nodosARedibujar.push(i);
+            }
+        }
+
     }
 
     function cambiarPeso(desdeID, hastaID, peso) {
         aristas[desdeID][hastaID] = peso;
 
-        aristas = aristas;
+        //aristas = aristas;
+        nodosARedibujar = [desdeID, hastaID];
     }
 
     onMount(() => {
@@ -93,9 +96,10 @@
 
 
     function draw() {
+        //console.log("Dibujando canvas");
         const canvas = d3.select(bindcanvas);
 
-        canvas.html(null); //borrar todo
+        //canvas.html(null); //borrar todo
 
         svggrafo = canvas.append('svg')
             .attr('width', 800)
@@ -111,6 +115,7 @@
                 {#if hasta !== 0} 
                     <Arista 
                         svggrafo={svggrafo}
+                        nodosARedibujar={nodosARedibujar}
                         arista={{
                             desde: nodos[iddesde],
                             hasta: nodos[idhasta],
@@ -122,7 +127,12 @@
             {/each}
         {/each}
         {#each nodos as nodo}
-            <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />
+            <Nodo 
+                svggrafo={svggrafo} 
+                nodo={nodo} 
+                nodosARedibujar={nodosARedibujar}
+                moverNodo={moverNodo} 
+            />
         {/each}
     </div>
 </div>
