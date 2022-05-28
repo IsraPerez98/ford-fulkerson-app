@@ -32,6 +32,14 @@
         },
     ]
 
+    let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
+        [0, 1, 0],
+        [0, 0, 2],
+        [400, 0, 0],
+    ];
+
+    /*
+
     let aristas = [
         {
             id: 0,
@@ -52,6 +60,7 @@
             peso: 400,
         },
     ];
+    */
 
     function AgregarNodo(posX, posY) {
         let nodo = {
@@ -72,9 +81,9 @@
         aristas = aristas;
     }
 
-    function cambiarPeso(id, peso) {
-        aristas[id].peso = peso;
-        nodos = nodos;
+    function cambiarPeso(desdeID, hastaID, peso) {
+        aristas[desdeID][hastaID] = peso;
+
         aristas = aristas;
     }
 
@@ -97,8 +106,20 @@
 <div>
     <div bind:this={bindcanvas}>
         <Menu svggrafo={svggrafo} agregarNodo={AgregarNodo}/>
-        {#each aristas as arista }
-            <Arista svggrafo={svggrafo} arista={arista} cambiarPeso={cambiarPeso} />
+        {#each aristas as desde, iddesde }
+            {#each desde as hasta, idhasta}
+                {#if hasta !== 0} 
+                    <Arista 
+                        svggrafo={svggrafo}
+                        arista={{
+                            desde: nodos[iddesde],
+                            hasta: nodos[idhasta],
+                            peso: aristas[iddesde][idhasta],
+                        }}
+                        cambiarPeso={cambiarPeso}
+                    />
+                {/if}
+            {/each}
         {/each}
         {#each nodos as nodo}
             <Nodo svggrafo={svggrafo} nodo={nodo} moverNodo={moverNodo} />

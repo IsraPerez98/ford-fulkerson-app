@@ -19,7 +19,6 @@
     let fo: any;
 
     function cambioPeso() {
-        const id = arista.id;
         const pesoActual = arista.peso;
 
         const pesoNuevo = parseInt(this.value);
@@ -31,10 +30,13 @@
             return;
         }
 
-        cambiarPeso(id, pesoNuevo);
+        const desdeID = arista.desde.id;
+        const hastaID = arista.hasta.id;
+
+        cambiarPeso(desdeID, hastaID, pesoNuevo);
     }
 
-    function draw() {
+    function draw() { //
         if(!svgarista || !arista) {
             return;
         }
