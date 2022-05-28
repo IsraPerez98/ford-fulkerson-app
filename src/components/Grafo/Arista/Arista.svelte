@@ -36,11 +36,31 @@
             svgarista.remove();
         }
 
+        //si dibujamos la arista desde (x1, y1) hasta (x2, y2)
+        //aveces se dibuja por sobre los nodos
+        //por lo tanto debemos calcular el borde del nodo para empezar a dibujar la linea
+        //y no por encima de los nodos
+
+        /*
         const x1 = arista.desde.posX;
         const y1 = arista.desde.posY;
 
         const x2 = arista.hasta.posX;
         const y2 = arista.hasta.posY;
+        */
+
+        const radioNodo = 35;
+        
+        
+        //calculamos el angulo de la linea
+        const angulo = Math.atan2(arista.hasta.posY - arista.desde.posY, arista.hasta.posX - arista.desde.posX);
+
+        const x1 = arista.desde.posX + radioNodo * Math.cos(angulo);
+        const y1 = arista.desde.posY + radioNodo * Math.sin(angulo);
+
+        const x2 = arista.hasta.posX - radioNodo * Math.cos(angulo);
+        const y2 = arista.hasta.posY - radioNodo * Math.sin(angulo);
+        
 
         svgarista = svggrafo.append("svg")
             .attr("x1", x1)

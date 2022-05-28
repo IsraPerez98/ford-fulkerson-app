@@ -40,6 +40,37 @@
 
     let nodosARedibujar = []; //contiene los id de los nodos que se deben actualizar con d3
 
+    function generarNodoAzar(cantNodos: number) {
+        let nuevosNodos = [];
+        for (let i = 0; i < cantNodos; i++) {
+            nuevosNodos.push({
+                id: i,
+                nombre: "nodo" + i,
+                posX: Math.random() * 800,
+                posY: Math.random() * 800,
+            });
+        }
+        //generamos aristas aleatorias
+        let nuevasAristas = new Array(nuevosNodos.length);
+        for (let i = 0; i < nuevasAristas.length; i++) {
+            nuevasAristas[i] = new Array(nuevosNodos.length);
+            for (let j = 0; j < nuevasAristas.length; j++) {
+                if(Math.random() > 0.5) {
+                    nuevasAristas[i][j] = Math.floor(Math.random() * 100);
+                } else {
+                    nuevasAristas[i][j] = 0;
+                }
+            }
+        }
+
+        nodos = nuevosNodos;
+        aristas = nuevasAristas;
+        //console.log(aristas);
+
+    }
+
+    generarNodoAzar(6);
+
     function AgregarNodo(posX, posY) {
         let nodo = {
             id: nodos.length,
@@ -66,22 +97,9 @@
         //nodos = nodos;
         //aristas = aristas;
 
-        //tenemos que redibujar el nodo y todos los nodos adyacentes con peso distinto a 0
-        let nARedibujar = [id];
+        //tenemos que redibujar el nodo
 
-        //codigo feo, pero no se genera un bug de z-fighting
-        for (let i = 0; i < aristas.length; i++) {
-            if (aristas[id][i] != 0) {
-                nARedibujar.push(i);
-            }
-        }
-        for (let i = 0; i < aristas.length; i++) {
-            if (aristas[i][id] != 0) {
-                nARedibujar.push(i);
-            }
-        }
-
-        nodosARedibujar = nARedibujar;
+        nodosARedibujar = [id];
 
     }
 
