@@ -104,7 +104,7 @@
     }
 
     function cambiarPeso(desdeID, hastaID, peso) {
-        aristas[desdeID][hastaID] = peso;
+        aristas[hastaID][desdeID] = peso;
 
         //aristas = aristas;
         nodosARedibujar = [desdeID, hastaID];
