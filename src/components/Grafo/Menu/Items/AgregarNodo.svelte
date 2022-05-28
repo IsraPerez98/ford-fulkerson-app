@@ -6,27 +6,18 @@
 
     export let agregarNodo: Function;
 
+    let divMenu: any;
+
     let moviendo = false;
     
     const radio = 35;
-
-    let div: any;
     
     let sgvnodonuevo: any;
 
-    let posDiv;
+    let posX = 0 + radio;
+    let posY = 0 + radio;
 
-    let posX = 0;
-    let posY = 0;
-
-    function obtenerPosicionDiv() {
-        posDiv = div.getBoundingClientRect();
-
-        posX = posDiv.x + radio;
-        posY = posDiv.y + radio;
-    }
-
-    $: if(svggrafo || div) {
+    $: if(svggrafo || divMenu) {
         draw();
     }
 
@@ -50,8 +41,9 @@
     }
 
     function draw() {
-        //console.log("dibujando nuevo nodo");
-        if(!svggrafo || !div) {
+        console.log("dibujando nuevo nodo");
+        console.log({svggrafo, divMenu});
+        if(!svggrafo || !divMenu) {
             return;
         }
 
@@ -59,8 +51,12 @@
             sgvnodonuevo.remove();
         }
 
+        console.log("dibujando nuevo nodo xd");
+
         if (!moviendo) {
-            obtenerPosicionDiv();
+            posX = 0 + radio;
+            posY = 0 + radio;
+            //console.log({posX, posY});
         }
 
         sgvnodonuevo = svggrafo.append("svg")
@@ -87,6 +83,6 @@
     }
 </script>
 
-<div bind:this={div}>
+<div bind:this={divMenu}>
 
 </div>
