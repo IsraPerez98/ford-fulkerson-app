@@ -46,15 +46,38 @@
             .attr("x1", x1)
             .attr("y1", y1)
             .attr("x2", x2)
-            .attr("y2", y2)
+            .attr("y2", y2);
 
         //la linea
-        const line = svgarista.append("line")
-            .attr("class", "stroke-teal-500 stroke-2")
-            .attr("x1", x1)
-            .attr("y1", y1)
-            .attr("x2", x2)
-            .attr("y2", y2)
+        if( arista.peso !== 0 && arista.pesoInverso == 0) {
+            const linea = svgarista.append("line")
+                .attr("class", "stroke-emerald-500 stroke-2")
+                .attr("x1", x1)
+                .attr("y1", y1)
+                .attr("x2", x2)
+                .attr("y2", y2);
+        } else if ( arista.pesoInverso !== 0 && arista.peso == 0 ) {
+            const linea = svgarista.append("line")
+                .attr("class", "stroke-rose-500 stroke-2")
+                .attr("x1", x1)
+                .attr("y1", y1)
+                .attr("x2", x2)
+                .attr("y2", y2);
+        } else if (arista.pesoInverso !== 0 && arista.peso !== 0) {
+            const linea2 = svgarista.append("line")
+                .attr("class", "stroke-emerald-500 stroke-2")
+                .attr("x1", (x2 + x1) / 2)
+                .attr("y1", (y2 + y1) / 2)
+                .attr("x2", x2)
+                .attr("y2", y2);
+
+            const linea = svgarista.append("line")
+                .attr("class", "stroke-rose-500 stroke-2")
+                .attr("x1", x1)
+                .attr("y1", y1)
+                .attr("x2", (x2 + x1) / 2)
+                .attr("y2", (y2 + y1) / 2);
+        }
 
     }
 
@@ -67,7 +90,7 @@
             svgarista={svgarista}
             nodoDesde={arista.desde}
             nodoHasta={arista.hasta}
-            fillColor={'fill-rose-800'}
+            fillColor={'fill-emerald-800'}
         />
     {/if}
     {#if arista.pesoInverso !== 0}
@@ -75,7 +98,7 @@
             svgarista={svgarista}
             nodoDesde={arista.hasta}
             nodoHasta={arista.desde}
-            fillColor={'fill-yellow-800'}
+            fillColor={'fill-rose-800'}
         />
     {/if}
 
@@ -90,7 +113,7 @@
             nodoDesde={arista.desde}
             nodoHasta={arista.hasta}
             peso={arista.peso}
-            bgColor={'bg-rose-800'}
+            bgColor={'bg-emerald-800'}
             cambiarPeso={cambiarPeso}
         />
     {:else if arista.pesoInverso !== 0 && arista.peso == 0}
@@ -100,7 +123,7 @@
             nodoDesde={arista.hasta}
             nodoHasta={arista.desde}
             peso={arista.pesoInverso}
-            bgColor={'bg-yellow-800'}
+            bgColor={'bg-rose-800'}
             cambiarPeso={cambiarPeso}
         />
     {:else if arista.pesoInverso !== 0 && arista.peso !== 0}
@@ -110,7 +133,7 @@
             nodoDesde={arista.desde}
             nodoHasta={arista.hasta}
             peso={arista.peso}
-            bgColor={'bg-rose-800'}
+            bgColor={'bg-emerald-800'}
             cambiarPeso={cambiarPeso}
         />
         <Peso
@@ -119,7 +142,7 @@
             nodoDesde={arista.hasta}
             nodoHasta={arista.desde}
             peso={arista.pesoInverso}
-            bgColor={'bg-yellow-800'}
+            bgColor={'bg-rose-800'}
             cambiarPeso={cambiarPeso}
         />
     {/if}

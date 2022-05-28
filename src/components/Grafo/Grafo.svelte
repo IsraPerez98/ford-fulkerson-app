@@ -34,8 +34,8 @@
 
     let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
         [0, 1, 20],
-        [0, 0, 2],
-        [400, 0, 0],
+        [0, 0, 0],
+        [400, 2, 0],
     ];
 
     let nodosARedibujar = []; //contiene los id de los nodos que se deben actualizar con d3
