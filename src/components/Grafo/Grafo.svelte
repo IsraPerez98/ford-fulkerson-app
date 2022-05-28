@@ -33,7 +33,7 @@
     ]
 
     let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
-        [0, 1, 0],
+        [0, 1, 20],
         [0, 0, 2],
         [400, 0, 0],
     ];
@@ -67,19 +67,21 @@
         //aristas = aristas;
 
         //tenemos que redibujar el nodo y todos los nodos adyacentes con peso distinto a 0
-        nodosARedibujar = [id];
+        let nARedibujar = [id];
 
         //codigo feo, pero no se genera un bug de z-fighting
         for (let i = 0; i < aristas.length; i++) {
             if (aristas[id][i] != 0) {
-                nodosARedibujar.push(i);
+                nARedibujar.push(i);
             }
         }
         for (let i = 0; i < aristas.length; i++) {
             if (aristas[i][id] != 0) {
-                nodosARedibujar.push(i);
+                nARedibujar.push(i);
             }
         }
+
+        nodosARedibujar = nARedibujar;
 
     }
 
@@ -110,16 +112,17 @@
 <div>
     <div bind:this={bindcanvas}>
         <Menu svggrafo={svggrafo} agregarNodo={AgregarNodo}/>
-        {#each aristas as desde, iddesde }
-            {#each desde as hasta, idhasta}
-                {#if hasta !== 0} 
+        {#each Array(aristas.length) as _, i}
+            {#each Array(i) as _, j}
+                {#if aristas[i][j] !== 0 || aristas[j][i] !== 0}
                     <Arista 
                         svggrafo={svggrafo}
                         nodosARedibujar={nodosARedibujar}
                         arista={{
-                            desde: nodos[iddesde],
-                            hasta: nodos[idhasta],
-                            peso: aristas[iddesde][idhasta],
+                            desde: nodos[i],
+                            hasta: nodos[j],
+                            peso: aristas[j][i], //FIXME
+                            pesoInverso: aristas[i][j],
                         }}
                         cambiarPeso={cambiarPeso}
                     />

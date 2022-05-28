@@ -1,14 +1,21 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import type Arista from "../../../interfaces/Arista";
+    import type Nodo from "../../../interfaces/Nodo";
 
     export let svgarista: any;
-    export let arista: Arista;
+    export let offsetX: number;
+    
+    export let nodoDesde: Nodo;
+    export let nodoHasta: Nodo;
+    export let peso: number;
+
+    export let bgColor: string;
+
     export let cambiarPeso: Function;
 
     let radiopeso = 20;
 
-    $: if(svgarista && arista) {
+    $: if(svgarista) {
         draw();
     }
 
@@ -19,7 +26,7 @@
     let fo: any;
 
     function cambioPeso() {
-        const pesoActual = arista.peso;
+        const pesoActual = peso;
 
         const pesoNuevo = parseInt(this.value);
         
@@ -30,14 +37,14 @@
             return;
         }
 
-        const desdeID = arista.desde.id;
-        const hastaID = arista.hasta.id;
+        const desdeID = nodoDesde.id;
+        const hastaID = nodoHasta.id;
 
         cambiarPeso(desdeID, hastaID, pesoNuevo);
     }
 
     function draw() { //
-        if(!svgarista || !arista) {
+        if(!svgarista) {
             return;
         }
 
@@ -45,22 +52,22 @@
             fo.remove();
         }
 
-        const x1 = arista.desde.posX;
-        const y1 = arista.desde.posY;
+        const x1 = nodoDesde.posX;
+        const y1 = nodoDesde.posY;
 
-        const x2 = arista.hasta.posX;
-        const y2 = arista.hasta.posY;
+        const x2 = nodoHasta.posX;
+        const y2 = nodoHasta.posY;
 
         //dibujamos el peso con un foreign object
         //dibujamos el peso con un foreign object
         fo = svgarista.append("foreignObject")
-            .attr("x", (x2 + x1)/2 - radiopeso)
+            .attr("x", (x2 + x1)/2 - radiopeso + offsetX)
             .attr("y", (y1 + y2)/2 - radiopeso)
             .attr("width", radiopeso * 2)
             .attr("height", radiopeso * 2);
         
         const div = fo.append("xhtml:div")
-            .attr("class", "flex w-full h-full bg-rose-900 rounded-full border border-white/20");
+            .attr("class", `flex w-full h-full ${bgColor} rounded-full border border-white/20`);
         /*
         const text = div.append("xhtml:p")
             .attr("class", "text-white text-center m-auto")
@@ -70,7 +77,7 @@
         const texto = div.append("xhtml:input")
             .attr("class", "w-full h-full text-white text-center m-auto bg-transparent border-none outline-none")
             .attr("type", "text")
-            .attr("value", arista.peso)
+            .attr("value", peso)
             .on("change", cambioPeso);
     }
 

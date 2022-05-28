@@ -61,6 +61,67 @@
 </script>
 
 <div>
-    <Flecha arista={arista} svgarista={svgarista} />
-    <Peso arista={arista} svgarista={svgarista} cambiarPeso={cambiarPeso} />
+    
+    {#if arista.peso !== 0}
+        <Flecha
+            svgarista={svgarista}
+            nodoDesde={arista.desde}
+            nodoHasta={arista.hasta}
+            fillColor={'fill-rose-800'}
+        />
+    {/if}
+    {#if arista.pesoInverso !== 0}
+        <Flecha
+            svgarista={svgarista}
+            nodoDesde={arista.hasta}
+            nodoHasta={arista.desde}
+            fillColor={'fill-yellow-800'}
+        />
+    {/if}
+
+
+
+
+
+    {#if arista.peso !== 0 && arista.pesoInverso == 0}
+        <Peso
+            svgarista={svgarista}
+            offsetX={0}
+            nodoDesde={arista.desde}
+            nodoHasta={arista.hasta}
+            peso={arista.peso}
+            bgColor={'bg-rose-800'}
+            cambiarPeso={cambiarPeso}
+        />
+    {:else if arista.pesoInverso !== 0 && arista.peso == 0}
+        <Peso
+            svgarista={svgarista}
+            offsetX={0}
+            nodoDesde={arista.hasta}
+            nodoHasta={arista.desde}
+            peso={arista.pesoInverso}
+            bgColor={'bg-yellow-800'}
+            cambiarPeso={cambiarPeso}
+        />
+    {:else if arista.pesoInverso !== 0 && arista.peso !== 0}
+        <Peso
+            svgarista={svgarista}
+            offsetX={-20}
+            nodoDesde={arista.desde}
+            nodoHasta={arista.hasta}
+            peso={arista.peso}
+            bgColor={'bg-rose-800'}
+            cambiarPeso={cambiarPeso}
+        />
+        <Peso
+            svgarista={svgarista}
+            offsetX={20}
+            nodoDesde={arista.hasta}
+            nodoHasta={arista.desde}
+            peso={arista.pesoInverso}
+            bgColor={'bg-yellow-800'}
+            cambiarPeso={cambiarPeso}
+        />
+    {/if}
+    
 </div>
