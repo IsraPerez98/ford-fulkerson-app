@@ -21,7 +21,7 @@
         const posicionDIV = divComponente.node().getBoundingClientRect();
 
         return {
-            x: posicionDIV.x - posicionSVG.x + radio,
+            x: posicionDIV.x - posicionSVG.x,
             y: posicionDIV.y - posicionSVG.y + radio,
         };
     }

@@ -55,7 +55,8 @@
                 .attr("class", "text-center")
                 .text(item.nombre);
             
-            const divComponente = divItem.append("div");
+            const divComponente = divItem.append("div")
+                .attr("class", "flex mx-auto");
 
             const componente = new item.componente({
                 target: divComponente.node(),
