@@ -161,8 +161,8 @@
         svgarista={svgarista}
         posicion={
             {
-                x: (parametros.x1 + parametros.x2) / 2 - 20,
-                y: (parametros.y1 + parametros.y2) / 2
+                x: (parametros.x1 + parametros.x2) / 2  - 20 * Math.cos(parametros.angulo),
+                y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
             }
         }
         nodoDesde={arista.desde}
@@ -175,8 +175,8 @@
         svgarista={svgarista}
         posicion={
             {
-                x: (parametros.x1 + parametros.x2) / 2 + 20,
-                y: (parametros.y1 + parametros.y2) / 2
+                x: (parametros.x1 + parametros.x2) / 2  + 20 * Math.cos(parametros.angulo),
+                y: (parametros.y1 + parametros.y2) / 2 + 20 * Math.sin(parametros.angulo),
             }
         }
         nodoDesde={arista.hasta}
