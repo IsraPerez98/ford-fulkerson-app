@@ -9,8 +9,11 @@
     export let arista: Arista;
     export let cambiarPeso: Function;
 
+    const dibujarAristaBidireccional = ( arista.peso !== 0 && arista.pesoInverso !== 0 );
+
     let svgarista: any;
     let linea: any;
+    let linea2: any;
 
     $: if(svggrafo) {
         draw();
@@ -46,11 +49,25 @@
             .attr("x2", parametros.x2)
             .attr("y2", parametros.y2);
 
-        linea
-            .attr("x1", parametros.x1)
-            .attr("y1", parametros.y1)
-            .attr("x2", parametros.x2)
-            .attr("y2", parametros.y2);
+        if(dibujarAristaBidireccional) {
+            linea
+                .attr("x1", parametros.x1)
+                .attr("y1", parametros.y1)
+                .attr("x2", (parametros.x1 + parametros.x2) / 2)
+                .attr("y2", (parametros.y1 + parametros.y2) / 2);
+            
+            linea2
+                .attr("x1", (parametros.x1 + parametros.x2) / 2)
+                .attr("y1", (parametros.y1 + parametros.y2) / 2)
+                .attr("x2", parametros.x2)
+                .attr("y2", parametros.y2);
+        } else {
+            linea
+                .attr("x1", parametros.x1)
+                .attr("y1", parametros.y1)
+                .attr("x2", parametros.x2)
+                .attr("y2", parametros.y2);
+        }
     }
 
     $: if(arista) {
@@ -80,37 +97,118 @@
             .attr("x2", parametros.x2)
             .attr("y2", parametros.y2);
 
-        linea = svgarista.append("line")
-            .attr("class", "stroke-emerald-500 stroke-2")
-            .attr("x1", parametros.x1)
-            .attr("y1", parametros.y1)
-            .attr("x2", parametros.x2)
-            .attr("y2", parametros.y2);
+        
+        if(dibujarAristaBidireccional) {
+            linea = svgarista.append("line")
+                .attr("class", "stroke-emerald-500 stroke-2")
+                .attr("x1", parametros.x1)
+                .attr("y1", parametros.y1)
+                .attr("x2", (parametros.x1 + parametros.x2) / 2)
+                .attr("y2", (parametros.y1 + parametros.y2) / 2);
+            
+            linea2 = svgarista.append("line")
+                .attr("class", "stroke-rose-500 stroke-2")
+                .attr("x1", (parametros.x1 + parametros.x2) / 2)
+                .attr("y1", (parametros.y1 + parametros.y2) / 2)
+                .attr("x2", parametros.x2)
+                .attr("y2", parametros.y2);
+        
+        } else {
+            linea = svgarista.append("line")
+                .attr("class", "stroke-emerald-500 stroke-2")
+                .attr("x1", parametros.x1)
+                .attr("y1", parametros.y1)
+                .attr("x2", parametros.x2)
+                .attr("y2", parametros.y2);
+        }
     }
 
 </script>
 
 <div>
-    <Flecha
-        svgarista={svgarista}
-        posicion={{x: parametros.x1, y: parametros.y1}}
-        angulo={parametros.angulo - (Math.PI / 2)}
-        fillColor={'fill-emerald-800'}
-    />
+    {#if dibujarAristaBidireccional}
+        <Flecha
+            svgarista={svgarista}
+            posicion={{x: parametros.x1, y: parametros.y1}}
+            angulo={parametros.angulo - (Math.PI / 2)}
+            fillColor={'fill-emerald-800'}
+        />
+        <Flecha
+            svgarista={svgarista}
+            posicion={{x: parametros.x2, y: parametros.y2}}
+            angulo={parametros.angulo + (Math.PI / 2)}
+            fillColor={'fill-rose-800'}
+        /> 
+    {:else}
+        <Flecha
+            svgarista={svgarista}
+            posicion={{x: parametros.x1, y: parametros.y1}}
+            angulo={parametros.angulo - (Math.PI / 2)}
+            fillColor={'fill-emerald-800'}
+        />
+    {/if}
 
-    <Peso
-        svgarista={svgarista}
-        posicion={
-            {
-                x: (parametros.x1 + parametros.x2) / 2,
-                y: (parametros.y1 + parametros.y2) / 2
+    {#if dibujarAristaBidireccional}
+        <Peso
+            svgarista={svgarista}
+            posicion={
+                {
+                    x: (parametros.x1 + parametros.x2) / 2 - 20,
+                    y: (parametros.y1 + parametros.y2) / 2
+                }
             }
-        }
-        nodoDesde={arista.desde}
-        nodoHasta={arista.hasta}
-        peso={arista.peso}
-        bgColor={'bg-emerald-800'}
-        cambiarPeso={cambiarPeso}
-    />
+            nodoDesde={arista.desde}
+            nodoHasta={arista.hasta}
+            peso={arista.peso}
+            bgColor={'bg-emerald-800'}
+            cambiarPeso={cambiarPeso}
+        />
+        <Peso
+            svgarista={svgarista}
+            posicion={
+                {
+                    x: (parametros.x1 + parametros.x2) / 2 + 20,
+                    y: (parametros.y1 + parametros.y2) / 2
+                }
+            }
+            nodoDesde={arista.hasta}
+            nodoHasta={arista.desde}
+            peso={arista.pesoInverso}
+            bgColor={'bg-rose-800'}
+            cambiarPeso={cambiarPeso}
+        />
+    {:else}
+        {#if (arista.peso != 0)}
+            <Peso
+                svgarista={svgarista}
+                posicion={
+                    {
+                        x: (parametros.x1 + parametros.x2) / 2,
+                        y: (parametros.y1 + parametros.y2) / 2
+                    }
+                }
+                nodoDesde={arista.desde}
+                nodoHasta={arista.hasta}
+                peso={arista.peso}
+                bgColor={'bg-emerald-800'}
+                cambiarPeso={cambiarPeso}
+            />
+        {:else}
+            <Peso
+            svgarista={svgarista}
+            posicion={
+                {
+                    x: (parametros.x1 + parametros.x2) / 2,
+                    y: (parametros.y1 + parametros.y2) / 2
+                }
+            }
+            nodoDesde={arista.hasta}
+            nodoHasta={arista.desde}
+            peso={arista.pesoInverso}
+            bgColor={'bg-emerald-800'}
+            cambiarPeso={cambiarPeso}
+            />
+        {/if}
+    {/if}
     
 </div>
