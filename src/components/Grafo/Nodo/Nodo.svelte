@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import * as d3 from 'd3';
     
     import type  Nodo  from '../../../interfaces/Nodo';
@@ -16,10 +15,6 @@
     $: if(svggrafo) {
         draw();
     }
-
-    onMount(() => {
-        draw();
-    });
 
 
     function dragEvent(event:any, d:any) {

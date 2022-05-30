@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import type Arista from "../../../interfaces/Arista";
 
     import Flecha from "./Flecha.svelte";
@@ -88,10 +87,6 @@
             }
         }
     }
-
-    onMount(() => {
-        draw();
-    });
 
     
     function draw() {
