@@ -7,6 +7,7 @@
 
     export let svggrafo: any;
     export let arista: Arista;
+    export let nodosMovidos: Set<Number>;
     export let cambiarPeso: Function;
 
     const dibujarAristaBidireccional = ( arista.peso !== 0 && arista.pesoInverso !== 0 );
@@ -76,6 +77,17 @@
             reposicionarArista();
         }
     }
+    
+
+    $: if(nodosMovidos) {
+        if(nodosMovidos.has(arista.desde.id) || nodosMovidos.has(arista.hasta.id)) {
+            //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
+            parametros = calcularParametros();
+            if(svgarista) {
+                reposicionarArista();
+            }
+        }
+    }
 
     onMount(() => {
         draw();
@@ -86,6 +98,8 @@
         if(!svggrafo || !arista) {
             return;
         }
+
+        console.log("Dibujando arista "+ arista.desde.id + "-" + arista.hasta.id);
 
         if(svgarista){
             svgarista.remove();

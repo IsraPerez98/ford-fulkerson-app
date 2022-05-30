@@ -88,8 +88,10 @@
         nodos = nodos;
     }
 
-    function redibujarAristas() {
-        aristas = aristas;
+    let nodosMovidos: Set<Number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
+
+    function reposicionarAristas(nodoID: number) {
+        nodosMovidos = new Set([nodoID]);
     }
 
 
@@ -128,6 +130,7 @@
                             peso: aristas[j][i], //FIXME
                             pesoInverso: aristas[i][j],
                         }}
+                        nodosMovidos={nodosMovidos}
                         cambiarPeso={cambiarPeso}
                     />
                 {/if}
@@ -137,7 +140,7 @@
             <Nodo 
                 svggrafo={svggrafo} 
                 nodo={nodo} 
-                redibujarAristas={redibujarAristas}
+                reposicionarAristas={reposicionarAristas}
             />
         {/each}
     </div>

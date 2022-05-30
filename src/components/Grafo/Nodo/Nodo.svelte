@@ -7,7 +7,7 @@
     export let svggrafo: any;
     export let nodo: Nodo;
 
-    export let redibujarAristas: Function;
+    export let reposicionarAristas: Function;
 
     let svgnodo: any;
 
@@ -29,7 +29,7 @@
         svgnodo.attr("x", nodo.posX - radio)
         .attr("y", nodo.posY - radio);
 
-        redibujarAristas();
+        reposicionarAristas(nodo.id);
     }
 
     function draw() {
