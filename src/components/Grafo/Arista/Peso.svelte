@@ -3,7 +3,7 @@
     import type Nodo from "../../../interfaces/Nodo";
 
     export let svgarista: any;
-    export let offsetX: number;
+    export let posicion: { x: number; y: number };
     
     export let nodoDesde: Nodo;
     export let nodoHasta: Nodo;
@@ -13,7 +13,7 @@
 
     export let cambiarPeso: Function;
 
-    let radiopeso = 20;
+    const radiopeso = 20;
 
     $: if(svgarista) {
         draw();
@@ -22,6 +22,12 @@
     onMount(() => {
         draw();
     });
+
+    $: if (posicion) {
+        if (fo) {
+            reposicionarPeso();
+        }
+    }
 
     let fo: any;
 
@@ -43,6 +49,12 @@
         cambiarPeso(desdeID, hastaID, pesoNuevo);
     }
 
+    function reposicionarPeso() {
+        fo
+            .attr("x", posicion.x - radiopeso)
+            .attr("y", posicion.y - radiopeso);
+    }
+
     function draw() { //
         if(!svgarista) {
             return;
@@ -52,17 +64,11 @@
             fo.remove();
         }
 
-        const x1 = nodoDesde.posX;
-        const y1 = nodoDesde.posY;
-
-        const x2 = nodoHasta.posX;
-        const y2 = nodoHasta.posY;
-
         //dibujamos el peso con un foreign object
         //dibujamos el peso con un foreign object
         fo = svgarista.append("foreignObject")
-            .attr("x", (x2 + x1)/2 - radiopeso + offsetX)
-            .attr("y", (y1 + y2)/2 - radiopeso)
+            .attr("x", posicion.x - radiopeso )
+            .attr("y", posicion.y - radiopeso)
             .attr("width", radiopeso * 2)
             .attr("height", radiopeso * 2);
         

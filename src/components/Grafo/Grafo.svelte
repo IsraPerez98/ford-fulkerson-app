@@ -38,8 +38,6 @@
         [400, 2, 0],
     ];
 
-    let nodosARedibujar = []; //contiene los id de los nodos que se deben actualizar con d3
-
     function generarNodoAzar(cantNodos: number) {
         let nuevosNodos = [];
         for (let i = 0; i < cantNodos; i++) {
@@ -88,26 +86,15 @@
         aristas.push(Array(aristas.length + 1).fill(0));
         //console.log({aristas});
         //nodos = nodos;
-        nodosARedibujar = [nodo.id];
     }
 
-    function moverNodo(id, posX, posY) {
-        nodos[id].posX = posX;
-        nodos[id].posY = posY;
-        //nodos = nodos;
-        //aristas = aristas;
-
-        //tenemos que redibujar el nodo
-
-        nodosARedibujar = [id];
-
+    function redibujarAristas() {
+        aristas = aristas;
     }
+
 
     function cambiarPeso(desdeID, hastaID, peso) {
         aristas[hastaID][desdeID] = peso;
-
-        //aristas = aristas;
-        nodosARedibujar = [desdeID, hastaID];
     }
 
     onMount(() => {
@@ -135,7 +122,6 @@
                 {#if aristas[i][j] !== 0 || aristas[j][i] !== 0}
                     <Arista 
                         svggrafo={svggrafo}
-                        nodosARedibujar={nodosARedibujar}
                         arista={{
                             desde: nodos[i],
                             hasta: nodos[j],
@@ -151,8 +137,7 @@
             <Nodo 
                 svggrafo={svggrafo} 
                 nodo={nodo} 
-                nodosARedibujar={nodosARedibujar}
-                moverNodo={moverNodo} 
+                redibujarAristas={redibujarAristas}
             />
         {/each}
     </div>

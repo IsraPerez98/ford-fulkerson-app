@@ -6,14 +6,14 @@
 
     export let svggrafo: any;
     export let nodo: Nodo;
-    export let nodosARedibujar: Array<number>;
-    export let moverNodo: Function;
+
+    export let redibujarAristas: Function;
 
     let svgnodo: any;
 
     const radio = 35;
 
-    $: if(svggrafo && nodo) {
+    $: if(svggrafo) {
         draw();
     }
 
@@ -21,37 +21,40 @@
         draw();
     });
 
+
     function dragEvent(event:any, d:any) {
-        moverNodo(nodo.id, event.x, event.y);
+        nodo.posX = event.x;
+        nodo.posY = event.y;
+
+        svgnodo.attr("x", nodo.posX - radio)
+        .attr("y", nodo.posY - radio);
+
+        redibujarAristas();
     }
 
     function draw() {
-        //console.log("Dibujando nodo " + nodo.id);
         if(!svggrafo || !nodo) {
             return;
         }
 
-        //console.log({nodosARedibujar});
+        console.log("Dibujando nodo " + nodo.id);
 
-        if(nodosARedibujar.length > 0 && !(nodosARedibujar.includes(nodo.id))) {
-            return;
-        }
-
-        //console.log("Dibujando nodo " + nodo.id);
 
         if(svgnodo){
             svgnodo.remove();
         }
 
         svgnodo = svggrafo.append("svg")
+            .attr("width", radio * 2)
+            .attr("height", radio * 2)
+            .attr("x", nodo.posX - radio)
+            .attr("y", nodo.posY - radio)
             .call(d3.drag()
                 .on("start", dragEvent)
                 .on("drag", dragEvent)
                 .on("end", dragEvent))
         
         const fo = svgnodo.append("foreignObject")
-            .attr("x", nodo.posX - radio)
-            .attr("y", nodo.posY - radio)
             .attr("width", radio * 2)
             .attr("height", radio * 2);
         
