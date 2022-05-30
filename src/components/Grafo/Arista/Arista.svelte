@@ -125,35 +125,64 @@
 
 </script>
 
-<div>
-    {#if dibujarAristaBidireccional}
-        <Flecha
-            svgarista={svgarista}
-            posicion={{x: parametros.x1, y: parametros.y1}}
-            angulo={parametros.angulo - (Math.PI / 2)}
-            fillColor={'fill-emerald-800'}
-        />
-        <Flecha
-            svgarista={svgarista}
-            posicion={{x: parametros.x2, y: parametros.y2}}
-            angulo={parametros.angulo + (Math.PI / 2)}
-            fillColor={'fill-rose-800'}
-        /> 
-    {:else}
-        <Flecha
-            svgarista={svgarista}
-            posicion={{x: parametros.x1, y: parametros.y1}}
-            angulo={parametros.angulo - (Math.PI / 2)}
-            fillColor={'fill-emerald-800'}
-        />
-    {/if}
+{#if dibujarAristaBidireccional}
+    <Flecha
+        svgarista={svgarista}
+        posicion={{x: parametros.x1, y: parametros.y1}}
+        angulo={parametros.angulo - (Math.PI / 2)}
+        fillColor={'fill-emerald-800'}
+    />
+    <Flecha
+        svgarista={svgarista}
+        posicion={{x: parametros.x2, y: parametros.y2}}
+        angulo={parametros.angulo + (Math.PI / 2)}
+        fillColor={'fill-rose-800'}
+    /> 
+{:else}
+    <Flecha
+        svgarista={svgarista}
+        posicion={{x: parametros.x1, y: parametros.y1}}
+        angulo={parametros.angulo - (Math.PI / 2)}
+        fillColor={'fill-emerald-800'}
+    />
+{/if}
 
-    {#if dibujarAristaBidireccional}
+{#if dibujarAristaBidireccional}
+    <Peso
+        svgarista={svgarista}
+        posicion={
+            {
+                x: (parametros.x1 + parametros.x2) / 2 - 20,
+                y: (parametros.y1 + parametros.y2) / 2
+            }
+        }
+        nodoDesde={arista.desde}
+        nodoHasta={arista.hasta}
+        peso={arista.peso}
+        bgColor={'bg-emerald-800'}
+        cambiarPeso={cambiarPeso}
+    />
+    <Peso
+        svgarista={svgarista}
+        posicion={
+            {
+                x: (parametros.x1 + parametros.x2) / 2 + 20,
+                y: (parametros.y1 + parametros.y2) / 2
+            }
+        }
+        nodoDesde={arista.hasta}
+        nodoHasta={arista.desde}
+        peso={arista.pesoInverso}
+        bgColor={'bg-rose-800'}
+        cambiarPeso={cambiarPeso}
+    />
+{:else}
+    {#if (arista.peso != 0)}
         <Peso
             svgarista={svgarista}
             posicion={
                 {
-                    x: (parametros.x1 + parametros.x2) / 2 - 20,
+                    x: (parametros.x1 + parametros.x2) / 2,
                     y: (parametros.y1 + parametros.y2) / 2
                 }
             }
@@ -163,52 +192,20 @@
             bgColor={'bg-emerald-800'}
             cambiarPeso={cambiarPeso}
         />
-        <Peso
-            svgarista={svgarista}
-            posicion={
-                {
-                    x: (parametros.x1 + parametros.x2) / 2 + 20,
-                    y: (parametros.y1 + parametros.y2) / 2
-                }
-            }
-            nodoDesde={arista.hasta}
-            nodoHasta={arista.desde}
-            peso={arista.pesoInverso}
-            bgColor={'bg-rose-800'}
-            cambiarPeso={cambiarPeso}
-        />
     {:else}
-        {#if (arista.peso != 0)}
-            <Peso
-                svgarista={svgarista}
-                posicion={
-                    {
-                        x: (parametros.x1 + parametros.x2) / 2,
-                        y: (parametros.y1 + parametros.y2) / 2
-                    }
-                }
-                nodoDesde={arista.desde}
-                nodoHasta={arista.hasta}
-                peso={arista.peso}
-                bgColor={'bg-emerald-800'}
-                cambiarPeso={cambiarPeso}
-            />
-        {:else}
-            <Peso
-            svgarista={svgarista}
-            posicion={
-                {
-                    x: (parametros.x1 + parametros.x2) / 2,
-                    y: (parametros.y1 + parametros.y2) / 2
-                }
+        <Peso
+        svgarista={svgarista}
+        posicion={
+            {
+                x: (parametros.x1 + parametros.x2) / 2,
+                y: (parametros.y1 + parametros.y2) / 2
             }
-            nodoDesde={arista.hasta}
-            nodoHasta={arista.desde}
-            peso={arista.pesoInverso}
-            bgColor={'bg-emerald-800'}
-            cambiarPeso={cambiarPeso}
-            />
-        {/if}
+        }
+        nodoDesde={arista.hasta}
+        nodoHasta={arista.desde}
+        peso={arista.pesoInverso}
+        bgColor={'bg-emerald-800'}
+        cambiarPeso={cambiarPeso}
+        />
     {/if}
-    
-</div>
+{/if}
