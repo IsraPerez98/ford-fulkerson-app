@@ -38,7 +38,7 @@
         [400, 2, 0],
     ];
 
-    function generarNodoAzar(cantNodos: number) {
+    function generarGrafoAzar(cantNodos: number) {
         let nuevosNodos = [];
         for (let i = 0; i < cantNodos; i++) {
             nuevosNodos.push({
@@ -67,7 +67,7 @@
 
     }
 
-    generarNodoAzar(6);
+    generarGrafoAzar(6);
 
     function AgregarNodo(posX, posY) {
         let nodo = {
