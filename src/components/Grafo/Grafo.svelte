@@ -85,7 +85,7 @@
         }
         aristas.push(Array(aristas.length + 1).fill(0));
         //console.log({aristas});
-        //nodos = nodos;
+        nodos = nodos;
     }
 
     function redibujarAristas() {

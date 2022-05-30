@@ -1,15 +1,17 @@
 <script lang="ts">
+
     import AgregarNodo from "./Items/AgregarNodo.svelte";
 
     export let svggrafo: any;
 
-    let items = [];
+    export let agregarNodo: Function;
 
-    $: if(svggrafo) {
+    $: if (svggrafo) {
         items = generarItems();
+        draw();
     }
 
-    export let agregarNodo: Function;
+    let items = generarItems();
 
     function generarItems() {
         return [
@@ -20,29 +22,52 @@
                     svggrafo: svggrafo,
                     agregarNodo: agregarNodo,
                 }
-            }
+            },
         ];
     }
 
 
+    let fomenu: any;
+
+    function draw() {
+        if(!svggrafo) {
+            return;
+        }
+
+        console.log("Dibujando Menu");
+
+        if(fomenu) {
+            fomenu.remove();
+        }
+
+        fomenu = svggrafo.append("foreignObject")
+            .attr("width", "100%")
+            .attr("height", "100%");
+
+        const divMenu = fomenu.append("xhtml:div")
+            .attr("class", "flex flex-row");
+        
+        for (const item of items) {
+            const divItem = divMenu.append("div")
+                .attr("class", "flex flex-col");
+
+            divItem.append("p")
+                .attr("class", "text-center")
+                .text(item.nombre);
+            
+            const divComponente = divItem.append("div");
+
+            const componente = new item.componente({
+                target: divComponente.node(),
+                props: {
+                    ...item.props,
+                    divComponente,
+                },
+            });
+
+        }
+
+    }
+
 
 </script>
-
-<div>
-    <div class="flex bg-black">
-        {#each items as item }
-            <div>
-                <div>
-                    <p>
-                        {#if item.nombre}
-                            {item.nombre}
-                        {/if}
-                    </p>
-                </div>
-                <div>
-                    <svelte:component this={item.componente} {...item.props} />
-                </div>
-            </div>
-        {/each}
-    </div>
-</div>
