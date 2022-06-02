@@ -9,7 +9,7 @@
     export let nodosMovidos: Set<Number>;
     export let cambiarPeso: Function;
 
-    const dibujarAristaBidireccional = ( arista.peso !== 0 && arista.pesoInverso !== 0 );
+    const dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
     let svgarista: any;
     let linea: any;
@@ -24,14 +24,14 @@
     function calcularParametros() {
         const radioNodo = 35;
         //calculamos el angulo de la linea
-        const angulo = Math.atan2(arista.hasta.posY - arista.desde.posY, arista.hasta.posX - arista.desde.posX);
+        const angulo = Math.atan2(arista.destino.y - arista.origen.y, arista.destino.x - arista.origen.x);
 
         //calculamos donde dibujar la linea para no tapar el nodo
-        const x1 = arista.desde.posX + radioNodo * Math.cos(angulo);
-        const y1 = arista.desde.posY + radioNodo * Math.sin(angulo);
+        const x1 = arista.origen.x + radioNodo * Math.cos(angulo);
+        const y1 = arista.origen.y + radioNodo * Math.sin(angulo);
 
-        const x2 = arista.hasta.posX - radioNodo * Math.cos(angulo);
-        const y2 = arista.hasta.posY - radioNodo * Math.sin(angulo);
+        const x2 = arista.destino.x - radioNodo * Math.cos(angulo);
+        const y2 = arista.destino.y - radioNodo * Math.sin(angulo);
 
         return {
             x1,
@@ -79,7 +79,7 @@
     
 
     $: if(nodosMovidos) {
-        if(nodosMovidos.has(arista.desde.id) || nodosMovidos.has(arista.hasta.id)) {
+        if(nodosMovidos.has(arista.origen.id) || nodosMovidos.has(arista.destino.id)) {
             //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
             parametros = calcularParametros();
             if(svgarista) {
@@ -94,7 +94,7 @@
             return;
         }
 
-        console.log("Dibujando arista "+ arista.desde.id + "-" + arista.hasta.id);
+        console.log("Dibujando arista "+ arista.origen.id + "-" + arista.destino.id);
 
         if(svgarista){
             svgarista.remove();
@@ -165,9 +165,9 @@
                 y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
             }
         }
-        nodoDesde={arista.desde}
-        nodoHasta={arista.hasta}
-        peso={arista.peso}
+        nodoDesde={arista.origen}
+        nodoHasta={arista.destino}
+        peso={arista.peso[0]}
         bgColor={'bg-emerald-800'}
         cambiarPeso={cambiarPeso}
     />
@@ -179,14 +179,14 @@
                 y: (parametros.y1 + parametros.y2) / 2 + 20 * Math.sin(parametros.angulo),
             }
         }
-        nodoDesde={arista.hasta}
-        nodoHasta={arista.desde}
-        peso={arista.pesoInverso}
+        nodoDesde={arista.destino}
+        nodoHasta={arista.origen}
+        peso={arista.peso[1]}
         bgColor={'bg-rose-800'}
         cambiarPeso={cambiarPeso}
     />
 {:else}
-    {#if (arista.peso != 0)}
+    {#if (arista.peso[0] != 0)}
         <Peso
             svgarista={svgarista}
             posicion={
@@ -195,9 +195,9 @@
                     y: (parametros.y1 + parametros.y2) / 2
                 }
             }
-            nodoDesde={arista.desde}
-            nodoHasta={arista.hasta}
-            peso={arista.peso}
+            nodoDesde={arista.origen}
+            nodoHasta={arista.destino}
+            peso={arista.peso[0]}
             bgColor={'bg-emerald-800'}
             cambiarPeso={cambiarPeso}
         />
@@ -210,9 +210,9 @@
                 y: (parametros.y1 + parametros.y2) / 2
             }
         }
-        nodoDesde={arista.hasta}
-        nodoHasta={arista.desde}
-        peso={arista.pesoInverso}
+        nodoDesde={arista.destino}
+        nodoHasta={arista.origen}
+        peso={arista.peso[1]}
         bgColor={'bg-emerald-800'}
         cambiarPeso={cambiarPeso}
         />

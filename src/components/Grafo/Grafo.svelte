@@ -15,20 +15,20 @@
         {
             id: 0,
             nombre: "test",
-            posX: 600,
-            posY: 50,
+            x: 600,
+            y: 50,
         },
         {
             id: 1,
             nombre: "test2",
-            posX: 100,
-            posY: 200,
+            x: 100,
+            y: 200,
         },
         {
             id: 2,
             nombre: "test3",
-            posX: 500,
-            posY: 300,
+            x: 500,
+            y: 300,
         },
     ]
 
@@ -44,8 +44,8 @@
             nuevosNodos.push({
                 id: i,
                 nombre: "nodo" + i,
-                posX: Math.random() * 800,
-                posY: Math.random() * 800,
+                x: Math.random() * 800,
+                y: Math.random() * 800,
             });
         }
         //generamos aristas aleatorias
@@ -73,8 +73,8 @@
         let nodo = {
             id: nodos.length,
             nombre: "Nodo" + nodos.length,
-            posX: posX,
-            posY: posY,
+            x: posX,
+            y: posY,
         };
 
         nodos.push(nodo);
@@ -125,10 +125,9 @@
                     <Arista 
                         svggrafo={svggrafo}
                         arista={{
-                            desde: nodos[i],
-                            hasta: nodos[j],
-                            peso: aristas[j][i], //FIXME
-                            pesoInverso: aristas[i][j],
+                            origen: nodos[i],
+                            destino: nodos[j],
+                            peso: [aristas[i][j] , aristas[j][i]],
                         }}
                         nodosMovidos={nodosMovidos}
                         cambiarPeso={cambiarPeso}

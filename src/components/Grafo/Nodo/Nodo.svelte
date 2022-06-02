@@ -18,11 +18,11 @@
 
 
     function dragEvent(event:any, d:any) {
-        nodo.posX = event.x;
-        nodo.posY = event.y;
+        nodo.x = event.x;
+        nodo.y = event.y;
 
-        svgnodo.attr("x", nodo.posX - radio)
-        .attr("y", nodo.posY - radio);
+        svgnodo.attr("x", nodo.x - radio)
+        .attr("y", nodo.y - radio);
 
         reposicionarAristas(nodo.id);
     }
@@ -42,8 +42,8 @@
         svgnodo = svggrafo.append("svg")
             .attr("width", radio * 2)
             .attr("height", radio * 2)
-            .attr("x", nodo.posX - radio)
-            .attr("y", nodo.posY - radio)
+            .attr("x", nodo.x - radio)
+            .attr("y", nodo.y - radio)
             .call(d3.drag()
                 .on("start", dragEvent)
                 .on("drag", dragEvent)
