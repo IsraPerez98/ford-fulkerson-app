@@ -1,19 +1,31 @@
 <script lang="ts">
+import { onDestroy } from "svelte";
+
     import type Arista from "../../../interfaces/Arista";
 
     import Flecha from "./Flecha.svelte";
     import Peso from "./Peso.svelte";
 
     export let svggrafo: any;
+    
     export let arista: Arista;
+    let prevArista: Arista;
+
+
     export let nodosMovidos: Set<Number>;
     export let cambiarPeso: Function;
 
-    const dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
+    let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
     let svgarista: any;
     let linea: any;
     let linea2: any;
+
+    onDestroy(() => {
+        if(svgarista) {
+            svgarista.remove();
+        }
+    });
 
     $: if(svggrafo) {
         draw();
@@ -71,10 +83,21 @@
     }
 
     $: if(arista) {
+        if(prevArista) {
+            //si algun peso cambia de valor redibujamos la arista
+            if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
+                //console.log("Cambio peso", arista, prevArista);
+                dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
+                parametros = calcularParametros();
+                draw();
+            }
+        }
         parametros = calcularParametros();
         if(svgarista) {
             reposicionarArista();
         }
+
+        prevArista = arista;
     }
     
 
@@ -148,12 +171,21 @@
         fillColor={'fill-rose-800'}
     /> 
 {:else}
-    <Flecha
-        svgarista={svgarista}
-        posicion={{x: parametros.x1, y: parametros.y1}}
-        angulo={parametros.angulo - (Math.PI / 2)}
-        fillColor={'fill-emerald-800'}
-    />
+    {#if (arista.peso[0] != 0)}
+        <Flecha
+            svgarista={svgarista}
+            posicion={{x: parametros.x1, y: parametros.y1}}
+            angulo={parametros.angulo - (Math.PI / 2)}
+            fillColor={'fill-emerald-800'}
+        />
+    {:else}
+        <Flecha
+            svgarista={svgarista}
+            posicion={{x: parametros.x2, y: parametros.y2}}
+            angulo={parametros.angulo + (Math.PI / 2)}
+            fillColor={'fill-emerald-800'}
+        />
+    {/if}
 {/if}
 
 {#if dibujarAristaBidireccional}
@@ -186,7 +218,7 @@
         cambiarPeso={cambiarPeso}
     />
 {:else}
-    {#if (arista.peso[0] != 0)}
+    {#if (arista.peso[0] !== 0)}
         <Peso
             svgarista={svgarista}
             posicion={

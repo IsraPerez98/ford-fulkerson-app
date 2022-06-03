@@ -6,6 +6,7 @@
     
     import Nodo from "./Nodo/Nodo.svelte";
     import Arista from "./Arista/Arista.svelte";
+import { group_outros } from "svelte/internal";
 
     let bindcanvas;
 
@@ -63,7 +64,7 @@
 
         nodos = nuevosNodos;
         aristas = nuevasAristas;
-        //console.log(aristas);
+        console.log(aristas);
 
     }
 
@@ -96,7 +97,7 @@
 
 
     function cambiarPeso(desdeID, hastaID, peso) {
-        aristas[hastaID][desdeID] = peso;
+        aristas[desdeID][hastaID] = peso;
     }
 
     onMount(() => {
@@ -119,9 +120,9 @@
 <div>
     <div bind:this={bindcanvas}>
         <Menu svggrafo={svggrafo} agregarNodo={AgregarNodo}/>
-        {#each Array(aristas.length) as _, i}
-            {#each Array(i) as _, j}
-                {#if aristas[i][j] !== 0 || aristas[j][i] !== 0}
+        {#each aristas as grupo, i}
+            {#each grupo.slice(0,i) as arista, j}
+                {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
                     <Arista 
                         svggrafo={svggrafo}
                         arista={{
