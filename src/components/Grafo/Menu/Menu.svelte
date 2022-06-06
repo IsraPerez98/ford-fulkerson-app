@@ -15,6 +15,12 @@
     $: if (svggrafo) {
         items = generarItems();
         draw();
+        drawItems();
+    }
+
+    $: if(creandoArista !== undefined) {
+        items = generarItems();
+        drawItems();
     }
 
 
@@ -41,6 +47,7 @@
 
 
     let fomenu: any;
+    let divMenu: any;
 
     function draw() {
         if(!svggrafo) {
@@ -57,8 +64,16 @@
             .attr("width", "100%")
             .attr("height", "100%");
 
-        const divMenu = fomenu.append("xhtml:div")
+        divMenu = fomenu.append("xhtml:div")
             .attr("class", "flex flex-row");
+    }
+
+    function drawItems() {
+        if(!divMenu) {
+            return;
+        }
+        
+        divMenu.selectAll("*").remove();
         
         for (const item of items) {
             const divItem = divMenu.append("div")
@@ -80,7 +95,6 @@
             });
 
         }
-
     }
 
 
