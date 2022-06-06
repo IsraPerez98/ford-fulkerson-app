@@ -21,7 +21,7 @@
         const posicionDIV = divComponente.node().getBoundingClientRect();
 
         return {
-            x: posicionDIV.x - posicionSVG.x,
+            x: posicionDIV.x + posicionDIV.width / 2 - posicionSVG.x,
             y: posicionDIV.y - posicionSVG.y + radio,
         };
     }
@@ -62,6 +62,7 @@
         }
 
         sgvnodonuevo = svggrafo.append("svg")
+            .attr("class", "cursor-pointer")
             .attr("x", posicion.x - radio)
             .attr("y", posicion.y - radio)
             .attr("width", radio * 2)
@@ -77,7 +78,7 @@
             
         
         const divInterno = fo.append("xhtml:div")
-            .attr("class", "cursor-pointer flex w-full h-full bg-blue-900 rounded-full border border-white/20 overflow:hidden");
+            .attr("class", "flex w-full h-full bg-blue-900 rounded-full border border-white/20 overflow:hidden");
         
         const text = divInterno.append("xhtml:p")
             .attr("class", "text-white text-xs text-center m-auto select-none")

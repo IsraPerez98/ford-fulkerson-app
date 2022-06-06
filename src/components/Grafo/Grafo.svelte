@@ -6,11 +6,12 @@
     
     import Nodo from "./Nodo/Nodo.svelte";
     import Arista from "./Arista/Arista.svelte";
-import { group_outros } from "svelte/internal";
 
     let bindcanvas;
 
     let svggrafo;
+
+    let creandoArista = false;
 
     let nodos = [
         {
@@ -89,7 +90,36 @@ import { group_outros } from "svelte/internal";
         nodos = nodos;
     }
 
-    let nodosMovidos: Set<Number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
+    let nodosNuevaArista: Set<number> = new Set();
+
+    function toggleCreacionArista() {
+        if(creandoArista) {
+            nodosNuevaArista = new Set();
+            creandoArista = false;
+        } else {
+            creandoArista = true;
+        }
+    }
+
+    function seleccionarNodoNuevaArista(id) {
+        nodosNuevaArista.add(id);
+        if(nodosNuevaArista.size === 2) {
+            crearNuevaArista(nodosNuevaArista);
+            nodosNuevaArista = new Set();
+            creandoArista = false;
+        }
+    }
+
+    function crearNuevaArista(nodosNuevaArista: Set<number>) {
+        const [nodo1, nodo2] = nodosNuevaArista;
+        if(aristas[nodo2][nodo1] !== 0) {
+            console.log("Ya existe una arista entre estos nodos");
+            return;
+        }
+        aristas[nodo2][nodo1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
+    }
+
+    let nodosMovidos: Set<number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
 
     function reposicionarAristas(nodoID: number) {
         nodosMovidos = new Set([nodoID]);
@@ -119,7 +149,12 @@ import { group_outros } from "svelte/internal";
 
 <div>
     <div bind:this={bindcanvas}>
-        <Menu svggrafo={svggrafo} agregarNodo={AgregarNodo}/>
+        <Menu 
+            svggrafo={svggrafo} 
+            agregarNodo={AgregarNodo}
+            toggleCreacionArista={toggleCreacionArista}
+            creandoArista={creandoArista}
+        />
         {#each aristas as grupo, i}
             {#each grupo.slice(0,i) as arista, j}
                 {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
@@ -141,6 +176,8 @@ import { group_outros } from "svelte/internal";
                 svggrafo={svggrafo} 
                 nodo={nodo} 
                 reposicionarAristas={reposicionarAristas}
+                creandoArista={creandoArista}
+                seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
             />
         {/each}
     </div>

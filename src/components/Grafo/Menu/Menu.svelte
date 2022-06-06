@@ -1,17 +1,22 @@
 <script lang="ts">
 
     import AgregarNodo from "./Items/AgregarNodo.svelte";
+    import AgregarArista from "./Items/AgregarArista.svelte";
 
     export let svggrafo: any;
 
     export let agregarNodo: Function;
+    
+    export let toggleCreacionArista: Function;
+    export let creandoArista: boolean;
+
+    let items;
 
     $: if (svggrafo) {
         items = generarItems();
         draw();
     }
 
-    let items = generarItems();
 
     function generarItems() {
         return [
@@ -21,6 +26,14 @@
                 props: {
                     svggrafo: svggrafo,
                     agregarNodo: agregarNodo,
+                }
+            },
+            {
+                nombre: "Agregar Arista",
+                componente: AgregarArista,
+                props: {
+                    toggleCreacionArista: toggleCreacionArista,
+                    creandoArista: creandoArista,
                 }
             },
         ];
@@ -49,14 +62,14 @@
         
         for (const item of items) {
             const divItem = divMenu.append("div")
-                .attr("class", "flex flex-col");
+                .attr("class", "flex flex-col mx-2");
 
             divItem.append("p")
                 .attr("class", "text-center")
                 .text(item.nombre);
             
             const divComponente = divItem.append("div")
-                .attr("class", "flex mx-auto");
+                .attr("class", "flex");
 
             const componente = new item.componente({
                 target: divComponente.node(),

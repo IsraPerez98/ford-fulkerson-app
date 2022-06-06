@@ -7,10 +7,39 @@
     export let nodo: Nodo;
 
     export let reposicionarAristas: Function;
+    
+    
+    export let creandoArista: boolean;
+    export let seleccionarNodoNuevaArista: Function;
 
     let svgnodo: any;
 
+    let divnodo: any;
+
     const radio = 35;
+    let color = 'bg-blue-900';
+
+    let seleccionadoNuevaArista = false;
+
+    $: if(creandoArista === false || creandoArista === true) {
+        
+        if(creandoArista === false ) {
+            seleccionadoNuevaArista = false;
+        }
+
+        const colorNuevo = seleccionadoNuevaArista ? 'bg-yellow-900' : (creandoArista ? 'bg-green-900' : 'bg-blue-900');
+        if(colorNuevo != color) {
+            color = colorNuevo;
+            setColor(color);
+        }
+    }
+
+    function setColor(color: string) {
+        if(divnodo) {
+            divnodo.attr("class", `cursor-pointer flex w-full h-full ${color} rounded-full border border-white/20 overflow:hidden`);
+        }
+    }
+
 
     $: if(svggrafo) {
         draw();
@@ -18,6 +47,10 @@
 
 
     function dragEvent(event:any, d:any) {
+        if(creandoArista) {
+            return;
+        }
+
         nodo.x = event.x;
         nodo.y = event.y;
 
@@ -25,6 +58,13 @@
         .attr("y", nodo.y - radio);
 
         reposicionarAristas(nodo.id);
+    }
+
+    function onClick() {
+        if(creandoArista) {
+            seleccionadoNuevaArista = true;
+            seleccionarNodoNuevaArista(nodo.id);
+        }
     }
 
     function draw() {
@@ -44,19 +84,20 @@
             .attr("height", radio * 2)
             .attr("x", nodo.x - radio)
             .attr("y", nodo.y - radio)
+            .on("click", onClick)
             .call(d3.drag()
                 .on("start", dragEvent)
                 .on("drag", dragEvent)
-                .on("end", dragEvent))
+                .on("end", dragEvent));
         
         const fo = svgnodo.append("foreignObject")
             .attr("width", radio * 2)
             .attr("height", radio * 2);
         
-        const div = fo.append("xhtml:div")
-            .attr("class", "cursor-pointer flex w-full h-full bg-blue-900 rounded-full border border-white/20 overflow:hidden");
+        divnodo = fo.append("xhtml:div")
+            .attr("class", `cursor-pointer flex w-full h-full ${color} rounded-full border border-white/20 overflow:hidden`);
         
-        const text = div.append("xhtml:p")
+        const text = divnodo.append("xhtml:p")
             .attr("class", "text-white text-center m-auto select-none")
             .text(nodo.nombre);
     }
