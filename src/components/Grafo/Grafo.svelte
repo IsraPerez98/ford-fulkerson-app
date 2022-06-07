@@ -12,6 +12,7 @@
     let svggrafo;
 
     let creandoArista = false;
+    let eliminandoNodo = false;
 
     let nodos = [
         {
@@ -45,7 +46,7 @@
         for (let i = 0; i < cantNodos; i++) {
             nuevosNodos.push({
                 id: i,
-                nombre: "nodo" + i,
+                nombre: null,
                 x: Math.random() * 800,
                 y: Math.random() * 800,
             });
@@ -119,6 +120,38 @@
         aristas[nodo2][nodo1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
     }
 
+    function toggleEliminacionNodo() {
+        if(eliminandoNodo) {
+            eliminandoNodo = false;
+        } else {
+            eliminandoNodo = true;
+        }
+    }
+
+    function eliminarNodo(nodoID: number) {
+        //restamos 1 al id de los nodos que son mayores que el eliminado
+        for (let i = 0; i < nodos.length; i++) {
+            if(nodos[i].id > nodoID) {
+                nodos[i].id--;
+            }
+        }
+
+        //eliminamos el nodo de la matriz de adyacencia
+        for (let i = 0; i < aristas.length; i++) {
+            aristas[i].splice(nodoID, 1);
+        }
+        aristas.splice(nodoID, 1);
+
+        //eliminamos el nodo de la lista de nodos
+        nodos.splice(nodoID, 1);
+
+        eliminandoNodo = false;
+
+        //redibujamos todo
+        draw();
+
+    }
+
     let nodosMovidos: Set<number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
 
     function reposicionarAristas(nodoID: number) {
@@ -139,7 +172,9 @@
         //console.log("Dibujando canvas");
         const canvas = d3.select(bindcanvas);
 
-        //canvas.html(null); //borrar todo
+        if(svggrafo) { //borrar todo
+            svggrafo.remove();
+        }
 
         svggrafo = canvas.append('svg')
             .attr('width', 800)
@@ -154,6 +189,8 @@
             agregarNodo={AgregarNodo}
             toggleCreacionArista={toggleCreacionArista}
             creandoArista={creandoArista}
+            toggleEliminacionNodo={toggleEliminacionNodo}
+            eliminandoNodo={eliminandoNodo}
         />
         {#each aristas as grupo, i}
             {#each grupo.slice(0,i) as arista, j}
@@ -178,6 +215,8 @@
                 reposicionarAristas={reposicionarAristas}
                 creandoArista={creandoArista}
                 seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
+                eliminandoNodo={eliminandoNodo}
+                eliminarNodo={eliminarNodo}
             />
         {/each}
     </div>

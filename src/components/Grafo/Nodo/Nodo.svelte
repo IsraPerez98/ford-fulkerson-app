@@ -1,5 +1,6 @@
 <script lang="ts">
     import * as d3 from 'd3';
+    import { onDestroy } from 'svelte';
     
     import type  Nodo  from '../../../interfaces/Nodo';
 
@@ -12,22 +13,40 @@
     export let creandoArista: boolean;
     export let seleccionarNodoNuevaArista: Function;
 
+    export let eliminandoNodo: boolean;
+    export let eliminarNodo: Function;
+
     let svgnodo: any;
 
     let divnodo: any;
 
+    $: nombre = (nodo.nombre) ? nodo.nombre : `Nodo ${nodo.id}` ;
+
     const radio = 35;
-    let color = 'bg-blue-900';
+    let color = 'bg-blue-700';
 
     let seleccionadoNuevaArista = false;
 
-    $: if(creandoArista === false || creandoArista === true) {
+    $: if(creandoArista !== undefined) {
+
+        let colorNuevo = 'bg-blue-700';
         
-        if(creandoArista === false ) {
+        if(!(creandoArista)) {
             seleccionadoNuevaArista = false;
         }
 
-        const colorNuevo = seleccionadoNuevaArista ? 'bg-yellow-900' : (creandoArista ? 'bg-green-900' : 'bg-blue-900');
+        if(eliminandoNodo) {
+            colorNuevo = 'bg-red-700';
+        }
+
+        if(creandoArista) {
+            colorNuevo = 'bg-green-900';
+        }
+
+        if(seleccionadoNuevaArista) {
+            colorNuevo = 'bg-yellow-700';
+        }
+
         if(colorNuevo != color) {
             color = colorNuevo;
             setColor(color);
@@ -64,6 +83,11 @@
         if(creandoArista) {
             seleccionadoNuevaArista = true;
             seleccionarNodoNuevaArista(nodo.id);
+        } else if(eliminandoNodo) {
+            eliminarNodo(nodo.id);
+            if(svgnodo){
+                svgnodo.remove();
+            }
         }
     }
 
@@ -99,6 +123,6 @@
         
         const text = divnodo.append("xhtml:p")
             .attr("class", "text-white text-center m-auto select-none")
-            .text(nodo.nombre);
+            .text(nombre);
     }
 </script>

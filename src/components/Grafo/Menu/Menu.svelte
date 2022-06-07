@@ -2,6 +2,7 @@
 
     import AgregarNodo from "./Items/AgregarNodo.svelte";
     import AgregarArista from "./Items/AgregarArista.svelte";
+    import EliminarNodo from "./Items/EliminarNodo.svelte";
 
     export let svggrafo: any;
 
@@ -9,6 +10,9 @@
     
     export let toggleCreacionArista: Function;
     export let creandoArista: boolean;
+
+    export let toggleEliminacionNodo: Function;
+    export let eliminandoNodo: boolean;
 
     let items;
 
@@ -18,7 +22,7 @@
         drawItems();
     }
 
-    $: if(creandoArista !== undefined) {
+    $: if(creandoArista !== undefined || eliminandoNodo !== undefined) {
         items = generarItems();
         drawItems();
     }
@@ -42,6 +46,15 @@
                     creandoArista: creandoArista,
                 }
             },
+            {
+                nombre: "Eliminar Nodo",
+                componente: EliminarNodo,
+                props: {
+                    toggleEliminacionNodo: toggleEliminacionNodo,
+                    eliminandoNodo: eliminandoNodo,
+                }
+            },
+            
         ];
     }
 
