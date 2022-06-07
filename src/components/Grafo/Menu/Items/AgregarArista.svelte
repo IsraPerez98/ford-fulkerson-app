@@ -2,7 +2,7 @@
     
 
     export let toggleCreacionArista: Function;
-    export let creandoArista: boolean; //TODO: Esto no se actualiza
+    export let creandoArista: boolean;
 
     function onClick() {
         toggleCreacionArista();
