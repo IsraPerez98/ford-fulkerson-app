@@ -15,30 +15,10 @@
     let eliminandoNodo = false;
 
     let nodos = [
-        {
-            id: 0,
-            nombre: "test",
-            x: 600,
-            y: 50,
-        },
-        {
-            id: 1,
-            nombre: "test2",
-            x: 100,
-            y: 200,
-        },
-        {
-            id: 2,
-            nombre: "test3",
-            x: 500,
-            y: 300,
-        },
     ]
 
     let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
-        [0, 1, 20],
-        [0, 0, 0],
-        [400, 2, 0],
+        
     ];
 
     function generarGrafoAzar(cantNodos: number) {
@@ -47,6 +27,8 @@
             nuevosNodos.push({
                 id: i,
                 nombre: null,
+                fuente: (i == 0) ? true : false,
+                sumidero: (i==cantNodos-1) ? true : false,
                 x: Math.random() * 800,
                 y: Math.random() * 800,
             });

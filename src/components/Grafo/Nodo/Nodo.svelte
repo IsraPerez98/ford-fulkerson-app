@@ -27,9 +27,17 @@
 
     let seleccionadoNuevaArista = false;
 
-    $: if(creandoArista !== undefined) {
+    $: {
 
         let colorNuevo = 'bg-blue-700';
+
+        if(nodo.fuente) {
+            colorNuevo = 'bg-green-700';
+        }
+
+        if(nodo.sumidero) {
+            colorNuevo = 'bg-red-800';
+        }
         
         if(!(creandoArista)) {
             seleccionadoNuevaArista = false;
