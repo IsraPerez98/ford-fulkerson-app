@@ -15,7 +15,7 @@
     let eliminandoNodo = false;
 
     let nodos = [
-    ]
+    ];
 
     let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
         
@@ -164,42 +164,40 @@
     }
 </script>
 
-<div>
-    <div bind:this={bindcanvas}>
-        <Menu 
+<div bind:this={bindcanvas}>
+    <Menu 
+        svggrafo={svggrafo} 
+        agregarNodo={AgregarNodo}
+        toggleCreacionArista={toggleCreacionArista}
+        creandoArista={creandoArista}
+        toggleEliminacionNodo={toggleEliminacionNodo}
+        eliminandoNodo={eliminandoNodo}
+    />
+    {#each aristas as grupo, i}
+        {#each grupo.slice(0,i) as arista, j}
+            {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
+                <Arista 
+                    svggrafo={svggrafo}
+                    arista={{
+                        origen: nodos[i],
+                        destino: nodos[j],
+                        peso: [aristas[i][j] , aristas[j][i]],
+                    }}
+                    nodosMovidos={nodosMovidos}
+                    cambiarPeso={cambiarPeso}
+                />
+            {/if}
+        {/each}
+    {/each}
+    {#each nodos as nodo}
+        <Nodo 
             svggrafo={svggrafo} 
-            agregarNodo={AgregarNodo}
-            toggleCreacionArista={toggleCreacionArista}
+            nodo={nodo} 
+            reposicionarAristas={reposicionarAristas}
             creandoArista={creandoArista}
-            toggleEliminacionNodo={toggleEliminacionNodo}
+            seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
             eliminandoNodo={eliminandoNodo}
+            eliminarNodo={eliminarNodo}
         />
-        {#each aristas as grupo, i}
-            {#each grupo.slice(0,i) as arista, j}
-                {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
-                    <Arista 
-                        svggrafo={svggrafo}
-                        arista={{
-                            origen: nodos[i],
-                            destino: nodos[j],
-                            peso: [aristas[i][j] , aristas[j][i]],
-                        }}
-                        nodosMovidos={nodosMovidos}
-                        cambiarPeso={cambiarPeso}
-                    />
-                {/if}
-            {/each}
-        {/each}
-        {#each nodos as nodo}
-            <Nodo 
-                svggrafo={svggrafo} 
-                nodo={nodo} 
-                reposicionarAristas={reposicionarAristas}
-                creandoArista={creandoArista}
-                seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
-                eliminandoNodo={eliminandoNodo}
-                eliminarNodo={eliminarNodo}
-            />
-        {/each}
-    </div>
+    {/each}
 </div>
