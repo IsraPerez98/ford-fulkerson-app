@@ -5,8 +5,6 @@ import { onDestroy } from "svelte";
 
     import Flecha from "./Flecha.svelte";
     import Peso from "./Peso.svelte";
-
-    export let svggrafo: any;
     
     export let arista: Arista;
     let prevArista: Arista;
@@ -16,20 +14,6 @@ import { onDestroy } from "svelte";
     export let cambiarPeso: Function;
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-
-    let svgarista: any;
-    let linea: any;
-    let linea2: any;
-
-    onDestroy(() => {
-        if(svgarista) {
-            svgarista.remove();
-        }
-    });
-
-    $: if(svggrafo) {
-        draw();
-    }
 
     let parametros = calcularParametros();
 
@@ -54,34 +38,6 @@ import { onDestroy } from "svelte";
         };
     }
 
-    function reposicionarArista() {
-        svgarista
-            .attr("x1", parametros.x1)
-            .attr("y1", parametros.y1)
-            .attr("x2", parametros.x2)
-            .attr("y2", parametros.y2);
-
-        if(dibujarAristaBidireccional) {
-            linea
-                .attr("x1", parametros.x1)
-                .attr("y1", parametros.y1)
-                .attr("x2", (parametros.x1 + parametros.x2) / 2)
-                .attr("y2", (parametros.y1 + parametros.y2) / 2);
-            
-            linea2
-                .attr("x1", (parametros.x1 + parametros.x2) / 2)
-                .attr("y1", (parametros.y1 + parametros.y2) / 2)
-                .attr("x2", parametros.x2)
-                .attr("y2", parametros.y2);
-        } else {
-            linea
-                .attr("x1", parametros.x1)
-                .attr("y1", parametros.y1)
-                .attr("x2", parametros.x2)
-                .attr("y2", parametros.y2);
-        }
-    }
-
     $: if(arista) {
         if(prevArista) {
             //si algun peso cambia de valor redibujamos la arista
@@ -89,13 +45,15 @@ import { onDestroy } from "svelte";
                 //console.log("Cambio peso", arista, prevArista);
                 dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
                 parametros = calcularParametros();
-                draw();
+                //draw();
             }
         }
         parametros = calcularParametros();
+        /*
         if(svgarista) {
             reposicionarArista();
         }
+        */
 
         prevArista = arista;
     }
@@ -105,12 +63,15 @@ import { onDestroy } from "svelte";
         if(nodosMovidos.has(arista.origen.id) || nodosMovidos.has(arista.destino.id)) {
             //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
             parametros = calcularParametros();
+            /*
             if(svgarista) {
                 reposicionarArista();
             }
+            */
         }
     }
 
+    /*
     
     function draw() {
         if(!svggrafo || !arista) {
@@ -154,9 +115,37 @@ import { onDestroy } from "svelte";
                 .attr("y2", parametros.y2);
         }
     }
+    */
 
 </script>
 
+<line 
+    class="stroke-emerald-600 stroke-2" 
+    x1={parametros.x1} 
+    x2={parametros.x2}
+    y1={parametros.y1}
+    y2={parametros.y2}
+>
+</line>
+<Flecha
+    posicion={{x: parametros.x1, y: parametros.y1}}
+    angulo={parametros.angulo - (Math.PI / 2)}
+    fillColor={'fill-emerald-800'}
+/>
+<Peso
+    posicion={
+        {
+            x: (parametros.x1 + parametros.x2) / 2  - 20 * Math.cos(parametros.angulo),
+            y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
+        }
+    }
+    nodoDesde={arista.origen}
+    nodoHasta={arista.destino}
+    peso={arista.peso[0]}
+    bgColor={'bg-emerald-800'}
+    cambiarPeso={cambiarPeso}
+/>
+<!--
 {#if dibujarAristaBidireccional}
     <Flecha
         svgarista={svgarista}
@@ -250,3 +239,4 @@ import { onDestroy } from "svelte";
         />
     {/if}
 {/if}
+-->

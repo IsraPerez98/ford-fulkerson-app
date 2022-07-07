@@ -48,15 +48,17 @@
     }
 
 </script>
-<div>
-    {#each items as item}
-        <div class="flex flex-col mx-2">
-            <p class="text-center">{item.nombre}</p>
-            <div class="flex">
+<foreignObject width="100%" height="100%">
+    <div>
+        {#each items as item}
+            <div class="flex flex-col mx-2">
+                <p class="text-center">{item.nombre}</p>
                 <div class="flex">
-                    <svelte:component this={item.componente} {...item.props} />
+                    <div class="flex">
+                        <svelte:component this={item.componente} {...item.props} />
+                    </div>
                 </div>
             </div>
-        </div>
-    {/each}
-</div>
+        {/each}
+    </div>
+</foreignObject>

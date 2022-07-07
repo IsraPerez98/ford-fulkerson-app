@@ -4,7 +4,7 @@
     import Menu from "./Menu/Menu.svelte";
     
     //import Nodo from "./Nodo/Nodo.svelte";
-    //import Arista from "./Arista/Arista.svelte";
+    import Arista from "./Arista/Arista.svelte";
 
     let creandoArista = false;
     let eliminandoNodo = false;
@@ -47,7 +47,7 @@
 
     }
 
-    generarGrafoAzar(6);
+    generarGrafoAzar(5);
 
     function AgregarNodo(posX, posY) {
         let nodo = {
@@ -140,40 +140,42 @@
 </script>
 
 <div>
-    <Menu 
-        agregarNodo={AgregarNodo}
-        toggleCreacionArista={toggleCreacionArista}
-        creandoArista={creandoArista}
-        toggleEliminacionNodo={toggleEliminacionNodo}
-        eliminandoNodo={eliminandoNodo}
-    />
-    <!--
-    {#each aristas as grupo, i}
-        {#each grupo.slice(0,i) as arista, j}
-            {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
-                <Arista 
-                    svggrafo={svggrafo}
-                    arista={{
-                        origen: nodos[i],
-                        destino: nodos[j],
-                        peso: [aristas[i][j] , aristas[j][i]],
-                    }}
-                    nodosMovidos={nodosMovidos}
-                    cambiarPeso={cambiarPeso}
-                />
-            {/if}
-        {/each}
-    {/each}
-    {#each nodos as nodo}
-        <Nodo 
-            svggrafo={svggrafo} 
-            nodo={nodo} 
-            reposicionarAristas={reposicionarAristas}
+    <svg height="800" width="800">
+        <Menu 
+            agregarNodo={AgregarNodo}
+            toggleCreacionArista={toggleCreacionArista}
             creandoArista={creandoArista}
-            seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
+            toggleEliminacionNodo={toggleEliminacionNodo}
             eliminandoNodo={eliminandoNodo}
-            eliminarNodo={eliminarNodo}
         />
-    {/each}
-    -->
+        
+        {#each aristas as grupo, i}
+            {#each grupo.slice(0,i) as arista, j}
+                {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
+                    <Arista
+                        arista={{
+                            origen: nodos[i],
+                            destino: nodos[j],
+                            peso: [aristas[i][j] , aristas[j][i]],
+                        }}
+                        nodosMovidos={nodosMovidos}
+                        cambiarPeso={cambiarPeso}
+                    />
+                {/if}
+            {/each}
+        {/each}
+        <!--
+        {#each nodos as nodo}
+            <Nodo 
+                svggrafo={svggrafo} 
+                nodo={nodo} 
+                reposicionarAristas={reposicionarAristas}
+                creandoArista={creandoArista}
+                seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
+                eliminandoNodo={eliminandoNodo}
+                eliminarNodo={eliminarNodo}
+            />
+        {/each}
+        -->
+    </svg>
 </div>
