@@ -1,15 +1,10 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import * as d3 from 'd3';
 
     import Menu from "./Menu/Menu.svelte";
     
-    import Nodo from "./Nodo/Nodo.svelte";
-    import Arista from "./Arista/Arista.svelte";
-
-    let bindcanvas;
-
-    let svggrafo;
+    //import Nodo from "./Nodo/Nodo.svelte";
+    //import Arista from "./Arista/Arista.svelte";
 
     let creandoArista = false;
     let eliminandoNodo = false;
@@ -129,9 +124,6 @@
 
         eliminandoNodo = false;
 
-        //redibujamos todo
-        draw();
-
     }
 
     let nodosMovidos: Set<number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
@@ -145,34 +137,17 @@
         aristas[desdeID][hastaID] = peso;
     }
 
-    onMount(() => {
-        draw();
-    });
-
-
-    function draw() {
-        //console.log("Dibujando canvas");
-        const canvas = d3.select(bindcanvas);
-
-        if(svggrafo) { //borrar todo
-            svggrafo.remove();
-        }
-
-        svggrafo = canvas.append('svg')
-            .attr('width', 800)
-            .attr('height', 800)
-    }
 </script>
 
-<div bind:this={bindcanvas}>
+<div>
     <Menu 
-        svggrafo={svggrafo} 
         agregarNodo={AgregarNodo}
         toggleCreacionArista={toggleCreacionArista}
         creandoArista={creandoArista}
         toggleEliminacionNodo={toggleEliminacionNodo}
         eliminandoNodo={eliminandoNodo}
     />
+    <!--
     {#each aristas as grupo, i}
         {#each grupo.slice(0,i) as arista, j}
             {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
@@ -200,4 +175,5 @@
             eliminarNodo={eliminarNodo}
         />
     {/each}
+    -->
 </div>
