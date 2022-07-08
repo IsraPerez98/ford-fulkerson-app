@@ -55,7 +55,7 @@
     }
 
     function onMouseDown() {
-        console.log("Moviendo");
+        //console.log("Moviendo");
         moviendo = true;
     }
 
