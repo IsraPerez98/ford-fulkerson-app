@@ -58,7 +58,12 @@
         if(eliminandoNodo) {
             eliminarNodo(nodo.id);
         }
-        moviendo = true;
+        else if(creandoArista) {
+            seleccionarNodoNuevaArista(nodo.id);
+        }
+        else {
+            moviendo = true;
+        }
     }
 
     function onMouseUp() {
