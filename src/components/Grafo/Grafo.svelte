@@ -25,7 +25,7 @@
                 fuente: (i == 0) ? true : false,
                 sumidero: (i==cantNodos-1) ? true : false,
                 x: Math.random() * 800,
-                y: Math.random() * 800,
+                y: Math.random() * 700,
             });
         }
         //generamos aristas aleatorias
@@ -139,16 +139,16 @@
 
 </script>
 
-<div>
-    <svg height="800" width="800">
-        <Menu 
-            agregarNodo={AgregarNodo}
-            toggleCreacionArista={toggleCreacionArista}
-            creandoArista={creandoArista}
-            toggleEliminacionNodo={toggleEliminacionNodo}
-            eliminandoNodo={eliminandoNodo}
-        />
-        
+<svg height="800" width="800">
+    <Menu 
+        agregarNodo={AgregarNodo}
+        toggleCreacionArista={toggleCreacionArista}
+        creandoArista={creandoArista}
+        toggleEliminacionNodo={toggleEliminacionNodo}
+        eliminandoNodo={eliminandoNodo}
+    />
+    
+    <svg y="100"> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
         {#each aristas as grupo, i}
             {#each grupo.slice(0,i) as arista, j}
                 {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
@@ -175,6 +175,5 @@
                 eliminarNodo={eliminarNodo}
             />
         {/each}
-        
     </svg>
-</div>
+</svg>

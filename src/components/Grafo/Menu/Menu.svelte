@@ -49,7 +49,7 @@
 
 </script>
 <foreignObject width="100%" height="100%">
-    <div>
+    <div class="flex flex-row">
         {#each items as item}
             <div class="flex flex-col mx-2">
                 <p class="text-center">{item.nombre}</p>
