@@ -34,10 +34,9 @@
 
 </script>
 
-<g>
-    <foreignObject x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
-        <div class="flex w-full h-full {bgColor} rounded-full border border-white/20">
-            <input class="w-full h-full text-white text-center m-auto bg-transparent border-none outline-none" type="text" value={peso} on:change={cambioPeso} />
-        </div>
-    </foreignObject>
-</g>
+
+<foreignObject x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
+    <div class="flex w-full h-full {bgColor} rounded-full border border-white/20">
+        <input class="w-full h-full text-white text-center m-auto bg-transparent border-none outline-none" type="text" value={peso} on:change={cambioPeso} />
+    </div>
+</foreignObject>

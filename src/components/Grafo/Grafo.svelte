@@ -3,7 +3,7 @@
 
     import Menu from "./Menu/Menu.svelte";
     
-    //import Nodo from "./Nodo/Nodo.svelte";
+    import Nodo from "./Nodo/Nodo.svelte";
     import Arista from "./Arista/Arista.svelte";
 
     let creandoArista = false;
@@ -164,10 +164,9 @@
                 {/if}
             {/each}
         {/each}
-        <!--
+        
         {#each nodos as nodo}
-            <Nodo 
-                svggrafo={svggrafo} 
+            <Nodo  
                 nodo={nodo} 
                 reposicionarAristas={reposicionarAristas}
                 creandoArista={creandoArista}
@@ -176,6 +175,6 @@
                 eliminarNodo={eliminarNodo}
             />
         {/each}
-        -->
+        
     </svg>
 </div>
