@@ -6,21 +6,18 @@
 
     export let reposicionarAristas: Function;
     
-    
     export let creandoArista: boolean;
     export let seleccionarNodoNuevaArista: Function;
 
     export let eliminandoNodo: boolean;
     export let eliminarNodo: Function;
 
-    let svgnodo: any;
-
-    let divnodo: any;
-
     $: nombre = (nodo.nombre) ? nodo.nombre : `Nodo ${nodo.id}` ;
 
     const radio = 35;
     let color = 'bg-blue-700';
+
+    let moviendo = false;
 
     let seleccionadoNuevaArista = false;
 
@@ -54,46 +51,29 @@
 
         if(colorNuevo != color) {
             color = colorNuevo;
-            setColor(color);
         }
     }
 
-    function setColor(color: string) {
-        if(divnodo) {
-            divnodo.attr("class", `cursor-pointer flex w-full h-full ${color} rounded-full border border-white/20 overflow:hidden`);
-        }
+    function onMouseDown() {
+        console.log("Moviendo");
+        moviendo = true;
     }
 
-
-
-    function dragEvent(event:any, d:any) {
-        if(creandoArista) {
-            return;
-        }
-
-        nodo.x = event.x;
-        nodo.y = event.y;
-
-        svgnodo.attr("x", nodo.x - radio)
-        .attr("y", nodo.y - radio);
-
-        reposicionarAristas(nodo.id);
+    function onMouseUp() {
+        moviendo = false;
     }
 
-    function onClick() {
-        if(creandoArista) {
-            seleccionadoNuevaArista = true;
-            seleccionarNodoNuevaArista(nodo.id);
-        } else if(eliminandoNodo) {
-            eliminarNodo(nodo.id);
-            if(svgnodo){
-                svgnodo.remove();
-            }
+    function onMouseMove(e) {
+        if(moviendo) {
+            nodo.x += e.movementX;
+            nodo.y += e.movementY;
+            //console.log({nodo});
+            reposicionarAristas(nodo.id);
         }
     }
 </script>
 
-<svg x={nodo.x - radio} y={nodo.y - radio} width={radio * 2} height={radio * 2}>
+<svg x={nodo.x - radio} y={nodo.y - radio} width={radio * 2} height={radio * 2} on:mousedown={onMouseDown}>
     <foreignObject width={radio * 2} height={radio * 2}>
         <div class="cursor-pointer flex w-full h-full {color} rounded-full border border-white/20 overflow:hidden">
             <p class="text-white text-center m-auto select-none">
@@ -102,3 +82,5 @@
         </div>
     </foreignObject>
 </svg>
+
+<svelte:window on:mousemove={onMouseMove} on:mouseup={onMouseUp}/>
