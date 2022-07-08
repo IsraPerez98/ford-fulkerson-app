@@ -55,7 +55,9 @@
     }
 
     function onMouseDown() {
-        //console.log("Moviendo");
+        if(eliminandoNodo) {
+            eliminarNodo(nodo.id);
+        }
         moviendo = true;
     }
 
