@@ -1,6 +1,4 @@
 <script lang="ts">
-    
-
     export let toggleCreacionArista: Function;
     export let creandoArista: boolean;
 

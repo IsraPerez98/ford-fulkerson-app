@@ -1,15 +1,10 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import * as d3 from 'd3';
 
     import Menu from "./Menu/Menu.svelte";
     
     import Nodo from "./Nodo/Nodo.svelte";
     import Arista from "./Arista/Arista.svelte";
-
-    let bindcanvas;
-
-    let svggrafo;
 
     let creandoArista = false;
     let eliminandoNodo = false;
@@ -30,7 +25,7 @@
                 fuente: (i == 0) ? true : false,
                 sumidero: (i==cantNodos-1) ? true : false,
                 x: Math.random() * 800,
-                y: Math.random() * 800,
+                y: Math.random() * 700,
             });
         }
         //generamos aristas aleatorias
@@ -52,7 +47,7 @@
 
     }
 
-    generarGrafoAzar(6);
+    generarGrafoAzar(5);
 
     function AgregarNodo(posX, posY) {
         let nodo = {
@@ -129,9 +124,6 @@
 
         eliminandoNodo = false;
 
-        //redibujamos todo
-        draw();
-
     }
 
     let nodosMovidos: Set<number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
@@ -145,59 +137,43 @@
         aristas[desdeID][hastaID] = peso;
     }
 
-    onMount(() => {
-        draw();
-    });
-
-
-    function draw() {
-        //console.log("Dibujando canvas");
-        const canvas = d3.select(bindcanvas);
-
-        if(svggrafo) { //borrar todo
-            svggrafo.remove();
-        }
-
-        svggrafo = canvas.append('svg')
-            .attr('width', 800)
-            .attr('height', 800)
-    }
 </script>
 
-<div bind:this={bindcanvas}>
+<svg height="800" width="800">
     <Menu 
-        svggrafo={svggrafo} 
         agregarNodo={AgregarNodo}
         toggleCreacionArista={toggleCreacionArista}
         creandoArista={creandoArista}
         toggleEliminacionNodo={toggleEliminacionNodo}
         eliminandoNodo={eliminandoNodo}
     />
-    {#each aristas as grupo, i}
-        {#each grupo.slice(0,i) as arista, j}
-            {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
-                <Arista 
-                    svggrafo={svggrafo}
-                    arista={{
-                        origen: nodos[i],
-                        destino: nodos[j],
-                        peso: [aristas[i][j] , aristas[j][i]],
-                    }}
-                    nodosMovidos={nodosMovidos}
-                    cambiarPeso={cambiarPeso}
-                />
-            {/if}
+    
+    <svg y="100"> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
+        {#each aristas as grupo, i}
+            {#each grupo.slice(0,i) as arista, j}
+                {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
+                    <Arista
+                        arista={{
+                            origen: nodos[i],
+                            destino: nodos[j],
+                            peso: [aristas[i][j] , aristas[j][i]],
+                        }}
+                        nodosMovidos={nodosMovidos}
+                        cambiarPeso={cambiarPeso}
+                    />
+                {/if}
+            {/each}
         {/each}
-    {/each}
-    {#each nodos as nodo}
-        <Nodo 
-            svggrafo={svggrafo} 
-            nodo={nodo} 
-            reposicionarAristas={reposicionarAristas}
-            creandoArista={creandoArista}
-            seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
-            eliminandoNodo={eliminandoNodo}
-            eliminarNodo={eliminarNodo}
-        />
-    {/each}
-</div>
+        
+        {#each nodos as nodo}
+            <Nodo  
+                nodo={nodo} 
+                reposicionarAristas={reposicionarAristas}
+                creandoArista={creandoArista}
+                seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
+                eliminandoNodo={eliminandoNodo}
+                eliminarNodo={eliminarNodo}
+            />
+        {/each}
+    </svg>
+</svg>
