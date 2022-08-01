@@ -1,7 +1,6 @@
 <script lang="ts">
 
-    //import AgregarNodo from "./Items/AgregarNodo.svelte";
-    import App from "../../../App.svelte";
+    import AgregarNodo from "./Items/AgregarNodo.svelte";
     import AgregarArista from "./Items/AgregarArista.svelte";
     import EliminarNodo from "./Items/EliminarNodo.svelte";
 
@@ -18,16 +17,13 @@
 
     $: {
         items = [
-            /*
             {
                 nombre: "Agregar Nodo",
                 componente: AgregarNodo,
                 props: {
-                    svggrafo: svggrafo,
                     agregarNodo: agregarNodo,
                 }
             },
-            */
             {
                 nombre: "Agregar Arista",
                 componente: AgregarArista,
@@ -53,8 +49,8 @@
         {#each items as item}
             <div class="flex flex-col mx-2">
                 <p class="text-center">{item.nombre}</p>
-                <div class="flex">
-                    <div class="flex">
+                <div class="flex w-32">
+                    <div class="mx-auto">
                         <svelte:component this={item.componente} {...item.props} />
                     </div>
                 </div>
