@@ -25,6 +25,13 @@
             return;
         }
 
+        //si el peso es negativo no se cambia
+        if(pesoNuevo < 0) {
+            console.log("Nuevo peso no es un numero valido");
+            this.value = pesoActual;
+            return;
+        }
+
         const desdeID = verticeDesde.id;
         const hastaID = verticeHasta.id;
 
