@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type Nodo from "../../../interfaces/Nodo";
+    import type Vertice from "../../../interfaces/Vertice";
 
     export let posicion: { x: number; y: number };
     
-    export let nodoDesde: Nodo;
-    export let nodoHasta: Nodo;
+    export let verticeDesde: Vertice;
+    export let verticeHasta: Vertice;
     export let peso: number;
 
     export let bgColor: string;
@@ -25,8 +25,8 @@
             return;
         }
 
-        const desdeID = nodoDesde.id;
-        const hastaID = nodoHasta.id;
+        const desdeID = verticeDesde.id;
+        const hastaID = verticeHasta.id;
 
         cambiarPeso(desdeID, hastaID, pesoNuevo);
     }

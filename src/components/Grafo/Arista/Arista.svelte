@@ -10,7 +10,7 @@ import { onDestroy } from "svelte";
     let prevArista: Arista;
 
 
-    export let nodosMovidos: Set<Number>;
+    export let verticesMovidos: Set<Number>;
     export let cambiarPeso: Function;
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
@@ -18,16 +18,16 @@ import { onDestroy } from "svelte";
     let parametros = calcularParametros();
 
     function calcularParametros() {
-        const radioNodo = 35;
+        const radioVertice = 35;
         //calculamos el angulo de la linea
         const angulo = Math.atan2(arista.destino.y - arista.origen.y, arista.destino.x - arista.origen.x);
 
-        //calculamos donde dibujar la linea para no tapar el nodo
-        const x1 = arista.origen.x + radioNodo * Math.cos(angulo);
-        const y1 = arista.origen.y + radioNodo * Math.sin(angulo);
+        //calculamos donde dibujar la linea para no tapar el vertice
+        const x1 = arista.origen.x + radioVertice * Math.cos(angulo);
+        const y1 = arista.origen.y + radioVertice * Math.sin(angulo);
 
-        const x2 = arista.destino.x - radioNodo * Math.cos(angulo);
-        const y2 = arista.destino.y - radioNodo * Math.sin(angulo);
+        const x2 = arista.destino.x - radioVertice * Math.cos(angulo);
+        const y2 = arista.destino.y - radioVertice * Math.sin(angulo);
 
         return {
             x1,
@@ -54,8 +54,8 @@ import { onDestroy } from "svelte";
     }
     
 
-    $: if(nodosMovidos) {
-        if(nodosMovidos.has(arista.origen.id) || nodosMovidos.has(arista.destino.id)) {
+    $: if(verticesMovidos) {
+        if(verticesMovidos.has(arista.origen.id) || verticesMovidos.has(arista.destino.id)) {
             //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
             parametros = calcularParametros();
         }
@@ -100,8 +100,8 @@ import { onDestroy } from "svelte";
                     y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
                 }
             }
-            nodoDesde={arista.origen}
-            nodoHasta={arista.destino}
+            verticeDesde={arista.origen}
+            verticeHasta={arista.destino}
             peso={arista.peso[0]}
             bgColor={'bg-emerald-800'}
             cambiarPeso={cambiarPeso}
@@ -113,8 +113,8 @@ import { onDestroy } from "svelte";
                     y: (parametros.y1 + parametros.y2) / 2 + 20 * Math.sin(parametros.angulo),
                 }
             }
-            nodoDesde={arista.destino}
-            nodoHasta={arista.origen}
+            verticeDesde={arista.destino}
+            verticeHasta={arista.origen}
             peso={arista.peso[1]}
             bgColor={'bg-rose-800'}
             cambiarPeso={cambiarPeso}
@@ -142,8 +142,8 @@ import { onDestroy } from "svelte";
                         y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
                     }
                 }
-                nodoDesde={arista.origen}
-                nodoHasta={arista.destino}
+                verticeDesde={arista.origen}
+                verticeHasta={arista.destino}
                 peso={arista.peso[0]}
                 bgColor={'bg-emerald-800'}
                 cambiarPeso={cambiarPeso}
@@ -161,8 +161,8 @@ import { onDestroy } from "svelte";
                         y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
                     }
                 }
-                nodoDesde={arista.destino}
-                nodoHasta={arista.origen}
+                verticeDesde={arista.destino}
+                verticeHasta={arista.origen}
                 peso={arista.peso[1]}
                 bgColor={'bg-emerald-800'}
                 cambiarPeso={cambiarPeso}

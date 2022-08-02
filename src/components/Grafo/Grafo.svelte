@@ -3,35 +3,35 @@
 
     import Menu from "./Menu/Menu.svelte";
     
-    import Nodo from "./Nodo/Nodo.svelte";
+    import Vertice from "./Vertice/Vertice.svelte";
     import Arista from "./Arista/Arista.svelte";
 
     let creandoArista = false;
-    let eliminandoNodo = false;
+    let eliminandoVertice = false;
 
-    let nodos = [
+    let vertices = [
     ];
 
     let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
         
     ];
 
-    function generarGrafoAzar(cantNodos: number) {
-        let nuevosNodos = [];
-        for (let i = 0; i < cantNodos; i++) {
-            nuevosNodos.push({
+    function generarGrafoAzar(cantVertices: number) {
+        let nuevosVertices = [];
+        for (let i = 0; i < cantVertices; i++) {
+            nuevosVertices.push({
                 id: i,
                 nombre: null,
                 fuente: (i == 0) ? true : false,
-                sumidero: (i==cantNodos-1) ? true : false,
+                sumidero: (i==cantVertices-1) ? true : false,
                 x: Math.random() * 800,
                 y: Math.random() * 700,
             });
         }
         //generamos aristas aleatorias
-        let nuevasAristas = new Array(nuevosNodos.length);
+        let nuevasAristas = new Array(nuevosVertices.length);
         for (let i = 0; i < nuevasAristas.length; i++) {
-            nuevasAristas[i] = new Array(nuevosNodos.length);
+            nuevasAristas[i] = new Array(nuevosVertices.length);
             for (let j = 0; j < nuevasAristas.length; j++) {
                 if(Math.random() > 0.5) {
                     nuevasAristas[i][j] = Math.floor(Math.random() * 100);
@@ -41,7 +41,7 @@
             }
         }
 
-        nodos = nuevosNodos;
+        vertices = nuevosVertices;
         aristas = nuevasAristas;
         console.log(aristas);
 
@@ -49,15 +49,15 @@
 
     generarGrafoAzar(5);
 
-    function AgregarNodo(posX, posY) {
-        let nodo = {
-            id: nodos.length,
-            nombre: "Nodo" + nodos.length,
+    function AgregarVertice(posX, posY) {
+        let vertice = {
+            id: vertices.length,
+            nombre: null,
             x: posX,
             y: posY,
         };
 
-        nodos.push(nodo);
+        vertices.push(vertice);
 
         //agregamos una dimension a la matriz de adyacencia
         for (let i = 0; i < aristas.length; i++) {
@@ -65,71 +65,71 @@
         }
         aristas.push(Array(aristas.length + 1).fill(0));
         //console.log({aristas});
-        nodos = nodos;
+        vertices = vertices;
     }
 
-    let nodosNuevaArista: Set<number> = new Set();
+    let verticesNuevaArista: Set<number> = new Set();
 
     function toggleCreacionArista() {
         if(creandoArista) {
-            nodosNuevaArista = new Set();
+            verticesNuevaArista = new Set();
             creandoArista = false;
         } else {
             creandoArista = true;
         }
     }
 
-    function seleccionarNodoNuevaArista(id) {
-        nodosNuevaArista.add(id);
-        if(nodosNuevaArista.size === 2) {
-            crearNuevaArista(nodosNuevaArista);
-            nodosNuevaArista = new Set();
+    function seleccionarVerticeDeNuevaArista(id) {
+        verticesNuevaArista.add(id);
+        if(verticesNuevaArista.size === 2) {
+            crearNuevaArista(verticesNuevaArista);
+            verticesNuevaArista = new Set();
             creandoArista = false;
         }
     }
 
-    function crearNuevaArista(nodosNuevaArista: Set<number>) {
-        const [nodo1, nodo2] = nodosNuevaArista;
-        if(aristas[nodo2][nodo1] !== 0) {
-            console.log("Ya existe una arista entre estos nodos");
+    function crearNuevaArista(verticesNuevaArista: Set<number>) {
+        const [vertice1, vertice2] = verticesNuevaArista;
+        if(aristas[vertice2][vertice1] !== 0) {
+            console.log("Ya existe una arista entre estos vertices");
             return;
         }
-        aristas[nodo2][nodo1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
+        aristas[vertice2][vertice1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
     }
 
-    function toggleEliminacionNodo() {
-        if(eliminandoNodo) {
-            eliminandoNodo = false;
+    function toggleEliminacionVertice() {
+        if(eliminandoVertice) {
+            eliminandoVertice = false;
         } else {
-            eliminandoNodo = true;
+            eliminandoVertice = true;
         }
     }
 
-    function eliminarNodo(nodoID: number) {
-        //restamos 1 al id de los nodos que son mayores que el eliminado
-        for (let i = 0; i < nodos.length; i++) {
-            if(nodos[i].id > nodoID) {
-                nodos[i].id--;
+    function eliminarVertice(verticeID: number) {
+        //restamos 1 al id de los vertices que son mayores que el eliminado
+        for (let i = 0; i < vertices.length; i++) {
+            if(vertices[i].id > verticeID) {
+                vertices[i].id--;
             }
         }
 
-        //eliminamos el nodo de la matriz de adyacencia
+        //eliminamos el vertice de la matriz de adyacencia
         for (let i = 0; i < aristas.length; i++) {
-            aristas[i].splice(nodoID, 1);
+            aristas[i].splice(verticeID, 1);
         }
-        aristas.splice(nodoID, 1);
+        aristas.splice(verticeID, 1);
 
-        //eliminamos el nodo de la lista de nodos
-        nodos.splice(nodoID, 1);
+        //eliminamos el vertice de la lista de vertices
+        vertices.splice(verticeID, 1);
 
-        eliminandoNodo = false;
+        eliminandoVertice = false;
 
     }
 
-    let nodosMovidos: Set<number> = new Set(); //guarda los nodos que se han movido para poder actualizar las aristas
+    let verticesMovidos: Set<number> = new Set(); //guarda los vertices que se han movido para poder actualizar las aristas
 
-    function reposicionarAristas(nodoID: number) {
-        nodosMovidos = new Set([nodoID]);
+    function reposicionarAristas(verticeID: number) {
+        verticesMovidos = new Set([verticeID]);
     }
 
 
@@ -140,39 +140,42 @@
 </script>
 
 <svg height="800" width="800">
+    
     <Menu 
-        agregarNodo={AgregarNodo}
+        agregarVertice={AgregarVertice}
         toggleCreacionArista={toggleCreacionArista}
         creandoArista={creandoArista}
-        toggleEliminacionNodo={toggleEliminacionNodo}
-        eliminandoNodo={eliminandoNodo}
+        toggleEliminacionVertice={toggleEliminacionVertice}
+        eliminandoVertice={eliminandoVertice}
     />
     
     <svg y="100"> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
+
         {#each aristas as grupo, i}
             {#each grupo.slice(0,i) as arista, j}
                 {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
                     <Arista
                         arista={{
-                            origen: nodos[i],
-                            destino: nodos[j],
+                            origen: vertices[i],
+                            destino: vertices[j],
                             peso: [aristas[i][j] , aristas[j][i]],
                         }}
-                        nodosMovidos={nodosMovidos}
+                        verticesMovidos={verticesMovidos}
                         cambiarPeso={cambiarPeso}
                     />
                 {/if}
             {/each}
         {/each}
+
         
-        {#each nodos as nodo}
-            <Nodo  
-                nodo={nodo} 
+        {#each vertices as vertice}
+            <Vertice  
+                vertice={vertice} 
                 reposicionarAristas={reposicionarAristas}
                 creandoArista={creandoArista}
-                seleccionarNodoNuevaArista={seleccionarNodoNuevaArista}
-                eliminandoNodo={eliminandoNodo}
-                eliminarNodo={eliminarNodo}
+                seleccionarVerticeDeNuevaArista={seleccionarVerticeDeNuevaArista}
+                eliminandoVertice={eliminandoVertice}
+                eliminarVertice={eliminarVertice}
             />
         {/each}
     </svg>

@@ -1,18 +1,18 @@
 <script lang="ts">
     
-    import type  Nodo  from '../../../interfaces/Nodo';
+    import type  Vertice  from '../../../interfaces/Vertice';
 
-    export let nodo: Nodo;
+    export let vertice: Vertice;
 
     export let reposicionarAristas: Function;
     
     export let creandoArista: boolean;
-    export let seleccionarNodoNuevaArista: Function;
+    export let seleccionarVerticeDeNuevaArista: Function;
 
-    export let eliminandoNodo: boolean;
-    export let eliminarNodo: Function;
+    export let eliminandoVertice: boolean;
+    export let eliminarVertice: Function;
 
-    $: nombre = (nodo.nombre) ? nodo.nombre : `Nodo ${nodo.id}` ;
+    $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
 
     const radio = 35;
     let color = 'bg-blue-700';
@@ -25,11 +25,11 @@
 
         let colorNuevo = 'bg-blue-700';
 
-        if(nodo.fuente) {
+        if(vertice.fuente) {
             colorNuevo = 'bg-green-700';
         }
 
-        if(nodo.sumidero) {
+        if(vertice.sumidero) {
             colorNuevo = 'bg-red-800';
         }
         
@@ -37,7 +37,7 @@
             seleccionadoNuevaArista = false;
         }
 
-        if(eliminandoNodo) {
+        if(eliminandoVertice) {
             colorNuevo = 'bg-red-700';
         }
 
@@ -55,11 +55,11 @@
     }
 
     function onMouseDown() {
-        if(eliminandoNodo) {
-            eliminarNodo(nodo.id);
+        if(eliminandoVertice) {
+            eliminarVertice(vertice.id);
         }
         else if(creandoArista) {
-            seleccionarNodoNuevaArista(nodo.id);
+            seleccionarVerticeDeNuevaArista(vertice.id);
         }
         else {
             moviendo = true;
@@ -72,15 +72,15 @@
 
     function onMouseMove(e) {
         if(moviendo) {
-            nodo.x += e.movementX;
-            nodo.y += e.movementY;
-            //console.log({nodo});
-            reposicionarAristas(nodo.id);
+            vertice.x += e.movementX;
+            vertice.y += e.movementY;
+            
+            reposicionarAristas(vertice.id);
         }
     }
 </script>
 
-<svg x={nodo.x - radio} y={nodo.y - radio} width={radio * 2} height={radio * 2} on:mousedown={onMouseDown}>
+<svg x={vertice.x - radio} y={vertice.y - radio} width={radio * 2} height={radio * 2} on:mousedown={onMouseDown}>
     <foreignObject width={radio * 2} height={radio * 2}>
         <div class="cursor-pointer flex w-full h-full {color} rounded-full border border-white/20 overflow:hidden">
             <p class="text-white text-center m-auto select-none">

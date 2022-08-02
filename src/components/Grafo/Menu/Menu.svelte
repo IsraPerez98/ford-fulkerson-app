@@ -1,16 +1,16 @@
 <script lang="ts">
 
-    import AgregarNodo from "./Items/AgregarNodo.svelte";
+    import AgregarVertice from "./Items/AgregarVertice.svelte";
     import AgregarArista from "./Items/AgregarArista.svelte";
-    import EliminarNodo from "./Items/EliminarNodo.svelte";
+    import EliminarVertice from "./Items/EliminarVertice.svelte";
 
-    export let agregarNodo: Function;
+    export let agregarVertice: Function;
     
     export let toggleCreacionArista: Function;
     export let creandoArista: boolean;
 
-    export let toggleEliminacionNodo: Function;
-    export let eliminandoNodo: boolean;
+    export let toggleEliminacionVertice: Function;
+    export let eliminandoVertice: boolean;
 
 
     let items = [];
@@ -18,10 +18,10 @@
     $: {
         items = [
             {
-                nombre: "Agregar Nodo",
-                componente: AgregarNodo,
+                nombre: "Agregar Vertice",
+                componente: AgregarVertice,
                 props: {
-                    agregarNodo: agregarNodo,
+                    agregarVertice: agregarVertice,
                 }
             },
             {
@@ -33,11 +33,11 @@
                 }
             },
             {
-                nombre: "Eliminar Nodo",
-                componente: EliminarNodo,
+                nombre: "Eliminar Vertice",
+                componente: EliminarVertice,
                 props: {
-                    toggleEliminacionNodo: toggleEliminacionNodo,
-                    eliminandoNodo: eliminandoNodo,
+                    toggleEliminacionVertice: toggleEliminacionVertice,
+                    eliminandoVertice: eliminandoVertice,
                 }
             },
         ];

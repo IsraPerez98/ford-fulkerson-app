@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    export let agregarNodo: Function;
+    export let agregarVertice: Function;
     
     const radio = 35;
     
@@ -18,7 +18,7 @@
 
     function onMouseUp() {
 
-        agregarNodo(posicion.x + (radio * 2), posicion.y - (radio));
+        agregarVertice(posicion.x + (radio * 2), posicion.y - (radio));
 
         //reiniciamos la posicion
         moviendo = false;
@@ -30,7 +30,7 @@
         if(moviendo) {
             posicion.x += e.movementX;
             posicion.y += e.movementY;
-            console.log({posicion});
+            //console.log({posicion});
         }
     }
 
@@ -40,7 +40,7 @@
 <div style:position="relative" style:width="{radio*2}px" style:height="{radio*2}px" style:left="{posicion.x}px" style:top="{posicion.y}px" on:mousedown={onMouseDown}>
     <div class="cursor-pointer flex w-full h-full bg-blue-700 rounded-full border border-white/20 overflow:hidden" >
         <p class="text-white text-center m-auto select-none">
-            Nuevo Nodo
+            Nuevo Vertice
         </p>
     </div>
 </div>
