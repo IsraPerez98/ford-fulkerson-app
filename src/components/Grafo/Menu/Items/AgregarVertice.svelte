@@ -18,12 +18,14 @@
 
     function onMouseUp() {
 
-        agregarVertice(posicion.x + (radio * 2), posicion.y - (radio));
+        if(moviendo) {
+            agregarVertice(posicion.x + (radio * 2), posicion.y - (radio));
 
-        //reiniciamos la posicion
-        moviendo = false;
-        posicion.x = 0;
-        posicion.y = 0;
+            //reiniciamos la posicion
+            moviendo = false;
+            posicion.x = 0;
+            posicion.y = 0;
+        }
     }
 
     function onMouseMove(e) {
