@@ -5,6 +5,7 @@
     
     import Vertice from "./Vertice/Vertice.svelte";
     import Arista from "./Arista/Arista.svelte";
+import { identity, is_function } from "svelte/internal";
 
     let creandoArista = false;
     let eliminandoVertice = false;
@@ -136,6 +137,64 @@
     function cambiarPeso(desdeID, hastaID, peso) {
         aristas[desdeID][hastaID] = peso;
     }
+
+    function DFSRecursivo(red, verticeID: number, destino: number, visitados: Array<boolean>, camino: Array<Vertice>) {
+        visitados[verticeID] = true;
+        if(verticeID === destino) {
+            return [...camino,vertices[verticeID]];
+        }
+        for (let i = 0; i < red[verticeID].length; i++) {
+            if(red[i][verticeID] !== 0 && !visitados[i]) {
+                const c = DFSRecursivo(red, i, destino, visitados, [...camino,vertices[verticeID]]);
+                if(c) {
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
+
+    function buscarCamino(red: Array<Array<number>>, fuente: Vertice, destino: Vertice) : Array<Vertice> {
+        //DFS
+        let visitados = new Array(vertices.length).fill(false);
+
+        let camino = [];
+
+        camino = DFSRecursivo(red, fuente.id, destino.id, visitados, camino);
+
+        return camino;
+    }
+
+    function FlujoMaximo(fuente: Vertice, destino: Vertice): number {
+        let flujomaximo = 0;
+        const red = aristas.map(a => [...a]);
+        console.log({red});
+        while(true) {
+            const camino = buscarCamino(red, fuente, destino);
+            if(!camino) {
+                console.log({flujomaximo});
+                return flujomaximo;
+            }
+            console.log({camino});
+            //calculamos el flujo minimo del camino encontrado
+            let flujominimo = Infinity;
+            for (let i = 0; i < camino.length - 1; i++) {
+                const flujocamino = red[camino[i+1].id][camino[i].id];
+                if(flujocamino < flujominimo) {
+                    flujominimo = flujocamino;
+                }
+            }
+            flujomaximo += flujominimo;
+            console.log(flujominimo);
+            //actualizamos el flujo de la red
+            for (let i = 0; i < camino.length - 1; i++) {
+                red[camino[i+1].id][camino[i].id] -= flujominimo;
+            }
+            console.log(red);
+        }
+    }
+
+    FlujoMaximo(vertices[0], vertices[4]);
 
 </script>
 
