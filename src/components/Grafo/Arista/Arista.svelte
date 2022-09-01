@@ -15,7 +15,52 @@ import { onDestroy } from "svelte";
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
+    console.log(arista.esCamino, arista.peso);
+
     let parametros = calcularParametros();
+
+    function calcularColoresStroke() {
+        let color1 = "stroke-emerald-600";
+        let color2 = "stroke-rose-500";
+        if(arista.esCamino[0]) {
+            color1 = "stroke-blue-800";
+        }
+        if(arista.esCamino[1]) {
+            color2 = "stroke-blue-800";
+        }
+        return [color1, color2];
+    }
+
+    let coloresStroke = calcularColoresStroke();
+
+    function calcularColoresFill() {
+        let color1 = "fill-emerald-800";
+        let color2 = "fill-rose-800";
+        if(arista.esCamino[0]) {
+            color1 = "fill-blue-800";
+        }
+        if(arista.esCamino[1]) {
+            color2 = "fill-blue-800";
+        }
+        return [color1, color2];
+    }
+
+    let coloresFill = calcularColoresFill();
+
+    function calcularColoresBG() {
+        let color1 = "bg-emerald-800";
+        let color2 = "bg-rose-800";
+        if(arista.esCamino[0]) {
+            color1 = "bg-blue-800";
+        }
+        if(arista.esCamino[1]) {
+            color2 = "bg-blue-800";
+        }
+        return [color1, color2];
+    }
+
+    let coloresBG = calcularColoresBG();
+
 
     function calcularParametros() {
         const radioVertice = 35;
@@ -49,6 +94,9 @@ import { onDestroy } from "svelte";
             }
         }
         parametros = calcularParametros();
+        coloresStroke = calcularColoresStroke();
+        coloresFill = calcularColoresFill();
+        coloresBG = calcularColoresBG();
 
         prevArista = arista;
     }
@@ -63,9 +111,10 @@ import { onDestroy } from "svelte";
 
 </script>
 <svg>
+    
     {#if dibujarAristaBidireccional} <!--Bidireccional-->
         <line 
-            class="stroke-emerald-600 stroke-2" 
+            class="{coloresStroke[0]} stroke-2" 
             x1={parametros.x1} 
             y1={parametros.y1}
             x2={(parametros.x1 + parametros.x2) / 2}
@@ -74,7 +123,7 @@ import { onDestroy } from "svelte";
         </line>
 
         <line 
-            class="stroke-rose-500 stroke-2" 
+            class="{coloresStroke[1]} stroke-2" 
             x1={(parametros.x1 + parametros.x2) / 2} 
             y1={(parametros.y1 + parametros.y2) / 2}
             x2={parametros.x2}
@@ -85,12 +134,12 @@ import { onDestroy } from "svelte";
         <Flecha
             posicion={{x: parametros.x1, y: parametros.y1}}
             angulo={parametros.angulo - (Math.PI / 2)}
-            fillColor={'fill-emerald-800'}
+            fillColor="{coloresFill[0]}"
         />
         <Flecha
             posicion={{x: parametros.x2, y: parametros.y2}}
             angulo={parametros.angulo + (Math.PI / 2)}
-            fillColor={'fill-rose-800'}
+            fillColor="{coloresFill[1]}"
         />
 
         <Peso
@@ -103,7 +152,7 @@ import { onDestroy } from "svelte";
             verticeDesde={arista.origen}
             verticeHasta={arista.destino}
             peso={arista.peso[0]}
-            bgColor={'bg-emerald-800'}
+            bgColor="{coloresBG[0]}"
             cambiarPeso={cambiarPeso}
         />
         <Peso
@@ -116,12 +165,12 @@ import { onDestroy } from "svelte";
             verticeDesde={arista.destino}
             verticeHasta={arista.origen}
             peso={arista.peso[1]}
-            bgColor={'bg-rose-800'}
+            bgColor="{coloresBG[1]}"
             cambiarPeso={cambiarPeso}
         />
     {:else} <!--Unidireccional-->
         <line 
-            class="stroke-emerald-600 stroke-2" 
+            class="{coloresStroke[0]} stroke-2" 
             x1={parametros.x1}
             y1={parametros.y1} 
             x2={parametros.x2}
@@ -133,7 +182,7 @@ import { onDestroy } from "svelte";
             <Flecha
                 posicion={{x: parametros.x1, y: parametros.y1}}
                 angulo={parametros.angulo - (Math.PI / 2)}
-                fillColor={'fill-emerald-800'}
+                fillColor="{coloresFill[0]}"
             />
             <Peso
                 posicion={
@@ -145,14 +194,14 @@ import { onDestroy } from "svelte";
                 verticeDesde={arista.origen}
                 verticeHasta={arista.destino}
                 peso={arista.peso[0]}
-                bgColor={'bg-emerald-800'}
+                bgColor="{coloresBG[0]}"
                 cambiarPeso={cambiarPeso}
             />
         {:else}
             <Flecha
                 posicion={{x: parametros.x2, y: parametros.y2}}
                 angulo={parametros.angulo + (Math.PI / 2)}
-                fillColor={'fill-emerald-800'}
+                fillColor="{coloresFill[0]}"
             />
             <Peso
                 posicion={
@@ -164,7 +213,7 @@ import { onDestroy } from "svelte";
                 verticeDesde={arista.destino}
                 verticeHasta={arista.origen}
                 peso={arista.peso[1]}
-                bgColor={'bg-emerald-800'}
+                bgColor="{coloresBG[0]}"
                 cambiarPeso={cambiarPeso}
             />
         {/if}

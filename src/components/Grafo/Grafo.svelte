@@ -2,20 +2,32 @@
     import { onMount } from "svelte";
 
     import Menu from "./Menu/Menu.svelte";
-    
+
     import Vertice from "./Vertice/Vertice.svelte";
     import Arista from "./Arista/Arista.svelte";
-import { identity, is_function } from "svelte/internal";
+    import { identity, is_function } from "svelte/internal";
+
+    import type  TypeVertice  from '../../interfaces/Vertice';
 
     let creandoArista = false;
     let eliminandoVertice = false;
 
-    let vertices = [
-    ];
+    let vertices: TypeVertice[] = [];
 
-    let aristas = [ //las aristas se toman como una matriz de adyacencia nxn con pesos 
-        
-    ];
+    let aristas: number[][] = []; //las aristas se toman como una matriz de adyacencia nxn con pesos 
+
+    let caminos: boolean[][] = []; // matriz "de adyacencia" que representan los caminos desde el origen al sumidero
+
+    function limpiarCaminos() {
+        let nuevosCaminos = new Array(vertices.length)
+        for(let i = 0; i < vertices.length; i++) {
+            nuevosCaminos[i] = new Array(vertices.length).fill(false);
+        }
+
+        caminos = nuevosCaminos;
+    }
+
+    limpiarCaminos();
 
     function generarGrafoAzar(cantVertices: number) {
         let nuevosVertices = [];
@@ -45,6 +57,7 @@ import { identity, is_function } from "svelte/internal";
         vertices = nuevosVertices;
         aristas = nuevasAristas;
         console.log(aristas);
+        limpiarCaminos();
 
     }
 
@@ -54,6 +67,8 @@ import { identity, is_function } from "svelte/internal";
         let vertice = {
             id: vertices.length,
             nombre: null,
+            fuente: false,
+            sumidero: false,
             x: posX,
             y: posY,
         };
@@ -67,6 +82,7 @@ import { identity, is_function } from "svelte/internal";
         aristas.push(Array(aristas.length + 1).fill(0));
         //console.log({aristas});
         vertices = vertices;
+        limpiarCaminos();
     }
 
     let verticesNuevaArista: Set<number> = new Set();
@@ -96,6 +112,7 @@ import { identity, is_function } from "svelte/internal";
             return;
         }
         aristas[vertice2][vertice1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
+        limpiarCaminos();
     }
 
     function toggleEliminacionVertice() {
@@ -123,6 +140,8 @@ import { identity, is_function } from "svelte/internal";
         //eliminamos el vertice de la lista de vertices
         vertices.splice(verticeID, 1);
 
+        limpiarCaminos();
+
         eliminandoVertice = false;
 
     }
@@ -136,9 +155,10 @@ import { identity, is_function } from "svelte/internal";
 
     function cambiarPeso(desdeID, hastaID, peso) {
         aristas[desdeID][hastaID] = peso;
+        limpiarCaminos();
     }
 
-    function DFSRecursivo(red, verticeID: number, destino: number, visitados: Array<boolean>, camino: Array<Vertice>) {
+    function DFSRecursivo(red, verticeID: number, destino: number, visitados: Array<boolean>, camino: Array<TypeVertice>) {
         visitados[verticeID] = true;
         if(verticeID === destino) {
             return [...camino,vertices[verticeID]];
@@ -154,7 +174,15 @@ import { identity, is_function } from "svelte/internal";
         return null;
     }
 
-    function buscarCamino(red: Array<Array<number>>, fuente: Vertice, destino: Vertice) : Array<Vertice> {
+    function dibujarCamino(camino: TypeVertice[]) {
+        for (let i = 0; i < camino.length - 1; i++) {
+            caminos[camino[i].id][camino[i+1].id] = true;
+        }
+        console.log("dibuja la wea");
+        
+    }
+
+    function buscarCamino(red: Array<Array<number>>, fuente: TypeVertice, destino: TypeVertice) : Array<TypeVertice> {
         //DFS
         let visitados = new Array(vertices.length).fill(false);
 
@@ -165,7 +193,7 @@ import { identity, is_function } from "svelte/internal";
         return camino;
     }
 
-    function FlujoMaximo(fuente: Vertice, destino: Vertice): number {
+    function FlujoMaximo(fuente: TypeVertice, destino: TypeVertice): number {
         let flujomaximo = 0;
         const red = aristas.map(a => [...a]);
         console.log({red});
@@ -175,6 +203,7 @@ import { identity, is_function } from "svelte/internal";
                 console.log({flujomaximo});
                 return flujomaximo;
             }
+            dibujarCamino(camino);
             console.log({camino});
             //calculamos el flujo minimo del camino encontrado
             let flujominimo = Infinity;
@@ -194,9 +223,9 @@ import { identity, is_function } from "svelte/internal";
         }
     }
 
-    FlujoMaximo(vertices[0], vertices[4]);
-
 </script>
+
+<button on:click={() => {FlujoMaximo(vertices[0], vertices[4])}}>Flujo Maximo</button>
 
 <svg height="800" width="800">
     
@@ -217,6 +246,7 @@ import { identity, is_function } from "svelte/internal";
                         arista={{
                             origen: vertices[i],
                             destino: vertices[j],
+                            esCamino: [ caminos[j][i], caminos[i][j] ],
                             peso: [aristas[i][j] , aristas[j][i]],
                         }}
                         verticesMovidos={verticesMovidos}
