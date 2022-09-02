@@ -23,9 +23,15 @@ import { onDestroy } from "svelte";
         let color2 = "stroke-blue-600";
         if(arista.esCamino[0]) {
             color1 = "stroke-yellow-300";
+            if (!dibujarAristaBidireccional) {
+                color2 = "stroke-yellow-300";
+            }
         }
         if(arista.esCamino[1]) {
             color2 = "stroke-yellow-300";
+            if (!dibujarAristaBidireccional) {
+                color1 = "stroke-yellow-300";
+            }
         }
         return [color1, color2];
     }
@@ -37,9 +43,15 @@ import { onDestroy } from "svelte";
         let color2 = "fill-blue-600";
         if(arista.esCamino[0]) {
             color1 = "fill-yellow-300";
+            if (!dibujarAristaBidireccional) {
+                color2 = "fill-yellow-300";
+            }
         }
         if(arista.esCamino[1]) {
             color2 = "fill-yellow-300";
+            if (!dibujarAristaBidireccional) {
+                color1 = "fill-yellow-300";
+            }
         }
         return [color1, color2];
     }
