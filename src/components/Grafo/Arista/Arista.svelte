@@ -15,7 +15,7 @@ import { onDestroy } from "svelte";
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
-    console.log(arista.esCamino, arista.peso);
+    //console.log(arista.esCamino, arista.peso);
 
 
     function calcularColoresStroke() {

@@ -177,9 +177,7 @@
     function dibujarCamino(camino: TypeVertice[]) {
         for (let i = 0; i < camino.length - 1; i++) {
             caminos[camino[i].id][camino[i+1].id] = true;
-        }
-        console.log("dibuja la wea");
-        
+        }        
     }
 
     function buscarCamino(red: Array<Array<number>>, fuente: TypeVertice, destino: TypeVertice) : Array<TypeVertice> {
@@ -204,7 +202,7 @@
                 return flujomaximo;
             }
             dibujarCamino(camino);
-            console.log({camino});
+            //console.log({camino});
             //calculamos el flujo minimo del camino encontrado
             let flujominimo = Infinity;
             for (let i = 0; i < camino.length - 1; i++) {
@@ -214,12 +212,12 @@
                 }
             }
             flujomaximo += flujominimo;
-            console.log(flujominimo);
+            //console.log(flujominimo);
             //actualizamos el flujo de la red
             for (let i = 0; i < camino.length - 1; i++) {
                 red[camino[i+1].id][camino[i].id] -= flujominimo;
             }
-            console.log(red);
+            //console.log(red);
         }
     }
 
