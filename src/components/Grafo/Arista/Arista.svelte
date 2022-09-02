@@ -17,7 +17,6 @@ import { onDestroy } from "svelte";
 
     console.log(arista.esCamino, arista.peso);
 
-    let parametros = calcularParametros();
 
     function calcularColoresStroke() {
         let color1 = "stroke-emerald-600";
@@ -83,6 +82,27 @@ import { onDestroy } from "svelte";
         };
     }
 
+    let parametros = calcularParametros();
+
+    function calcularPosicionPesos(): number[][] {
+        if(dibujarAristaBidireccional) {
+            //dibujamos los pesos con un 25% de distancia entre los vertices
+            const distancia = 0.25;
+            const x1 = parametros.x1 + (parametros.x2 - parametros.x1) * distancia;
+            const y1 = parametros.y1 + (parametros.y2 - parametros.y1) * distancia;
+            const x2 = parametros.x2 - (parametros.x2 - parametros.x1) * distancia;
+            const y2 = parametros.y2 - (parametros.y2 - parametros.y1) * distancia;
+            return [[x1, y1], [x2, y2]];
+        } else {
+            //dibujamos los pesos con al centro
+            const x = (arista.destino.x + arista.origen.x) / 2;
+            const y = (arista.destino.y + arista.origen.y) / 2;
+            return [[x, y], [x, y]];
+        }
+    }
+
+    let posicionPesos = calcularPosicionPesos();
+
     $: if(arista) {
         if(prevArista) {
             //si algun peso cambia de valor redibujamos la arista
@@ -97,6 +117,7 @@ import { onDestroy } from "svelte";
         coloresStroke = calcularColoresStroke();
         coloresFill = calcularColoresFill();
         coloresBG = calcularColoresBG();
+        posicionPesos = calcularPosicionPesos();
 
         prevArista = arista;
     }
@@ -106,6 +127,7 @@ import { onDestroy } from "svelte";
         if(verticesMovidos.has(arista.origen.id) || verticesMovidos.has(arista.destino.id)) {
             //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
             parametros = calcularParametros();
+            posicionPesos = calcularPosicionPesos();
         }
     }
 
@@ -145,8 +167,8 @@ import { onDestroy } from "svelte";
         <Peso
             posicion={
                 {
-                    x: (parametros.x1 + parametros.x2) / 2  - 20 * Math.cos(parametros.angulo),
-                    y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
+                    x: posicionPesos[0][0],
+                    y: posicionPesos[0][1],
                 }
             }
             verticeDesde={arista.origen}
@@ -158,8 +180,8 @@ import { onDestroy } from "svelte";
         <Peso
             posicion={
                 {
-                    x: (parametros.x1 + parametros.x2) / 2  + 20 * Math.cos(parametros.angulo),
-                    y: (parametros.y1 + parametros.y2) / 2 + 20 * Math.sin(parametros.angulo),
+                    x: posicionPesos[1][0],
+                    y: posicionPesos[1][1],
                 }
             }
             verticeDesde={arista.destino}
@@ -187,8 +209,8 @@ import { onDestroy } from "svelte";
             <Peso
                 posicion={
                     {
-                        x: (parametros.x1 + parametros.x2) / 2  - 20 * Math.cos(parametros.angulo),
-                        y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
+                        x: posicionPesos[0][0],
+                        y: posicionPesos[0][1],
                     }
                 }
                 verticeDesde={arista.origen}
@@ -206,8 +228,8 @@ import { onDestroy } from "svelte";
             <Peso
                 posicion={
                     {
-                        x: (parametros.x1 + parametros.x2) / 2  - 20 * Math.cos(parametros.angulo),
-                        y: (parametros.y1 + parametros.y2) / 2 - 20 * Math.sin(parametros.angulo),
+                        x: posicionPesos[1][0],
+                        y: posicionPesos[1][1],
                     }
                 }
                 verticeDesde={arista.destino}
