@@ -15,7 +15,7 @@
     $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
 
     const radio = 35;
-    let color = 'bg-blue-700';
+    let color = 'bg-violet-700';
 
     let moviendo = false;
 
@@ -23,10 +23,10 @@
 
     $: {
 
-        let colorNuevo = 'bg-blue-700';
+        let colorNuevo = 'bg-purple-800';
 
         if(vertice.fuente) {
-            colorNuevo = 'bg-green-700';
+            colorNuevo = 'bg-purple-800';
         }
 
         if(vertice.sumidero) {

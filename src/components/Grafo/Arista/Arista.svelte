@@ -20,7 +20,7 @@ import { onDestroy } from "svelte";
 
     function calcularColoresStroke() {
         let color1 = "stroke-emerald-600";
-        let color2 = "stroke-rose-500";
+        let color2 = "stroke-blue-600";
         if(arista.esCamino[0]) {
             color1 = "stroke-blue-800";
         }
@@ -34,7 +34,7 @@ import { onDestroy } from "svelte";
 
     function calcularColoresFill() {
         let color1 = "fill-emerald-800";
-        let color2 = "fill-rose-800";
+        let color2 = "fill-blue-600";
         if(arista.esCamino[0]) {
             color1 = "fill-blue-800";
         }
@@ -48,7 +48,7 @@ import { onDestroy } from "svelte";
 
     function calcularColoresBG() {
         let color1 = "bg-emerald-800";
-        let color2 = "bg-rose-800";
+        let color2 = "bg-blue-600";
         if(arista.esCamino[0]) {
             color1 = "bg-blue-800";
         }
