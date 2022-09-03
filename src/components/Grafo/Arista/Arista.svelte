@@ -121,6 +121,19 @@ import { onDestroy } from "svelte";
 
     let posicionPesos = calcularPosicionPesos();
 
+    function calcularPosicionFlujo(): number[][] {
+        const distancia = 40;
+        const x1 = posicionPesos[0][0] + distancia * Math.cos(parametros.angulo + Math.PI / 2);
+        const y1 = posicionPesos[0][1] + distancia * Math.sin(parametros.angulo + Math.PI / 2);
+        
+        const x2 = posicionPesos[1][0] + distancia * Math.cos(parametros.angulo + Math.PI / 2);
+        const y2 = posicionPesos[1][1] + distancia * Math.sin(parametros.angulo + Math.PI / 2);
+
+        return [[x1, y1], [x2, y2]];
+    }
+
+    let posicionFlujo = calcularPosicionFlujo();
+
     $: if(arista) {
         if(prevArista) {
             //si algun peso cambia de valor redibujamos la arista
@@ -136,6 +149,7 @@ import { onDestroy } from "svelte";
         coloresFill = calcularColoresFill();
         coloresBG = calcularColoresBG();
         posicionPesos = calcularPosicionPesos();
+        posicionFlujo = calcularPosicionFlujo();
 
         prevArista = arista;
     }
@@ -146,6 +160,7 @@ import { onDestroy } from "svelte";
             //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
             parametros = calcularParametros();
             posicionPesos = calcularPosicionPesos();
+            posicionFlujo = calcularPosicionFlujo();
         }
     }
 
@@ -264,8 +279,8 @@ import { onDestroy } from "svelte";
         <Peso
             posicion={
                 {
-                    x: posicionPesos[0][0] + 30,
-                    y: posicionPesos[0][1] + 30,
+                    x: posicionFlujo[0][0],
+                    y: posicionFlujo[0][1],
                 }
             }
             verticeDesde={arista.origen}
@@ -279,8 +294,8 @@ import { onDestroy } from "svelte";
         <Peso
             posicion={
                 {
-                    x: posicionPesos[1][0] + 30,
-                    y: posicionPesos[1][1] + 30,
+                    x: posicionFlujo[1][0],
+                    y: posicionFlujo[1][1],
                 }
             }
             verticeDesde={arista.destino}
