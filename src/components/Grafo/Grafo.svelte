@@ -15,6 +15,7 @@
     let vertices: TypeVertice[] = [];
 
     let aristas: number[][] = []; //las aristas se toman como una matriz de adyacencia nxn con pesos 
+    let red = aristas.map(a => [...a]); //se crea una copia de la matriz de adyacencia para el algoritmo de ford fulkerson
 
     let caminos: boolean[][] = []; // matriz "de adyacencia" que representan los caminos desde el origen al sumidero
 
@@ -56,6 +57,7 @@
 
         vertices = nuevosVertices;
         aristas = nuevasAristas;
+        red = aristas.map(a => [...a]);
         console.log(aristas);
         limpiarCaminos();
 
@@ -80,6 +82,7 @@
             aristas[i].push(0);
         }
         aristas.push(Array(aristas.length + 1).fill(0));
+        red = aristas.map(a => [...a]);
         //console.log({aristas});
         vertices = vertices;
         limpiarCaminos();
@@ -112,6 +115,7 @@
             return;
         }
         aristas[vertice2][vertice1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
+        red = aristas.map(a => [...a]);
         limpiarCaminos();
     }
 
@@ -139,6 +143,8 @@
 
         //eliminamos el vertice de la lista de vertices
         vertices.splice(verticeID, 1);
+        
+        red = aristas.map(a => [...a]);
 
         limpiarCaminos();
 
@@ -155,6 +161,7 @@
 
     function cambiarPeso(desdeID, hastaID, peso) {
         aristas[desdeID][hastaID] = peso;
+        red = aristas.map(a => [...a]);
         limpiarCaminos();
     }
 
@@ -193,8 +200,8 @@
 
     function FlujoMaximo(fuente: TypeVertice, destino: TypeVertice): number {
         let flujomaximo = 0;
-        const red = aristas.map(a => [...a]);
-        console.log({red});
+        red = aristas.map(a => [...a]);
+        //console.log({red});
         while(true) {
             const camino = buscarCamino(red, fuente, destino);
             if(!camino) {
@@ -246,6 +253,7 @@
                             destino: vertices[j],
                             esCamino: [ caminos[j][i], caminos[i][j] ],
                             peso: [aristas[i][j] , aristas[j][i]],
+                            flujo: [aristas[i][j] - red[i][j], aristas[j][i] - red[j][i]],
                         }}
                         verticesMovidos={verticesMovidos}
                         cambiarPeso={cambiarPeso}

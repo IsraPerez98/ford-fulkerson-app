@@ -22,12 +22,14 @@ import { onDestroy } from "svelte";
         let color1 = "stroke-emerald-600";
         let color2 = "stroke-blue-600";
         if(arista.esCamino[0]) {
+            console.log(arista.flujo[0]);
             color1 = "stroke-yellow-300";
             if (!dibujarAristaBidireccional) {
                 color2 = "stroke-yellow-300";
             }
         }
         if(arista.esCamino[1]) {
+            console.log(arista.flujo[1]);
             color2 = "stroke-yellow-300";
             if (!dibujarAristaBidireccional) {
                 color1 = "stroke-yellow-300";
@@ -57,6 +59,8 @@ import { onDestroy } from "svelte";
     }
 
     let coloresFill = calcularColoresFill();
+
+    const bgPesoFlujo = "bg-yellow-300";
 
     function calcularColoresBG() {
         let color1 = "bg-emerald-800";
@@ -254,4 +258,36 @@ import { onDestroy } from "svelte";
             />
         {/if}
     {/if } 
+
+    <!--Dibujamos el flujo reutilizando el componente peso-->
+    {#if arista.esCamino[0]}
+    <Peso
+        posicion={
+            {
+                x: posicionPesos[0][0] + 30,
+                y: posicionPesos[0][1] + 30,
+            }
+        }
+        verticeDesde={arista.origen}
+        verticeHasta={arista.destino}
+        peso={arista.flujo[0]}
+        bgColor={bgPesoFlujo}
+        textColor={"text-black"}
+    />
+    {/if}
+    {#if arista.esCamino[1]}
+    <Peso
+        posicion={
+            {
+                x: posicionPesos[0][0] + 30,
+                y: posicionPesos[0][1] + 30,
+            }
+        }
+        verticeDesde={arista.destino}
+        verticeHasta={arista.origen}
+        peso={arista.flujo[1]}
+        bgColor={bgPesoFlujo}
+        textColor={"text-black"}
+    />
+    {/if}
 </svg>
