@@ -259,35 +259,35 @@ import { onDestroy } from "svelte";
         {/if}
     {/if } 
 
-    <!--Dibujamos el flujo reutilizando el componente peso-->
+        <!--Dibujamos el flujo reutilizando el componente peso-->
     {#if arista.esCamino[0]}
-    <Peso
-        posicion={
-            {
-                x: posicionPesos[0][0] + 30,
-                y: posicionPesos[0][1] + 30,
+        <Peso
+            posicion={
+                {
+                    x: posicionPesos[0][0] + 30,
+                    y: posicionPesos[0][1] + 30,
+                }
             }
-        }
-        verticeDesde={arista.origen}
-        verticeHasta={arista.destino}
-        peso={arista.flujo[0]}
-        bgColor={bgPesoFlujo}
-        textColor={"text-black"}
-    />
+            verticeDesde={arista.origen}
+            verticeHasta={arista.destino}
+            peso={arista.flujo[0]}
+            bgColor={bgPesoFlujo}
+            textColor={"text-black"}
+        />
     {/if}
     {#if arista.esCamino[1]}
-    <Peso
-        posicion={
-            {
-                x: posicionPesos[0][0] + 30,
-                y: posicionPesos[0][1] + 30,
+        <Peso
+            posicion={
+                {
+                    x: posicionPesos[1][0] + 30,
+                    y: posicionPesos[1][1] + 30,
+                }
             }
-        }
-        verticeDesde={arista.destino}
-        verticeHasta={arista.origen}
-        peso={arista.flujo[1]}
-        bgColor={bgPesoFlujo}
-        textColor={"text-black"}
-    />
+            verticeDesde={arista.destino}
+            verticeHasta={arista.origen}
+            peso={arista.flujo[1]}
+            bgColor={bgPesoFlujo}
+            textColor={"text-black"}
+        />
     {/if}
 </svg>
