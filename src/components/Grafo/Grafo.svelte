@@ -206,6 +206,7 @@
             const camino = buscarCamino(red, fuente, destino);
             if(!camino) {
                 console.log({flujomaximo});
+                alert("Flujo maximo: " + flujomaximo);
                 return flujomaximo;
             }
             dibujarCamino(camino);
