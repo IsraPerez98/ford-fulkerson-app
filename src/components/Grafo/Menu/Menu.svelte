@@ -57,9 +57,9 @@
 <foreignObject width="100%" height="100%">
     <div class="flex flex-row">
         {#each items as item}
-            <div class="flex flex-col mx-2">
+            <div class="flex flex-col mx-4">
                 <p class="text-center">{item.nombre}</p>
-                <div class="flex w-32">
+                <div class="flex">
                     <div class="mx-auto">
                         <svelte:component this={item.componente} {...item.props} />
                     </div>
