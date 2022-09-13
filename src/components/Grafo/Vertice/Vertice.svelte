@@ -26,7 +26,7 @@
         let colorNuevo = 'bg-purple-800';
 
         if(vertice.fuente) {
-            colorNuevo = 'bg-purple-800';
+            colorNuevo = 'bg-green-700';
         }
 
         if(vertice.sumidero) {
