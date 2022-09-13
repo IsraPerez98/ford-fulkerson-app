@@ -9,6 +9,16 @@
 
     import type  TypeVertice  from '../../interfaces/Vertice';
 
+    let bindSVG: SVGSVGElement;
+
+    function getPosicionSVG() {
+        console.log({bindSVG});
+        if(!bindSVG) return {x: 0, y: 0};
+
+        const { x, y } = bindSVG.getBoundingClientRect();
+        return { x, y };
+    }
+
     let creandoArista = false;
     let eliminandoVertice = false;
 
@@ -289,9 +299,10 @@
 
 </script>
 
-<svg height="800" width="800">
+<svg bind:this={bindSVG} height="800" width="800">
     
     <Menu 
+        getPosicionSVG={getPosicionSVG}
         calcularFlujoMaximo={calcularFlujoMaximo}
         agregarVertice={AgregarVertice}
         toggleCreacionArista={toggleCreacionArista}

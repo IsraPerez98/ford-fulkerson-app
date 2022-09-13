@@ -7,6 +7,7 @@
 
     export let calcularFlujoMaximo: Function;
 
+    export let getPosicionSVG: Function;
     export let agregarVertice: Function;
     
     export let toggleCreacionArista: Function;
@@ -24,13 +25,14 @@
                 nombre: "Calcular Flujo Maximo",
                 componente: CalcularFlujoMaximo,
                 props: {
-                    calcularFlujoMaximo
+                    calcularFlujoMaximo,
                 }
             },
             {
                 nombre: "Agregar Vertice",
                 componente: AgregarVertice,
                 props: {
+                    getPosicionSVG: getPosicionSVG,
                     agregarVertice: agregarVertice,
                 }
             },
