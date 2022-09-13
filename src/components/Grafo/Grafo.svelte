@@ -229,13 +229,70 @@
         }
     }
 
-</script>
+    function calcularFlujoMaximo() {
+        const fuente = vertices.filter(v => v.fuente);
+        const destino = vertices.filter(v => v.sumidero);
 
-<button on:click={() => {FlujoMaximo(vertices[0], vertices[4])}}>Flujo Maximo</button>
+        if(fuente.length === 0 || destino.length === 0) {
+            alert("Debe seleccionar un vertice fuente y un vertice sumidero");
+            return;
+        }
+
+        if(fuente.length > 1 || destino.length > 1) {
+            if (!confirm("Existen varios vertices fuente o sumidero, se agruparán para calcular el flujo maximo")) {
+                return;
+            }
+            //creamos un nuevo vertice fuente
+            const nuevoVerticeFuente = {
+                id: vertices.length,
+                x: 0,
+                y: 0,
+                fuente: true,
+                sumidero: false,
+                nombre: "Fuente"
+            }
+            vertices.push(nuevoVerticeFuente);
+            //asignamos aristas con peso infinito desde el nuevo vertice fuente a los vertices fuente
+            for (let i = 0; i < fuente.length; i++) {
+                aristas[nuevoVerticeFuente.id][fuente[i].id] = Infinity;
+            }
+            //marcamos los antiguos vertices fuente como no fuente
+            for (let i = 0; i < fuente.length; i++) {
+                fuente[i].fuente = false;
+            }
+            //creamos un nuevo vertice sumidero
+            const nuevoVerticeSumidero = {
+                id: vertices.length,
+                x: 0,
+                y: 0,
+                fuente: false,
+                sumidero: true,
+                nombre: "Sumidero"
+            }
+            vertices.push(nuevoVerticeSumidero);
+            //asignamos aristas con peso infinito desde los vertices sumidero al nuevo vertice sumidero
+            for (let i = 0; i < destino.length; i++) {
+                aristas[destino[i].id][nuevoVerticeSumidero.id] = Infinity;
+            }
+            //marcamos los antiguos vertices sumidero como no sumidero
+            for (let i = 0; i < destino.length; i++) {
+                destino[i].sumidero = false;
+            }
+            //calculamos el flujo maximo
+            FlujoMaximo(nuevoVerticeFuente, nuevoVerticeSumidero);
+            return;
+        }
+
+
+        FlujoMaximo(fuente[0], destino[0]);
+    }
+
+</script>
 
 <svg height="800" width="800">
     
     <Menu 
+        calcularFlujoMaximo={calcularFlujoMaximo}
         agregarVertice={AgregarVertice}
         toggleCreacionArista={toggleCreacionArista}
         creandoArista={creandoArista}

@@ -1,8 +1,11 @@
 <script lang="ts">
 
+    import CalcularFlujoMaximo from "./Items/CalcularFlujoMaximo.svelte";
     import AgregarVertice from "./Items/AgregarVertice.svelte";
     import AgregarArista from "./Items/AgregarArista.svelte";
     import EliminarVertice from "./Items/EliminarVertice.svelte";
+
+    export let calcularFlujoMaximo: Function;
 
     export let agregarVertice: Function;
     
@@ -17,6 +20,13 @@
 
     $: {
         items = [
+            {
+                nombre: "Calcular Flujo Maximo",
+                componente: CalcularFlujoMaximo,
+                props: {
+                    calcularFlujoMaximo
+                }
+            },
             {
                 nombre: "Agregar Vertice",
                 componente: AgregarVertice,
