@@ -12,6 +12,9 @@
     export let eliminandoVertice: boolean;
     export let eliminarVertice: Function;
 
+    export let toggleSumidero: Function;
+    export let toggleFuente: Function;
+
     $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
 
     const radio = 35;
@@ -20,6 +23,8 @@
     let moviendo = false;
 
     let seleccionadoNuevaArista = false;
+
+    let mostrarMenu = false;
 
     $: {
 
@@ -78,16 +83,34 @@
             reposicionarAristas(vertice.id);
         }
     }
+
+    function onMouseEnter() {
+        mostrarMenu = true;
+    }
+
+    function onMouseLeave(){
+        mostrarMenu = false;
+    }
+
 </script>
 
-<svg x={vertice.x - radio} y={vertice.y - radio} width={radio * 2} height={radio * 2} on:mousedown={onMouseDown}>
-    <foreignObject width={radio * 2} height={radio * 2}>
-        <div class="cursor-pointer flex w-full h-full {color} rounded-full border border-white/20 overflow:hidden">
+<foreignObject x={vertice.x - radio} y={vertice.y - radio} width={radio * 3} height={radio * 3} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+    <div class="flex h-full w-full">
+        <div style="width: {radio*2}px ;height: {radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:mousedown={onMouseDown}>
             <p class="text-white text-center m-auto select-none">
                 {nombre}
             </p>
         </div>
-    </foreignObject>
-</svg>
+        <div style="width: {radio}px ;height: {radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
+            <button on:click={() => { toggleFuente(vertice.id) }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
+                🔼
+            </button>
+            <button on:click={() => { toggleSumidero(vertice.id) }} style="{vertice.sumidero ? "" : "filter:grayscale(1);"}" title="Convertir en sumidero" >
+                🔽
+            </button>
+        </div>
+    </div>
+</foreignObject>
+
 
 <svelte:window on:mousemove={onMouseMove} on:mouseup={onMouseUp}/>

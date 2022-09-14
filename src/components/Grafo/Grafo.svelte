@@ -175,6 +175,24 @@
         limpiarCaminos();
     }
 
+    function toggleFuente(verticeID: number) {
+        if(vertices[verticeID].sumidero) {
+            alert("No se puede hacer un vertice fuente y sumidero a la vez");
+            return;
+        }
+        vertices[verticeID].fuente = !vertices[verticeID].fuente;
+        limpiarCaminos();
+    }
+
+    function toggleSumidero(verticeID: number) {
+        if(vertices[verticeID].fuente) {
+            alert("No se puede hacer un vertice fuente y sumidero a la vez");
+            return;
+        }
+        vertices[verticeID].sumidero = !vertices[verticeID].sumidero;
+        limpiarCaminos();
+    }
+
     function DFSRecursivo(red, verticeID: number, destino: number, visitados: Array<boolean>, camino: Array<TypeVertice>) {
         visitados[verticeID] = true;
         if(verticeID === destino) {
@@ -333,13 +351,15 @@
 
         
         {#each vertices as vertice}
-            <Vertice  
+            <Vertice
                 vertice={vertice} 
                 reposicionarAristas={reposicionarAristas}
                 creandoArista={creandoArista}
                 seleccionarVerticeDeNuevaArista={seleccionarVerticeDeNuevaArista}
                 eliminandoVertice={eliminandoVertice}
                 eliminarVertice={eliminarVertice}
+                toggleFuente={toggleFuente}
+                toggleSumidero={toggleSumidero}
             />
         {/each}
     </svg>
