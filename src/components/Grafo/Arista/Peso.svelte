@@ -5,7 +5,11 @@
     
     export let verticeDesde: Vertice;
     export let verticeHasta: Vertice;
-    export let peso: number;
+    export let peso: number | string;
+
+    if(peso === Infinity) {
+        peso = "∞";
+    }
     
     export let bgColor: string;
     
@@ -43,18 +47,19 @@
     
 </script>
 
-
-<foreignObject x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
-    <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
-        
-        {#if cambiarPeso}
-            <input type="number" class="w-full h-full text-center bg-transparent appearance-none border-none outline-none " value={peso} on:change={cambioPeso} />
-        {:else}
-            <div class="m-auto text-center ">{peso}</div>
-        {/if}
-        
-    </div>
-</foreignObject>
+{#if peso == "∞" || !isNaN(Number(peso))}
+    <foreignObject x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
+        <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
+            
+            {#if cambiarPeso}
+                <input type="text" class="w-full h-full text-center bg-transparent appearance-none border-none outline-none " value={peso} on:change={cambioPeso} />
+            {:else}
+                <div class="m-auto text-center ">{peso}</div>
+            {/if}
+            
+        </div>
+    </foreignObject>
+{/if}
 
 
 <style>

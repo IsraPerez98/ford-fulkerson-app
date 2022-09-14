@@ -12,7 +12,7 @@
     let bindSVG: SVGSVGElement;
 
     function getPosicionSVG() {
-        console.log({bindSVG});
+        //console.log({bindSVG});
         if(!bindSVG) return {x: 0, y: 0};
 
         const { x, y } = bindSVG.getBoundingClientRect();
@@ -121,7 +121,7 @@
     function crearNuevaArista(verticesNuevaArista: Set<number>) {
         const [vertice1, vertice2] = verticesNuevaArista;
         if(aristas[vertice2][vertice1] !== 0) {
-            console.log("Ya existe una arista entre estos vertices");
+            alert("Ya existe una arista entre estos vertices");
             return;
         }
         aristas[vertice2][vertice1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
@@ -270,7 +270,85 @@
             if (!confirm("Existen varios vertices fuente o sumidero, se agruparán para calcular el flujo maximo")) {
                 return;
             }
-            //TODO: agrupar vertices fuente y sumidero y calcular el flujo maximo
+
+            let vFuente = fuente[0];
+            let vDestino = destino[0];
+
+            if(fuente.length > 1) {
+                //creamos una fuente
+                const verticeFuente = {
+                    id: vertices.length,
+                    nombre: "Fuente",
+                    x: Math.random() * 800,
+                    y: Math.random() * 700,
+                    fuente: true,
+                    sumidero: false,
+                }
+
+                vertices.push(verticeFuente);
+
+                //agregamos una nueva columna y fila a la matriz de adyacencia
+                for (let i = 0; i < aristas.length; i++) {
+                    aristas[i].push(0);
+                }
+                aristas.push(new Array(vertices.length).fill(0));
+
+                //conectamos todas las fuentes con el nuevo vertice
+                for (let i = 0; i < fuente.length; i++) {
+                    aristas[fuente[i].id][verticeFuente.id] = Infinity;
+                }
+
+                //cambiamos las fuentes a no fuente
+                for (let i = 0; i < fuente.length; i++) {
+                    fuente[i].fuente = false;
+                }
+
+                //lo fijamos como fuente para el algoritmo
+                vFuente = verticeFuente;
+            }
+            
+            if(destino.length > 1) {
+
+                //creamos un sumidero
+
+                const verticeSumidero = {
+                    id: vertices.length,
+                    nombre: "Sumidero",
+                    x: Math.random() * 800,
+                    y: Math.random() * 700,
+                    fuente: false,
+                    sumidero: true,
+                }
+
+                vertices.push(verticeSumidero);
+
+                //agregamos una nueva columna y fila a la matriz de adyacencia
+                for (let i = 0; i < aristas.length; i++) {
+                    aristas[i].push(0);
+                }
+                aristas.push(new Array(vertices.length).fill(0));
+
+                //conectamos todos las sumideros con el nuevo vertice
+                for (let i = 0; i < destino.length; i++) {
+                    aristas[verticeSumidero.id][destino[i].id] = Infinity;
+                }
+
+                //cambiamos las sumideros a no sumidero
+                for (let i = 0; i < destino.length; i++) {
+                    destino[i].sumidero = false;
+                }
+
+                //lo fijamos como destino para el algoritmo
+                vDestino = verticeSumidero;
+            }
+
+            red = aristas.map(a => [...a]);
+
+            vertices = vertices;
+            limpiarCaminos();
+
+            FlujoMaximo(vFuente, vDestino);
+            
             return;
         }
 
