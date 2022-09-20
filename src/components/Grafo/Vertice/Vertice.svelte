@@ -4,7 +4,7 @@
 
     export let vertice: Vertice;
 
-    export let reposicionarAristas: Function;
+    export let moverVertice: Function;
     
     export let creandoArista: boolean;
     export let seleccionarVerticeDeNuevaArista: Function;
@@ -77,10 +77,10 @@
 
     function onMouseMove(e) {
         if(moviendo) {
-            vertice.x += e.movementX;
-            vertice.y += e.movementY;
+            const posX = vertice.x + e.movementX;
+            const posY = vertice.y + e.movementY;
             
-            reposicionarAristas(vertice.id);
+            moverVertice(vertice, posX, posY);
         }
     }
 

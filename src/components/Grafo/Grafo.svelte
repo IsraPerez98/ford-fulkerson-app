@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import {randomInt} from "./Funciones";
 
     import Menu from "./Menu/Menu.svelte";
 
@@ -8,6 +8,11 @@
     import { identity, is_function } from "svelte/internal";
 
     import type  TypeVertice  from '../../interfaces/Vertice';
+
+    const width = 800;
+    const height = 600;
+
+    const verticeRadio = 35;
 
     let bindSVG: SVGSVGElement;
 
@@ -49,8 +54,8 @@
                 nombre: null,
                 fuente: (i == 0) ? true : false,
                 sumidero: (i==cantVertices-1) ? true : false,
-                x: Math.random() * 800,
-                y: Math.random() * 700,
+                x: randomInt(verticeRadio, width - (verticeRadio * 2)),
+                y: randomInt(verticeRadio, height - verticeRadio),
             });
         }
         //generamos aristas aleatorias
@@ -75,6 +80,9 @@
     generarGrafoAzar(5);
 
     function AgregarVertice(posX, posY) {
+        posX = Math.max(verticeRadio, Math.min(width - verticeRadio, posX));
+        posY = Math.max(verticeRadio, Math.min(height - verticeRadio, posY));
+
         let vertice = {
             id: vertices.length,
             nombre: null,
@@ -96,6 +104,19 @@
         vertices = vertices;
 
         limpiarCaminos();
+    }
+
+    let verticesMovidos: Set<number> = new Set(); //guarda los vertices que se han movido para poder actualizar las aristas
+
+    function moverVertice(vertice: TypeVertice, posX: number, posY: number) {
+        posX = Math.max(verticeRadio, Math.min(width - (verticeRadio * 2), posX));
+        posY = Math.max(verticeRadio, Math.min(height - verticeRadio, posY));
+
+        vertice.x = posX;
+        vertice.y = posY;
+
+        verticesMovidos = new Set([vertice.id]);
+        vertices = vertices;
     }
 
     let verticesNuevaArista: Set<number> = new Set();
@@ -159,12 +180,6 @@
 
         eliminandoVertice = false;
 
-    }
-
-    let verticesMovidos: Set<number> = new Set(); //guarda los vertices que se han movido para poder actualizar las aristas
-
-    function reposicionarAristas(verticeID: number) {
-        verticesMovidos = new Set([verticeID]);
     }
 
 
@@ -278,8 +293,8 @@
                 const verticeFuente = {
                     id: vertices.length,
                     nombre: "Fuente",
-                    x: Math.random() * 800,
-                    y: Math.random() * 700,
+                    x: randomInt(verticeRadio, width - (verticeRadio * 2)),
+                    y: randomInt(verticeRadio, height - verticeRadio),
                     fuente: true,
                     sumidero: false,
                 }
@@ -313,8 +328,8 @@
                 const verticeSumidero = {
                     id: vertices.length,
                     nombre: "Sumidero",
-                    x: Math.random() * 800,
-                    y: Math.random() * 700,
+                    x: randomInt(verticeRadio, width - (verticeRadio * 2)),
+                    y: randomInt(verticeRadio, height - verticeRadio),
                     fuente: false,
                     sumidero: true,
                 }
@@ -357,7 +372,7 @@
 
 </script>
 
-<svg bind:this={bindSVG} height="800" width="800">
+<svg bind:this={bindSVG} width={width} height={height + 100}>
     
     <Menu 
         getPosicionSVG={getPosicionSVG}
@@ -393,7 +408,7 @@
         {#each vertices as vertice}
             <Vertice
                 vertice={vertice} 
-                reposicionarAristas={reposicionarAristas}
+                moverVertice={moverVertice}
                 creandoArista={creandoArista}
                 seleccionarVerticeDeNuevaArista={seleccionarVerticeDeNuevaArista}
                 eliminandoVertice={eliminandoVertice}
