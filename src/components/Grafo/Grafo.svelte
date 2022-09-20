@@ -30,6 +30,7 @@
     let caminos: boolean[][] = []; // matriz "de adyacencia" que representan los caminos desde el origen al sumidero
 
     function limpiarCaminos() {
+        red = aristas.map(a => [...a]);
         let nuevosCaminos = new Array(vertices.length)
         for(let i = 0; i < vertices.length; i++) {
             nuevosCaminos[i] = new Array(vertices.length).fill(false);
@@ -67,10 +68,8 @@
 
         vertices = nuevosVertices;
         aristas = nuevasAristas;
-        red = aristas.map(a => [...a]);
-        console.log(aristas);
-        limpiarCaminos();
 
+        limpiarCaminos();
     }
 
     generarGrafoAzar(5);
@@ -92,9 +91,10 @@
             aristas[i].push(0);
         }
         aristas.push(Array(aristas.length + 1).fill(0));
-        red = aristas.map(a => [...a]);
+
         //console.log({aristas});
         vertices = vertices;
+
         limpiarCaminos();
     }
 
@@ -125,7 +125,7 @@
             return;
         }
         aristas[vertice2][vertice1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
-        red = aristas.map(a => [...a]);
+
         limpiarCaminos();
     }
 
@@ -154,7 +154,6 @@
         //eliminamos el vertice de la lista de vertices
         vertices.splice(verticeID, 1);
         
-        red = aristas.map(a => [...a]);
 
         limpiarCaminos();
 
@@ -171,7 +170,7 @@
 
     function cambiarPeso(desdeID, hastaID, peso) {
         aristas[desdeID][hastaID] = peso;
-        red = aristas.map(a => [...a]);
+
         limpiarCaminos();
     }
 
