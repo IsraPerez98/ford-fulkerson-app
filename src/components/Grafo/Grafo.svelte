@@ -372,7 +372,7 @@
 
 </script>
 
-<svg bind:this={bindSVG} width={width} height={height + 100}>
+<svg bind:this={bindSVG} width={width} height={height + 100} class="select-none">
     
     <Menu 
         getPosicionSVG={getPosicionSVG}
