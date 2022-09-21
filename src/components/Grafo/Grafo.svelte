@@ -141,7 +141,7 @@
 
     function moverVertice(vertice: TypeVertice, posX: number, posY: number) {
         posX = Math.max(verticeRadio, Math.min(width - (verticeRadio * 2), posX));
-        posY = Math.max(verticeRadio, Math.min(height - verticeRadio, posY));
+        posY = Math.max(verticeRadio, Math.min(height - verticeRadio - 120, posY)); //TODO: Mejorar margen y ajustar tamaño dinamicamente del 120
 
         vertice.x = posX;
         vertice.y = posY;
@@ -415,7 +415,7 @@
         eliminandoVertice={eliminandoVertice}
     />
     
-    <svg y="120"> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
+    <svg y="120" height={height - 120}> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
 
         {#each aristas as grupo, i}
             {#each grupo.slice(0,i) as arista, j}
