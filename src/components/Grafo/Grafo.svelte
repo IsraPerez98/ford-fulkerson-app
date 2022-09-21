@@ -54,8 +54,8 @@
                 nombre: null,
                 fuente: (i == 0) ? true : false,
                 sumidero: (i==cantVertices-1) ? true : false,
-                x: randomInt(verticeRadio, width - (verticeRadio * 2)),
-                y: randomInt(verticeRadio, height - verticeRadio),
+                x: 0,
+                y: 0,
             });
         }
         //generamos aristas aleatorias
@@ -73,11 +73,42 @@
 
         vertices = nuevosVertices;
         aristas = nuevasAristas;
+        centrarVertices();
 
         limpiarCaminos();
     }
 
-    generarGrafoAzar(5);
+    generarGrafoAzar(6);
+
+    function centrarVertices() {
+        const x_min = verticeRadio;
+        const x_max = width - (verticeRadio * 2);
+        const y_min = verticeRadio;
+        const y_max = height - verticeRadio;
+
+        const cantVertices = vertices.length;
+        const divisiones = Math.sqrt(cantVertices);
+        const divisiones_x = Math.round(divisiones);
+        const divisiones_y = Math.ceil(divisiones);
+
+        //console.log({divisiones_x, divisiones_y});
+
+        const x_div = Math.floor((x_max - x_min) / divisiones_x);
+        const y_div = Math.floor((y_max - y_min) / divisiones_y);
+
+
+        const x_mid_offset = Math.floor(x_div / 2);
+        const y_mid_offset = Math.floor(y_div / 2);
+
+        for (let i = 0; i < vertices.length; i++) {
+            const x = x_min + (x_div * (i % divisiones_x)) + x_mid_offset;
+            const y = y_min + (y_div * Math.floor(i / divisiones_x)) + y_mid_offset;
+
+            vertices[i].x = x;
+            vertices[i].y = y;
+        }
+
+    }
 
     function AgregarVertice(posX, posY) {
         posX = Math.max(verticeRadio, Math.min(width - verticeRadio, posX));
@@ -372,7 +403,7 @@
 
 </script>
 
-<svg bind:this={bindSVG} width={width} height={height + 100} class="select-none">
+<svg bind:this={bindSVG} width={width} height={height + 120} class="select-none">
     
     <Menu 
         getPosicionSVG={getPosicionSVG}
@@ -384,7 +415,7 @@
         eliminandoVertice={eliminandoVertice}
     />
     
-    <svg y="100"> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
+    <svg y="120"> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
 
         {#each aristas as grupo, i}
             {#each grupo.slice(0,i) as arista, j}
