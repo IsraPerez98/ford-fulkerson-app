@@ -9,8 +9,8 @@
 
     import type  TypeVertice  from '../../interfaces/Vertice';
 
-    const width = 800;
-    const height = 600;
+    export let width: number ;
+    export let height: number ;
 
     const verticeRadio = 35;
 
@@ -403,7 +403,7 @@
 
 </script>
 
-<svg bind:this={bindSVG} width={width} height={height + 120} class="select-none">
+<svg bind:this={bindSVG} width={width} height={height} class="select-none">
     
     <Menu 
         getPosicionSVG={getPosicionSVG}
