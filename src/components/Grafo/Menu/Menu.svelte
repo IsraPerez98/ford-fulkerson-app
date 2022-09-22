@@ -7,6 +7,7 @@
 
     export let calcularFlujoMaximo: Function;
 
+    /*
     export let getPosicionSVG: Function;
     export let agregarVertice: Function;
     
@@ -15,6 +16,7 @@
 
     export let toggleEliminacionVertice: Function;
     export let eliminandoVertice: boolean;
+    */
 
 
     let items = [];
@@ -25,9 +27,10 @@
                 nombre: "Calcular Flujo Maximo",
                 componente: CalcularFlujoMaximo,
                 props: {
-                    calcularFlujoMaximo,
+                    calcularFlujoMaximo: calcularFlujoMaximo,
                 }
             },
+            /*
             {
                 nombre: "Agregar Vertice",
                 componente: AgregarVertice,
@@ -52,6 +55,7 @@
                     eliminandoVertice: eliminandoVertice,
                 }
             },
+            */
         ];
     }
 

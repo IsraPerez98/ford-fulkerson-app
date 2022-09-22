@@ -1,5 +1,6 @@
 <script lang="ts">
-    import {generarVertices, generarAristas, generarGrafoAlAzar} from "./Funciones";
+    import {generarVertices, generarAristas, generarGrafoAlAzar} from "./FuncionesGrafo";
+    import {iniciarFlujoMaximo} from "./FuncionesMenu";
 
     import Menu from "./Menu/Menu.svelte";
 
@@ -47,11 +48,19 @@
 
     aristas = generarAristas(matrizAdyacencia, vertices);
 
+    function calcularFlujoMaximo() {
+        iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia);
+    }
+
     
 
 </script>
 
 <svg bind:this={bindSVG} width={width} height={height} class="select-none">
+
+    <Menu
+        calcularFlujoMaximo={calcularFlujoMaximo}
+    />
     
     <svg height={height}>
 
