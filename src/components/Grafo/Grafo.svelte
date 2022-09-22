@@ -49,7 +49,7 @@
 
     aristas = generarAristas(matrizAdyacencia, vertices);
 
-    //generarFunciones(vertices, recargarAristas, recargarVertices, width, height);
+    
 
 </script>
 

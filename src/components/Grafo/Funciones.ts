@@ -187,12 +187,12 @@ function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacen
 }
 
 function cambiarPeso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia,) {
-    arista.peso = [arista.peso[0], peso];
+    arista.peso = [peso, arista.peso[1]];
     matrizAdyacencia[arista.origen.id][arista.destino.id] = peso;
 }
 
 function cambiarPesoInverso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia) {
-    arista.peso = [peso, arista.peso[1]];
+    arista.peso = [arista.peso[0], peso];
     matrizAdyacencia[arista.destino.id][arista.origen.id] = peso;
 }
 

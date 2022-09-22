@@ -22,18 +22,13 @@
         const pesoNuevo = parseInt(this.value);
         
         //si el peso nuevo no es un numero no se cambia
-        if(isNaN(pesoNuevo)) {
+        if(isNaN(pesoNuevo) || pesoNuevo < 0) {
             console.log("Nuevo peso no es un numero valido");
+            alert("Nuevo peso no es un numero valido");
             this.value = pesoActual;
             return;
         }
         
-        //si el peso es negativo no se cambia
-        if(pesoNuevo < 0) {
-            console.log("Nuevo peso no es un numero valido");
-            this.value = pesoActual;
-            return;
-        }
         
         cambiarPeso(pesoNuevo);
     }
@@ -68,5 +63,5 @@
     input {
         -moz-appearance: textfield;
     }
-    
+
 </style>
