@@ -15,8 +15,10 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
             fuente: fuentes[index],
             sumidero: sumideros[index],
 
-            x: randomInt(verticeRadio, maxWith - (verticeRadio * 2)),
-            y: randomInt(verticeRadio, maxHeight - verticeRadio),
+            //x: randomInt(verticeRadio, maxWith - (verticeRadio * 2)),
+            //y: randomInt(verticeRadio, maxHeight - verticeRadio),
+            x: 0,
+            y: 0,
 
             mover: ( x: number, y: number) => moverVertice(nuevoVertice, recargarAristas , x, y, maxWith, maxHeight),
             crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
@@ -27,6 +29,7 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
 
         arregloVertices.push(nuevoVertice);
     });
+    centrarVertices(arregloVertices, maxWith, maxHeight);
     return arregloVertices;
 }
 
@@ -113,7 +116,7 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function centrarVertices(maxWith: number, maxHeight: number, arregloVertices: TypeVertice[]) {
+function centrarVertices(arregloVertices: TypeVertice[], maxWith: number, maxHeight: number ) {
     const x_min = verticeRadio;
     const x_max = maxWith - (verticeRadio * 2);
     const y_min = verticeRadio;

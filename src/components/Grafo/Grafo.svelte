@@ -13,8 +13,6 @@
     export let width: number ;
     export let height: number ;
 
-    const verticeRadio = 35;
-
     let bindSVG: SVGSVGElement;
 
     function getPosicionSVG() {
