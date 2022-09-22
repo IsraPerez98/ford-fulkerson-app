@@ -28,19 +28,20 @@
     let matrizAdyacencia: MatrizAdyacencia = [];
 
     let vertices: TypeVertice[] = [];
+    let fuentes: boolean[] = [];
+    let sumideros: boolean[] = [];
 
     let aristas: TypeArista[] = [];
 
-    matrizAdyacencia = generarGrafoAlAzar(5);
-    //console.log(matrizAdyacencia);
+    ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(5));
 
-    vertices = generarVertices(matrizAdyacencia, width, height);
+    vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, width, height);
 
 </script>
 
 <svg bind:this={bindSVG} width={width} height={height} class="select-none">
     
-    <svg y="120" height={height - 120}> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
+    <svg height={height}>
 
         {#each vertices as vertice}
             <Vertice

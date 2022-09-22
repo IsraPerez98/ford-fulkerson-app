@@ -3,7 +3,7 @@ import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
 const verticeRadio = 35;
 
-function generarVertices(matrizAdyacencia: MatrizAdyacencia, maxWith: number, maxHeight: number): TypeVertice[] {
+function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], maxWith: number, maxHeight: number): TypeVertice[] {
     console.log(maxHeight);
     const arregloVertices: TypeVertice[] = [];
     matrizAdyacencia.forEach((arreglo, index) => {
@@ -11,8 +11,8 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, maxWith: number, ma
             id: index + 1,
             nombre: null,
             
-            fuente: false,
-            sumidero: false,
+            fuente: fuentes[index],
+            sumidero: sumideros[index],
 
             x: randomInt(verticeRadio, maxWith - (verticeRadio * 2)),
             y: randomInt(verticeRadio, maxHeight - verticeRadio),
@@ -117,7 +117,7 @@ function centrarVertices(maxWith: number, maxHeight: number, arregloVertices: Ty
 
 }
 
-function generarGrafoAlAzar(cantidad: number) : MatrizAdyacencia {
+function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[]} {
     const matrizAdyacencia: MatrizAdyacencia = [];
 
     for (let i = 0; i < cantidad; i++) {
@@ -136,7 +136,27 @@ function generarGrafoAlAzar(cantidad: number) : MatrizAdyacencia {
         matrizAdyacencia.push(arreglo);
     }
 
-    return matrizAdyacencia;
+    //tomamos el primer vertice como fuente
+    const fuentes: boolean[] = [];
+    for (let i = 0; i < cantidad; i++) {
+        if(i === 0) {
+            fuentes.push(true);
+        } else {
+            fuentes.push(false);
+        }
+    }
+
+    //tomamos el ultimo vertice como sumidero
+    const sumideros: boolean[] = [];
+    for (let i = 0; i < cantidad; i++) {
+        if(i === cantidad - 1) {
+            sumideros.push(true);
+        } else {
+            sumideros.push(false);
+        }
+    }
+
+    return {matrizAdyacencia, fuentes, sumideros};
 }
 
 export {
