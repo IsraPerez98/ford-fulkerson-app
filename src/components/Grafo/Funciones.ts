@@ -43,7 +43,8 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
                     peso: [matrizAdyacencia[i][j], matrizAdyacencia[j][i]],
                     flujo: [0, 0],
 
-                    cambiarPeso: (origen: TypeVertice, destino: TypeVertice, peso: number) => cambiarPeso(nuevaArista, origen, destino, peso, matrizAdyacencia),
+                    cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia),
+                    cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia),
                 }
                 arregloAristas[i].push(nuevaArista);
             }
@@ -198,13 +199,14 @@ function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacen
     return {matrizAdyacencia, fuentes, sumideros};
 }
 
-function cambiarPeso(arista: TypeArista, origen: TypeVertice, destino: TypeVertice, peso: number, matrizAdyacencia: MatrizAdyacencia,) {
-    if(origen == arista.origen) {
-        arista.peso = [peso, arista.peso[1]];
-    } else {
-        arista.peso = [arista.peso[0], peso];
-    }
-    matrizAdyacencia[origen.id][destino.id] = peso;
+function cambiarPeso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia,) {
+    arista.peso = [arista.peso[0], peso];
+    matrizAdyacencia[arista.origen.id][arista.destino.id] = peso;
+}
+
+function cambiarPesoInverso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia) {
+    arista.peso = [peso, arista.peso[1]];
+    matrizAdyacencia[arista.destino.id][arista.origen.id] = peso;
 }
 
 

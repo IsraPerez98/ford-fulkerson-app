@@ -1,10 +1,7 @@
 <script lang="ts">
-    import type Vertice from "../../../interfaces/Vertice";
     
     export let posicion: { x: number; y: number };
     
-    export let verticeDesde: Vertice;
-    export let verticeHasta: Vertice;
     export let peso: number | string;
 
     if(peso === Infinity) {
@@ -38,10 +35,7 @@
             return;
         }
         
-        const desdeID = verticeDesde.id;
-        const hastaID = verticeHasta.id;
-        
-        cambiarPeso(desdeID, hastaID, pesoNuevo);
+        cambiarPeso(pesoNuevo);
     }
     
     

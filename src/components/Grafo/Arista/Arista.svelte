@@ -9,16 +9,6 @@
     export let arista: Arista;
     let prevArista: Arista;
 
-    console.log({arista});
-
-
-    //export let verticesMovidos: Set<Number>;
-    //export let cambiarPeso: Function;
-
-    function cambiarPeso() {
-        return;
-    }
-
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
     //console.log(arista.esCamino, arista.peso);
@@ -214,11 +204,9 @@
                     y: posicionPesos[0][1],
                 }
             }
-            verticeDesde={arista.origen}
-            verticeHasta={arista.destino}
             peso={arista.peso[0]}
             bgColor={coloresBG[1]}
-            cambiarPeso={cambiarPeso}
+            cambiarPeso={arista.cambiarPeso}
         />
         <Peso
             posicion={
@@ -227,11 +215,9 @@
                     y: posicionPesos[1][1],
                 }
             }
-            verticeDesde={arista.destino}
-            verticeHasta={arista.origen}
             peso={arista.peso[1]}
             bgColor={coloresBG[0]}
-            cambiarPeso={cambiarPeso}
+            cambiarPeso={arista.cambiarPesoInverso}
         />
     {:else} <!--Unidireccional-->
         <line 
@@ -256,11 +242,9 @@
                         y: posicionPesos[0][1],
                     }
                 }
-                verticeDesde={arista.origen}
-                verticeHasta={arista.destino}
                 peso={arista.peso[0]}
                 bgColor="{coloresBG[0]}"
-                cambiarPeso={cambiarPeso}
+                cambiarPeso={arista.cambiarPeso}
             />
         {:else}
             <Flecha
@@ -275,11 +259,9 @@
                         y: posicionPesos[1][1],
                     }
                 }
-                verticeDesde={arista.destino}
-                verticeHasta={arista.origen}
                 peso={arista.peso[1]}
                 bgColor="{coloresBG[0]}"
-                cambiarPeso={cambiarPeso}
+                cambiarPeso={arista.cambiarPesoInverso}
             />
         {/if}
     {/if } 
@@ -293,8 +275,6 @@
                     y: posicionFlujo[0][1],
                 }
             }
-            verticeDesde={arista.origen}
-            verticeHasta={arista.destino}
             peso={arista.flujo[0]}
             bgColor={bgPesoFlujo}
             textColor={"text-black"}
@@ -308,8 +288,6 @@
                     y: posicionFlujo[1][1],
                 }
             }
-            verticeDesde={arista.destino}
-            verticeHasta={arista.origen}
             peso={arista.flujo[1]}
             bgColor={bgPesoFlujo}
             textColor={"text-black"}
