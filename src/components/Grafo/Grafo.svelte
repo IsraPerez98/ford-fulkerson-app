@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {generarVertices, generarAristas, generarFunciones, generarGrafoAlAzar} from "./Funciones";
+    import {generarVertices, generarAristas, generarGrafoAlAzar} from "./Funciones";
 
     import Menu from "./Menu/Menu.svelte";
 
@@ -37,10 +37,6 @@
 
     console.log(matrizAdyacencia);
 
-    vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, width, height);
-
-    aristas = generarAristas(matrizAdyacencia, vertices);
-
     function recargarAristas() {
         aristas = aristas;
     }
@@ -49,7 +45,11 @@
         vertices = vertices;
     }
 
-    generarFunciones(vertices, recargarAristas, recargarVertices, width, height);
+    vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+
+    aristas = generarAristas(matrizAdyacencia, vertices);
+
+    //generarFunciones(vertices, recargarAristas, recargarVertices, width, height);
 
 </script>
 

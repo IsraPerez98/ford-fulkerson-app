@@ -4,7 +4,7 @@ import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
 const verticeRadio = 35;
 
-function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], maxWith: number, maxHeight: number): TypeVertice[] {
+function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], recargarAristas: Function, maxWith: number, maxHeight: number): TypeVertice[] {
     //console.log(maxHeight);
     const arregloVertices: TypeVertice[] = [];
     matrizAdyacencia.forEach((arreglo, index) => {
@@ -18,7 +18,7 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
             x: randomInt(verticeRadio, maxWith - (verticeRadio * 2)),
             y: randomInt(verticeRadio, maxHeight - verticeRadio),
 
-            mover: ( x: number, y: number) => null,
+            mover: ( x: number, y: number) => moverVertice(nuevoVertice, recargarAristas , x, y, maxWith, maxHeight),
             crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
             eliminar: () => eliminarVertice(nuevoVertice, arregloVertices, matrizAdyacencia),
             toggleFuente: () => toggleFuente(nuevoVertice),
@@ -53,19 +53,6 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
 
     return arregloAristas;
 }
-
-function generarFunciones(vertices: TypeVertice[], recargarAristas: Function, recargarVertices: Function, maxWith: number, maxHeight: number) {
-    //generamos la funcion moverVertice
-    vertices.forEach((vertice) => {
-        vertice.mover = (x: number, y: number) => { 
-            moverVertice(vertice, recargarAristas , x, y, maxWith, maxHeight);
-            //console.log(aristas);
-        }
-    });
-
-    recargarVertices();
-}
-
 function toggleFuente(vertice: TypeVertice) {
     if(vertice.sumidero) {
         alert("No se puede hacer un vertice fuente y sumidero a la vez");
@@ -213,6 +200,5 @@ function cambiarPesoInverso(arista: TypeArista, peso: number, matrizAdyacencia: 
 export {
     generarVertices,
     generarAristas,
-    generarFunciones,
     generarGrafoAlAzar,
 };
