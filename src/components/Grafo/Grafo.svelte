@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {generarVertices, generarGrafoAlAzar} from "./Funciones";
+    import {generarVertices, generarAristas, generarFunciones, generarGrafoAlAzar} from "./Funciones";
 
     import Menu from "./Menu/Menu.svelte";
 
@@ -31,11 +31,25 @@
     let fuentes: boolean[] = [];
     let sumideros: boolean[] = [];
 
-    let aristas: TypeArista[] = [];
+    let aristas: TypeArista[][] = [];
 
     ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(5));
 
+    console.log(matrizAdyacencia);
+
     vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, width, height);
+
+    aristas = generarAristas(matrizAdyacencia, vertices);
+
+    function recargarAristas() {
+        aristas = aristas;
+    }
+
+    function recargarVertices() {
+        vertices = vertices;
+    }
+
+    generarFunciones(vertices, recargarAristas, recargarVertices, width, height);
 
 </script>
 
@@ -43,9 +57,17 @@
     
     <svg height={height}>
 
+        {#each aristas as aristasDeVertice}
+            {#each aristasDeVertice as arista}
+                <Arista
+                    bind:arista={arista}
+                />
+            {/each}
+        {/each}
+
         {#each vertices as vertice}
             <Vertice
-                vertice={vertice} 
+                bind:vertice={vertice} 
             />
         {/each}
     </svg>

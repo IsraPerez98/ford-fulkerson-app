@@ -1,14 +1,15 @@
-import type  TypeVertice  from '../../interfaces/Vertice';
+import type TypeVertice  from '../../interfaces/Vertice';
+import type TypeArista from '../../interfaces/Arista';
 import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
 const verticeRadio = 35;
 
 function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], maxWith: number, maxHeight: number): TypeVertice[] {
-    console.log(maxHeight);
+    //console.log(maxHeight);
     const arregloVertices: TypeVertice[] = [];
     matrizAdyacencia.forEach((arreglo, index) => {
         const nuevoVertice = {
-            id: index + 1,
+            id: index,
             nombre: null,
             
             fuente: fuentes[index],
@@ -17,7 +18,7 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
             x: randomInt(verticeRadio, maxWith - (verticeRadio * 2)),
             y: randomInt(verticeRadio, maxHeight - verticeRadio),
 
-            mover: ( x: number, y: number) => moverVertice(nuevoVertice, x, y, maxWith, maxHeight),
+            mover: ( x: number, y: number) => null,
             crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
             eliminar: () => eliminarVertice(nuevoVertice, arregloVertices, matrizAdyacencia),
             toggleFuente: () => toggleFuente(nuevoVertice),
@@ -27,6 +28,41 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
         arregloVertices.push(nuevoVertice);
     });
     return arregloVertices;
+}
+
+function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: TypeVertice[]): TypeArista[][] {
+    const arregloAristas: TypeArista[][] = [];
+    for (let i = 0; i < matrizAdyacencia.length; i++) {
+        arregloAristas.push([]);
+        for (let j = 0; j < matrizAdyacencia.length; j++) {
+            if( i !== j && matrizAdyacencia[i][j] !== 0) {
+                const nuevaArista = {
+                    origen: arregloVertices[i],
+                    destino: arregloVertices[j],
+                    esCamino: [false, false],
+                    peso: [matrizAdyacencia[i][j], matrizAdyacencia[j][i]],
+                    flujo: [0, 0],
+
+                    cambiarPeso: (origen: TypeVertice, destino: TypeVertice, peso: number) => cambiarPeso(nuevaArista, origen, destino, peso, matrizAdyacencia),
+                }
+                arregloAristas[i].push(nuevaArista);
+            }
+        }
+    }
+
+    return arregloAristas;
+}
+
+function generarFunciones(vertices: TypeVertice[], recargarAristas: Function, recargarVertices: Function, maxWith: number, maxHeight: number) {
+    //generamos la funcion moverVertice
+    vertices.forEach((vertice) => {
+        vertice.mover = (x: number, y: number) => { 
+            moverVertice(vertice, recargarAristas , x, y, maxWith, maxHeight);
+            //console.log(aristas);
+        }
+    });
+
+    recargarVertices();
 }
 
 function toggleFuente(vertice: TypeVertice) {
@@ -66,12 +102,14 @@ function eliminarVertice(vertice: TypeVertice, arregloVertices: TypeVertice[], m
 
 
 
-function moverVertice(vertice: TypeVertice, posX: number, posY: number, maxWith: number, maxHeight: number) {
+function moverVertice(vertice: TypeVertice, recargarAristas: Function, posX: number, posY: number, maxWith: number, maxHeight: number) {
     posX = Math.max(verticeRadio, Math.min(maxWith - (verticeRadio * 2), posX));
     posY = Math.max(verticeRadio, Math.min(maxHeight - verticeRadio , posY));
     
     vertice.x = posX;
     vertice.y = posY;
+
+    recargarAristas();
 }
 
 function crearNuevaArista(verticeX: TypeVertice, verticeY: TypeVertice, peso: number, matrizAdyacencia: MatrizAdyacencia) {
@@ -135,6 +173,7 @@ function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacen
         }
         matrizAdyacencia.push(arreglo);
     }
+    //console.log({matrizAdyacencia});
 
     //tomamos el primer vertice como fuente
     const fuentes: boolean[] = [];
@@ -159,7 +198,19 @@ function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacen
     return {matrizAdyacencia, fuentes, sumideros};
 }
 
+function cambiarPeso(arista: TypeArista, origen: TypeVertice, destino: TypeVertice, peso: number, matrizAdyacencia: MatrizAdyacencia,) {
+    if(origen == arista.origen) {
+        arista.peso = [peso, arista.peso[1]];
+    } else {
+        arista.peso = [arista.peso[0], peso];
+    }
+    matrizAdyacencia[origen.id][destino.id] = peso;
+}
+
+
 export {
     generarVertices,
+    generarAristas,
+    generarFunciones,
     generarGrafoAlAzar,
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
-import { onDestroy } from "svelte";
 
     import type Arista from "../../../interfaces/Arista";
+    import { beforeUpdate, afterUpdate } from 'svelte';
 
     import Flecha from "./Flecha.svelte";
     import Peso from "./Peso.svelte";
@@ -9,9 +9,15 @@ import { onDestroy } from "svelte";
     export let arista: Arista;
     let prevArista: Arista;
 
+    console.log({arista});
 
-    export let verticesMovidos: Set<Number>;
-    export let cambiarPeso: Function;
+
+    //export let verticesMovidos: Set<Number>;
+    //export let cambiarPeso: Function;
+
+    function cambiarPeso() {
+        return;
+    }
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
@@ -105,7 +111,7 @@ import { onDestroy } from "svelte";
     function calcularPosicionPesos(): number[][] {
         if(dibujarAristaBidireccional) {
             //dibujamos los pesos con un 25% de distancia entre los vertices
-            const distancia = 0.25;
+            const distancia = 0.75;
             const x1 = parametros.x1 + (parametros.x2 - parametros.x1) * distancia;
             const y1 = parametros.y1 + (parametros.y2 - parametros.y1) * distancia;
             const x2 = parametros.x2 - (parametros.x2 - parametros.x1) * distancia;
@@ -134,35 +140,39 @@ import { onDestroy } from "svelte";
 
     let posicionFlujo = calcularPosicionFlujo();
 
-    $: if(arista) {
-        if(prevArista) {
-            //si algun peso cambia de valor redibujamos la arista
-            if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
-                //console.log("Cambio peso", arista, prevArista);
-                dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-                parametros = calcularParametros();
-
-            }
+    beforeUpdate(() => { //TODO: simplificar los ifs
+        if(!prevArista) {
+            prevArista = JSON.parse(JSON.stringify(arista));
+            return;
         }
-        parametros = calcularParametros();
-        coloresStroke = calcularColoresStroke();
-        coloresFill = calcularColoresFill();
-        coloresBG = calcularColoresBG();
-        posicionPesos = calcularPosicionPesos();
-        posicionFlujo = calcularPosicionFlujo();
 
-        prevArista = arista;
-    }
-    
-
-    $: if(verticesMovidos) {
-        if(verticesMovidos.has(arista.origen.id) || verticesMovidos.has(arista.destino.id)) {
-            //console.log("Moviendo arista "+ arista.desde.id + "-" + arista.hasta.id);
+        //si algun peso cambia de valor redibujamos la arista
+        if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
+            dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
             parametros = calcularParametros();
             posicionPesos = calcularPosicionPesos();
             posicionFlujo = calcularPosicionFlujo();
+            prevArista = JSON.parse(JSON.stringify(arista));
+            
+            return;
         }
-    }
+
+        //si se cambia la posicion del origen o del destino recargamos la posicion de la linea
+        if(prevArista.origen.x !== arista.origen.x || prevArista.origen.y !== arista.origen.y || prevArista.destino.x !== arista.destino.x || prevArista.destino.y !== arista.destino.y) {
+            parametros = calcularParametros();
+            posicionPesos = calcularPosicionPesos();
+            posicionFlujo = calcularPosicionFlujo();
+
+            prevArista = JSON.parse(JSON.stringify(arista));
+
+            return;
+        }
+
+        prevArista = JSON.parse(JSON.stringify(arista));
+        
+    });
+
+
 
 </script>
 <svg>
@@ -187,14 +197,14 @@ import { onDestroy } from "svelte";
         </line>
 
         <Flecha
-            posicion={{x: parametros.x1, y: parametros.y1}}
-            angulo={parametros.angulo - (Math.PI / 2)}
-            fillColor="{coloresFill[0]}"
-        />
-        <Flecha
             posicion={{x: parametros.x2, y: parametros.y2}}
             angulo={parametros.angulo + (Math.PI / 2)}
             fillColor="{coloresFill[1]}"
+        />
+        <Flecha
+            posicion={{x: parametros.x1, y: parametros.y1}}
+            angulo={parametros.angulo - (Math.PI / 2)}
+            fillColor="{coloresFill[0]}"
         />
 
         <Peso
@@ -207,7 +217,7 @@ import { onDestroy } from "svelte";
             verticeDesde={arista.origen}
             verticeHasta={arista.destino}
             peso={arista.peso[0]}
-            bgColor="{coloresBG[0]}"
+            bgColor={coloresBG[1]}
             cambiarPeso={cambiarPeso}
         />
         <Peso
@@ -220,7 +230,7 @@ import { onDestroy } from "svelte";
             verticeDesde={arista.destino}
             verticeHasta={arista.origen}
             peso={arista.peso[1]}
-            bgColor="{coloresBG[1]}"
+            bgColor={coloresBG[0]}
             cambiarPeso={cambiarPeso}
         />
     {:else} <!--Unidireccional-->
@@ -233,10 +243,10 @@ import { onDestroy } from "svelte";
         >
         </line>
 
-        {#if (arista.peso[0] != 0)}
+        {#if (arista.peso[0] !== 0)}
             <Flecha
-                posicion={{x: parametros.x1, y: parametros.y1}}
-                angulo={parametros.angulo - (Math.PI / 2)}
+                posicion={{x: parametros.x2, y: parametros.y2}}
+                angulo={parametros.angulo + (Math.PI / 2)}
                 fillColor="{coloresFill[0]}"
             />
             <Peso
@@ -254,8 +264,8 @@ import { onDestroy } from "svelte";
             />
         {:else}
             <Flecha
-                posicion={{x: parametros.x2, y: parametros.y2}}
-                angulo={parametros.angulo + (Math.PI / 2)}
+                posicion={{x: parametros.x1, y: parametros.y1}}
+                angulo={parametros.angulo - (Math.PI / 2)}
                 fillColor="{coloresFill[0]}"
             />
             <Peso
