@@ -1,6 +1,6 @@
 <script lang="ts">
     import {generarVertices, generarAristas, generarGrafoAlAzar} from "./FuncionesGrafo";
-    import {iniciarFlujoMaximo} from "./FuncionesMenu";
+    import {iniciarFlujoMaximo, avanzarFlujoMaximo} from "./FuncionesMenu";
 
     import Menu from "./Menu/Menu.svelte";
 
@@ -23,6 +23,8 @@
         const { x, y } = bindSVG.getBoundingClientRect();
         return { x, y };
     }
+
+    let calculandoFlujoMaximo = false;
 
     let matrizAdyacencia: MatrizAdyacencia = [];
 
@@ -48,8 +50,10 @@
 
     aristas = generarAristas(matrizAdyacencia, vertices);
 
-    function calcularFlujoMaximo() {
-        iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia);
+    async function calcularFlujoMaximo() {
+        calculandoFlujoMaximo = true;
+        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia);
+        calculandoFlujoMaximo = false;
     }
 
     
@@ -60,6 +64,7 @@
 
     <Menu
         calcularFlujoMaximo={calcularFlujoMaximo}
+        avanzarFlujoMaximo={avanzarFlujoMaximo}
     />
     
     <svg height={height}>

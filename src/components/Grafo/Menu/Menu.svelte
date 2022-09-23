@@ -1,11 +1,14 @@
 <script lang="ts">
 
     import CalcularFlujoMaximo from "./Items/CalcularFlujoMaximo.svelte";
+    import AvanzarFlujoMaximo from "./Items/AvanzarFlujoMaximo.svelte";
     import AgregarVertice from "./Items/AgregarVertice.svelte";
     import AgregarArista from "./Items/AgregarArista.svelte";
     import EliminarVertice from "./Items/EliminarVertice.svelte";
 
     export let calcularFlujoMaximo: Function;
+
+    export let avanzarFlujoMaximo: Function;
 
     /*
     export let getPosicionSVG: Function;
@@ -30,6 +33,13 @@
                     calcularFlujoMaximo: calcularFlujoMaximo,
                 }
             },
+            {
+                nombre: "Siguiente",
+                componente: AvanzarFlujoMaximo,
+                props: {
+                    avanzarFlujoMaximo: avanzarFlujoMaximo,
+                }
+            }
             /*
             {
                 nombre: "Agregar Vertice",

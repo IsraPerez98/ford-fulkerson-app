@@ -2,7 +2,7 @@ import type TypeVertice  from '../../interfaces/Vertice';
 import type TypeArista from '../../interfaces/Arista';
 import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
-function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia) {
+async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia) {
     const fuentes = vertices.filter(vertice => vertice.fuente);
     const sumideros = vertices.filter(vertice => vertice.sumidero);
 
@@ -21,10 +21,26 @@ function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], ma
 
     const fuente = fuentes[0];
     const sumidero = sumideros[0];
-    calcularFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero);
+    await calcularFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero);
+    //avanzarFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero);
 }
 
-function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice) : number {
+let avanzarIteracion = false;
+
+function avanzarFlujoMaximo(matrizAdyacenci: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice) {
+    avanzarIteracion = true;
+}
+
+async function esperarProximaIteracion() {
+    while(!avanzarIteracion) {
+        //console.log("Esperando");
+        await new Promise(r => setTimeout(r, 300));
+    }
+    //console.log("Avanzando");
+    avanzarIteracion = false;
+}
+
+async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice) : Promise<number> {
     let flujoMaximo = 0;
     let redResidual = matrizAdyacencia.map((arreglo) => [...arreglo]); //copiamos la matriz de adyacencia para crear la red residual
     while(true) {
@@ -34,8 +50,11 @@ function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: Type
             alert("El flujo maximo es: " + flujoMaximo);
             return flujoMaximo
         }
-        //console.log({camino});
+        console.log({camino});
         //dibujarcamino(camino);
+        
+        await esperarProximaIteracion();
+        
         //calculamos el cuello de botella del camino
         let cuelloBotella = Number.MAX_SAFE_INTEGER;
         for(let i = 0; i < camino.length - 1; i++) {
@@ -51,6 +70,9 @@ function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: Type
         }
         flujoMaximo += cuelloBotella;
 
+        console.log({cuelloBotella});
+        await esperarProximaIteracion();
+
         //actualizamos la red residual
         for(let i = 0; i < camino.length - 1; i++) {
             const vertice = camino[i];
@@ -58,6 +80,9 @@ function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: Type
             redResidual[vertice.id][verticeSiguiente.id] -= cuelloBotella;
             //redResidual[verticeSiguiente.id - 1][vertice.id - 1] += cuelloBotella;
         }
+
+        console.log({redResidual});
+        await esperarProximaIteracion();
     }
 
 }
@@ -92,9 +117,9 @@ function DFSRecursivo(redResidual: MatrizAdyacencia, vertices: TypeVertice[], ve
     }
 
     return null;
-
 }
 
 export {
     iniciarFlujoMaximo,
+    avanzarFlujoMaximo,
 }
