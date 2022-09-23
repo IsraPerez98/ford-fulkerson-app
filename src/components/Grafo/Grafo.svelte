@@ -38,7 +38,7 @@
 
     let aristas: TypeArista[][] = [];
 
-    ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(5));
+    ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(4));
 
     console.log(matrizAdyacencia);
 

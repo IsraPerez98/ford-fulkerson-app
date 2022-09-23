@@ -124,12 +124,15 @@ function randomInt(min, max) {
 }
 
 function centrarVertices(arregloVertices: TypeVertice[], maxWith: number, maxHeight: number ) {
+    
+    const extra = 2;
+
     const x_min = verticeRadio;
     const x_max = maxWith - (verticeRadio * 2);
     const y_min = verticeRadio;
     const y_max = maxHeight - verticeRadio;
 
-    const cantVertices = arregloVertices.length;
+    const cantVertices = arregloVertices.length * extra;
     const divisiones = Math.sqrt(cantVertices);
     const divisiones_x = Math.round(divisiones);
     const divisiones_y = Math.ceil(divisiones);
@@ -143,13 +146,30 @@ function centrarVertices(arregloVertices: TypeVertice[], maxWith: number, maxHei
     const x_mid_offset = Math.floor(x_div / 2);
     const y_mid_offset = Math.floor(y_div / 2);
 
-    for (let i = 0; i < arregloVertices.length; i++) {
-        const x = x_min + (x_div * (i % divisiones_x)) + x_mid_offset;
-        const y = y_min + (y_div * Math.floor(i / divisiones_x)) + y_mid_offset;
-
-        arregloVertices[i].x = x;
-        arregloVertices[i].y = y;
+    //construimos una matriz con las posiciones de los vertices
+    const matrizPosiciones: {x: number, y: number}[][] = [];
+    for (let i = 0; i < divisiones_x; i++) {
+        matrizPosiciones.push([]);
+        for (let j = 0; j < divisiones_y; j++) {
+            matrizPosiciones[i].push({
+                x: x_min + (i * x_div) + x_mid_offset,
+                y: y_min + (j * y_div) + y_mid_offset,
+            });
+        }
     }
+
+    //colocamos cada vertice en una posicion de la matriz de forma intercalada, para que no queden todos en la misma linea
+    let vertice = 0;
+    for(let i = 0; i < matrizPosiciones.length; i++) {
+        for(let j = 0; j < matrizPosiciones[i].length; j++) {
+            if( arregloVertices.length > vertice && ( (i+j) % extra === 0)) {
+                arregloVertices[vertice].x = matrizPosiciones[i][j].x;
+                arregloVertices[vertice].y = matrizPosiciones[i][j].y;
+                vertice++;
+            }
+        }
+    }
+    
 
 }
 
