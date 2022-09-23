@@ -1,6 +1,6 @@
 <script lang="ts">
     import {generarVertices, generarAristas, generarGrafoAlAzar} from "./FuncionesGrafo";
-    import {iniciarFlujoMaximo, avanzarFlujoMaximo} from "./FuncionesMenu";
+    import {iniciarFlujoMaximo, avanzarFlujoMaximo} from "./FuncionesFlujoMaximo";
 
     import Menu from "./Menu/Menu.svelte";
 
