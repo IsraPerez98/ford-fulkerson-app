@@ -35,10 +35,15 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
 
 function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: TypeVertice[]): TypeArista[][] {
     const arregloAristas: TypeArista[][] = [];
+    //lenamos con null el arreglo de aristas
+    matrizAdyacencia.forEach((arreglo) => {
+        arregloAristas.push(new Array(arreglo.length).fill(null));
+    });
+
     for (let i = 0; i < matrizAdyacencia.length; i++) {
-        arregloAristas.push([]);
-        for (let j = 0; j < matrizAdyacencia.length; j++) {
-            if( i !== j && matrizAdyacencia[i][j] !== 0) {
+        //arregloAristas.push([]);
+        for (let j = 0; j < i; j++) {
+            if( i !== j && (matrizAdyacencia[i][j] !== 0 || matrizAdyacencia[j][i] !== 0)) {
                 const nuevaArista = {
                     origen: arregloVertices[i],
                     destino: arregloVertices[j],
@@ -49,7 +54,9 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
                     cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia),
                     cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia),
                 }
-                arregloAristas[i].push(nuevaArista);
+                //arregloAristas[i].push(nuevaArista);
+                arregloAristas[i][j] = nuevaArista;
+                //arregloAristas[j][i] = nuevaArista;
             }
         }
     }
@@ -199,9 +206,39 @@ function cambiarPesoInverso(arista: TypeArista, peso: number, matrizAdyacencia: 
     matrizAdyacencia[arista.destino.id][arista.origen.id] = peso;
 }
 
+function dibujarCamino(arregloAristas: TypeArista[][], camino: TypeVertice[], flujo: number, recargarAristas: Function) {
+    for(let i = 0; i < camino.length - 1; i++) {
+        const vertice = camino[i];
+        const verticeSiguiente = camino[i + 1];
+
+        //console.log({vertice, verticeSiguiente});
+        //console.log({arregloAristas});
+
+        const arista = arregloAristas[vertice.id][verticeSiguiente.id];
+
+        if(arista) {
+            console.log({arista});
+            arista.esCamino = [true, arista.esCamino[1]];
+            arista.flujo = [flujo, arista.flujo[1]];
+        }
+        
+
+        const aristaInversa = arregloAristas[verticeSiguiente.id][vertice.id];
+
+        if(aristaInversa) {
+            console.log({aristaInversa});
+            aristaInversa.esCamino = [aristaInversa.esCamino[0], true];
+            aristaInversa.flujo = [aristaInversa.flujo[0], flujo];
+        }
+    }
+
+    recargarAristas();
+}
+
 
 export {
     generarVertices,
     generarAristas,
     generarGrafoAlAzar,
+    dibujarCamino,
 };

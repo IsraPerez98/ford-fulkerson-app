@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {generarVertices, generarAristas, generarGrafoAlAzar} from "./FuncionesGrafo";
+    import {generarVertices, generarAristas, generarGrafoAlAzar, dibujarCamino as dibujarCaminoGrafo} from "./FuncionesGrafo";
     import {iniciarFlujoMaximo, avanzarFlujoMaximo} from "./FuncionesFlujoMaximo";
 
     import {agregarTextoConsola} from "./FuncionesConsola";
@@ -54,6 +54,10 @@
 
     aristas = generarAristas(matrizAdyacencia, vertices);
 
+    function dibujarCamino(camino: TypeVertice[], flujo: number) {
+        dibujarCaminoGrafo(aristas, camino, flujo, recargarAristas);
+    }
+
     function printConsola(texto: string) {
         agregarTextoConsola(texto, textoConsola);
         textoConsola = textoConsola;
@@ -61,7 +65,7 @@
 
     async function calcularFlujoMaximo() {
         calculandoFlujoMaximo = true;
-        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia, printConsola);
+        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia, dibujarCamino, printConsola);
         calculandoFlujoMaximo = false;
     }
 
@@ -84,9 +88,11 @@
 
         {#each aristas as aristasDeVertice}
             {#each aristasDeVertice as arista}
-                <Arista
-                    bind:arista={arista}
-                />
+                {#if arista}
+                    <Arista
+                        arista={arista}
+                    />
+                {/if}
             {/each}
         {/each}
 

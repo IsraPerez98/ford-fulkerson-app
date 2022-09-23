@@ -2,7 +2,7 @@ import type TypeVertice  from '../../interfaces/Vertice';
 import type TypeArista from '../../interfaces/Arista';
 import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
-async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia, printConsola: Function) {
+async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia, dibujarCamino: Function, printConsola: Function) {
     const fuentes = vertices.filter(vertice => vertice.fuente);
     const sumideros = vertices.filter(vertice => vertice.sumidero);
 
@@ -22,7 +22,7 @@ async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[]
     const fuente = fuentes[0];
     const sumidero = sumideros[0];
     printConsola("Iniciando el calculo del flujo maximo...");
-    await calcularFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero, printConsola);
+    await calcularFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero, dibujarCamino, printConsola);
     //avanzarFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero);
 }
 
@@ -41,7 +41,7 @@ async function esperarProximaIteracion() {
     avanzarIteracion = false;
 }
 
-async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice, printConsola: Function) : Promise<number> {
+async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice, dibujarCamino: Function, printConsola: Function) : Promise<number> {
     let flujoMaximo = 0;
     let redResidual = matrizAdyacencia.map((arreglo) => [...arreglo]); //copiamos la matriz de adyacencia para crear la red residual
     
@@ -59,7 +59,7 @@ async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices
             return flujoMaximo
         }
         printConsola("Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
-        //dibujarcamino(camino);
+        dibujarCamino(camino, 0);
         await esperarProximaIteracion();
         
         //calculamos el cuello de botella del camino
@@ -77,6 +77,7 @@ async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices
             }
         }
         flujoMaximo += cuelloBotella;
+        dibujarCamino(camino, cuelloBotella);
 
         //console.log({cuelloBotella});
         printConsola("El cuello de botella es: " + cuelloBotella);
@@ -98,7 +99,7 @@ async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices
 
 }
 
-function buscarCamino(redResidual: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, destino: TypeVertice) {
+function buscarCamino(redResidual: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, destino: TypeVertice): TypeVertice[] {
     //DFS
     let visitados = new Array(redResidual.length).fill(false);
 
@@ -107,8 +108,6 @@ function buscarCamino(redResidual: MatrizAdyacencia, vertices: TypeVertice[], fu
     camino = DFSRecursivo(redResidual, vertices, fuente, destino, visitados, camino);
 
     return camino;
-
-
 }
 
 function DFSRecursivo(redResidual: MatrizAdyacencia, vertices: TypeVertice[], verticeActual: TypeVertice, destino: TypeVertice, visitados: boolean[], camino: TypeVertice[]) : TypeVertice[] {

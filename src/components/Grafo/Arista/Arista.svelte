@@ -17,15 +17,17 @@
     function calcularColoresStroke() {
         let color1 = "stroke-emerald-600";
         let color2 = "stroke-blue-600";
-        if(arista.esCamino[0]) {
-            console.log(arista.flujo[0]);
+
+        //las aristas se dibujan en sentido inverso
+        if(arista.esCamino[1]) {
+            //console.log(arista.flujo[0]);
             color1 = "stroke-yellow-300";
             if (!dibujarAristaBidireccional) {
                 color2 = "stroke-yellow-300";
             }
         }
-        if(arista.esCamino[1]) {
-            console.log(arista.flujo[1]);
+        if(arista.esCamino[0]) {
+            //console.log(arista.flujo[1]);
             color2 = "stroke-yellow-300";
             if (!dibujarAristaBidireccional) {
                 color1 = "stroke-yellow-300";
@@ -39,13 +41,15 @@
     function calcularColoresFill() {
         let color1 = "fill-emerald-800";
         let color2 = "fill-blue-600";
-        if(arista.esCamino[0]) {
+
+        //las aristas se dibujan en sentido inverso
+        if(arista.esCamino[1]) {
             color1 = "fill-yellow-300";
             if (!dibujarAristaBidireccional) {
                 color2 = "fill-yellow-300";
             }
         }
-        if(arista.esCamino[1]) {
+        if(arista.esCamino[0]) {
             color2 = "fill-yellow-300";
             if (!dibujarAristaBidireccional) {
                 color1 = "fill-yellow-300";
@@ -61,6 +65,7 @@
     function calcularColoresBG() {
         let color1 = "bg-emerald-800";
         let color2 = "bg-blue-600";
+        
         /*
         if(arista.esCamino[0]) {
             color1 = "bg-yellow-300";
@@ -69,6 +74,7 @@
             color2 = "bg-yellow-300";
         }
         */
+        
         return [color1, color2];
     }
 
@@ -137,6 +143,7 @@
         }
 
         //si algun peso cambia de valor redibujamos la arista
+        /*
         if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
             dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
             parametros = calcularParametros();
@@ -146,6 +153,7 @@
             
             return;
         }
+        */
 
         //si se cambia la posicion del origen o del destino recargamos la posicion de la linea
         if(prevArista.origen.x !== arista.origen.x || prevArista.origen.y !== arista.origen.y || prevArista.destino.x !== arista.destino.x || prevArista.destino.y !== arista.destino.y) {
@@ -155,6 +163,15 @@
 
             prevArista = JSON.parse(JSON.stringify(arista));
 
+            return;
+        }
+
+        //si cambia el estado de camino de alguno de los vertices recargamos los colores
+        if(prevArista.esCamino[0] !== arista.esCamino[0] || prevArista.esCamino[1] !== arista.esCamino[1]) {
+            coloresStroke = calcularColoresStroke();
+            coloresFill = calcularColoresFill();
+            coloresBG = calcularColoresBG();
+            prevArista = JSON.parse(JSON.stringify(arista));
             return;
         }
 
