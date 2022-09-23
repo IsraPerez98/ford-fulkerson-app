@@ -2,7 +2,10 @@
     import {generarVertices, generarAristas, generarGrafoAlAzar} from "./FuncionesGrafo";
     import {iniciarFlujoMaximo, avanzarFlujoMaximo} from "./FuncionesFlujoMaximo";
 
+    import {agregarTextoConsola} from "./FuncionesConsola";
+
     import Menu from "./Menu/Menu.svelte";
+    import Consola from "./Consola/Consola.svelte";
 
     import Vertice from "./Vertice/Vertice.svelte";
     import Arista from "./Arista/Arista.svelte";
@@ -25,6 +28,7 @@
     }
 
     let calculandoFlujoMaximo = false;
+    let textoConsola = [];
 
     let matrizAdyacencia: MatrizAdyacencia = [];
 
@@ -50,22 +54,31 @@
 
     aristas = generarAristas(matrizAdyacencia, vertices);
 
+    function printConsola(texto: string) {
+        agregarTextoConsola(texto, textoConsola);
+        textoConsola = textoConsola;
+    }
+
     async function calcularFlujoMaximo() {
         calculandoFlujoMaximo = true;
-        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia);
+        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia, printConsola);
         calculandoFlujoMaximo = false;
     }
 
-    
 
 </script>
 
 <svg bind:this={bindSVG} width={width} height={height} class="select-none">
 
+    <Consola
+        texto={textoConsola}
+    />
+
     <Menu
         calcularFlujoMaximo={calcularFlujoMaximo}
         avanzarFlujoMaximo={avanzarFlujoMaximo}
     />
+    
     
     <svg height={height}>
 

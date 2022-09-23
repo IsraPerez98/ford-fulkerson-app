@@ -2,7 +2,7 @@ import type TypeVertice  from '../../interfaces/Vertice';
 import type TypeArista from '../../interfaces/Arista';
 import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
-async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia) {
+async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia, printConsola: Function) {
     const fuentes = vertices.filter(vertice => vertice.fuente);
     const sumideros = vertices.filter(vertice => vertice.sumidero);
 
@@ -21,7 +21,8 @@ async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[]
 
     const fuente = fuentes[0];
     const sumidero = sumideros[0];
-    await calcularFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero);
+    printConsola("Iniciando el calculo del flujo maximo...");
+    await calcularFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero, printConsola);
     //avanzarFlujoMaximo(matrizAdyacencia, vertices, fuente, sumidero);
 }
 
@@ -40,22 +41,29 @@ async function esperarProximaIteracion() {
     avanzarIteracion = false;
 }
 
-async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice) : Promise<number> {
+async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuente: TypeVertice, sumidero: TypeVertice, printConsola: Function) : Promise<number> {
     let flujoMaximo = 0;
     let redResidual = matrizAdyacencia.map((arreglo) => [...arreglo]); //copiamos la matriz de adyacencia para crear la red residual
+    
+    printConsola("Iniciamos la variable de flujo maximo en 0");
+    printConsola("Creamos la red residual como una copia de la matriz de adyacencia");
+    await esperarProximaIteracion();
+
     while(true) {
+        printConsola("Buscamos un camino desde la fuente al sumidero, utilizando la red residual");
         const camino = buscarCamino(redResidual, vertices, fuente, sumidero);
         if(!camino) {
+            printConsola("No existe otro camino desde la fuente al sumidero, por lo tanto el flujo maximo es: " + flujoMaximo);
             console.log({flujoMaximo});
             alert("El flujo maximo es: " + flujoMaximo);
             return flujoMaximo
         }
-        console.log({camino});
+        printConsola("Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
         //dibujarcamino(camino);
-        
         await esperarProximaIteracion();
         
         //calculamos el cuello de botella del camino
+        printConsola("Calculamos el cuello de botella del camino, es decir el valor minimo de las aristas que lo componen");
         let cuelloBotella = Number.MAX_SAFE_INTEGER;
         for(let i = 0; i < camino.length - 1; i++) {
             const vertice = camino[i];
@@ -70,10 +78,13 @@ async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices
         }
         flujoMaximo += cuelloBotella;
 
-        console.log({cuelloBotella});
+        //console.log({cuelloBotella});
+        printConsola("El cuello de botella es: " + cuelloBotella);
+        printConsola("Actualizamos el flujo maximo sumando el cuello de botella al flujo maximo actual que es: " + flujoMaximo);
         await esperarProximaIteracion();
 
         //actualizamos la red residual
+        printConsola("Actualizamos la red residual, restando el cuello de botella a las aristas que componen el camino");
         for(let i = 0; i < camino.length - 1; i++) {
             const vertice = camino[i];
             const verticeSiguiente = camino[i + 1];
@@ -81,7 +92,7 @@ async function calcularFlujoMaximo( matrizAdyacencia: MatrizAdyacencia, vertices
             //redResidual[verticeSiguiente.id - 1][vertice.id - 1] += cuelloBotella;
         }
 
-        console.log({redResidual});
+        //console.log({redResidual});
         await esperarProximaIteracion();
     }
 
