@@ -4,6 +4,8 @@
     export let calcularFlujoMaximo: Function;
     export let avanzarFlujoMaximo: Function;
     export let finalizarFlujoMaximo: Function;
+    export let guardarGrafo: Function;
+    export let cargarGrafo: Function;
     
     export let generarGrafoAlAzar: Function;
 
@@ -43,6 +45,17 @@
         generarGrafoAlAzar(numeroVerticesInt);
     }
 
+    function onClickGuardarGrafo() {
+        if(calculandoFlujoMaximo) return;
+
+        guardarGrafo();
+    }
+
+    function onClickCargarGrafo() {
+        if(calculandoFlujoMaximo) return;
+
+        cargarGrafo();
+    }
 
 </script>
 
@@ -65,6 +78,12 @@
         <div class="flex my-auto mx-8 text-2xl space-x-4">
             <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={calculandoFlujoMaximo} class="disabled:grayscale">
                 🎲
+            </button>
+            <button title="Guardar Grafo" on:click={onClickGuardarGrafo} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                💾
+            </button>
+            <button title="Cargar Grafo" on:click={onClickCargarGrafo} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                📁
             </button>
         </div>
     </div>
