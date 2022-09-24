@@ -23,8 +23,8 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
             mover: ( x: number, y: number) => moverVertice(nuevoVertice, recargarAristas , x, y, maxWith, maxHeight),
             crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
             eliminar: () => eliminarVertice(nuevoVertice, arregloVertices, matrizAdyacencia),
-            toggleFuente: () => toggleFuente(nuevoVertice),
-            toggleSumidero: () => toggleSumidero(nuevoVertice),
+            toggleFuente: () => toggleFuente(nuevoVertice, fuentes),
+            toggleSumidero: () => toggleSumidero(nuevoVertice, sumideros),
         };
 
         arregloVertices.push(nuevoVertice);
@@ -65,20 +65,22 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
 
     return arregloAristas;
 }
-function toggleFuente(vertice: TypeVertice) {
+function toggleFuente(vertice: TypeVertice, fuentes: boolean[]) {
     if(vertice.sumidero) {
         alert("No se puede hacer un vertice fuente y sumidero a la vez");
         return;
     }
     vertice.fuente = !vertice.fuente;
+    fuentes[vertice.id] = vertice.fuente;
 }
 
-function toggleSumidero(vertice: TypeVertice) {
+function toggleSumidero(vertice: TypeVertice, sumideros: boolean[]) {
     if(vertice.fuente) {
         alert("No se puede hacer un vertice fuente y sumidero a la vez");
         return;
     }
     vertice.sumidero = !vertice.sumidero;
+    sumideros[vertice.id] = vertice.sumidero;
 }
 
 function eliminarVertice(vertice: TypeVertice, arregloVertices: TypeVertice[], matrizAdyacencia: MatrizAdyacencia) {
