@@ -4,7 +4,7 @@ import type TypeArista  from '../../interfaces/Arista';
 
 import {generarAristas, generarVertices} from './FuncionesGrafo';
 
-function guardarGrafo(matrizAdyacencia: MatrizAdyacencia, vertices: [], fuentes: boolean[], sumideros: boolean[]) {
+function guardarGrafo(matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuentes: boolean[], sumideros: boolean[]) {
     //guardamos las posiciones de los vertices
     const posiciones = vertices.map((vertice: any) => {
         return {
