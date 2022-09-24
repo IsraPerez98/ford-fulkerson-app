@@ -11,8 +11,9 @@
     import Vertice from "./Vertice/Vertice.svelte";
     import Arista from "./Arista/Arista.svelte";
 
+    import type Posicion from "../../interfaces/Posicion";
     import type MatrizAdyacencia from "../../interfaces/MatrizAdyacencia";
-    import type  TypeVertice  from '../../interfaces/Vertice';
+    import type  TypeVertice from '../../interfaces/Vertice';
     import type TypeArista  from '../../interfaces/Arista';
 
     export let width: number ;
@@ -68,7 +69,7 @@
     }
 
     function generarNuevoGrafoAlAzar(numeroVertices: number) {
-        let posiciones;
+        let posiciones: Posicion[];
         ({ matrizAdyacencia, fuentes, sumideros, posiciones } = generarGrafoAlAzar(numeroVertices, width, height));
         
         vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones, recargarAristas, width, height);

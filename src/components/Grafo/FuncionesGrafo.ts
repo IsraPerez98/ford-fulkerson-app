@@ -1,10 +1,11 @@
+import type Posicion from '../../interfaces/Posicion';
 import type TypeVertice  from '../../interfaces/Vertice';
 import type TypeArista from '../../interfaces/Arista';
 import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
 const verticeRadio = 35;
 
-function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: {x: number, y: number}[], recargarAristas: Function, maxWith: number, maxHeight: number): TypeVertice[] {
+function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: Posicion[], recargarAristas: Function, maxWith: number, maxHeight: number): TypeVertice[] {
     //console.log(maxHeight);
     const arregloVertices: TypeVertice[] = [];
     matrizAdyacencia.forEach((arreglo, index) => {
@@ -127,7 +128,7 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function centrarVertices(cantVertices: number, maxWith: number, maxHeight: number ) : {x: number, y:number }[] {
+function generarPosicionesVertices(cantVertices: number, maxWith: number, maxHeight: number ) : Posicion[] {
     
     const extra = 2;
 
@@ -183,7 +184,7 @@ function centrarVertices(cantVertices: number, maxWith: number, maxHeight: numbe
 
 }
 
-function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: {x: number, y:number}[]} {
+function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: Posicion[]} {
     const matrizAdyacencia: MatrizAdyacencia = [];
 
     for (let i = 0; i < cantidad; i++) {
@@ -223,7 +224,7 @@ function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {
         }
     }
 
-    const posiciones = centrarVertices(cantidad, width, height);
+    const posiciones = generarPosicionesVertices(cantidad, width, height);
 
     return {matrizAdyacencia, fuentes, sumideros, posiciones};
 }
