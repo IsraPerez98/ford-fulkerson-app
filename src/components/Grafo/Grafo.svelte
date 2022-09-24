@@ -1,6 +1,7 @@
 <script lang="ts">
     import {generarVertices, generarAristas, generarGrafoAlAzar, dibujarCamino as dibujarCaminoGrafo} from "./FuncionesGrafo";
     import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./FuncionesFlujoMaximo";
+    import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./FuncionesGuardado";
 
     import {agregarTextoConsola} from "./FuncionesConsola";
 
@@ -78,50 +79,11 @@
     generarNuevoGrafoAlAzar(5);
 
     function guardarGrafo() {
-        const grafo = {
-            matrizAdyacencia,
-            fuentes,
-            sumideros,
-        };
-
-        //Descargar el archivo
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(grafo));
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "grafo.json");
-        document.body.appendChild(downloadAnchorNode); // required for firefox
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-        
+        guardarGrafoAux(matrizAdyacencia, fuentes, sumideros);
     }
 
-    function cargarGrafo() {
-        const input = document.createElement('input');
-        input.type = 'file';
-
-        input.onchange = e => { 
-            // referencia
-            const file = (e.target as HTMLInputElement).files[0]; 
-
-            // configurando el reader
-            const reader = new FileReader();
-            reader.readAsText(file,'UTF-8');
-
-            // cuando termina de leer
-            reader.onload = readerEvent => {
-                const contenido = (readerEvent.target as any).result;
-                const grafo = JSON.parse(contenido);
-
-                matrizAdyacencia = grafo.matrizAdyacencia;
-                fuentes = grafo.fuentes;
-                sumideros = grafo.sumideros;
-
-                vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
-                aristas = generarAristas(matrizAdyacencia, vertices);
-            }
-        }
-
-        input.click();
+    async function cargarGrafo() {
+        ({matrizAdyacencia, fuentes, sumideros, vertices , aristas} = await cargarGrafoAux(width, height, recargarAristas));
     }
 
 
