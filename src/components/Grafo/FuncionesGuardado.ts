@@ -4,11 +4,19 @@ import type TypeArista  from '../../interfaces/Arista';
 
 import {generarAristas, generarVertices} from './FuncionesGrafo';
 
-function guardarGrafo(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[]) {
+function guardarGrafo(matrizAdyacencia: MatrizAdyacencia, vertices: [], fuentes: boolean[], sumideros: boolean[]) {
+    //guardamos las posiciones de los vertices
+    const posiciones = vertices.map((vertice: any) => {
+        return {
+            x: vertice.x,
+            y: vertice.y,
+        }
+    });
     const grafo = {
         matrizAdyacencia,
         fuentes,
         sumideros,
+        posiciones,
     };
 
     //Descargar el archivo
@@ -43,8 +51,9 @@ async function cargarGrafo(width: number, height: number, recargarAristas: Funct
                 const matrizAdyacencia = grafo.matrizAdyacencia;
                 const fuentes = grafo.fuentes;
                 const sumideros = grafo.sumideros;
+                const posiciones = grafo.posiciones;
 
-                const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+                const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones, recargarAristas, width, height);
                 const aristas = generarAristas(matrizAdyacencia, vertices);
                 resolve({
                     matrizAdyacencia,

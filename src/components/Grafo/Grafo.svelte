@@ -68,9 +68,10 @@
     }
 
     function generarNuevoGrafoAlAzar(numeroVertices: number) {
-        ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(numeroVertices));
+        let posiciones;
+        ({ matrizAdyacencia, fuentes, sumideros, posiciones } = generarGrafoAlAzar(numeroVertices, width, height));
         
-        vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+        vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones, recargarAristas, width, height);
         aristas = generarAristas(matrizAdyacencia, vertices);
 
         console.log({matrizAdyacencia});
@@ -79,7 +80,7 @@
     generarNuevoGrafoAlAzar(5);
 
     function guardarGrafo() {
-        guardarGrafoAux(matrizAdyacencia, fuentes, sumideros);
+        guardarGrafoAux(matrizAdyacencia, vertices, fuentes, sumideros);
     }
 
     async function cargarGrafo() {

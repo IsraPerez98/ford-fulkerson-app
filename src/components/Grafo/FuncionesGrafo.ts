@@ -4,7 +4,7 @@ import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
 
 const verticeRadio = 35;
 
-function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], recargarAristas: Function, maxWith: number, maxHeight: number): TypeVertice[] {
+function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: {x: number, y: number}[], recargarAristas: Function, maxWith: number, maxHeight: number): TypeVertice[] {
     //console.log(maxHeight);
     const arregloVertices: TypeVertice[] = [];
     matrizAdyacencia.forEach((arreglo, index) => {
@@ -17,8 +17,8 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
 
             //x: randomInt(verticeRadio, maxWith - (verticeRadio * 2)),
             //y: randomInt(verticeRadio, maxHeight - verticeRadio),
-            x: 0,
-            y: 0,
+            x: posiciones[index].x,
+            y: posiciones[index].y,
 
             mover: ( x: number, y: number) => moverVertice(nuevoVertice, recargarAristas , x, y, maxWith, maxHeight),
             crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
@@ -29,7 +29,7 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
 
         arregloVertices.push(nuevoVertice);
     });
-    centrarVertices(arregloVertices, maxWith, maxHeight);
+    //centrarVertices(arregloVertices, maxWith, maxHeight);
     return arregloVertices;
 }
 
@@ -125,7 +125,7 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function centrarVertices(arregloVertices: TypeVertice[], maxWith: number, maxHeight: number ) {
+function centrarVertices(cantVertices: number, maxWith: number, maxHeight: number ) : {x: number, y:number }[] {
     
     const extra = 2;
 
@@ -134,8 +134,8 @@ function centrarVertices(arregloVertices: TypeVertice[], maxWith: number, maxHei
     const y_min = verticeRadio;
     const y_max = maxHeight - verticeRadio;
 
-    const cantVertices = arregloVertices.length * extra;
-    const divisiones = Math.sqrt(cantVertices);
+    const cantDivisiones = cantVertices * extra;
+    const divisiones = Math.sqrt(cantDivisiones);
     const divisiones_x = Math.round(divisiones);
     const divisiones_y = Math.ceil(divisiones);
 
@@ -161,21 +161,27 @@ function centrarVertices(arregloVertices: TypeVertice[], maxWith: number, maxHei
     }
 
     //colocamos cada vertice en una posicion de la matriz de forma intercalada, para que no queden todos en la misma linea
+    let posiciones = [];
     let vertice = 0;
     for(let i = 0; i < matrizPosiciones.length; i++) {
         for(let j = 0; j < matrizPosiciones[i].length; j++) {
-            if( arregloVertices.length > vertice && ( (i+j) % extra === 0)) {
-                arregloVertices[vertice].x = matrizPosiciones[i][j].x;
-                arregloVertices[vertice].y = matrizPosiciones[i][j].y;
+            if( cantVertices > vertice && ( (i+j) % extra === 0)) {
+                const posicion = {
+                    x: matrizPosiciones[i][j].x, 
+                    y: matrizPosiciones[i][j].y
+                }
+                posiciones.push(posicion);
                 vertice++;
             }
         }
     }
+
+    return posiciones;
     
 
 }
 
-function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[]} {
+function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: {x: number, y:number}[]} {
     const matrizAdyacencia: MatrizAdyacencia = [];
 
     for (let i = 0; i < cantidad; i++) {
@@ -215,7 +221,9 @@ function generarGrafoAlAzar(cantidad: number) : {matrizAdyacencia: MatrizAdyacen
         }
     }
 
-    return {matrizAdyacencia, fuentes, sumideros};
+    const posiciones = centrarVertices(cantidad, width, height);
+
+    return {matrizAdyacencia, fuentes, sumideros, posiciones};
 }
 
 function cambiarPeso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia,) {
