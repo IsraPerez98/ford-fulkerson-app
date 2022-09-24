@@ -86,5 +86,19 @@
                 📁
             </button>
         </div>
+        <div class="flex my-auto text-2xl space-x-4">
+            <button title="Agregar Vertice" disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                🔵
+                <div class="absolute bottom-1 ml-3 text-base" >
+                    ➕
+                </div>
+            </button>
+            <button title="Agregar Arista" disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                🪡
+                <div class="absolute bottom-1 ml-3 text-base" >
+                    ➕
+                </div>
+            </button>
+        </div>
     </div>
 </div>
