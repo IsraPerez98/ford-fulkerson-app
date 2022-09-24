@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {generarVertices, generarAristas, generarGrafoAlAzar} from "./Funciones/GeneracionGrafo";
+    import {generarVertices, generarAristas, asignarFuncionesAristas, generarGrafoAlAzar} from "./Funciones/GeneracionGrafo";
     import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./Funciones/FlujoMaximo";
     import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./Funciones/GuardadoYCargado";
     
@@ -77,6 +77,7 @@
         
         vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones, recargarAristas, width, height);
         aristas = generarAristas(matrizAdyacencia, vertices);
+        asignarFuncionesAristas(aristas, matrizAdyacencia, recargarAristas);
 
         console.log({matrizAdyacencia});
     }

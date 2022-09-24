@@ -9,6 +9,7 @@ interface Arista {
 
     cambiarPeso: (peso: number) => void; // funcion que cambia el peso de la arista
     cambiarPesoInverso: (peso: number) => void; // funcion que cambia el peso de la arista en sentido inverso
+    destruir: () => void; // funcion que destruye la arista
 }
 
 export default Arista;

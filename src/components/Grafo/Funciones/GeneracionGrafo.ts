@@ -3,7 +3,7 @@ import type TypeVertice  from '../../../interfaces/Vertice';
 import type TypeArista from '../../../interfaces/Arista';
 import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
 
-import {crearNuevaArista, cambiarPeso, cambiarPesoInverso } from './ModificacionAristas';
+import {crearNuevaArista, destruirArista, cambiarPeso, cambiarPesoInverso } from './ModificacionAristas';
 
 import {toggleFuente, toggleSumidero, eliminarVertice, moverVertice} from './ModificacionVertices';
 
@@ -59,8 +59,11 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
                 peso: [matrizAdyacencia[i][j], matrizAdyacencia[j][i]],
                 flujo: [0, 0],
 
-                cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia),
-                cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia),
+                //cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia, recargarAristas),
+                //cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia, recargarAristas),
+                cambiarPeso: (peso: number) => {},
+                cambiarPesoInverso: (peso: number) => {},
+                destruir: () => {},
             }
             //arregloAristas[i].push(nuevaArista);
             arregloAristas[i][j] = nuevaArista;
@@ -69,6 +72,19 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
     }
 
     return arregloAristas;
+}
+
+function asignarFuncionesAristas(arregloAristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia, recargarAristas: Function) {
+    for(let i = 0; i < arregloAristas.length; i++) {
+        for(let j = 0; j < i; j++) {
+            if(arregloAristas[i][j] === null) continue;
+            const arista = arregloAristas[i][j];
+
+            arista.cambiarPeso = (peso: number) => cambiarPeso(arista, peso, matrizAdyacencia, recargarAristas);
+            arista.cambiarPesoInverso = (peso: number) => cambiarPesoInverso(arista, peso, matrizAdyacencia, recargarAristas);
+            arista.destruir = () => destruirArista(arista, arregloAristas, matrizAdyacencia, recargarAristas);
+        }
+    }
 }
 
 function generarPosicionesVertices(cantVertices: number, maxWith: number, maxHeight: number ) : Posicion[] {
@@ -174,12 +190,8 @@ function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {
 
 
 export {
-    moverVertice,
-    crearNuevaArista,
-    eliminarVertice,
-    toggleFuente,
-    toggleSumidero,
     generarVertices,
     generarAristas,
+    asignarFuncionesAristas,
     generarGrafoAlAzar,
 };

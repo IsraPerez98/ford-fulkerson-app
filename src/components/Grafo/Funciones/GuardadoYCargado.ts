@@ -54,7 +54,7 @@ async function cargarGrafo(width: number, height: number, recargarAristas: Funct
                 const posiciones = grafo.posiciones;
 
                 const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones, recargarAristas, width, height);
-                const aristas = generarAristas(matrizAdyacencia, vertices);
+                const aristas = generarAristas(matrizAdyacencia, vertices, recargarAristas);
                 resolve({
                     matrizAdyacencia,
                     fuentes,
