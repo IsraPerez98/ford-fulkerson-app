@@ -1,72 +1,90 @@
 <script lang="ts">
-
-    import CalcularFlujoMaximo from "./Items/CalcularFlujoMaximo.svelte";
-    import AgregarVertice from "./Items/AgregarVertice.svelte";
-    import AgregarArista from "./Items/AgregarArista.svelte";
-    import EliminarVertice from "./Items/EliminarVertice.svelte";
+    export let calculandoFlujoMaximo: boolean;
 
     export let calcularFlujoMaximo: Function;
-
-    export let getPosicionSVG: Function;
-    export let agregarVertice: Function;
+    export let avanzarFlujoMaximo: Function;
+    export let finalizarFlujoMaximo: Function;
+    export let guardarGrafo: Function;
+    export let cargarGrafo: Function;
     
-    export let toggleCreacionArista: Function;
-    export let creandoArista: boolean;
+    export let generarGrafoAlAzar: Function;
 
-    export let toggleEliminacionVertice: Function;
-    export let eliminandoVertice: boolean;
+    function onClickAyuda() {
+        console.log("Ayuda");
+    }
 
+    function onClickIniciarFlujo() {
+        if(calculandoFlujoMaximo) return;
+        calcularFlujoMaximo();
+    }
 
-    let items = [];
+    function onClickAvanzarFlujo() {
+        if(!(calculandoFlujoMaximo)) return;
+        avanzarFlujoMaximo();
+    }
 
-    $: {
-        items = [
-            {
-                nombre: "Calcular Flujo Maximo",
-                componente: CalcularFlujoMaximo,
-                props: {
-                    calcularFlujoMaximo,
-                }
-            },
-            {
-                nombre: "Agregar Vertice",
-                componente: AgregarVertice,
-                props: {
-                    getPosicionSVG: getPosicionSVG,
-                    agregarVertice: agregarVertice,
-                }
-            },
-            {
-                nombre: "Agregar Arista",
-                componente: AgregarArista,
-                props: {
-                    toggleCreacionArista: toggleCreacionArista,
-                    creandoArista: creandoArista,
-                }
-            },
-            {
-                nombre: "Eliminar Vertice",
-                componente: EliminarVertice,
-                props: {
-                    toggleEliminacionVertice: toggleEliminacionVertice,
-                    eliminandoVertice: eliminandoVertice,
-                }
-            },
-        ];
+    function onClickDetenerFlujo() {
+        if(!(calculandoFlujoMaximo)) return;
+        finalizarFlujoMaximo();
+    }
+
+    function onClickGenerarGrafoAleatorio() {
+        if(calculandoFlujoMaximo) return;
+
+        const numeroVertices = prompt("Ingrese el número de vértices del grafo");
+        if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
+            alert("Ingrese un número válido");
+            return;
+        }
+
+        const confirmar = confirm("Esto eliminará el grafo actual, ¿desea continuar?");
+        if(!confirmar) return;
+
+        const numeroVerticesInt = Number(numeroVertices);
+        
+        generarGrafoAlAzar(numeroVerticesInt);
+    }
+
+    function onClickGuardarGrafo() {
+        if(calculandoFlujoMaximo) return;
+
+        guardarGrafo();
+    }
+
+    function onClickCargarGrafo() {
+        if(calculandoFlujoMaximo) return;
+
+        cargarGrafo();
     }
 
 </script>
-<foreignObject width="100%" height="100%">
-    <div class="flex flex-row">
-        {#each items as item}
-            <div class="flex flex-col mx-4">
-                <p class="text-center">{item.nombre}</p>
-                <div class="flex">
-                    <div class="mx-auto">
-                        <svelte:component this={item.componente} {...item.props} />
-                    </div>
-                </div>
-            </div>
-        {/each}
+
+<div class="w-full h-10 bg-gray-900 flex">
+    <div class="flex my-auto ml-2 text-2xl space-x-10 px-2">
+        <button title="Ayuda" on:click={onClickAyuda}>
+            ℹ️
+        </button>
+        <div class="flex my-auto text-2xl space-x-4">
+            <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={calculandoFlujoMaximo} class="disabled:grayscale" >
+                ▶️
+            </button>
+            <button title="Avanzar Algoritmo de Flujo Maximo" on:click={onClickAvanzarFlujo} disabled={!calculandoFlujoMaximo} class="disabled:grayscale">
+                ⏯️
+            </button>
+            <button title="Detener Algoritmo de Flujo Maximo" on:click={onClickDetenerFlujo} disabled={!calculandoFlujoMaximo} class="disabled:grayscale">
+                ⏹️
+            </button>
+        </div>
+        <div class="flex my-auto text-2xl space-x-4">
+            <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                🎲
+            </button>
+            <button title="Guardar Grafo" on:click={onClickGuardarGrafo} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                💾
+            </button>
+            <button title="Cargar Grafo" on:click={onClickCargarGrafo} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                📁
+            </button>
+        </div>
     </div>
-</foreignObject>
+</div>

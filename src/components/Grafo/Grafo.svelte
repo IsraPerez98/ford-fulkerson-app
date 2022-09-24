@@ -1,18 +1,21 @@
 <script lang="ts">
-    import {randomInt} from "./Funciones";
+    import {generarVertices, generarAristas, generarGrafoAlAzar, dibujarCamino as dibujarCaminoGrafo} from "./FuncionesGrafo";
+    import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./FuncionesFlujoMaximo";
+
+    import {agregarTextoConsola} from "./FuncionesConsola";
 
     import Menu from "./Menu/Menu.svelte";
+    import Consola from "./Consola/Consola.svelte";
 
     import Vertice from "./Vertice/Vertice.svelte";
     import Arista from "./Arista/Arista.svelte";
-    import { identity, is_function } from "svelte/internal";
 
+    import type MatrizAdyacencia from "../../interfaces/MatrizAdyacencia";
     import type  TypeVertice  from '../../interfaces/Vertice';
+    import type TypeArista  from '../../interfaces/Arista';
 
     export let width: number ;
     export let height: number ;
-
-    const verticeRadio = 35;
 
     let bindSVG: SVGSVGElement;
 
@@ -24,429 +27,144 @@
         return { x, y };
     }
 
-    let creandoArista = false;
-    let eliminandoVertice = false;
+    let calculandoFlujoMaximo = false;
+    let textoConsola = [];
+
+    let matrizAdyacencia: MatrizAdyacencia = [];
 
     let vertices: TypeVertice[] = [];
+    let fuentes: boolean[] = [];
+    let sumideros: boolean[] = [];
 
-    let aristas: number[][] = []; //las aristas se toman como una matriz de adyacencia nxn con pesos 
-    let red = aristas.map(a => [...a]); //se crea una copia de la matriz de adyacencia para el algoritmo de ford fulkerson
+    let aristas: TypeArista[][] = [];
 
-    let caminos: boolean[][] = []; // matriz "de adyacencia" que representan los caminos desde el origen al sumidero
-
-    function limpiarCaminos() {
-        red = aristas.map(a => [...a]);
-        let nuevosCaminos = new Array(vertices.length)
-        for(let i = 0; i < vertices.length; i++) {
-            nuevosCaminos[i] = new Array(vertices.length).fill(false);
-        }
-
-        caminos = nuevosCaminos;
+    function recargarAristas() {
+        aristas = aristas;
     }
 
-    limpiarCaminos();
-
-    function generarGrafoAzar(cantVertices: number) {
-        let nuevosVertices = [];
-        for (let i = 0; i < cantVertices; i++) {
-            nuevosVertices.push({
-                id: i,
-                nombre: null,
-                fuente: (i == 0) ? true : false,
-                sumidero: (i==cantVertices-1) ? true : false,
-                x: 0,
-                y: 0,
-            });
-        }
-        //generamos aristas aleatorias
-        let nuevasAristas = new Array(nuevosVertices.length);
-        for (let i = 0; i < nuevasAristas.length; i++) {
-            nuevasAristas[i] = new Array(nuevosVertices.length);
-            for (let j = 0; j < nuevasAristas.length; j++) {
-                if(Math.random() > 0.5) {
-                    nuevasAristas[i][j] = Math.floor(Math.random() * 100);
-                } else {
-                    nuevasAristas[i][j] = 0;
-                }
-            }
-        }
-
-        vertices = nuevosVertices;
-        aristas = nuevasAristas;
-        centrarVertices();
-
-        limpiarCaminos();
+    function recargarVertices() {
+        vertices = vertices;
     }
 
-    generarGrafoAzar(6);
-
-    function centrarVertices() {
-        const x_min = verticeRadio;
-        const x_max = width - (verticeRadio * 2);
-        const y_min = verticeRadio;
-        const y_max = height - verticeRadio;
-
-        const cantVertices = vertices.length;
-        const divisiones = Math.sqrt(cantVertices);
-        const divisiones_x = Math.round(divisiones);
-        const divisiones_y = Math.ceil(divisiones);
-
-        //console.log({divisiones_x, divisiones_y});
-
-        const x_div = Math.floor((x_max - x_min) / divisiones_x);
-        const y_div = Math.floor((y_max - y_min) / divisiones_y);
-
-
-        const x_mid_offset = Math.floor(x_div / 2);
-        const y_mid_offset = Math.floor(y_div / 2);
-
-        for (let i = 0; i < vertices.length; i++) {
-            const x = x_min + (x_div * (i % divisiones_x)) + x_mid_offset;
-            const y = y_min + (y_div * Math.floor(i / divisiones_x)) + y_mid_offset;
-
-            vertices[i].x = x;
-            vertices[i].y = y;
-        }
-
+    function dibujarCamino(camino: TypeVertice[], flujo: number) {
+        dibujarCaminoGrafo(aristas, camino, flujo, recargarAristas);
     }
 
-    function AgregarVertice(posX, posY) {
-        posX = Math.max(verticeRadio, Math.min(width - verticeRadio, posX));
-        posY = Math.max(verticeRadio, Math.min(height - verticeRadio, posY));
+    function printConsola(texto: string) {
+        agregarTextoConsola(texto, textoConsola);
+        textoConsola = textoConsola;
+    }
 
-        let vertice = {
-            id: vertices.length,
-            nombre: null,
-            fuente: false,
-            sumidero: false,
-            x: posX,
-            y: posY,
+    async function calcularFlujoMaximo() {
+        calculandoFlujoMaximo = true;
+        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia, dibujarCamino, printConsola);
+        terminarFlujoMaximo();
+    }
+
+    function terminarFlujoMaximo() {
+        finalizarFlujoMaximo(aristas, recargarAristas);
+        calculandoFlujoMaximo = false;
+    }
+
+    function generarNuevoGrafoAlAzar(numeroVertices: number) {
+        ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(numeroVertices));
+        
+        vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+        aristas = generarAristas(matrizAdyacencia, vertices);
+
+        console.log({matrizAdyacencia});
+    }
+
+    generarNuevoGrafoAlAzar(5);
+
+    function guardarGrafo() {
+        const grafo = {
+            matrizAdyacencia,
+            fuentes,
+            sumideros,
         };
 
-        vertices.push(vertice);
-
-        //agregamos una dimension a la matriz de adyacencia
-        for (let i = 0; i < aristas.length; i++) {
-            aristas[i].push(0);
-        }
-        aristas.push(Array(aristas.length + 1).fill(0));
-
-        //console.log({aristas});
-        vertices = vertices;
-
-        limpiarCaminos();
-    }
-
-    let verticesMovidos: Set<number> = new Set(); //guarda los vertices que se han movido para poder actualizar las aristas
-
-    function moverVertice(vertice: TypeVertice, posX: number, posY: number) {
-        posX = Math.max(verticeRadio, Math.min(width - (verticeRadio * 2), posX));
-        posY = Math.max(verticeRadio, Math.min(height - verticeRadio - 120, posY)); //TODO: Mejorar margen y ajustar tamaño dinamicamente del 120
-
-        vertice.x = posX;
-        vertice.y = posY;
-
-        verticesMovidos = new Set([vertice.id]);
-        vertices = vertices;
-    }
-
-    let verticesNuevaArista: Set<number> = new Set();
-
-    function toggleCreacionArista() {
-        if(creandoArista) {
-            verticesNuevaArista = new Set();
-            creandoArista = false;
-        } else {
-            creandoArista = true;
-        }
-    }
-
-    function seleccionarVerticeDeNuevaArista(id) {
-        verticesNuevaArista.add(id);
-        if(verticesNuevaArista.size === 2) {
-            crearNuevaArista(verticesNuevaArista);
-            verticesNuevaArista = new Set();
-            creandoArista = false;
-        }
-    }
-
-    function crearNuevaArista(verticesNuevaArista: Set<number>) {
-        const [vertice1, vertice2] = verticesNuevaArista;
-        if(aristas[vertice2][vertice1] !== 0) {
-            alert("Ya existe una arista entre estos vertices");
-            return;
-        }
-        aristas[vertice2][vertice1] = 1; //TODO: DEJAR QUE EL USUARIO SELECCIONE EL PESO
-
-        limpiarCaminos();
-    }
-
-    function toggleEliminacionVertice() {
-        if(eliminandoVertice) {
-            eliminandoVertice = false;
-        } else {
-            eliminandoVertice = true;
-        }
-    }
-
-    function eliminarVertice(verticeID: number) {
-        //restamos 1 al id de los vertices que son mayores que el eliminado
-        for (let i = 0; i < vertices.length; i++) {
-            if(vertices[i].id > verticeID) {
-                vertices[i].id--;
-            }
-        }
-
-        //eliminamos el vertice de la matriz de adyacencia
-        for (let i = 0; i < aristas.length; i++) {
-            aristas[i].splice(verticeID, 1);
-        }
-        aristas.splice(verticeID, 1);
-
-        //eliminamos el vertice de la lista de vertices
-        vertices.splice(verticeID, 1);
+        //Descargar el archivo
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(grafo));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "grafo.json");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
         
-
-        limpiarCaminos();
-
-        eliminandoVertice = false;
-
     }
 
+    function cargarGrafo() {
+        const input = document.createElement('input');
+        input.type = 'file';
 
-    function cambiarPeso(desdeID, hastaID, peso) {
-        aristas[desdeID][hastaID] = peso;
+        input.onchange = e => { 
+            // referencia
+            const file = (e.target as HTMLInputElement).files[0]; 
 
-        limpiarCaminos();
-    }
+            // configurando el reader
+            const reader = new FileReader();
+            reader.readAsText(file,'UTF-8');
 
-    function toggleFuente(verticeID: number) {
-        if(vertices[verticeID].sumidero) {
-            alert("No se puede hacer un vertice fuente y sumidero a la vez");
-            return;
-        }
-        vertices[verticeID].fuente = !vertices[verticeID].fuente;
-        limpiarCaminos();
-    }
+            // cuando termina de leer
+            reader.onload = readerEvent => {
+                const contenido = (readerEvent.target as any).result;
+                const grafo = JSON.parse(contenido);
 
-    function toggleSumidero(verticeID: number) {
-        if(vertices[verticeID].fuente) {
-            alert("No se puede hacer un vertice fuente y sumidero a la vez");
-            return;
-        }
-        vertices[verticeID].sumidero = !vertices[verticeID].sumidero;
-        limpiarCaminos();
-    }
+                matrizAdyacencia = grafo.matrizAdyacencia;
+                fuentes = grafo.fuentes;
+                sumideros = grafo.sumideros;
 
-    function DFSRecursivo(red, verticeID: number, destino: number, visitados: Array<boolean>, camino: Array<TypeVertice>) {
-        visitados[verticeID] = true;
-        if(verticeID === destino) {
-            return [...camino,vertices[verticeID]];
-        }
-        for (let i = 0; i < red[verticeID].length; i++) {
-            if(red[i][verticeID] !== 0 && !visitados[i]) {
-                const c = DFSRecursivo(red, i, destino, visitados, [...camino,vertices[verticeID]]);
-                if(c) {
-                    return c;
-                }
+                vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+                aristas = generarAristas(matrizAdyacencia, vertices);
             }
         }
-        return null;
+
+        input.click();
     }
 
-    function dibujarCamino(camino: TypeVertice[]) {
-        for (let i = 0; i < camino.length - 1; i++) {
-            caminos[camino[i].id][camino[i+1].id] = true;
-        }        
-    }
-
-    function buscarCamino(red: Array<Array<number>>, fuente: TypeVertice, destino: TypeVertice) : Array<TypeVertice> {
-        //DFS
-        let visitados = new Array(vertices.length).fill(false);
-
-        let camino = [];
-
-        camino = DFSRecursivo(red, fuente.id, destino.id, visitados, camino);
-
-        return camino;
-    }
-
-    function FlujoMaximo(fuente: TypeVertice, destino: TypeVertice): number {
-        let flujomaximo = 0;
-        red = aristas.map(a => [...a]);
-        //console.log({red});
-        while(true) {
-            const camino = buscarCamino(red, fuente, destino);
-            if(!camino) {
-                console.log({flujomaximo});
-                alert("Flujo maximo: " + flujomaximo);
-                return flujomaximo;
-            }
-            dibujarCamino(camino);
-            //console.log({camino});
-            //calculamos el flujo minimo del camino encontrado
-            let flujominimo = Infinity;
-            for (let i = 0; i < camino.length - 1; i++) {
-                const flujocamino = red[camino[i+1].id][camino[i].id];
-                if(flujocamino < flujominimo) {
-                    flujominimo = flujocamino;
-                }
-            }
-            flujomaximo += flujominimo;
-            //console.log(flujominimo);
-            //actualizamos el flujo de la red
-            for (let i = 0; i < camino.length - 1; i++) {
-                red[camino[i+1].id][camino[i].id] -= flujominimo;
-            }
-            //console.log(red);
-        }
-    }
-
-    function calcularFlujoMaximo() {
-        const fuente = vertices.filter(v => v.fuente);
-        const destino = vertices.filter(v => v.sumidero);
-
-        if(fuente.length === 0 || destino.length === 0) {
-            alert("Debe seleccionar un vertice fuente y un vertice sumidero");
-            return;
-        }
-
-        if(fuente.length > 1 || destino.length > 1) {
-            if (!confirm("Existen varios vertices fuente o sumidero, se agruparán para calcular el flujo maximo")) {
-                return;
-            }
-
-            let vFuente = fuente[0];
-            let vDestino = destino[0];
-
-            if(fuente.length > 1) {
-                //creamos una fuente
-                const verticeFuente = {
-                    id: vertices.length,
-                    nombre: "Fuente",
-                    x: randomInt(verticeRadio, width - (verticeRadio * 2)),
-                    y: randomInt(verticeRadio, height - verticeRadio),
-                    fuente: true,
-                    sumidero: false,
-                }
-
-                vertices.push(verticeFuente);
-
-                //agregamos una nueva columna y fila a la matriz de adyacencia
-                for (let i = 0; i < aristas.length; i++) {
-                    aristas[i].push(0);
-                }
-                aristas.push(new Array(vertices.length).fill(0));
-
-                //conectamos todas las fuentes con el nuevo vertice
-                for (let i = 0; i < fuente.length; i++) {
-                    aristas[fuente[i].id][verticeFuente.id] = Infinity;
-                }
-
-                //cambiamos las fuentes a no fuente
-                for (let i = 0; i < fuente.length; i++) {
-                    fuente[i].fuente = false;
-                }
-
-                //lo fijamos como fuente para el algoritmo
-                vFuente = verticeFuente;
-            }
-            
-            if(destino.length > 1) {
-
-                //creamos un sumidero
-
-                const verticeSumidero = {
-                    id: vertices.length,
-                    nombre: "Sumidero",
-                    x: randomInt(verticeRadio, width - (verticeRadio * 2)),
-                    y: randomInt(verticeRadio, height - verticeRadio),
-                    fuente: false,
-                    sumidero: true,
-                }
-
-                vertices.push(verticeSumidero);
-
-                //agregamos una nueva columna y fila a la matriz de adyacencia
-                for (let i = 0; i < aristas.length; i++) {
-                    aristas[i].push(0);
-                }
-                aristas.push(new Array(vertices.length).fill(0));
-
-                //conectamos todos las sumideros con el nuevo vertice
-                for (let i = 0; i < destino.length; i++) {
-                    aristas[verticeSumidero.id][destino[i].id] = Infinity;
-                }
-
-                //cambiamos las sumideros a no sumidero
-                for (let i = 0; i < destino.length; i++) {
-                    destino[i].sumidero = false;
-                }
-
-                //lo fijamos como destino para el algoritmo
-                vDestino = verticeSumidero;
-            }
-
-            red = aristas.map(a => [...a]);
-
-            vertices = vertices;
-            limpiarCaminos();
-
-            FlujoMaximo(vFuente, vDestino);
-            
-            return;
-        }
-
-
-        FlujoMaximo(fuente[0], destino[0]);
-    }
 
 </script>
 
-<svg bind:this={bindSVG} width={width} height={height} class="select-none">
-    
-    <Menu 
-        getPosicionSVG={getPosicionSVG}
-        calcularFlujoMaximo={calcularFlujoMaximo}
-        agregarVertice={AgregarVertice}
-        toggleCreacionArista={toggleCreacionArista}
-        creandoArista={creandoArista}
-        toggleEliminacionVertice={toggleEliminacionVertice}
-        eliminandoVertice={eliminandoVertice}
-    />
-    
-    <svg y="120" height={height - 120}> <!-- TODO: Mejorar margen y ajustar tamaño dinamicamente-->
+<div>
+    <svg bind:this={bindSVG} width={width} height={height} class="select-none">
 
-        {#each aristas as grupo, i}
-            {#each grupo.slice(0,i) as arista, j}
-                {#if (aristas[i][j] !== 0 || aristas[j][i] !== 0)}
-                    <Arista
-                        arista={{
-                            origen: vertices[i],
-                            destino: vertices[j],
-                            esCamino: [ caminos[j][i], caminos[i][j] ],
-                            peso: [aristas[i][j] , aristas[j][i]],
-                            flujo: [aristas[i][j] - red[i][j], aristas[j][i] - red[j][i]],
-                        }}
-                        verticesMovidos={verticesMovidos}
-                        cambiarPeso={cambiarPeso}
-                    />
-                {/if}
-            {/each}
-        {/each}
+        <Consola
+            texto={textoConsola}
+        />
 
-        
-        {#each vertices as vertice}
-            <Vertice
-                vertice={vertice} 
-                moverVertice={moverVertice}
-                creandoArista={creandoArista}
-                seleccionarVerticeDeNuevaArista={seleccionarVerticeDeNuevaArista}
-                eliminandoVertice={eliminandoVertice}
-                eliminarVertice={eliminarVertice}
-                toggleFuente={toggleFuente}
-                toggleSumidero={toggleSumidero}
+        <foreignObject width="100%" height="40px" >
+            <Menu 
+                calculandoFlujoMaximo={calculandoFlujoMaximo}
+
+                calcularFlujoMaximo={calcularFlujoMaximo}
+                avanzarFlujoMaximo={avanzarFlujoMaximo}
+                finalizarFlujoMaximo={terminarFlujoMaximo}
+                
+                generarGrafoAlAzar={generarNuevoGrafoAlAzar}
+                guardarGrafo={guardarGrafo}
+                cargarGrafo={cargarGrafo}
             />
-        {/each}
+        </foreignObject>
+        
+        <svg height={height}>
+
+            {#each aristas as aristasDeVertice}
+                {#each aristasDeVertice as arista}
+                    {#if arista}
+                        <Arista
+                            arista={arista}
+                        />
+                    {/if}
+                {/each}
+            {/each}
+
+            {#each vertices as vertice}
+                <Vertice
+                    bind:vertice={vertice} 
+                />
+            {/each}
+        </svg>
     </svg>
-</svg>
+</div>

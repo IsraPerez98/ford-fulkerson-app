@@ -1,10 +1,7 @@
 <script lang="ts">
-    import type Vertice from "../../../interfaces/Vertice";
     
     export let posicion: { x: number; y: number };
     
-    export let verticeDesde: Vertice;
-    export let verticeHasta: Vertice;
     export let peso: number | string;
 
     if(peso === Infinity) {
@@ -25,29 +22,21 @@
         const pesoNuevo = parseInt(this.value);
         
         //si el peso nuevo no es un numero no se cambia
-        if(isNaN(pesoNuevo)) {
+        if(isNaN(pesoNuevo) || pesoNuevo < 0) {
             console.log("Nuevo peso no es un numero valido");
+            alert("Nuevo peso no es un numero valido");
             this.value = pesoActual;
             return;
         }
         
-        //si el peso es negativo no se cambia
-        if(pesoNuevo < 0) {
-            console.log("Nuevo peso no es un numero valido");
-            this.value = pesoActual;
-            return;
-        }
         
-        const desdeID = verticeDesde.id;
-        const hastaID = verticeHasta.id;
-        
-        cambiarPeso(desdeID, hastaID, pesoNuevo);
+        cambiarPeso(pesoNuevo);
     }
     
     
 </script>
 
-{#if peso == "∞" || !isNaN(Number(peso))}
+{#if (peso == "∞" || !isNaN(Number(peso))) && Number(peso) !== 0}
     <foreignObject x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
         <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
             
@@ -71,7 +60,8 @@
     }
     
     /* Firefox */
-    input[type=number] {
+    input {
         -moz-appearance: textfield;
     }
+
 </style>

@@ -4,17 +4,6 @@
 
     export let vertice: Vertice;
 
-    export let moverVertice: Function;
-    
-    export let creandoArista: boolean;
-    export let seleccionarVerticeDeNuevaArista: Function;
-
-    export let eliminandoVertice: boolean;
-    export let eliminarVertice: Function;
-
-    export let toggleSumidero: Function;
-    export let toggleFuente: Function;
-
     $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
 
     const radio = 35;
@@ -23,6 +12,8 @@
     let moviendo = false;
 
     let seleccionadoNuevaArista = false;
+    let eliminandoVertice = false;
+    let creandoArista = false;
 
     let mostrarMenu = false;
 
@@ -37,18 +28,6 @@
         if(vertice.sumidero) {
             colorNuevo = 'bg-red-800';
         }
-        
-        if(!(creandoArista)) {
-            seleccionadoNuevaArista = false;
-        }
-
-        if(eliminandoVertice) {
-            colorNuevo = 'bg-red-700';
-        }
-
-        if(creandoArista) {
-            colorNuevo = 'bg-green-900';
-        }
 
         if(seleccionadoNuevaArista) {
             colorNuevo = 'bg-yellow-700';
@@ -61,10 +40,10 @@
 
     function onMouseDown() {
         if(eliminandoVertice) {
-            eliminarVertice(vertice.id);
+            vertice.eliminar();
         }
         else if(creandoArista) {
-            seleccionarVerticeDeNuevaArista(vertice.id);
+            //seleccionarVerticeDeNuevaArista(vertice.id);
         }
         else {
             moviendo = true;
@@ -80,7 +59,8 @@
             const posX = vertice.x + e.movementX;
             const posY = vertice.y + e.movementY;
             
-            moverVertice(vertice, posX, posY);
+            vertice.mover(posX, posY);
+            vertice = vertice;
         }
     }
 
@@ -90,6 +70,16 @@
 
     function onMouseLeave(){
         mostrarMenu = false;
+    }
+
+    function toggleFuente() {
+        vertice.toggleFuente();
+        vertice = vertice;
+    }
+
+    function toggleSumidero() {
+        vertice.toggleSumidero();
+        vertice = vertice;
     }
 
 </script>
@@ -102,10 +92,10 @@
             </p>
         </div>
         <div style="width: {radio}px ;height: {radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
-            <button on:click={() => { toggleFuente(vertice.id) }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
+            <button on:click={() => { toggleFuente(); }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
                 🔼
             </button>
-            <button on:click={() => { toggleSumidero(vertice.id) }} style="{vertice.sumidero ? "" : "filter:grayscale(1);"}" title="Convertir en sumidero" >
+            <button on:click={() => { toggleSumidero(); }} style="{vertice.sumidero ? "" : "filter:grayscale(1);"}" title="Convertir en sumidero" >
                 🔽
             </button>
         </div>
