@@ -1,10 +1,12 @@
 <script lang="ts">
-    import {generarVertices, generarAristas, generarGrafoAlAzar, dibujarCamino as dibujarCaminoGrafo} from "./FuncionesGrafo";
-    import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./FuncionesFlujoMaximo";
-    import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./FuncionesGuardado";
-    import { crearNuevoVertice as crearNuevoVerticeAux} from "./FuncionesModificacion";
+    import {generarVertices, generarAristas, generarGrafoAlAzar} from "./Funciones/GeneracionGrafo";
+    import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./Funciones/FlujoMaximo";
+    import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./Funciones/GuardadoYCargado";
+    
+    import { crearNuevoVertice as crearNuevoVerticeAux} from "./Funciones/ModificacionVertices";
+    import { dibujarCamino as dibujarCaminoAux} from "./Funciones/ModificacionAristas";
 
-    import {agregarTextoConsola} from "./FuncionesConsola";
+    import {agregarTextoConsola} from "./Funciones/Consola";
 
     import Menu from "./Menu/Menu.svelte";
     import Consola from "./Consola/Consola.svelte";
@@ -50,7 +52,7 @@
     }
 
     function dibujarCamino(camino: TypeVertice[], flujo: number) {
-        dibujarCaminoGrafo(aristas, camino, flujo, recargarAristas);
+        dibujarCaminoAux(aristas, camino, flujo, recargarAristas);
     }
 
     function printConsola(texto: string) {

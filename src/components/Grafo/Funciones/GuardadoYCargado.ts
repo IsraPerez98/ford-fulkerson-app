@@ -1,8 +1,8 @@
-import type MatrizAdyacencia from "../../interfaces/MatrizAdyacencia";
-import type TypeVertice  from '../../interfaces/Vertice';
-import type TypeArista  from '../../interfaces/Arista';
+import type MatrizAdyacencia from "../../../interfaces/MatrizAdyacencia";
+import type TypeVertice  from '../../../interfaces/Vertice';
+import type TypeArista  from '../../../interfaces/Arista';
 
-import {generarAristas, generarVertices} from './FuncionesGrafo';
+import {generarAristas, generarVertices} from './GeneracionGrafo';
 
 function guardarGrafo(matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuentes: boolean[], sumideros: boolean[]) {
     //guardamos las posiciones de los vertices

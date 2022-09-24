@@ -1,7 +1,11 @@
-import type Posicion from '../../interfaces/Posicion';
-import type TypeVertice  from '../../interfaces/Vertice';
-import type TypeArista from '../../interfaces/Arista';
-import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
+import type Posicion from '../../../interfaces/Posicion';
+import type TypeVertice  from '../../../interfaces/Vertice';
+import type TypeArista from '../../../interfaces/Arista';
+import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
+
+import {crearNuevaArista, cambiarPeso, cambiarPesoInverso } from './ModificacionAristas';
+
+import {toggleFuente, toggleSumidero, eliminarVertice, moverVertice} from './ModificacionVertices';
 
 const verticeRadio = 35;
 
@@ -65,67 +69,6 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
     }
 
     return arregloAristas;
-}
-function toggleFuente(vertice: TypeVertice, fuentes: boolean[]) {
-    if(vertice.sumidero) {
-        alert("No se puede hacer un vertice fuente y sumidero a la vez");
-        return;
-    }
-    vertice.fuente = !vertice.fuente;
-    fuentes[vertice.id] = vertice.fuente;
-}
-
-function toggleSumidero(vertice: TypeVertice, sumideros: boolean[]) {
-    if(vertice.fuente) {
-        alert("No se puede hacer un vertice fuente y sumidero a la vez");
-        return;
-    }
-    vertice.sumidero = !vertice.sumidero;
-    sumideros[vertice.id] = vertice.sumidero;
-}
-
-function eliminarVertice(vertice: TypeVertice, arregloVertices: TypeVertice[], matrizAdyacencia: MatrizAdyacencia) {
-    const { id } = vertice;
-    //restamos 1 al id de los vertices que sean mayores al eliminado
-    arregloVertices.forEach((vertice) => {
-        if (vertice.id > id) {
-            vertice.id -= 1;
-        }
-    });
-
-    //eliminamos el vertice del arreglo de vertices
-    arregloVertices.splice(id - 1, 1);
-
-    //eliminamos el vertice de la matriz de adyacencia
-    matrizAdyacencia.splice(id - 1, 1);
-    matrizAdyacencia.forEach((arreglo) => {
-        arreglo.splice(id - 1, 1);
-    });
-}
-
-
-
-function moverVertice(vertice: TypeVertice, recargarAristas: Function, posX: number, posY: number, maxWith: number, maxHeight: number) {
-    posX = Math.max(verticeRadio, Math.min(maxWith - (verticeRadio * 2), posX));
-    posY = Math.max(verticeRadio, Math.min(maxHeight - verticeRadio , posY));
-    
-    vertice.x = posX;
-    vertice.y = posY;
-
-    recargarAristas();
-}
-
-function crearNuevaArista(verticeX: TypeVertice, verticeY: TypeVertice, peso: number, matrizAdyacencia: MatrizAdyacencia) {
-    if(matrizAdyacencia[verticeX.id][verticeY.id] !== 0) {
-        alert("Ya existe una arista entre estos vertices");
-        return;
-    }
-    
-    matrizAdyacencia[verticeX.id][verticeY.id] = peso;
-}
-
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function generarPosicionesVertices(cantVertices: number, maxWith: number, maxHeight: number ) : Posicion[] {
@@ -229,45 +172,6 @@ function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {
     return {matrizAdyacencia, fuentes, sumideros, posiciones};
 }
 
-function cambiarPeso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia,) {
-    arista.peso = [peso, arista.peso[1]];
-    matrizAdyacencia[arista.origen.id][arista.destino.id] = peso;
-}
-
-function cambiarPesoInverso(arista: TypeArista, peso: number, matrizAdyacencia: MatrizAdyacencia) {
-    arista.peso = [arista.peso[0], peso];
-    matrizAdyacencia[arista.destino.id][arista.origen.id] = peso;
-}
-
-function dibujarCamino(arregloAristas: TypeArista[][], camino: TypeVertice[], flujo: number, recargarAristas: Function) {
-    for(let i = 0; i < camino.length - 1; i++) {
-        const vertice = camino[i];
-        const verticeSiguiente = camino[i + 1];
-
-        //console.log({vertice, verticeSiguiente});
-        //console.log({arregloAristas});
-
-        const arista = arregloAristas[vertice.id][verticeSiguiente.id];
-
-        if(arista) {
-            console.log({arista});
-            arista.esCamino = [true, arista.esCamino[1]];
-            arista.flujo = [flujo, arista.flujo[1]];
-        }
-        
-
-        const aristaInversa = arregloAristas[verticeSiguiente.id][vertice.id];
-
-        if(aristaInversa) {
-            console.log({aristaInversa});
-            aristaInversa.esCamino = [aristaInversa.esCamino[0], true];
-            aristaInversa.flujo = [aristaInversa.flujo[0], flujo];
-        }
-    }
-
-    recargarAristas();
-}
-
 
 export {
     moverVertice,
@@ -278,5 +182,4 @@ export {
     generarVertices,
     generarAristas,
     generarGrafoAlAzar,
-    dibujarCamino,
 };

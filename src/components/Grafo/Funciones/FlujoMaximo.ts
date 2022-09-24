@@ -1,6 +1,6 @@
-import type TypeVertice  from '../../interfaces/Vertice';
-import type TypeArista from '../../interfaces/Arista';
-import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
+import type TypeVertice  from '../../../interfaces/Vertice';
+import type TypeArista from '../../../interfaces/Arista';
+import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
 
 async function iniciarFlujoMaximo(vertices: TypeVertice[], aristas: TypeArista[][], matrizAdyacencia: MatrizAdyacencia, dibujarCamino: Function, printConsola: Function) {
     const fuentes = vertices.filter(vertice => vertice.fuente);
