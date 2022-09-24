@@ -60,11 +60,11 @@
 </script>
 
 <div class="w-full h-10 bg-gray-900 flex">
-    <div class="flex my-auto ml-2 text-2xl">
+    <div class="flex my-auto ml-2 text-2xl space-x-10 px-2">
         <button title="Ayuda" on:click={onClickAyuda}>
             ℹ️
         </button>
-        <div class="flex my-auto mx-8 text-2xl space-x-4">
+        <div class="flex my-auto text-2xl space-x-4">
             <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={calculandoFlujoMaximo} class="disabled:grayscale" >
                 ▶️
             </button>
@@ -75,7 +75,7 @@
                 ⏹️
             </button>
         </div>
-        <div class="flex my-auto mx-8 text-2xl space-x-4">
+        <div class="flex my-auto text-2xl space-x-4">
             <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={calculandoFlujoMaximo} class="disabled:grayscale">
                 🎲
             </button>
