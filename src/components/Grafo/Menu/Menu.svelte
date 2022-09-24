@@ -3,7 +3,9 @@
 
     export let calcularFlujoMaximo: Function;
     export let avanzarFlujoMaximo: Function;
-    export let terminarFlujoMaximo: Function;
+    export let finalizarFlujoMaximo: Function;
+    
+    export let generarGrafoAlAzar: Function;
 
     function onClickAyuda() {
         console.log("Ayuda");
@@ -21,7 +23,24 @@
 
     function onClickDetenerFlujo() {
         if(!(calculandoFlujoMaximo)) return;
-        terminarFlujoMaximo();
+        finalizarFlujoMaximo();
+    }
+
+    function onClickGenerarGrafoAleatorio() {
+        if(calculandoFlujoMaximo) return;
+
+        const numeroVertices = prompt("Ingrese el número de vértices del grafo");
+        if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
+            alert("Ingrese un número válido");
+            return;
+        }
+
+        const confirmar = confirm("Esto eliminará el grafo actual, ¿desea continuar?");
+        if(!confirmar) return;
+
+        const numeroVerticesInt = Number(numeroVertices);
+        
+        generarGrafoAlAzar(numeroVerticesInt);
     }
 
 
@@ -43,6 +62,10 @@
                 ⏹️
             </button>
         </div>
-
+        <div class="flex my-auto mx-8 text-2xl space-x-4">
+            <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+                🎲
+            </button>
+        </div>
     </div>
 </div>

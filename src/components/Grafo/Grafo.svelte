@@ -38,10 +38,6 @@
 
     let aristas: TypeArista[][] = [];
 
-    ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(4));
-
-    console.log(matrizAdyacencia);
-
     function recargarAristas() {
         aristas = aristas;
     }
@@ -49,10 +45,6 @@
     function recargarVertices() {
         vertices = vertices;
     }
-
-    vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
-
-    aristas = generarAristas(matrizAdyacencia, vertices);
 
     function dibujarCamino(camino: TypeVertice[], flujo: number) {
         dibujarCaminoGrafo(aristas, camino, flujo, recargarAristas);
@@ -74,6 +66,17 @@
         calculandoFlujoMaximo = false;
     }
 
+    function generarNuevoGrafoAlAzar(numeroVertices: number) {
+        ({ matrizAdyacencia, fuentes, sumideros } = generarGrafoAlAzar(numeroVertices));
+        
+        vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+        aristas = generarAristas(matrizAdyacencia, vertices);
+
+        //console.log({matrizAdyacencia});
+    }
+
+    generarNuevoGrafoAlAzar(5);
+
 
 </script>
 
@@ -90,7 +93,8 @@
 
                 calcularFlujoMaximo={calcularFlujoMaximo}
                 avanzarFlujoMaximo={avanzarFlujoMaximo}
-                terminarFlujoMaximo={terminarFlujoMaximo}
+                finalizarFlujoMaximo={terminarFlujoMaximo}
+                generarGrafoAlAzar={generarNuevoGrafoAlAzar}
             />
         </foreignObject>
         
