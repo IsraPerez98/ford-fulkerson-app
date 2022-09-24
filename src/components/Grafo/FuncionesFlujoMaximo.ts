@@ -33,9 +33,10 @@ function avanzarFlujoMaximo(matrizAdyacenci: MatrizAdyacencia, vertices: TypeVer
 }
 
 async function esperarProximaIteracion() {
+    console.log("Esperando proxima iteracion");
     while(!avanzarIteracion) {
         //console.log("Esperando");
-        await new Promise(r => setTimeout(r, 300));
+        await new Promise(r => setTimeout(r, 10));
     }
     //console.log("Avanzando");
     avanzarIteracion = false;

@@ -43,21 +43,23 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
     for (let i = 0; i < matrizAdyacencia.length; i++) {
         //arregloAristas.push([]);
         for (let j = 0; j < i; j++) {
-            if( i !== j && (matrizAdyacencia[i][j] !== 0 || matrizAdyacencia[j][i] !== 0)) {
-                const nuevaArista = {
-                    origen: arregloVertices[i],
-                    destino: arregloVertices[j],
-                    esCamino: [false, false],
-                    peso: [matrizAdyacencia[i][j], matrizAdyacencia[j][i]],
-                    flujo: [0, 0],
 
-                    cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia),
-                    cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia),
-                }
-                //arregloAristas[i].push(nuevaArista);
-                arregloAristas[i][j] = nuevaArista;
-                //arregloAristas[j][i] = nuevaArista;
+            if(j === i) continue;
+            if(matrizAdyacencia[i][j] === 0 && matrizAdyacencia[j][i] === 0) continue;
+
+            const nuevaArista = {
+                origen: arregloVertices[i],
+                destino: arregloVertices[j],
+                esCamino: [false, false],
+                peso: [matrizAdyacencia[i][j], matrizAdyacencia[j][i]],
+                flujo: [0, 0],
+
+                cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia),
+                cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia),
             }
+            //arregloAristas[i].push(nuevaArista);
+            arregloAristas[i][j] = nuevaArista;
+            //arregloAristas[j][i] = nuevaArista;
         }
     }
 

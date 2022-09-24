@@ -143,7 +143,6 @@
         }
 
         //si algun peso cambia de valor redibujamos la arista
-        /*
         if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
             dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
             parametros = calcularParametros();
@@ -153,7 +152,6 @@
             
             return;
         }
-        */
 
         //si se cambia la posicion del origen o del destino recargamos la posicion de la linea
         if(prevArista.origen.x !== arista.origen.x || prevArista.origen.y !== arista.origen.y || prevArista.destino.x !== arista.destino.x || prevArista.destino.y !== arista.destino.y) {
@@ -168,6 +166,7 @@
 
         //si cambia el estado de camino de alguno de los vertices recargamos los colores
         if(prevArista.esCamino[0] !== arista.esCamino[0] || prevArista.esCamino[1] !== arista.esCamino[1]) {
+            dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
             coloresStroke = calcularColoresStroke();
             coloresFill = calcularColoresFill();
             coloresBG = calcularColoresBG();

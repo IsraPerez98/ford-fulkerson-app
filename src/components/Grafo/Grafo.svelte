@@ -72,7 +72,7 @@
         vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
         aristas = generarAristas(matrizAdyacencia, vertices);
 
-        //console.log({matrizAdyacencia});
+        console.log({matrizAdyacencia});
     }
 
     generarNuevoGrafoAlAzar(5);
