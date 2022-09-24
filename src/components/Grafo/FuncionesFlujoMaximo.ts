@@ -129,7 +129,23 @@ function DFSRecursivo(redResidual: MatrizAdyacencia, vertices: TypeVertice[], ve
     return null;
 }
 
+function finalizarFlujoMaximo(arregloAristas: TypeArista[][], recargarAristas: Function) {
+    //eliminamos los caminos
+    for(let i = 0; i < arregloAristas.length; i++) {
+        for(let j = 0; j < arregloAristas[i].length; j++) {
+            const arista = arregloAristas[i][j];
+            if(arista) {
+                arista.esCamino = [false, false];
+                arista.flujo = [0, 0];
+            }
+        }
+    }
+
+    recargarAristas();
+}
+
 export {
     iniciarFlujoMaximo,
     avanzarFlujoMaximo,
+    finalizarFlujoMaximo,
 }

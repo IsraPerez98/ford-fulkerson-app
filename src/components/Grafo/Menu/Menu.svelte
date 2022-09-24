@@ -1,86 +1,48 @@
 <script lang="ts">
-
-    import CalcularFlujoMaximo from "./Items/CalcularFlujoMaximo.svelte";
-    import AvanzarFlujoMaximo from "./Items/AvanzarFlujoMaximo.svelte";
-    import AgregarVertice from "./Items/AgregarVertice.svelte";
-    import AgregarArista from "./Items/AgregarArista.svelte";
-    import EliminarVertice from "./Items/EliminarVertice.svelte";
+    export let calculandoFlujoMaximo: boolean;
 
     export let calcularFlujoMaximo: Function;
-
     export let avanzarFlujoMaximo: Function;
+    export let terminarFlujoMaximo: Function;
 
-    /*
-    export let getPosicionSVG: Function;
-    export let agregarVertice: Function;
-    
-    export let toggleCreacionArista: Function;
-    export let creandoArista: boolean;
-
-    export let toggleEliminacionVertice: Function;
-    export let eliminandoVertice: boolean;
-    */
-
-
-    let items = [];
-
-    $: {
-        items = [
-            {
-                nombre: "Calcular Flujo Maximo",
-                componente: CalcularFlujoMaximo,
-                props: {
-                    calcularFlujoMaximo: calcularFlujoMaximo,
-                }
-            },
-            {
-                nombre: "Siguiente",
-                componente: AvanzarFlujoMaximo,
-                props: {
-                    avanzarFlujoMaximo: avanzarFlujoMaximo,
-                }
-            }
-            /*
-            {
-                nombre: "Agregar Vertice",
-                componente: AgregarVertice,
-                props: {
-                    getPosicionSVG: getPosicionSVG,
-                    agregarVertice: agregarVertice,
-                }
-            },
-            {
-                nombre: "Agregar Arista",
-                componente: AgregarArista,
-                props: {
-                    toggleCreacionArista: toggleCreacionArista,
-                    creandoArista: creandoArista,
-                }
-            },
-            {
-                nombre: "Eliminar Vertice",
-                componente: EliminarVertice,
-                props: {
-                    toggleEliminacionVertice: toggleEliminacionVertice,
-                    eliminandoVertice: eliminandoVertice,
-                }
-            },
-            */
-        ];
+    function onClickAyuda() {
+        console.log("Ayuda");
     }
 
+    function onClickIniciarFlujo() {
+        if(calculandoFlujoMaximo) return;
+        calcularFlujoMaximo();
+    }
+
+    function onClickAvanzarFlujo() {
+        if(!(calculandoFlujoMaximo)) return;
+        avanzarFlujoMaximo();
+    }
+
+    function onClickDetenerFlujo() {
+        if(!(calculandoFlujoMaximo)) return;
+        terminarFlujoMaximo();
+    }
+
+
 </script>
-<foreignObject width="100%" height="100%">
-    <div class="flex flex-row">
-        {#each items as item}
-            <div class="flex flex-col mx-4">
-                <p class="text-center">{item.nombre}</p>
-                <div class="flex">
-                    <div class="mx-auto">
-                        <svelte:component this={item.componente} {...item.props} />
-                    </div>
-                </div>
-            </div>
-        {/each}
+
+<div class="w-full h-10 bg-gray-900 flex">
+    <div class="flex my-auto ml-2 text-2xl">
+        <button title="Ayuda" on:click={onClickAyuda}>
+            ℹ️
+        </button>
+        <div class="flex my-auto mx-8 text-2xl space-x-4">
+            <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={calculandoFlujoMaximo} class="disabled:grayscale" >
+                ▶️
+            </button>
+            <button title="Avanzar Algoritmo de Flujo Maximo" on:click={onClickAvanzarFlujo} disabled={!calculandoFlujoMaximo} class="disabled:grayscale">
+                ⏯️
+            </button>
+            <button title="Detener Algoritmo de Flujo Maximo" on:click={onClickDetenerFlujo} disabled={!calculandoFlujoMaximo} class="disabled:grayscale">
+                ⏹️
+            </button>
+        </div>
+
     </div>
-</foreignObject>
+</div>

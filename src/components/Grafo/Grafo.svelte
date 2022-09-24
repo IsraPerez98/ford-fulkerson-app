@@ -1,6 +1,6 @@
 <script lang="ts">
     import {generarVertices, generarAristas, generarGrafoAlAzar, dibujarCamino as dibujarCaminoGrafo} from "./FuncionesGrafo";
-    import {iniciarFlujoMaximo, avanzarFlujoMaximo} from "./FuncionesFlujoMaximo";
+    import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./FuncionesFlujoMaximo";
 
     import {agregarTextoConsola} from "./FuncionesConsola";
 
@@ -66,40 +66,51 @@
     async function calcularFlujoMaximo() {
         calculandoFlujoMaximo = true;
         await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia, dibujarCamino, printConsola);
+        terminarFlujoMaximo();
+    }
+
+    function terminarFlujoMaximo() {
+        finalizarFlujoMaximo(aristas, recargarAristas);
         calculandoFlujoMaximo = false;
     }
 
 
 </script>
 
-<svg bind:this={bindSVG} width={width} height={height} class="select-none">
+<div>
+    <svg bind:this={bindSVG} width={width} height={height} class="select-none">
 
-    <Consola
-        texto={textoConsola}
-    />
+        <Consola
+            texto={textoConsola}
+        />
 
-    <Menu
-        calcularFlujoMaximo={calcularFlujoMaximo}
-        avanzarFlujoMaximo={avanzarFlujoMaximo}
-    />
-    
-    
-    <svg height={height}>
+        <foreignObject width="100%" height="40px" >
+            <Menu 
+                calculandoFlujoMaximo={calculandoFlujoMaximo}
 
-        {#each aristas as aristasDeVertice}
-            {#each aristasDeVertice as arista}
-                {#if arista}
-                    <Arista
-                        arista={arista}
-                    />
-                {/if}
-            {/each}
-        {/each}
-
-        {#each vertices as vertice}
-            <Vertice
-                bind:vertice={vertice} 
+                calcularFlujoMaximo={calcularFlujoMaximo}
+                avanzarFlujoMaximo={avanzarFlujoMaximo}
+                terminarFlujoMaximo={terminarFlujoMaximo}
             />
-        {/each}
+        </foreignObject>
+        
+        <svg height={height}>
+
+            {#each aristas as aristasDeVertice}
+                {#each aristasDeVertice as arista}
+                    {#if arista}
+                        <Arista
+                            arista={arista}
+                        />
+                    {/if}
+                {/each}
+            {/each}
+
+            {#each vertices as vertice}
+                <Vertice
+                    bind:vertice={vertice} 
+                />
+            {/each}
+        </svg>
     </svg>
-</svg>
+</div>
