@@ -2,6 +2,7 @@
     import {generarVertices, generarAristas, generarGrafoAlAzar, dibujarCamino as dibujarCaminoGrafo} from "./FuncionesGrafo";
     import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./FuncionesFlujoMaximo";
     import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./FuncionesGuardado";
+    import { crearNuevoVertice as crearNuevoVerticeAux} from "./FuncionesModificacion";
 
     import {agregarTextoConsola} from "./FuncionesConsola";
 
@@ -88,6 +89,10 @@
         ({matrizAdyacencia, fuentes, sumideros, vertices , aristas} = await cargarGrafoAux(width, height, recargarAristas));
     }
 
+    function crearNuevoVertice(nombre: string | null , posicionNuevoVertice: Posicion, esFuente: boolean | null, esSumidero: boolean | null) {
+        crearNuevoVerticeAux(nombre ,posicionNuevoVertice, esFuente, esSumidero,  vertices, matrizAdyacencia, fuentes, sumideros, recargarVertices, recargarAristas, width, height) ;
+    }
+
 
 </script>
 
@@ -109,6 +114,8 @@
                 generarGrafoAlAzar={generarNuevoGrafoAlAzar}
                 guardarGrafo={guardarGrafo}
                 cargarGrafo={cargarGrafo}
+
+                crearNuevoVertice={crearNuevoVertice}
             />
         </foreignObject>
         

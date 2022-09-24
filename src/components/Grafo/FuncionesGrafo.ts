@@ -270,6 +270,11 @@ function dibujarCamino(arregloAristas: TypeArista[][], camino: TypeVertice[], fl
 
 
 export {
+    moverVertice,
+    crearNuevaArista,
+    eliminarVertice,
+    toggleFuente,
+    toggleSumidero,
     generarVertices,
     generarAristas,
     generarGrafoAlAzar,

@@ -4,10 +4,12 @@
     export let calcularFlujoMaximo: Function;
     export let avanzarFlujoMaximo: Function;
     export let finalizarFlujoMaximo: Function;
-    export let guardarGrafo: Function;
-    export let cargarGrafo: Function;
     
     export let generarGrafoAlAzar: Function;
+    export let guardarGrafo: Function;
+    export let cargarGrafo: Function;
+
+    export let crearNuevoVertice: Function;
 
     function onClickAyuda() {
         console.log("Ayuda");
@@ -57,6 +59,10 @@
         cargarGrafo();
     }
 
+    function onClickCrearNuevoVertice() {
+        crearNuevoVertice(null, {x: 500, y: 500}, null, null);
+    }
+
 </script>
 
 <div class="w-full h-10 bg-gray-900 flex">
@@ -87,7 +93,7 @@
             </button>
         </div>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Agregar Vertice" disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
                 🔵
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕
