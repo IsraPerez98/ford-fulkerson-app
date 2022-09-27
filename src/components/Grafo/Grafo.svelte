@@ -3,7 +3,7 @@
     import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./Funciones/FlujoMaximo";
     import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./Funciones/GuardadoYCargado";
     
-    import { crearNuevoVertice as crearNuevoVerticeAux} from "./Funciones/ModificacionVertices";
+    import { crearNuevoVertice as crearNuevoVerticeAux, crearVerticeDinamico} from "./Funciones/ModificacionVertices";
     import { dibujarCamino as dibujarCaminoAux} from "./Funciones/ModificacionAristas";
 
     import {agregarTextoConsola} from "./Funciones/Consola";
@@ -34,6 +34,8 @@
 
     let calculandoFlujoMaximo = false;
     let textoConsola = [];
+
+    let creandoVertice = false;
 
     let matrizAdyacencia: MatrizAdyacencia = [];
 
@@ -92,8 +94,8 @@
         ({matrizAdyacencia, fuentes, sumideros, vertices , aristas} = await cargarGrafoAux(width, height, recargarAristas));
     }
 
-    function crearNuevoVertice(nombre: string | null , posicionNuevoVertice: Posicion, esFuente: boolean | null, esSumidero: boolean | null) {
-        crearNuevoVerticeAux(nombre ,posicionNuevoVertice, esFuente, esSumidero,  vertices, matrizAdyacencia, fuentes, sumideros, recargarVertices, recargarAristas, width, height) ;
+    function crearNuevoVertice() {
+        crearVerticeDinamico(creandoVertice, vertices, matrizAdyacencia, fuentes , sumideros , recargarVertices , recargarAristas , width, height) ;
     }
 
 

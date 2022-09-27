@@ -60,7 +60,7 @@
     }
 
     function onClickCrearNuevoVertice() {
-        crearNuevoVertice(null, {x: 500, y: 500}, null, null);
+        crearNuevoVertice();
     }
 
 </script>

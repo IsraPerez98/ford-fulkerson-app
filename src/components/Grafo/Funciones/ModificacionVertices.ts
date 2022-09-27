@@ -7,6 +7,68 @@ const verticeRadio = 35;
 
 import {crearNuevaArista} from './ModificacionAristas';
 
+function crearVerticeDinamico(creandoVertice: boolean, vertices: TypeVertice[], matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], recargarVertices: Function, recargarAristas: Function, maxWith: number, maxHeight: number) {
+    if(creandoVertice) {
+        alert("Ya se está creando un vertice");
+        console.log("Ya se está creando un vertice");
+        return;
+    }
+    if(!creandoVertice) {
+        creandoVertice = true;
+    }
+
+    console.log("Creando vertice");
+    
+    //dibujamos un vertice que se va a mover hasta que se de click en el canvas
+    //cuando se de click en el canvas se crea el vertice en la posicion del mouse
+
+    const nuevoVertice = {
+        id: vertices.length,
+        nombre: null,
+        fuente: false,
+        sumidero: false,
+        x: maxWith / 2,
+        y: maxHeight / 2,
+        mover: ( x: number, y: number) => moverVertice(nuevoVertice, recargarAristas , x, y, maxWith, maxHeight),
+        crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
+        eliminar: () => eliminarVertice(nuevoVertice, vertices, matrizAdyacencia),
+        toggleFuente: () => toggleFuente(nuevoVertice, fuentes),
+        toggleSumidero: () => toggleSumidero(nuevoVertice, sumideros),
+    };
+
+    vertices.push(nuevoVertice);
+    recargarVertices();
+
+    //hacemos que el nuevoVertice siga al mouse
+    function mouseMove(event: MouseEvent) {
+        nuevoVertice.mover(event.clientX, event.clientY);
+        recargarVertices();
+    }
+    document.addEventListener('mousemove', mouseMove);
+
+    //debemos esperar al segundo click, ya que javascript registra el  click del boton
+    //TODO: Encontrar una forma mejor de no considerar el click del boton
+    let clickedOnce = false;
+
+    //cuando se de click en el canvas se crea el vertice
+    function mouseClick(event: MouseEvent) {
+        if(!clickedOnce) {
+            clickedOnce = true;
+            return;
+        }
+
+        //eliminamos el evento move
+        document.removeEventListener('mousemove', mouseMove);
+        //eliminamos el evento click
+        document.removeEventListener('click', mouseClick);
+        //terminamos la creacion del vertice
+        creandoVertice = false;
+    }
+    
+    document.addEventListener('click', mouseClick);
+
+}
+
 function crearNuevoVertice(nombre: string | null ,posicionNuevoVertice: Posicion, esFuente: boolean | null, esSumidero: boolean | null,  vertices: TypeVertice[], matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], recargarVertices: Function, recargarAristas: Function, maxWith: number, maxHeight: number) {
     const nuevoVertice = {
         id: vertices.length,
@@ -76,6 +138,7 @@ function moverVertice(vertice: TypeVertice, recargarAristas: Function, posX: num
 
 
 export {
+    crearVerticeDinamico,
     crearNuevoVertice,
     toggleFuente,
     toggleSumidero,
