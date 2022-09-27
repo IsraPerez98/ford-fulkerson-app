@@ -9,7 +9,7 @@ import {toggleFuente, toggleSumidero, eliminarVertice, moverVertice} from './Mod
 
 const verticeRadio = 35;
 
-function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: Posicion[], recargarAristas: Function, maxWith: number, maxHeight: number): TypeVertice[] {
+function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: Posicion[]): TypeVertice[] {
     //console.log(maxHeight);
     const arregloVertices: TypeVertice[] = [];
     matrizAdyacencia.forEach((arreglo, index) => {
@@ -25,17 +25,36 @@ function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[],
             x: posiciones[index].x,
             y: posiciones[index].y,
 
+            mover: (x: number, y: number) => null,
+            crearArista: (vertice: TypeVertice) => null,
+            toggleFuente: () => null,
+            toggleSumidero: () => null,
+            eliminar: () => null,
+
+
+            /*
             mover: ( x: number, y: number) => moverVertice(nuevoVertice, recargarAristas , x, y, maxWith, maxHeight),
             crearArista: ( verticeY: TypeVertice, peso: number) => crearNuevaArista(nuevoVertice, verticeY, peso, matrizAdyacencia),
             eliminar: () => eliminarVertice(nuevoVertice, arregloVertices, matrizAdyacencia),
             toggleFuente: () => toggleFuente(nuevoVertice, fuentes),
             toggleSumidero: () => toggleSumidero(nuevoVertice, sumideros),
+            */
         };
 
         arregloVertices.push(nuevoVertice);
     });
     //centrarVertices(arregloVertices, maxWith, maxHeight);
     return arregloVertices;
+}
+
+function asignarFuncionesVertices(arregloVertices: TypeVertice[], matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], recargarAristas: Function, maxWidth: number, maxHeight: number) {
+    arregloVertices.forEach((vertice) => {
+        vertice.mover = (x: number, y: number) => moverVertice(vertice, recargarAristas, x, y, maxWidth, maxHeight);
+        vertice.crearArista = (verticeY: TypeVertice, peso: number) => crearNuevaArista(vertice, verticeY, peso, matrizAdyacencia);
+        vertice.eliminar = () => eliminarVertice(vertice, arregloVertices, matrizAdyacencia);
+        vertice.toggleFuente = () => toggleFuente(vertice, fuentes);
+        vertice.toggleSumidero = () => toggleSumidero(vertice, sumideros);
+    });
 }
 
 function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: TypeVertice[]): TypeArista[][] {
@@ -61,9 +80,9 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, arregloVertices: Typ
 
                 //cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia, recargarAristas),
                 //cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia, recargarAristas),
-                cambiarPeso: (peso: number) => {},
-                cambiarPesoInverso: (peso: number) => {},
-                destruir: () => {},
+                cambiarPeso: (peso: number) => null,
+                cambiarPesoInverso: (peso: number) => null,
+                destruir: () => null,
             }
             //arregloAristas[i].push(nuevaArista);
             arregloAristas[i][j] = nuevaArista;
@@ -192,6 +211,7 @@ function generarGrafoAlAzar(cantidad: number, width: number, height: number) : {
 export {
     generarVertices,
     generarAristas,
+    asignarFuncionesVertices,
     asignarFuncionesAristas,
     generarGrafoAlAzar,
 };

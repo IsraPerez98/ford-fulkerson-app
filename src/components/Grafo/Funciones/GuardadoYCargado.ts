@@ -2,7 +2,7 @@ import type MatrizAdyacencia from "../../../interfaces/MatrizAdyacencia";
 import type TypeVertice  from '../../../interfaces/Vertice';
 import type TypeArista  from '../../../interfaces/Arista';
 
-import {generarAristas, generarVertices} from './GeneracionGrafo';
+import {generarAristas, generarVertices, asignarFuncionesAristas, asignarFuncionesVertices} from './GeneracionGrafo';
 
 function guardarGrafo(matrizAdyacencia: MatrizAdyacencia, vertices: TypeVertice[], fuentes: boolean[], sumideros: boolean[]) {
     //guardamos las posiciones de los vertices
@@ -53,8 +53,11 @@ async function cargarGrafo(width: number, height: number, recargarAristas: Funct
                 const sumideros = grafo.sumideros;
                 const posiciones = grafo.posiciones;
 
-                const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones, recargarAristas, width, height);
-                const aristas = generarAristas(matrizAdyacencia, vertices, recargarAristas);
+                const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones);
+                const aristas = generarAristas(matrizAdyacencia, vertices);
+
+                asignarFuncionesVertices(vertices, matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
+                asignarFuncionesAristas(aristas, matrizAdyacencia, recargarAristas);
                 resolve({
                     matrizAdyacencia,
                     fuentes,
