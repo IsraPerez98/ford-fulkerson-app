@@ -27,8 +27,16 @@ class Vertice {
 
     crearArista: (verticeY: Vertice, peso: number) => void; // Funcion para crear una arista entre dos vertices
     eliminar: () => void; // Funcion para eliminar el vertice
-    toggleFuente: () => void; // Funcion para cambiar el estado de fuente del vertice
-    toggleSumidero: () => void; // Funcion para cambiar el estado de sumidero del vertice
+    
+    toggleFuente(): void { // Funcion para cambiar el estado de fuente del vertice
+        this.fuente = !this.fuente;
+        this.grafo.fuentes[this.id] = this.fuente;
+    }
+    
+    toggleSumidero(): void { // Funcion para cambiar el estado de sumidero del vertice
+        this.sumidero = !this.sumidero;
+        this.grafo.sumideros[this.id] = this.sumidero;
+    }
 
     asignarGrafo(grafo: Grafo) : void { // asigna el grafo al vertice
         this.grafo = grafo;
