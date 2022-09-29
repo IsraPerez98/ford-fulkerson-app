@@ -2,6 +2,7 @@
     import { generarGrafoAlAzar } from './Funciones/GeneracionGrafo';
 
     import VerticeComponent from './Vertice/Vertice.svelte';
+    import AristaComponent from './Arista/Arista.svelte';
 
     import type Vertice from '../../classes/Vertice';
     import type Grafo from '../../classes/Grafo';
@@ -32,6 +33,15 @@
 <div>
     <svg width={width} height={height} class="select-none">
         <svg height={height}>
+            
+            {#each aristas as aristasDeVertice}
+                {#each aristasDeVertice as arista}
+                    {#if arista}
+                        <AristaComponent {arista} />
+                    {/if}
+                {/each}
+            {/each}
+            
             {#each vertices as vertice}
                 <VerticeComponent {vertice} />
             {/each}
