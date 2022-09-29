@@ -10,8 +10,25 @@ class Arista {
 
     grafo: Grafo | null; // representa el grafo al que pertenece la arista
 
-    cambiarPeso: (peso: number) => void; // funcion que cambia el peso de la arista
-    cambiarPesoInverso: (peso: number) => void; // funcion que cambia el peso de la arista en sentido inverso
+    cambiarPeso(peso: number): void{ // funcion que cambia el peso de la arista
+        this.peso[0] = peso;
+        this.grafo.matrizAdyacencia[this.origen.id][this.destino.id] = peso;
+        this.grafo.recargarAristas();
+
+        if(this.peso[0] === 0 && this.peso[1] === 0){
+            this.grafo.eliminarArista(this);
+        }
+    }
+    
+    cambiarPesoInverso(peso: number): void{ // funcion que cambia el peso de la arista en sentido inverso
+        this.peso[1] = peso;
+        this.grafo.matrizAdyacencia[this.destino.id][this.origen.id] = peso;
+        this.grafo.recargarAristas();
+        if(this.peso[0] === 0 && this.peso[1] === 0){
+            this.grafo.eliminarArista(this);
+        }
+    }
+
     destruir: () => void; // funcion que destruye la arista
 
     asignarGrafo(grafo: Grafo) : void { // asigna el grafo a la arista

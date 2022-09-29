@@ -17,6 +17,14 @@ class Grafo {
     recargarAristas: Function; // Funcion para recargar las aristas del grafo
     recargarVertices: Function; // Funcion para recargar los vertices del grafo
 
+    eliminarArista(arista: Arista): void { // funcion que elimina una arista del grafo
+        this.matrizAdyacencia[arista.origen.id][arista.destino.id] = 0;
+        this.matrizAdyacencia[arista.destino.id][arista.origen.id] = 0;
+        this.aristas[arista.origen.id][arista.destino.id] = null;
+        this.aristas[arista.destino.id][arista.origen.id] = null;
+        this.recargarAristas();
+    }
+
     constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], width: number, height: number, recargarVertices: Function, recargarAristas: Function) {
         this.matrizAdyacencia = matrizAdyacencia;
         this.fuentes = fuentes;

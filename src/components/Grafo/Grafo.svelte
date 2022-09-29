@@ -24,6 +24,8 @@
 
     let grafo: Grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas);
 
+    console.log(grafo.matrizAdyacencia);
+
     aristas = grafo.aristas;
     vertices = grafo.vertices;
 

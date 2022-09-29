@@ -240,7 +240,7 @@
             }
             peso={arista.peso[0]}
             bgColor={coloresBG[1]}
-            cambiarPeso={arista.cambiarPeso}
+            cambiarPeso={arista.cambiarPeso.bind(arista)}
         />
         <Peso
             posicion={
@@ -251,7 +251,7 @@
             }
             peso={arista.peso[1]}
             bgColor={coloresBG[0]}
-            cambiarPeso={arista.cambiarPesoInverso}
+            cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
         />
     {:else} <!--Unidireccional-->
         <line 
@@ -278,7 +278,7 @@
                 }
                 peso={arista.peso[0]}
                 bgColor="{coloresBG[0]}"
-                cambiarPeso={arista.cambiarPeso}
+                cambiarPeso={arista.cambiarPeso.bind(arista)}
             />
         {:else}
             <Flecha
@@ -295,7 +295,7 @@
                 }
                 peso={arista.peso[1]}
                 bgColor="{coloresBG[0]}"
-                cambiarPeso={arista.cambiarPesoInverso}
+                cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
             />
         {/if}
     {/if } 
