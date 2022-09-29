@@ -3,9 +3,9 @@
 
     import VerticeComponent from './Vertice/Vertice.svelte';
 
-    import type Grafo from '../../interfaces/Grafo';
-    import type Vertice from '../../interfaces/Vertice';
-    import type Arista from '../../interfaces/Arista';
+    import type Vertice from '../../classes/Vertice';
+    import type Grafo from '../../classes/Grafo';
+    import type Arista from '../../classes/Arista';
 
     export let width: number ;
     export let height: number ;

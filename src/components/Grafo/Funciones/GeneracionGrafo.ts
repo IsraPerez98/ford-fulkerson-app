@@ -1,16 +1,15 @@
 import type Posicion from '../../../interfaces/Posicion';
-import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
 
-import type Vertice from '../../../interfaces/Vertice';
-import type Arista from '../../../interfaces/Arista';
-import type Grafo from '../../../interfaces/Grafo';
-
-import { moverVertice } from './ModificacionVertices';
+//import type Vertice from '../../../interfaces/Vertice';
+import MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
+import Vertice from '../../../classes/Vertice';
+import Arista from '../../../classes/Arista';
+import Grafo from '../../../classes/Grafo';
 
 const verticeRadio = 35;
 
 function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
-    const matrizAdyacencia: MatrizAdyacencia = [];
+    const matrizAdyacencia = new MatrizAdyacencia();
 
     for (let i = 0; i < cantVertices; i++) {
         const arreglo: number[] = [];
@@ -87,32 +86,15 @@ function generarPosicionesVerticesw(cantVertices: number, width: number, height:
 function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: Posicion[]): Vertice[] {
     const vertices: Vertice[] = [];
     for (let i = 0; i < matrizAdyacencia.length; i++) {
-        const nuevoVertice = {
-            id: i,
-            nombre: null,
-            
-            fuente: fuentes[i],
-            sumidero: sumideros[i],
-            
-            posicion: posiciones[i],
-            radio: verticeRadio,
-
-            mover: (posicion: Posicion) => {},
-            crearArista: (verticeY: Vertice, peso: number) => {},
-            eliminar: () => {},
-            toggleFuente: () => {},
-            toggleSumidero: () => {},
-        }
+        const nuevoVertice = new Vertice(i, null, fuentes[i], sumideros[i], posiciones[i], verticeRadio, null);
         vertices.push(nuevoVertice);
     }
     return vertices;
 }
 
-function asignarFuncionesVertices(vertices: Vertice[], grafo: Grafo ) {
-    console.log("asignarFuncionesVertices");
+function asignarGrafoAVertices(vertices: Vertice[], grafo: Grafo) {
     for(const vertice of vertices) {
-        vertice.grafo = grafo;
-        vertice.mover = (posicion: Posicion) => moverVertice(vertice, posicion);
+        vertice.asignarGrafo(grafo);
     }
 }
 
@@ -129,19 +111,14 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, vertices: Vertice[])
             if(j === i) continue;
             if(matrizAdyacencia[i][j] === 0 && matrizAdyacencia[j][i] === 0) continue;
 
-            const nuevaArista = {
-                origen: vertices[i],
-                destino: vertices[j],
-                esCamino: [false, false],
-                peso: [matrizAdyacencia[i][j], matrizAdyacencia[j][i]],
-                flujo: [0, 0],
+            const origen = vertices[i];
+            const destino = vertices[j];
+            const esCamino = [false, false];
+            const peso = [matrizAdyacencia[i][j], matrizAdyacencia[j][i]];
+            const flujo = [0, 0];
 
-                //cambiarPeso: (peso: number) => cambiarPeso(nuevaArista, peso, matrizAdyacencia, recargarAristas),
-                //cambiarPesoInverso: (peso: number) => cambiarPesoInverso(nuevaArista, peso, matrizAdyacencia, recargarAristas),
-                cambiarPeso: (peso: number) => null,
-                cambiarPesoInverso: (peso: number) => null,
-                destruir: () => null,
-            }
+
+            const nuevaArista = new Arista(origen, destino, esCamino, peso, flujo, null);
             //arregloAristas[i].push(nuevaArista);
             arregloAristas[i][j] = nuevaArista;
             //arregloAristas[j][i] = nuevaArista;
@@ -151,32 +128,13 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, vertices: Vertice[])
     return arregloAristas;
 }
 
-function asignarFuncionesAristas(aristas: Arista[][], grafo: Grafo) {
-    console.log("asignarFuncionesAristas");
+function asignarGrafoAAristas(aristas: Arista[][], grafo: Grafo) {
     for(const arreglo of aristas) {
         for(const arista of arreglo) {
-            if(arista === null) continue;
-            arista.grafo = grafo;
+            if(arista) {
+                arista.asignarGrafo(grafo);
+            }
         }
-    }
-}
-
-function generarGrafo(matrizAdyacencia: MatrizAdyacencia, vertices: Vertice[], aristas: Arista[][], fuentes: boolean[], sumideros: boolean[], width: number, height: number): Grafo {
-    return {
-        matrizAdyacencia: matrizAdyacencia,
-        
-        fuentes: fuentes,
-        sumideros: sumideros,
-
-        vertices: vertices,
-        aristas: aristas,
-
-        width: width,
-        height: height,
-
-
-        recargarAristas: () => {},
-        recargarVertices: () => {},
     }
 }
 
@@ -205,11 +163,11 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
     const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones);
     const aristas = generarAristas(matrizAdyacencia, vertices);
 
-    const grafo = generarGrafo(matrizAdyacencia, vertices, aristas, fuentes, sumideros, width, height);
+    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarVertices, recargarAristas);
 
-    asignarFuncionesVertices(vertices, grafo);
-    asignarFuncionesAristas(aristas, grafo);
-    asignarFuncionesGrafo(grafo, recargarAristas, recargarVertices);
+    matrizAdyacencia.asignarGrafo(grafo);
+    asignarGrafoAVertices(vertices, grafo);
+    asignarGrafoAAristas(aristas, grafo);
 
     return grafo;
     

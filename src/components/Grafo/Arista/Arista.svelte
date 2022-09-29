@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import type Arista from "../../../interfaces/Arista";
+    import type Arista from "../../../classes/Arista";
     import { beforeUpdate, afterUpdate } from 'svelte';
 
     import Flecha from "./Flecha.svelte";

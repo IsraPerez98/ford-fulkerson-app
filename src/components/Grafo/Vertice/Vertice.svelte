@@ -1,6 +1,6 @@
 <script lang="ts">
     
-    import type  Vertice  from '../../../interfaces/Vertice';
+    import type  Vertice  from '../../../classes/Vertice';
 
     export let vertice: Vertice;
 
