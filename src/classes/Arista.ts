@@ -29,8 +29,6 @@ class Arista {
         }
     }
 
-    destruir: () => void; // funcion que destruye la arista
-
     asignarGrafo(grafo: Grafo) : void { // asigna el grafo a la arista
         this.grafo = grafo;
     }

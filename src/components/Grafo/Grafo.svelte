@@ -1,6 +1,7 @@
 <script lang="ts">
     import { generarGrafoAlAzar } from './Funciones/GeneracionGrafo';
 
+    import Menu from './Menu/Menu.svelte';
     import VerticeComponent from './Vertice/Vertice.svelte';
     import AristaComponent from './Arista/Arista.svelte';
 
@@ -14,15 +15,17 @@
     let aristas: Arista[][] = [];
     let vertices: Vertice[] = [];
 
+    let grafo: Grafo;
+
     function recargarAristas() {
-        aristas = aristas;
+        aristas = grafo.aristas;
     }
 
     function recargarVertices() {
-        vertices = vertices;
+        vertices = grafo.vertices;
     }
 
-    let grafo: Grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas);
+    grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas);
 
     console.log(grafo.matrizAdyacencia);
 
@@ -34,8 +37,13 @@
 
 <div>
     <svg width={width} height={height} class="select-none">
+        <foreignObject width="100%" height="40px" >
+            <Menu 
+                grafo={grafo}
+            />
+        </foreignObject>
+
         <svg height={height}>
-            
             {#each aristas as aristasDeVertice}
                 {#each aristasDeVertice as arista}
                     {#if arista}

@@ -2,6 +2,8 @@ import type MatrizAdyacencia from "./MatrizAdyacencia";
 import type Vertice from "./Vertice";
 import type Arista from "./Arista";
 
+import { generarGrafoAlAzar } from "../components/Grafo/Funciones/GeneracionGrafo";
+
 class Grafo {
     matrizAdyacencia: MatrizAdyacencia; // representa la matriz de adyacencia del grafo
 
@@ -16,6 +18,19 @@ class Grafo {
 
     recargarAristas: Function; // Funcion para recargar las aristas del grafo
     recargarVertices: Function; // Funcion para recargar los vertices del grafo
+
+    generarGrafoAlAzar(cantVertices: number): void {
+        const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarVertices, this.recargarAristas);
+        
+        this.matrizAdyacencia = grafo.matrizAdyacencia;
+        this.fuentes = grafo.fuentes;
+        this.sumideros = grafo.sumideros;
+        this.vertices = grafo.vertices;
+        this.aristas = grafo.aristas;
+
+        this.recargarAristas();
+        this.recargarVertices();
+    }
 
     eliminarArista(arista: Arista): void { // funcion que elimina una arista del grafo
         this.matrizAdyacencia[arista.origen.id][arista.destino.id] = 0;
