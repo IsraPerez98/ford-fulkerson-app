@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import type Grafo from "../Grafo.svelte";
+    import type Grafo from '../../../classes/Grafo';
 
     export let grafo: Grafo;
 

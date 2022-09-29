@@ -17,6 +17,7 @@
 
     let grafo: Grafo;
 
+    //estas funciones son necesarias para decirle a Svelte que re-renderice el componente
     function recargarAristas() {
         aristas = grafo.aristas;
     }
