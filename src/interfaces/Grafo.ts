@@ -11,6 +11,9 @@ interface Grafo {
     vertices: Vertice[]; // representa los vertices del grafo
     aristas: Arista[][]; // representa las aristas del grafo
 
+    width: number; // representa el ancho del grafo
+    height: number; // representa el alto del grafo
+
     recargarAristas: Function; // Funcion para recargar las aristas del grafo
     recargarVertices: Function; // Funcion para recargar los vertices del grafo
 }
