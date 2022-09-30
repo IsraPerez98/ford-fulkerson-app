@@ -20,35 +20,29 @@
     let consola: Consola;
     let grafo: Grafo;
 
-    //estas funciones son necesarias para decirle a Svelte que re-renderice el componente
-    function recargarAristas() {
-        aristas = grafo.aristas;
-    }
-
-    function recargarVertices() {
-        vertices = grafo.vertices;
-    }
-
+    //esta funcion son necesarias para decirle a Svelte que re-renderice el componente
     function recargarGrafo() {
+        if(!grafo) return;
         grafo = grafo;
-        consola = grafo.consola;
+        
+        if (grafo.consola) consola = grafo.consola;
+        if (grafo.vertices) vertices = grafo.vertices;
+        if (aristas) aristas = grafo.aristas;
     }
 
-    grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas, recargarGrafo);
-
-    recargarAristas();
-    recargarVertices();
+    grafo = generarGrafoAlAzar(5, width, height, recargarGrafo);
     recargarGrafo();
-
 
 </script>
 
 <div>
     <svg width={width} height={height} class="select-none">
         <foreignObject width={"100%"} height={"100%"}>
-            <ConsolaComponent 
-                texto={consola.textoExplicativo}
-            />
+            {#if consola}
+                <ConsolaComponent 
+                    consola={consola}
+                />
+            {/if}
         </foreignObject>
 
         <foreignObject width="100%" height="40px" >

@@ -140,12 +140,12 @@ function asignarGrafoAAristas(aristas: Arista[][], grafo: Grafo) {
     }
 }
 
-function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarVertices: Function, recargarAristas: Function, recargarGrafo: Function) : Grafo {
+function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarGrafo: Function) : Grafo {
     const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posicionesVertices);
     const aristas = generarAristas(matrizAdyacencia, vertices);
     const consola = new Consola();
 
-    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarVertices, recargarAristas, recargarGrafo);
+    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarGrafo);
 
     consola.asignarGrafo(grafo);
     matrizAdyacencia.asignarGrafo(grafo);
@@ -155,7 +155,7 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     return grafo;
 }
 
-function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarVertices: Function, recargarAristas: Function, recargarGrafo: Function): Grafo {
+function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarVertices: Function): Grafo {
     const matrizAdyacencia = generarMatrizAlAzar(cantVertices);
 
     //tomamos el primer vertice como fuente y el ultimo como sumidero
@@ -170,7 +170,7 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
 
     const posiciones = generarPosicionesVertices(cantVertices, width, height);
 
-    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarVertices, recargarAristas, recargarGrafo);
+    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarVertices);
 }
 
 export {

@@ -22,7 +22,7 @@ class Vertice {
         
         this.posicion = nuevaPosicion;
     
-        this.grafo.recargarAristas();
+        this.grafo.recargarGrafo();
     }
 
     crearArista: (verticeY: Vertice, peso: number) => void; // Funcion para crear una arista entre dos vertices
