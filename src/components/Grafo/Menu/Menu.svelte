@@ -10,19 +10,22 @@
     }
 
     function onClickIniciarFlujo() {
-        
+        //if(!grafo.puedeIniciarFlujoMaximo()) return;
+        grafo.inciarFlujoMaximo();
     }
 
     function onClickAvanzarFlujo() {
-        
+        //if(!grafo.puedeAvanzarFlujoMaximo()) return;
+        grafo.continuarFlujoMaximo();
     }
 
     function onClickDetenerFlujo() {
-        
+        //if(!grafo.puedeDetenerFlujoMaximo()) return;
+        grafo.finalizarFlujoMaximo();
     }
 
     function onClickGenerarGrafoAleatorio() {
-        //if(calculandoFlujoMaximo) return;
+        //if(!grafo.esModificable()) return;
 
         const numeroVertices = prompt("Ingrese el número de vértices del grafo");
         if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
@@ -43,6 +46,7 @@
     }
 
     function onClickCargarGrafo() {
+        //if(!grafo.esModificable()) return;
         //leemos un archivo json
         const input = document.createElement("input");
         input.type = "file";
@@ -90,7 +94,7 @@
             <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio }  class="disabled:grayscale">
                 🎲
             </button>
-            <button title="Guardar Grafo" on:click={onClickGuardarGrafo}  class="disabled:grayscale">
+            <button title="Guardar Grafo" on:click={onClickGuardarGrafo} class="disabled:grayscale">
                 💾
             </button>
             <button title="Cargar Grafo" on:click={onClickCargarGrafo}  class="disabled:grayscale">

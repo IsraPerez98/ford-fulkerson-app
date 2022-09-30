@@ -1,4 +1,4 @@
-import type MatrizAdyacencia from "./MatrizAdyacencia";
+import MatrizAdyacencia from "./MatrizAdyacencia";
 import type Vertice from "./Vertice";
 import type Arista from "./Arista";
 
@@ -8,6 +8,7 @@ import { generarGrafoAlAzar, generarGrafo } from "../components/Grafo/Funciones/
 
 class Grafo {
     matrizAdyacencia: MatrizAdyacencia; // representa la matriz de adyacencia del grafo
+    redResidual: MatrizAdyacencia;
 
     fuentes: boolean[]; // representa los vertices que son fuentes
     sumideros: boolean[]; // representa los vertices que son sumiderosq
@@ -17,6 +18,9 @@ class Grafo {
 
     width: number; // representa el ancho del grafo
     height: number; // representa el alto del grafo
+
+    ejecutandoFlujoMaximo: boolean; // representa si el grafo esta ejecutando el algoritmo de flujo maximo
+    avanzarIteracionFlujoMaximo: boolean; // representa si el usuario presiono el boton de siguiente iteracion
 
     recargarAristas: Function; // Funcion para recargar las aristas del grafo
     recargarVertices: Function; // Funcion para recargar los vertices del grafo
@@ -74,6 +78,171 @@ class Grafo {
         link.click();
     }
 
+    DFSRecursivo(verticeActual: Vertice, destino: Vertice, visitados: boolean[], camino: Vertice[]) : Vertice[] {
+        visitados[verticeActual.id] = true;
+        if(verticeActual === destino) {
+            return [...camino, destino];
+        }
+    
+        for(let i = 0; i < this.vertices.length; i++) {
+            if(this.redResidual[verticeActual.id][i] !== 0 && !visitados[i]) {
+                const caminoRecursivo = this.DFSRecursivo(this.vertices[i], destino, visitados, [...camino, verticeActual]);
+    
+                if(caminoRecursivo) { // si existe un camino
+                    return caminoRecursivo;
+                }
+            }
+        }
+    
+        return null;
+    }
+
+    buscarCamino(origen: Vertice, destino: Vertice): Vertice[] {
+        //DFS
+        let visitados = new Array(this.redResidual.length).fill(false);
+    
+        let camino = [];
+        
+        camino = this.DFSRecursivo(origen, destino, visitados, camino);
+    
+        return camino;
+    }
+
+    dibujarCamino(camino: Vertice[], flujo: number) {
+        for(let i = 0; i < camino.length - 1; i++) {
+            const vertice = camino[i];
+            const verticeSiguiente = camino[i + 1];
+    
+            //console.log({vertice, verticeSiguiente});
+            //console.log({arregloAristas});
+    
+            const arista = this.aristas[vertice.id][verticeSiguiente.id];
+    
+            if(arista) {
+                console.log({arista});
+                arista.esCamino = [true, arista.esCamino[1]];
+                arista.flujo = [flujo, arista.flujo[1]];
+            }
+            
+    
+            const aristaInversa = this.aristas[verticeSiguiente.id][vertice.id];
+    
+            if(aristaInversa) {
+                console.log({aristaInversa});
+                aristaInversa.esCamino = [aristaInversa.esCamino[0], true];
+                aristaInversa.flujo = [aristaInversa.flujo[0], flujo];
+            }
+        }
+    
+        this.recargarAristas();
+    }
+
+    async esperarProximaIteracion(): Promise<void> { // funcion que espera a que el usuario presione el boton de siguiente iteracion
+        console.log("Esperando siguiente iteracion");
+        while(!this.avanzarIteracionFlujoMaximo) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        this.avanzarIteracionFlujoMaximo = false;
+    }
+
+    async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
+        let flujoMaximo = 0;
+        this.redResidual = new MatrizAdyacencia(this.matrizAdyacencia);
+
+        //printConsola("Iniciamos la variable de flujo maximo en 0");
+        //printConsola("Creamos la red residual como una copia de la matriz de adyacencia");
+
+        await this.esperarProximaIteracion();
+
+        while(true) {
+            //printConsola("Buscamos un camino desde la fuente al sumidero, utilizando la red residual");
+            const camino = this.buscarCamino(fuente, sumidero);
+            if(!camino) {
+                //printConsola("No existe otro camino desde la fuente al sumidero, por lo tanto el flujo maximo es: " + flujoMaximo);
+                console.log({flujoMaximo});
+                alert("El flujo maximo es: " + flujoMaximo);
+                this.finalizarFlujoMaximo();
+                return;
+            }
+            //printConsola("Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
+            this.dibujarCamino(camino, 0);
+            await this.esperarProximaIteracion();
+            
+            //calculamos el cuello de botella del camino
+            //printConsola("Calculamos el cuello de botella del camino, es decir el valor minimo de las aristas que lo componen");
+            let cuelloBotella = Number.MAX_SAFE_INTEGER;
+            for(let i = 0; i < camino.length - 1; i++) {
+                const vertice = camino[i];
+                const verticeSiguiente = camino[i + 1];
+                //console.log({vertice, verticeSiguiente});
+                //console.log({redResidual});
+                const peso = this.redResidual[vertice.id][verticeSiguiente.id];
+                //console.log({peso});
+                if(peso < cuelloBotella) {
+                    cuelloBotella = peso;
+                }
+            }
+            flujoMaximo += cuelloBotella;
+            this.dibujarCamino(camino, cuelloBotella);
+
+            //console.log({cuelloBotella});
+            //printConsola("El cuello de botella es: " + cuelloBotella);
+            //printConsola("Actualizamos el flujo maximo sumando el cuello de botella al flujo maximo actual que es: " + flujoMaximo);
+            await this.esperarProximaIteracion();
+
+            //actualizamos la red residual
+            //printConsola("Actualizamos la red residual, restando el cuello de botella a las aristas que componen el camino");
+            for(let i = 0; i < camino.length - 1; i++) {
+                const vertice = camino[i];
+                const verticeSiguiente = camino[i + 1];
+                this.redResidual[vertice.id][verticeSiguiente.id] -= cuelloBotella;
+                //redResidual[verticeSiguiente.id - 1][vertice.id - 1] += cuelloBotella;
+            }
+
+            //console.log({redResidual});
+            await this.esperarProximaIteracion();
+        }
+    }
+    
+    inciarFlujoMaximo() {
+        this.ejecutandoFlujoMaximo = true;
+        this.avanzarIteracionFlujoMaximo = false;
+
+        const fuentes = this.vertices.filter(vertice => vertice.fuente);
+        const sumideros = this.vertices.filter(vertice => vertice.sumidero);
+
+        if(fuentes.length === 0) {
+            alert("Debe haber al menos una fuente");
+            this.finalizarFlujoMaximo();
+            return;
+        }
+
+        if(sumideros.length === 0) {
+            alert("Debe haber al menos un sumidero");
+            this.finalizarFlujoMaximo();
+            return;
+        }
+
+        if(fuentes.length > 1 || sumideros.length > 1) {
+            //TODO: EJECTUAR ALGORITMO DE FLUJO MAXIMO CON FUENTES Y SUMIDEROS MULTIPLES
+            alert("Solo puede haber una fuente y un sumidero");
+            this.finalizarFlujoMaximo();
+            return;
+        }
+
+        const fuente = fuentes[0];
+        const sumidero = sumideros[0];
+        this.calcularFlujoMaximo(fuente, sumidero);
+    }
+
+    continuarFlujoMaximo() {
+        this.avanzarIteracionFlujoMaximo = true;
+    }
+
+    finalizarFlujoMaximo() {
+        this.ejecutandoFlujoMaximo = false;
+        this.avanzarIteracionFlujoMaximo = false;
+    }
     
     generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
         const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarVertices, this.recargarAristas);
@@ -83,14 +252,15 @@ class Grafo {
         this.sumideros = grafo.sumideros;
         this.vertices = grafo.vertices;
         this.aristas = grafo.aristas;
+        this.ejecutandoFlujoMaximo = false;
         
         this.recargarAristas();
         this.recargarVertices();
     }
-    
 
     constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], width: number, height: number, recargarVertices: Function, recargarAristas: Function) {
         this.matrizAdyacencia = matrizAdyacencia;
+        this.redResidual = new MatrizAdyacencia(matrizAdyacencia);
         this.fuentes = fuentes;
         this.sumideros = sumideros;
         this.vertices = vertices;
@@ -99,6 +269,9 @@ class Grafo {
         this.height = height;
         this.recargarAristas = recargarAristas;
         this.recargarVertices = recargarVertices;
+        
+        this.ejecutandoFlujoMaximo = false;
+        this.avanzarIteracionFlujoMaximo = false;
     }
 }
 
