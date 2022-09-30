@@ -88,7 +88,7 @@ function generarPosicionesVertices(cantVertices: number, width: number, height: 
 function generarVertices(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], posiciones: Posicion[]): Vertice[] {
     const vertices: Vertice[] = [];
     for (let i = 0; i < matrizAdyacencia.length; i++) {
-        const nuevoVertice = new Vertice(i, null, fuentes[i], sumideros[i], posiciones[i], verticeRadio, null);
+        const nuevoVertice = new Vertice(i, fuentes[i], sumideros[i], posiciones[i]);
         vertices.push(nuevoVertice);
     }
     return vertices;

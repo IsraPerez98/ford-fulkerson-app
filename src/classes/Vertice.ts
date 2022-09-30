@@ -42,16 +42,16 @@ class Vertice {
         this.grafo = grafo;
     }
 
-    constructor(id: number, nombre: string | null, fuente: boolean, sumidero: boolean, posicion: Posicion, radio: number | null, grafo: Grafo | null) {
+    constructor(id: number, fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string , radio?: number, grafo?: Grafo) {
         this.id = id;
-        this.nombre = nombre;
+        this.nombre = nombre || null;
         this.fuente = fuente;
         this.sumidero = sumidero;
         this.posicion = posicion;
 
         this.radio = radio || 35;
 
-        this.grafo = null;
+        this.grafo = grafo || null;
     }
 }
 

@@ -3,6 +3,8 @@
     import type Grafo from '../../../classes/Grafo';
     import MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
 
+    import {crearNuevoVerticeDinamico} from '../Funciones/ModificacionGrafo';
+
     export let grafo: Grafo;
 
     $: puedeIniciarFlujoMaximo = !grafo.ejecutandoFlujoMaximo;
@@ -74,7 +76,8 @@
     }
 
     function onClickCrearNuevoVertice() {
-        
+        if(!puedeModificarGrafo) return;
+        crearNuevoVerticeDinamico(grafo);
     }
 
 </script>

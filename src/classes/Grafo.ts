@@ -1,5 +1,5 @@
 import MatrizAdyacencia from "./MatrizAdyacencia";
-import type Vertice from "./Vertice";
+import Vertice from "./Vertice";
 import type Arista from "./Arista";
 
 import type Posicion from "../interfaces/Posicion";
@@ -271,6 +271,21 @@ class Grafo {
         this.ejecutandoFlujoMaximo = false;
         
         this.recargarGrafo();
+    }
+
+    crearNuevoVertice(fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string, radio?: number): void {
+        const nuevoVertice = new Vertice(this.vertices.length, fuente, sumidero, posicion, nombre, radio, this);
+        this.vertices.push(nuevoVertice);
+        
+        this.fuentes.push(fuente);
+        this.sumideros.push(sumidero);
+
+        this.matrizAdyacencia.push([]);
+        for(let i = 0; i < this.matrizAdyacencia.length; i++) {
+            this.matrizAdyacencia[i].push(0);
+        }
+        this.recargarGrafo();
+        
     }
 
     constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], consola: Consola, width: number, height: number, recargarGrafo: Function) {
