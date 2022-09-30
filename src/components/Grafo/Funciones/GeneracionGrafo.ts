@@ -6,6 +6,8 @@ import Vertice from '../../../classes/Vertice';
 import Arista from '../../../classes/Arista';
 import Grafo from '../../../classes/Grafo';
 
+import Consola from '../../../classes/Consola';
+
 const verticeRadio = 35;
 
 function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
@@ -138,19 +140,14 @@ function asignarGrafoAAristas(aristas: Arista[][], grafo: Grafo) {
     }
 }
 
-function asignarFuncionesGrafo(grafo: Grafo, recargarAristas: Function, recargarVertices: Function) {
-    console.log("asignarFuncionesGrafo");
-
-    grafo.recargarAristas = recargarAristas;
-    grafo.recargarVertices = recargarVertices;
-}
-
 function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarVertices: Function, recargarAristas: Function, recargarGrafo: Function) : Grafo {
     const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posicionesVertices);
     const aristas = generarAristas(matrizAdyacencia, vertices);
+    const consola = new Consola();
 
-    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarVertices, recargarAristas, recargarGrafo);
+    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarVertices, recargarAristas, recargarGrafo);
 
+    consola.asignarGrafo(grafo);
     matrizAdyacencia.asignarGrafo(grafo);
     asignarGrafoAVertices(vertices, grafo);
     asignarGrafoAAristas(aristas, grafo);

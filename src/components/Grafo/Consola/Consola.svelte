@@ -3,11 +3,9 @@
 </script>
 
 {#if texto && texto.length > 0}
-    <foreignObject width={"100%"} height={"100%"}>
-        <div class="absolute bottom-0 right-0 border-solid border-2 border-green-600 p-4">
-            {#each texto as p}
-                <p>{p}</p>
-            {/each}
-        </div>
-    </foreignObject>
+    <div class="absolute bottom-0 right-0 border-solid border-2 border-green-600 p-4">
+        {#each texto as p}
+            <p>{p}</p>
+        {/each}
+    </div>
 {/if}

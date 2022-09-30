@@ -2,9 +2,11 @@
     import { generarGrafoAlAzar } from './Funciones/GeneracionGrafo';
 
     import Menu from './Menu/Menu.svelte';
+    import ConsolaComponent from './Consola/Consola.svelte';
     import VerticeComponent from './Vertice/Vertice.svelte';
     import AristaComponent from './Arista/Arista.svelte';
 
+    import type Consola from '../../classes/Consola';
     import type Vertice from '../../classes/Vertice';
     import type Grafo from '../../classes/Grafo';
     import type Arista from '../../classes/Arista';
@@ -15,6 +17,7 @@
     let aristas: Arista[][] = [];
     let vertices: Vertice[] = [];
 
+    let consola: Consola;
     let grafo: Grafo;
 
     //estas funciones son necesarias para decirle a Svelte que re-renderice el componente
@@ -28,25 +31,32 @@
 
     function recargarGrafo() {
         grafo = grafo;
+        consola = grafo.consola;
     }
 
     grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas, recargarGrafo);
 
-    console.log(grafo.matrizAdyacencia);
-
-    aristas = grafo.aristas;
-    vertices = grafo.vertices;
+    recargarAristas();
+    recargarVertices();
+    recargarGrafo();
 
 
 </script>
 
 <div>
     <svg width={width} height={height} class="select-none">
+        <foreignObject width={"100%"} height={"100%"}>
+            <ConsolaComponent 
+                texto={consola.textoExplicativo}
+            />
+        </foreignObject>
+
         <foreignObject width="100%" height="40px" >
             <Menu 
                 grafo={grafo}
             />
         </foreignObject>
+        
 
         <svg height={height}>
             {#each aristas as aristasDeVertice}
