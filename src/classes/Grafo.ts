@@ -2,7 +2,9 @@ import type MatrizAdyacencia from "./MatrizAdyacencia";
 import type Vertice from "./Vertice";
 import type Arista from "./Arista";
 
-import { generarGrafoAlAzar } from "../components/Grafo/Funciones/GeneracionGrafo";
+import type Posicion from "../interfaces/Posicion";
+
+import { generarGrafoAlAzar, generarGrafo } from "../components/Grafo/Funciones/GeneracionGrafo";
 
 class Grafo {
     matrizAdyacencia: MatrizAdyacencia; // representa la matriz de adyacencia del grafo
@@ -39,6 +41,53 @@ class Grafo {
         this.aristas[arista.destino.id][arista.origen.id] = null;
         this.recargarAristas();
     }
+
+    guardarGrafo(): void { // funcion que guarda el grafo en un archivo local
+        
+        //copiamos los valores de la matriz de adyacencia sin la propiedad de grafo
+        const matrizAdyacencia: number[][] = [];
+        for (let i = 0; i < this.matrizAdyacencia.length; i++) {
+            matrizAdyacencia[i] = [];
+            for (let j = 0; j < this.matrizAdyacencia[i].length; j++) {
+                matrizAdyacencia[i][j] = this.matrizAdyacencia[i][j];
+            }
+        }
+
+        //copiamos las posiciones de los vertices
+        const posicionesVertices: Posicion[] = [];
+        for (let i = 0; i < this.vertices.length; i++) {
+            posicionesVertices.push(this.vertices[i].posicion);
+        }
+
+        const grafo = {
+            matrizAdyacencia,
+            posicionesVertices,
+            fuentes: this.fuentes,
+            sumideros: this.sumideros
+        }
+
+        const blob = new Blob([JSON.stringify(grafo)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = "grafo.json";
+        link.href = url;
+        link.click();
+    }
+
+    
+    generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
+        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarVertices, this.recargarAristas);
+        
+        this.matrizAdyacencia = grafo.matrizAdyacencia;
+        this.fuentes = grafo.fuentes;
+        this.sumideros = grafo.sumideros;
+        this.vertices = grafo.vertices;
+        this.aristas = grafo.aristas;
+        
+        this.recargarAristas();
+        this.recargarVertices();
+    }
+    
 
     constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], width: number, height: number, recargarVertices: Function, recargarAristas: Function) {
         this.matrizAdyacencia = matrizAdyacencia;

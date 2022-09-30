@@ -1,6 +1,7 @@
 <script lang="ts">
 
     import type Grafo from '../../../classes/Grafo';
+    import MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
 
     export let grafo: Grafo;
 
@@ -38,11 +39,29 @@
     }
 
     function onClickGuardarGrafo() {
-        
+        grafo.guardarGrafo();
     }
 
     function onClickCargarGrafo() {
-        
+        //leemos un archivo json
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+        input.onchange = (e) => {
+            const file = (e.target as HTMLInputElement).files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const json = JSON.parse(reader.result as string);
+                const matrizAdyacencia = new MatrizAdyacencia(json.matrizAdyacencia);
+                const posicionesVertices = json.posicionesVertices;
+                const fuentes = json.fuentes;
+                const sumideros = json.sumideros;
+
+                grafo.generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros);
+            }
+            reader.readAsText(file);
+        }
+        input.click();
     }
 
     function onClickCrearNuevoVertice() {

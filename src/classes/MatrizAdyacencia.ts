@@ -7,9 +7,14 @@ class MatrizAdyacencia extends Array<Array<number>> { //arreglo blidimensional c
         this.grafo = grafo;
     }
 
-    constructor() {
+    constructor(valores?: Array<Array<number>>) {
         super();
+        this.grafo = null;
+        if(valores){
+            this.push(...valores);
+        }
     }
+
 
  } 
 
