@@ -26,7 +26,11 @@
         vertices = grafo.vertices;
     }
 
-    grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas);
+    function recargarGrafo() {
+        grafo = grafo;
+    }
+
+    grafo = generarGrafoAlAzar(5, width, height, recargarVertices, recargarAristas, recargarGrafo);
 
     console.log(grafo.matrizAdyacencia);
 

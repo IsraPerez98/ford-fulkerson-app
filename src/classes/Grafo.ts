@@ -24,9 +24,10 @@ class Grafo {
 
     recargarAristas: Function; // Funcion para recargar las aristas del grafo
     recargarVertices: Function; // Funcion para recargar los vertices del grafo
+    recargarGrafo: Function; // Funcion para recargar el grafo
 
     generarGrafoAlAzar(cantVertices: number): void {
-        const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarVertices, this.recargarAristas);
+        const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarVertices, this.recargarAristas, this.recargarGrafo);
         
         this.matrizAdyacencia = grafo.matrizAdyacencia;
         this.fuentes = grafo.fuentes;
@@ -43,6 +44,7 @@ class Grafo {
         this.matrizAdyacencia[arista.destino.id][arista.origen.id] = 0;
         this.aristas[arista.origen.id][arista.destino.id] = null;
         this.aristas[arista.destino.id][arista.origen.id] = null;
+        
         this.recargarAristas();
     }
 
@@ -138,11 +140,13 @@ class Grafo {
     }
 
     async esperarProximaIteracion(): Promise<void> { // funcion que espera a que el usuario presione el boton de siguiente iteracion
+        this.recargarGrafo();
         console.log("Esperando siguiente iteracion");
         while(!this.avanzarIteracionFlujoMaximo) {
             await new Promise(resolve => setTimeout(resolve, 100));
         }
         this.avanzarIteracionFlujoMaximo = false;
+        this.recargarGrafo();
     }
 
     async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
@@ -242,10 +246,11 @@ class Grafo {
     finalizarFlujoMaximo() {
         this.ejecutandoFlujoMaximo = false;
         this.avanzarIteracionFlujoMaximo = false;
+        this.recargarGrafo();
     }
     
     generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
-        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarVertices, this.recargarAristas);
+        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarVertices, this.recargarAristas, this.recargarGrafo);
         
         this.matrizAdyacencia = grafo.matrizAdyacencia;
         this.fuentes = grafo.fuentes;
@@ -258,7 +263,7 @@ class Grafo {
         this.recargarVertices();
     }
 
-    constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], width: number, height: number, recargarVertices: Function, recargarAristas: Function) {
+    constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], width: number, height: number, recargarVertices: Function, recargarAristas: Function, recargarGrafo: Function) {
         this.matrizAdyacencia = matrizAdyacencia;
         this.redResidual = new MatrizAdyacencia(matrizAdyacencia);
         this.fuentes = fuentes;
@@ -267,8 +272,10 @@ class Grafo {
         this.aristas = aristas;
         this.width = width;
         this.height = height;
+        
         this.recargarAristas = recargarAristas;
         this.recargarVertices = recargarVertices;
+        this.recargarGrafo = recargarGrafo;
         
         this.ejecutandoFlujoMaximo = false;
         this.avanzarIteracionFlujoMaximo = false;

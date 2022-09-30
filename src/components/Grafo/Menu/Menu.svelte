@@ -5,27 +5,32 @@
 
     export let grafo: Grafo;
 
+    $: puedeIniciarFlujoMaximo = !grafo.ejecutandoFlujoMaximo;
+    $: puedeContinuarFlujoMaximo = grafo.ejecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo; 
+    $: puedeDetenerFlujoMaximo = grafo.ejecutandoFlujoMaximo;
+    $: puedeModificarGrafo = !grafo.ejecutandoFlujoMaximo;
+
     function onClickAyuda() {
         console.log("Ayuda");
     }
 
     function onClickIniciarFlujo() {
-        //if(!grafo.puedeIniciarFlujoMaximo()) return;
+        if(!puedeIniciarFlujoMaximo) return;
         grafo.inciarFlujoMaximo();
     }
 
     function onClickAvanzarFlujo() {
-        //if(!grafo.puedeAvanzarFlujoMaximo()) return;
+        if(!puedeContinuarFlujoMaximo) return;
         grafo.continuarFlujoMaximo();
     }
 
     function onClickDetenerFlujo() {
-        //if(!grafo.puedeDetenerFlujoMaximo()) return;
+        if(!puedeDetenerFlujoMaximo) return;
         grafo.finalizarFlujoMaximo();
     }
 
     function onClickGenerarGrafoAleatorio() {
-        //if(!grafo.esModificable()) return;
+        if(!puedeModificarGrafo) return;
 
         const numeroVertices = prompt("Ingrese el número de vértices del grafo");
         if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
@@ -46,7 +51,7 @@
     }
 
     function onClickCargarGrafo() {
-        //if(!grafo.esModificable()) return;
+        if(!puedeModificarGrafo) return;
         //leemos un archivo json
         const input = document.createElement("input");
         input.type = "file";
@@ -80,35 +85,35 @@
             ℹ️
         </button>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo}  class="disabled:grayscale" >
+            <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={!puedeIniciarFlujoMaximo} class="disabled:grayscale" >
                 ▶️
             </button>
-            <button title="Avanzar Algoritmo de Flujo Maximo" on:click={onClickAvanzarFlujo}  class="disabled:grayscale">
+            <button title="Avanzar Algoritmo de Flujo Maximo" on:click={onClickAvanzarFlujo} disabled={!puedeContinuarFlujoMaximo} class="disabled:grayscale">
                 ⏯️
             </button>
-            <button title="Detener Algoritmo de Flujo Maximo" on:click={onClickDetenerFlujo}  class="disabled:grayscale">
+            <button title="Detener Algoritmo de Flujo Maximo" on:click={onClickDetenerFlujo} disabled={!puedeDetenerFlujoMaximo} class="disabled:grayscale">
                 ⏹️
             </button>
         </div>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio }  class="disabled:grayscale">
+            <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🎲
             </button>
             <button title="Guardar Grafo" on:click={onClickGuardarGrafo} class="disabled:grayscale">
                 💾
             </button>
-            <button title="Cargar Grafo" on:click={onClickCargarGrafo}  class="disabled:grayscale">
+            <button title="Cargar Grafo" on:click={onClickCargarGrafo} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 📁
             </button>
         </div>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice}  class="disabled:grayscale">
+            <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕
                 </div>
             </button>
-            <button title="Agregar Arista"  class="disabled:grayscale">
+            <button title="Agregar Arista" disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🪡
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕

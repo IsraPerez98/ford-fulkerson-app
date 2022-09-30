@@ -145,11 +145,11 @@ function asignarFuncionesGrafo(grafo: Grafo, recargarAristas: Function, recargar
     grafo.recargarVertices = recargarVertices;
 }
 
-function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarVertices: Function, recargarAristas: Function) : Grafo {
+function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarVertices: Function, recargarAristas: Function, recargarGrafo: Function) : Grafo {
     const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posicionesVertices);
     const aristas = generarAristas(matrizAdyacencia, vertices);
 
-    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarVertices, recargarAristas);
+    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarVertices, recargarAristas, recargarGrafo);
 
     matrizAdyacencia.asignarGrafo(grafo);
     asignarGrafoAVertices(vertices, grafo);
@@ -158,7 +158,7 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     return grafo;
 }
 
-function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarVertices: Function, recargarAristas: Function): Grafo {
+function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarVertices: Function, recargarAristas: Function, recargarGrafo: Function): Grafo {
     const matrizAdyacencia = generarMatrizAlAzar(cantVertices);
 
     //tomamos el primer vertice como fuente y el ultimo como sumidero
@@ -173,7 +173,7 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
 
     const posiciones = generarPosicionesVerticesw(cantVertices, width, height);
 
-    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarVertices, recargarAristas);
+    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarVertices, recargarAristas, recargarGrafo);
 }
 
 export {
