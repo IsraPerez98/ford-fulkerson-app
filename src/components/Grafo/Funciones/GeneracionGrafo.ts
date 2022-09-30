@@ -32,7 +32,7 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
     return matrizAdyacencia;
 }
 
-function generarPosicionesVerticesw(cantVertices: number, width: number, height: number): Posicion[] {
+function generarPosicionesVertices(cantVertices: number, width: number, height: number): Posicion[] {
     const extra = 2;
 
     const x_min = verticeRadio;
@@ -168,7 +168,7 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
     fuentes[0] = true;
     sumideros[cantVertices - 1] = true;
 
-    const posiciones = generarPosicionesVerticesw(cantVertices, width, height);
+    const posiciones = generarPosicionesVertices(cantVertices, width, height);
 
     return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarVertices, recargarAristas, recargarGrafo);
 }
