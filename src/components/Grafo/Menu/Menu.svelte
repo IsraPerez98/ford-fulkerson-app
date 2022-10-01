@@ -1,37 +1,38 @@
 <script lang="ts">
-    export let calculandoFlujoMaximo: boolean;
 
-    export let calcularFlujoMaximo: Function;
-    export let avanzarFlujoMaximo: Function;
-    export let finalizarFlujoMaximo: Function;
-    
-    export let generarGrafoAlAzar: Function;
-    export let guardarGrafo: Function;
-    export let cargarGrafo: Function;
+    import type Grafo from '../../../classes/Grafo';
+    import MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
 
-    export let crearNuevoVertice: Function;
+    import {crearNuevoVerticeDinamico} from '../Funciones/ModificacionGrafo';
+
+    export let grafo: Grafo;
+
+    $: puedeIniciarFlujoMaximo = !grafo.ejecutandoFlujoMaximo && !grafo.creandoArista;
+    $: puedeContinuarFlujoMaximo = grafo.ejecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo;
+    $: puedeDetenerFlujoMaximo = grafo.ejecutandoFlujoMaximo;
+    $: puedeModificarGrafo = !grafo.ejecutandoFlujoMaximo && !grafo.creandoArista;
 
     function onClickAyuda() {
         console.log("Ayuda");
     }
 
     function onClickIniciarFlujo() {
-        if(calculandoFlujoMaximo) return;
-        calcularFlujoMaximo();
+        if(!puedeIniciarFlujoMaximo) return;
+        grafo.inciarFlujoMaximo();
     }
 
     function onClickAvanzarFlujo() {
-        if(!(calculandoFlujoMaximo)) return;
-        avanzarFlujoMaximo();
+        if(!puedeContinuarFlujoMaximo) return;
+        grafo.continuarFlujoMaximo();
     }
 
     function onClickDetenerFlujo() {
-        if(!(calculandoFlujoMaximo)) return;
-        finalizarFlujoMaximo();
+        if(!puedeDetenerFlujoMaximo) return;
+        grafo.finalizarFlujoMaximo();
     }
 
     function onClickGenerarGrafoAleatorio() {
-        if(calculandoFlujoMaximo) return;
+        if(!puedeModificarGrafo) return;
 
         const numeroVertices = prompt("Ingrese el número de vértices del grafo");
         if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
@@ -44,23 +45,44 @@
 
         const numeroVerticesInt = Number(numeroVertices);
         
-        generarGrafoAlAzar(numeroVerticesInt);
+        grafo.generarGrafoAlAzar(numeroVerticesInt);
     }
 
     function onClickGuardarGrafo() {
-        if(calculandoFlujoMaximo) return;
-
-        guardarGrafo();
+        grafo.guardarGrafo();
     }
 
     function onClickCargarGrafo() {
-        if(calculandoFlujoMaximo) return;
+        if(!puedeModificarGrafo) return;
+        //leemos un archivo json
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+        input.onchange = (e) => {
+            const file = (e.target as HTMLInputElement).files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const json = JSON.parse(reader.result as string);
+                const matrizAdyacencia = new MatrizAdyacencia(json.matrizAdyacencia);
+                const posicionesVertices = json.posicionesVertices;
+                const fuentes = json.fuentes;
+                const sumideros = json.sumideros;
 
-        cargarGrafo();
+                grafo.generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros);
+            }
+            reader.readAsText(file);
+        }
+        input.click();
     }
 
     function onClickCrearNuevoVertice() {
-        crearNuevoVertice();
+        if(!puedeModificarGrafo) return;
+        crearNuevoVerticeDinamico(grafo);
+    }
+
+    function onClickCrearNuevaArista() {
+        if(!puedeModificarGrafo) return;
+        grafo.iniciarCreacionArista();
     }
 
 </script>
@@ -71,35 +93,35 @@
             ℹ️
         </button>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={calculandoFlujoMaximo} class="disabled:grayscale" >
+            <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={!puedeIniciarFlujoMaximo} class="disabled:grayscale" >
                 ▶️
             </button>
-            <button title="Avanzar Algoritmo de Flujo Maximo" on:click={onClickAvanzarFlujo} disabled={!calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Avanzar Algoritmo de Flujo Maximo" on:click={onClickAvanzarFlujo} disabled={!puedeContinuarFlujoMaximo} class="disabled:grayscale">
                 ⏯️
             </button>
-            <button title="Detener Algoritmo de Flujo Maximo" on:click={onClickDetenerFlujo} disabled={!calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Detener Algoritmo de Flujo Maximo" on:click={onClickDetenerFlujo} disabled={!puedeDetenerFlujoMaximo} class="disabled:grayscale">
                 ⏹️
             </button>
         </div>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🎲
             </button>
-            <button title="Guardar Grafo" on:click={onClickGuardarGrafo} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Guardar Grafo" on:click={onClickGuardarGrafo} class="disabled:grayscale">
                 💾
             </button>
-            <button title="Cargar Grafo" on:click={onClickCargarGrafo} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Cargar Grafo" on:click={onClickCargarGrafo} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 📁
             </button>
         </div>
         <div class="flex my-auto text-2xl space-x-4">
-            <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕
                 </div>
             </button>
-            <button title="Agregar Arista" disabled={calculandoFlujoMaximo} class="disabled:grayscale">
+            <button title="Agregar Arista" on:click={onClickCrearNuevaArista} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🪡
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕

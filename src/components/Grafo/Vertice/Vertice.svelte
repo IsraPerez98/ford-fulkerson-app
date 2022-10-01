@@ -1,19 +1,18 @@
 <script lang="ts">
-    
-    import type  Vertice  from '../../../interfaces/Vertice';
+
+    import type  Vertice  from '../../../classes/Vertice';
 
     export let vertice: Vertice;
 
     $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
+    $: grafo = vertice.grafo;
+    $: creandoArista = grafo.creandoArista;
 
-    const radio = 35;
-    let color = 'bg-violet-700';
+    let color = 'bg-purple-800';
 
     let moviendo = false;
 
-    let seleccionadoNuevaArista = false;
     let eliminandoVertice = false;
-    let creandoArista = false;
 
     let mostrarMenu = false;
 
@@ -29,7 +28,7 @@
             colorNuevo = 'bg-red-800';
         }
 
-        if(seleccionadoNuevaArista) {
+        if(creandoArista) {
             colorNuevo = 'bg-yellow-700';
         }
 
@@ -43,7 +42,12 @@
             vertice.eliminar();
         }
         else if(creandoArista) {
-            //seleccionarVerticeDeNuevaArista(vertice.id);
+            if(grafo.nuevaAristaVerticeOrigen == null) {
+                grafo.seleccionarVerticeNuevaArista(vertice);
+            }
+            else {
+                grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE EL PESO
+            }
         }
         else {
             moviendo = true;
@@ -56,10 +60,10 @@
 
     function onMouseMove(e) {
         if(moviendo) {
-            const posX = vertice.x + e.movementX;
-            const posY = vertice.y + e.movementY;
+            const posX = vertice.posicion.x + e.movementX;
+            const posY = vertice.posicion.y + e.movementY;
             
-            vertice.mover(posX, posY);
+            vertice.mover({x: posX, y: posY});
             vertice = vertice;
         }
     }
@@ -84,14 +88,14 @@
 
 </script>
 
-<foreignObject x={vertice.x - radio} y={vertice.y - radio} width={radio * 3} height={radio * 3} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<foreignObject x={vertice.posicion.x - vertice.radio} y={vertice.posicion.y - vertice.radio} width={vertice.radio * 3} height={vertice.radio * 3} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
     <div class="flex h-full w-full">
-        <div style="width: {radio*2}px ;height: {radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:mousedown={onMouseDown}>
+        <div style="width: {vertice.radio*2}px ;height: {vertice.radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:mousedown={onMouseDown}>
             <p class="text-white text-center m-auto select-none">
                 {nombre}
             </p>
         </div>
-        <div style="width: {radio}px ;height: {radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
+        <div style="width: {vertice.radio}px ;height: {vertice.radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
             <button on:click={() => { toggleFuente(); }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
                 🔼
             </button>

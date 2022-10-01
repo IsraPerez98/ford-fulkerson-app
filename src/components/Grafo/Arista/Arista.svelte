@@ -1,17 +1,35 @@
 <script lang="ts">
 
-    import type Arista from "../../../interfaces/Arista";
+    import type Arista from "../../../classes/Arista";
+    import type Posicion from "../../../interfaces/Posicion";
     import { beforeUpdate, afterUpdate } from 'svelte';
 
     import Flecha from "./Flecha.svelte";
     import Peso from "./Peso.svelte";
     
     export let arista: Arista;
-    let prevArista: Arista;
+    let prevArista: {
+        origenPos: Posicion,
+        destinoPos: Posicion,
+
+        esCamino: boolean[]; 
+        peso: number[];
+        flujo: number[];
+    };
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
     //console.log(arista.esCamino, arista.peso);
+
+    function copiarValoresPrevArista() {
+        prevArista = {
+            origenPos: structuredClone(arista.origen.posicion),
+            destinoPos: structuredClone(arista.destino.posicion),
+            esCamino: structuredClone([...arista.esCamino]),
+            peso: structuredClone([...arista.peso]),
+            flujo: structuredClone([...arista.flujo])
+        };
+    }
 
 
     function calcularColoresStroke() {
@@ -82,16 +100,20 @@
 
 
     function calcularParametros() {
-        const radioVertice = 35;
+        const posOrigen = arista.origen.posicion;
+        const posDestino = arista.destino.posicion;
+
+        const radioOrigen = arista.origen.radio;
+        const radioDestino = arista.destino.radio;
         //calculamos el angulo de la linea
-        const angulo = Math.atan2(arista.destino.y - arista.origen.y, arista.destino.x - arista.origen.x);
+        const angulo = Math.atan2(posDestino.y - posOrigen.y, posDestino.x - posOrigen.x);
 
         //calculamos donde dibujar la linea para no tapar el vertice
-        const x1 = arista.origen.x + radioVertice * Math.cos(angulo);
-        const y1 = arista.origen.y + radioVertice * Math.sin(angulo);
+        const x1 = posOrigen.x + radioOrigen * Math.cos(angulo);
+        const y1 = posOrigen.y + radioOrigen * Math.sin(angulo);
 
-        const x2 = arista.destino.x - radioVertice * Math.cos(angulo);
-        const y2 = arista.destino.y - radioVertice * Math.sin(angulo);
+        const x2 = posDestino.x - radioDestino * Math.cos(angulo);
+        const y2 = posDestino.y - radioDestino * Math.sin(angulo);
 
         return {
             x1,
@@ -115,8 +137,8 @@
             return [[x1, y1], [x2, y2]];
         } else {
             //dibujamos los pesos con al centro
-            const x = (arista.destino.x + arista.origen.x) / 2;
-            const y = (arista.destino.y + arista.origen.y) / 2;
+            const x = (arista.destino.posicion.x + arista.origen.posicion.x) / 2;
+            const y = (arista.destino.posicion.y + arista.origen.posicion.y) / 2;
             return [[x, y], [x, y]];
         }
     }
@@ -136,45 +158,45 @@
 
     let posicionFlujo = calcularPosicionFlujo();
 
+    function updateArista(): void {
+        //console.log("Recargando Arista ", arista);
+        dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
+        parametros = calcularParametros();
+        
+        coloresStroke = calcularColoresStroke();
+        coloresFill = calcularColoresFill();
+        coloresBG = calcularColoresBG();
+        
+        posicionPesos = calcularPosicionPesos();
+        posicionFlujo = calcularPosicionFlujo();
+    }
+
     beforeUpdate(() => { //TODO: simplificar los ifs
         if(!prevArista) {
-            prevArista = JSON.parse(JSON.stringify(arista));
-            return;
-        }
-
-        //si algun peso cambia de valor redibujamos la arista
-        if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
-            dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-            parametros = calcularParametros();
-            posicionPesos = calcularPosicionPesos();
-            posicionFlujo = calcularPosicionFlujo();
-            prevArista = JSON.parse(JSON.stringify(arista));
+            copiarValoresPrevArista();
+            updateArista();
             
             return;
         }
 
-        //si se cambia la posicion del origen o del destino recargamos la posicion de la linea
-        if(prevArista.origen.x !== arista.origen.x || prevArista.origen.y !== arista.origen.y || prevArista.destino.x !== arista.destino.x || prevArista.destino.y !== arista.destino.y) {
-            parametros = calcularParametros();
-            posicionPesos = calcularPosicionPesos();
-            posicionFlujo = calcularPosicionFlujo();
-
-            prevArista = JSON.parse(JSON.stringify(arista));
-
-            return;
+        //si algun peso cambia 
+        if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
+            updateArista();
         }
 
-        //si cambia el estado de camino de alguno de los vertices recargamos los colores
+        //si se cambia la posicion del origen o del destino 
+        const posOrigen = arista.origen.posicion;
+        const posDestino = arista.destino.posicion;
+        if(posOrigen.x !== prevArista.origenPos.x || posOrigen.y !== prevArista.origenPos.y || posDestino.x !== prevArista.destinoPos.x || posDestino.y !== prevArista.destinoPos.y) {
+            updateArista();
+        }
+
+        //si cambia el estado de camino 
         if(prevArista.esCamino[0] !== arista.esCamino[0] || prevArista.esCamino[1] !== arista.esCamino[1]) {
-            dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-            coloresStroke = calcularColoresStroke();
-            coloresFill = calcularColoresFill();
-            coloresBG = calcularColoresBG();
-            prevArista = JSON.parse(JSON.stringify(arista));
-            return;
+            updateArista();
         }
 
-        prevArista = JSON.parse(JSON.stringify(arista));
+        copiarValoresPrevArista();
         
     });
 
@@ -222,7 +244,7 @@
             }
             peso={arista.peso[0]}
             bgColor={coloresBG[1]}
-            cambiarPeso={arista.cambiarPeso}
+            cambiarPeso={arista.cambiarPeso.bind(arista)}
         />
         <Peso
             posicion={
@@ -233,7 +255,7 @@
             }
             peso={arista.peso[1]}
             bgColor={coloresBG[0]}
-            cambiarPeso={arista.cambiarPesoInverso}
+            cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
         />
     {:else} <!--Unidireccional-->
         <line 
@@ -260,7 +282,7 @@
                 }
                 peso={arista.peso[0]}
                 bgColor="{coloresBG[0]}"
-                cambiarPeso={arista.cambiarPeso}
+                cambiarPeso={arista.cambiarPeso.bind(arista)}
             />
         {:else}
             <Flecha
@@ -277,7 +299,7 @@
                 }
                 peso={arista.peso[1]}
                 bgColor="{coloresBG[0]}"
-                cambiarPeso={arista.cambiarPesoInverso}
+                cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
             />
         {/if}
     {/if } 

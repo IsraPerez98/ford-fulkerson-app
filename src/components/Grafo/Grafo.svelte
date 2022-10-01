@@ -1,148 +1,83 @@
 <script lang="ts">
-    import {generarVertices, generarAristas, asignarFuncionesVertices, asignarFuncionesAristas, generarGrafoAlAzar} from "./Funciones/GeneracionGrafo";
-    import {iniciarFlujoMaximo, avanzarFlujoMaximo, finalizarFlujoMaximo} from "./Funciones/FlujoMaximo";
-    import {guardarGrafo as guardarGrafoAux, cargarGrafo as cargarGrafoAux} from "./Funciones/GuardadoYCargado";
-    
-    import { crearNuevoVertice as crearNuevoVerticeAux, crearVerticeDinamico} from "./Funciones/ModificacionVertices";
-    import { dibujarCamino as dibujarCaminoAux} from "./Funciones/ModificacionAristas";
+    import { generarGrafoAlAzar } from './Funciones/GeneracionGrafo';
 
-    import {agregarTextoConsola} from "./Funciones/Consola";
+    import Menu from './Menu/Menu.svelte';
+    import ConsolaComponent from './Consola/Consola.svelte';
+    import VerticeComponent from './Vertice/Vertice.svelte';
+    import AristaComponent from './Arista/Arista.svelte';
 
-    import Menu from "./Menu/Menu.svelte";
-    import Consola from "./Consola/Consola.svelte";
-
-    import Vertice from "./Vertice/Vertice.svelte";
-    import Arista from "./Arista/Arista.svelte";
-
-    import type Posicion from "../../interfaces/Posicion";
-    import type MatrizAdyacencia from "../../interfaces/MatrizAdyacencia";
-    import type  TypeVertice from '../../interfaces/Vertice';
-    import type TypeArista  from '../../interfaces/Arista';
+    import type Consola from '../../classes/Consola';
+    import type Vertice from '../../classes/Vertice';
+    import type Grafo from '../../classes/Grafo';
+    import type Arista from '../../classes/Arista';
+    import { beforeUpdate } from 'svelte';
 
     export let width: number ;
+    let prevWidth: number = width;
     export let height: number ;
+    let prevHeight: number = width;
 
-    let bindSVG: SVGSVGElement;
+    let aristas: Arista[][] = [];
+    let vertices: Vertice[] = [];
 
-    function getPosicionSVG() {
-        //console.log({bindSVG});
-        if(!bindSVG) return {x: 0, y: 0};
+    let consola: Consola;
+    let grafo: Grafo;
 
-        const { x, y } = bindSVG.getBoundingClientRect();
-        return { x, y };
-    }
+    beforeUpdate(() => {
+        if(prevWidth != width || prevHeight != height) {
+            prevWidth = width;
+            prevHeight = height;
+            
+            grafo.width = width;
+            grafo.height = height;
+        }
+    });
 
-    let calculandoFlujoMaximo = false;
-    let textoConsola = [];
-
-    let creandoVertice = false;
-
-    let matrizAdyacencia: MatrizAdyacencia = [];
-
-    let vertices: TypeVertice[] = [];
-    let fuentes: boolean[] = [];
-    let sumideros: boolean[] = [];
-
-    let aristas: TypeArista[][] = [];
-
-    function recargarAristas() {
-        aristas = aristas;
-    }
-
-    function recargarVertices() {
-        vertices = vertices;
-    }
-
-    function dibujarCamino(camino: TypeVertice[], flujo: number) {
-        dibujarCaminoAux(aristas, camino, flujo, recargarAristas);
-    }
-
-    function printConsola(texto: string) {
-        agregarTextoConsola(texto, textoConsola);
-        textoConsola = textoConsola;
-    }
-
-    async function calcularFlujoMaximo() {
-        calculandoFlujoMaximo = true;
-        await iniciarFlujoMaximo(vertices, aristas, matrizAdyacencia, dibujarCamino, printConsola);
-        terminarFlujoMaximo();
-    }
-
-    function terminarFlujoMaximo() {
-        finalizarFlujoMaximo(aristas, recargarAristas);
-        calculandoFlujoMaximo = false;
-    }
-
-    function generarNuevoGrafoAlAzar(numeroVertices: number) {
-        let posiciones: Posicion[];
-        ({ matrizAdyacencia, fuentes, sumideros, posiciones } = generarGrafoAlAzar(numeroVertices, width, height));
+    //esta funcion son necesarias para decirle a Svelte que re-renderice el componente
+    function recargarGrafo() {
+        if(!grafo) return;
+        grafo = grafo;
         
-        vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones);
-        aristas = generarAristas(matrizAdyacencia, vertices);
-
-        asignarFuncionesVertices(vertices, matrizAdyacencia, fuentes, sumideros, recargarAristas, width, height);
-        asignarFuncionesAristas(aristas, matrizAdyacencia, recargarAristas);
-
-
-        console.log({matrizAdyacencia});
+        if (grafo.consola) consola = grafo.consola;
+        if (grafo.vertices) vertices = grafo.vertices;
+        if (aristas) aristas = grafo.aristas;
     }
 
-    generarNuevoGrafoAlAzar(5);
+    grafo = generarGrafoAlAzar(5, width, height, recargarGrafo);
+    recargarGrafo();
 
-    function guardarGrafo() {
-        guardarGrafoAux(matrizAdyacencia, vertices, fuentes, sumideros);
-    }
-
-    async function cargarGrafo() {
-        ({matrizAdyacencia, fuentes, sumideros, vertices , aristas} = await cargarGrafoAux(width, height, recargarAristas));
-    }
-
-    function crearNuevoVertice() {
-        crearVerticeDinamico(creandoVertice, vertices, matrizAdyacencia, fuentes , sumideros , recargarVertices , recargarAristas , width, height) ;
-    }
-
+    console.log(grafo.matrizAdyacencia);
 
 </script>
 
 <div>
-    <svg bind:this={bindSVG} width={width} height={height} class="select-none">
-
-        <Consola
-            texto={textoConsola}
-        />
+    <svg width={width} height={height} class="select-none">
+        <foreignObject width={"100%"} height={"100%"}>
+            {#if consola}
+                <ConsolaComponent 
+                    consola={consola}
+                />
+            {/if}
+        </foreignObject>
 
         <foreignObject width="100%" height="40px" >
             <Menu 
-                calculandoFlujoMaximo={calculandoFlujoMaximo}
-
-                calcularFlujoMaximo={calcularFlujoMaximo}
-                avanzarFlujoMaximo={avanzarFlujoMaximo}
-                finalizarFlujoMaximo={terminarFlujoMaximo}
-                
-                generarGrafoAlAzar={generarNuevoGrafoAlAzar}
-                guardarGrafo={guardarGrafo}
-                cargarGrafo={cargarGrafo}
-
-                crearNuevoVertice={crearNuevoVertice}
+                grafo={grafo}
             />
         </foreignObject>
         
-        <svg height={height}>
 
+        <svg height={height}>
             {#each aristas as aristasDeVertice}
                 {#each aristasDeVertice as arista}
                     {#if arista}
-                        <Arista
-                            arista={arista}
-                        />
+                        <AristaComponent {arista} />
                     {/if}
                 {/each}
             {/each}
-
+            
             {#each vertices as vertice}
-                <Vertice
-                    bind:vertice={vertice} 
-                />
+                <VerticeComponent {vertice} />
             {/each}
         </svg>
     </svg>

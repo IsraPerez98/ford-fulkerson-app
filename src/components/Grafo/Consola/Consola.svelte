@@ -1,13 +1,15 @@
 <script lang="ts">
-    export let texto: string[];
+    import type Consola from "../../../classes/Consola";
+
+    export let consola: Consola;
+
+    $: textoExplicativo = consola.textoExplicativo;
 </script>
 
-{#if texto && texto.length > 0}
-    <foreignObject width={"100%"} height={"100%"}>
-        <div class="absolute bottom-0 right-0 border-solid border-2 border-green-600 p-4">
-            {#each texto as p}
-                <p>{p}</p>
-            {/each}
-        </div>
-    </foreignObject>
+{#if textoExplicativo && textoExplicativo.length > 0}
+    <div class="absolute bottom-0 right-0 border-solid border-2 border-green-600 p-4">
+        {#each textoExplicativo as p}
+            <p>{p}</p>
+        {/each}
+    </div>
 {/if}
