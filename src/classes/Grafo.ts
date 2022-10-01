@@ -360,14 +360,24 @@ class Grafo {
         this.fuentes.push(fuente);
         this.sumideros.push(sumidero);
 
-        this.matrizAdyacencia.push([]);
+        //generamos una nueva fila y columna en la matriz de adyacencia
+        this.matrizAdyacencia.push(Array(this.vertices.length).fill(0));
         for(let i = 0; i < this.matrizAdyacencia.length; i++) {
             this.matrizAdyacencia[i].push(0);
         }
+
+        //generamos una nueva fila y columna en la matriz de aristas
+        this.aristas.push(Array(this.vertices.length).fill(null));
+        for(let i = 0; i < this.aristas.length; i++) {
+            this.aristas[i].push(null);
+        }
+
         this.recargarGrafo();
+        
     }
 
     crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, peso: number): void {
+        //console.log({verticeOrigen, verticeDestino, peso});
         //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
         if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0 && this.matrizAdyacencia[verticeDestino.id][verticeOrigen.id] !== 0) {
             alert("Ya existe esta arista");

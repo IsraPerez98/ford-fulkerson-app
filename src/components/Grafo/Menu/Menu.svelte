@@ -7,10 +7,10 @@
 
     export let grafo: Grafo;
 
-    $: puedeIniciarFlujoMaximo = !grafo.ejecutandoFlujoMaximo;
-    $: puedeContinuarFlujoMaximo = grafo.ejecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo; 
+    $: puedeIniciarFlujoMaximo = !grafo.ejecutandoFlujoMaximo && !grafo.creandoArista;
+    $: puedeContinuarFlujoMaximo = grafo.ejecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo;
     $: puedeDetenerFlujoMaximo = grafo.ejecutandoFlujoMaximo;
-    $: puedeModificarGrafo = !grafo.ejecutandoFlujoMaximo;
+    $: puedeModificarGrafo = !grafo.ejecutandoFlujoMaximo && !grafo.creandoArista;
 
     function onClickAyuda() {
         console.log("Ayuda");
