@@ -25,8 +25,10 @@ class Vertice {
         this.grafo.recargarGrafo();
     }
 
-    crearArista: (verticeY: Vertice, peso: number) => void; // Funcion para crear una arista entre dos vertices
-    eliminar: () => void; // Funcion para eliminar el vertice
+    eliminar(): void { // elimina el vertice del grafo
+        this.grafo.eliminarVertice(this);
+    }
+    
     
     toggleFuente(): void { // Funcion para cambiar el estado de fuente del vertice
         this.fuente = !this.fuente;

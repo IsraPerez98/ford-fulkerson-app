@@ -85,6 +85,11 @@
         grafo.iniciarCreacionArista();
     }
 
+    function onClickEliminarVertice() {
+        if(!puedeModificarGrafo) return;
+        grafo.iniciarEliminacionVertice();
+    }
+
 </script>
 
 <div class="w-full h-10 bg-gray-900 flex">
@@ -125,6 +130,20 @@
                 🪡
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕
+                </div>
+            </button>
+        </div>
+        <div class="flex my-auto text-2xl space-x-4">
+            <button title="Eliminar Vertice" on:click={onClickEliminarVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
+                🔵
+                <div class="absolute bottom-1 ml-3 text-base" >
+                    ➖
+                </div>
+            </button>
+            <button title="Eliminar Arista"  disabled={!puedeModificarGrafo} class="disabled:grayscale">
+                🪡
+                <div class="absolute bottom-1 ml-3 text-base" >
+                    ➖
                 </div>
             </button>
         </div>

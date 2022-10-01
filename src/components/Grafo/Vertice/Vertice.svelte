@@ -6,13 +6,13 @@
 
     $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
     $: grafo = vertice.grafo;
+    
     $: creandoArista = grafo.creandoArista;
+    $: eliminandoVertice = grafo.eliminandoVertice;
 
     let color = 'bg-purple-800';
 
     let moviendo = false;
-
-    let eliminandoVertice = false;
 
     let mostrarMenu = false;
 
@@ -28,6 +28,10 @@
             colorNuevo = 'bg-red-800';
         }
 
+        if(eliminandoVertice) {
+            colorNuevo = 'bg-gray-700';
+        }
+
         if(creandoArista) {
             colorNuevo = 'bg-yellow-700';
         }
@@ -40,6 +44,7 @@
     function onMouseDown() {
         if(eliminandoVertice) {
             vertice.eliminar();
+            grafo.finalizarEliminacionVertice();
         }
         else if(creandoArista) {
             if(grafo.nuevaAristaVerticeOrigen == null) {

@@ -25,6 +25,8 @@ class Grafo {
     creandoArista: boolean; // representa si se esta creando una arista
     nuevaAristaVerticeOrigen: Vertice; // representa el vertice origen de la arista que se esta creando
 
+    eliminandoVertice: boolean;
+
     ejecutandoFlujoMaximo: boolean; // representa si el grafo esta ejecutando el algoritmo de flujo maximo
     avanzarIteracionFlujoMaximo: boolean; // representa si el usuario presiono el boton de siguiente iteracion
 
@@ -80,6 +82,48 @@ class Grafo {
     finalizarCreacionArista(): void {
         this.creandoArista = false;
         this.nuevaAristaVerticeOrigen = null;
+        this.recargarGrafo();
+    }
+
+    iniciarEliminacionVertice(): void {
+        this.eliminandoVertice = true;
+        this.recargarGrafo();
+    }
+
+    eliminarVertice(vertice: Vertice): void {
+        console.log({vertice});
+        
+
+        //eliminamos el vertice de los arreglos
+        this.vertices.splice(vertice.id, 1);
+        this.fuentes.splice(vertice.id, 1);
+        this.sumideros.splice(vertice.id, 1);
+
+        //dismunimos el id de los vertices posteriores
+        for(let i = vertice.id ; i < this.vertices.length; i++) {
+            this.vertices[i].id--;
+        }
+
+        //eliminamos la columna y la fila de la matriz de adyacencia
+        this.matrizAdyacencia.splice(vertice.id, 1);
+        for(let i = 0; i < this.matrizAdyacencia.length; i++) {
+            this.matrizAdyacencia[i].splice(vertice.id, 1);
+        }
+        console.log(this.matrizAdyacencia);
+        
+
+        //eliminamos la columna y la fila de la matriz de aristas
+        this.aristas.splice(vertice.id, 1);
+        for(let i = 0; i < this.aristas.length; i++) {
+            this.aristas[i].splice(vertice.id, 1);
+        }
+        
+
+        this.recargarGrafo();
+    }
+
+    finalizarEliminacionVertice(): void {
+        this.eliminandoVertice = false;
         this.recargarGrafo();
     }
 

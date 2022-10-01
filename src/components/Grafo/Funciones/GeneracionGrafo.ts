@@ -148,7 +148,6 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarGrafo);
 
     consola.asignarGrafo(grafo);
-    matrizAdyacencia.asignarGrafo(grafo);
     asignarGrafoAVertices(vertices, grafo);
     asignarGrafoAAristas(aristas, grafo);
 
