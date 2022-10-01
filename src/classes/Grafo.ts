@@ -1,4 +1,4 @@
-import type MatrizAdyacencia from "./MatrizAdyacencia";
+import type MatrizAdyacencia from "../interfaces/MatrizAdyacencia";
 import Vertice from "./Vertice";
 import Arista from "./Arista";
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 
     import type Grafo from '../../../classes/Grafo';
-    import type MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
+    import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
     import type Posicion from '../../../interfaces/Posicion';
 
     import {crearNuevoVerticeDinamico} from '../Funciones/ModificacionGrafo';

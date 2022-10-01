@@ -1,7 +1,7 @@
 import type Posicion from '../../../interfaces/Posicion';
 
 //import type Vertice from '../../../interfaces/Vertice';
-import type MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
+import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
 import Vertice from '../../../classes/Vertice';
 import Arista from '../../../classes/Arista';
 import Grafo from '../../../classes/Grafo';
