@@ -10,15 +10,28 @@
     import type Vertice from '../../classes/Vertice';
     import type Grafo from '../../classes/Grafo';
     import type Arista from '../../classes/Arista';
+    import { beforeUpdate } from 'svelte';
 
     export let width: number ;
+    let prevWidth: number = width;
     export let height: number ;
+    let prevHeight: number = width;
 
     let aristas: Arista[][] = [];
     let vertices: Vertice[] = [];
 
     let consola: Consola;
     let grafo: Grafo;
+
+    beforeUpdate(() => {
+        if(prevWidth != width || prevHeight != height) {
+            prevWidth = width;
+            prevHeight = height;
+            
+            grafo.width = width;
+            grafo.height = height;
+        }
+    });
 
     //esta funcion son necesarias para decirle a Svelte que re-renderice el componente
     function recargarGrafo() {
