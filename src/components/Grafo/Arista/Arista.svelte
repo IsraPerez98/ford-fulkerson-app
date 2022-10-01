@@ -158,38 +158,42 @@
 
     let posicionFlujo = calcularPosicionFlujo();
 
+    function updateArista(): void {
+        //console.log("Recargando Arista ", arista);
+        dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
+        parametros = calcularParametros();
+        
+        coloresStroke = calcularColoresStroke();
+        coloresFill = calcularColoresFill();
+        coloresBG = calcularColoresBG();
+        
+        posicionPesos = calcularPosicionPesos();
+        posicionFlujo = calcularPosicionFlujo();
+    }
+
     beforeUpdate(() => { //TODO: simplificar los ifs
         if(!prevArista) {
             copiarValoresPrevArista();
-            return;
-        }
-
-        //si algun peso cambia de valor redibujamos la arista
-        if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
-            dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-            parametros = calcularParametros();
-            posicionPesos = calcularPosicionPesos();
-            posicionFlujo = calcularPosicionFlujo();
+            updateArista();
             
             return;
         }
 
-        //si se cambia la posicion del origen o del destino recargamos la posicion de la linea
-        const posOrigen = arista.origen.posicion;
-        const posDestino = arista.destino.posicion;
-        if(prevArista.origenPos.x !== posOrigen.x || prevArista.destinoPos.y !== posOrigen.y || prevArista.destinoPos.x !== posDestino.x || prevArista.destinoPos.y !== posDestino.y) {
-            parametros = calcularParametros();
-            posicionPesos = calcularPosicionPesos();
-            posicionFlujo = calcularPosicionFlujo();
-
+        //si algun peso cambia 
+        if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
+            updateArista();
         }
 
-        //si cambia el estado de camino de alguno de los vertices recargamos los colores
+        //si se cambia la posicion del origen o del destino 
+        const posOrigen = arista.origen.posicion;
+        const posDestino = arista.destino.posicion;
+        if(posOrigen.x !== prevArista.origenPos.x || posOrigen.y !== prevArista.origenPos.y || posDestino.x !== prevArista.destinoPos.x || posDestino.y !== prevArista.destinoPos.y) {
+            updateArista();
+        }
+
+        //si cambia el estado de camino 
         if(prevArista.esCamino[0] !== arista.esCamino[0] || prevArista.esCamino[1] !== arista.esCamino[1]) {
-            dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-            coloresStroke = calcularColoresStroke();
-            coloresFill = calcularColoresFill();
-            coloresBG = calcularColoresBG();
+            updateArista();
         }
 
         copiarValoresPrevArista();
