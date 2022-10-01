@@ -33,6 +33,8 @@
     grafo = generarGrafoAlAzar(5, width, height, recargarGrafo);
     recargarGrafo();
 
+    console.log(grafo.matrizAdyacencia);
+
 </script>
 
 <div>
