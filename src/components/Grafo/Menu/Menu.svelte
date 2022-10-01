@@ -80,6 +80,11 @@
         crearNuevoVerticeDinamico(grafo);
     }
 
+    function onClickCrearNuevaArista() {
+        if(!puedeModificarGrafo) return;
+        grafo.iniciarCreacionArista();
+    }
+
 </script>
 
 <div class="w-full h-10 bg-gray-900 flex">
@@ -116,7 +121,7 @@
                     ➕
                 </div>
             </button>
-            <button title="Agregar Arista" disabled={!puedeModificarGrafo} class="disabled:grayscale">
+            <button title="Agregar Arista" on:click={onClickCrearNuevaArista} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🪡
                 <div class="absolute bottom-1 ml-3 text-base" >
                     ➕

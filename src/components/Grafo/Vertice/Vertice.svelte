@@ -1,18 +1,18 @@
 <script lang="ts">
-    
+
     import type  Vertice  from '../../../classes/Vertice';
 
     export let vertice: Vertice;
 
     $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
+    $: grafo = vertice.grafo;
+    $: creandoArista = grafo.creandoArista;
 
     let color = 'bg-purple-800';
 
     let moviendo = false;
 
-    let seleccionadoNuevaArista = false;
     let eliminandoVertice = false;
-    let creandoArista = false;
 
     let mostrarMenu = false;
 
@@ -28,7 +28,7 @@
             colorNuevo = 'bg-red-800';
         }
 
-        if(seleccionadoNuevaArista) {
+        if(creandoArista) {
             colorNuevo = 'bg-yellow-700';
         }
 
@@ -42,7 +42,12 @@
             vertice.eliminar();
         }
         else if(creandoArista) {
-            //seleccionarVerticeDeNuevaArista(vertice.id);
+            if(grafo.nuevaAristaVerticeOrigen == null) {
+                grafo.nuevaAristaVerticeOrigen = vertice;
+            }
+            else {
+                grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE EL PESO
+            }
         }
         else {
             moviendo = true;

@@ -1,6 +1,6 @@
 import MatrizAdyacencia from "./MatrizAdyacencia";
 import Vertice from "./Vertice";
-import type Arista from "./Arista";
+import Arista from "./Arista";
 
 import type Posicion from "../interfaces/Posicion";
 import type Consola from "./Consola";
@@ -22,12 +22,27 @@ class Grafo {
     width: number; // representa el ancho del grafo
     height: number; // representa el alto del grafo
 
+    creandoArista: boolean; // representa si se esta creando una arista
+    nuevaAristaVerticeOrigen: Vertice; // representa el vertice origen de la arista que se esta creando
+
     ejecutandoFlujoMaximo: boolean; // representa si el grafo esta ejecutando el algoritmo de flujo maximo
     avanzarIteracionFlujoMaximo: boolean; // representa si el usuario presiono el boton de siguiente iteracion
 
     //recargarAristas: Function; // Funcion para recargar las aristas del grafo
     //recargarVertices: Function; // Funcion para recargar los vertices del grafo
     recargarGrafo: Function; // Funcion para recargar el grafo
+
+    iniciarCreacionArista() {
+        this.nuevaAristaVerticeOrigen = null;
+        this.creandoArista = true;
+        this.recargarGrafo();
+    }
+
+    finalizarCreacionArista() {
+        this.creandoArista = false;
+        this.nuevaAristaVerticeOrigen = null;
+        this.recargarGrafo();
+    }
 
     generarGrafoAlAzar(cantVertices: number): void {
         const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarGrafo);
@@ -285,6 +300,58 @@ class Grafo {
             this.matrizAdyacencia[i].push(0);
         }
         this.recargarGrafo();
+    }
+
+    crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, peso: number): void {
+        //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
+        if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0 && this.matrizAdyacencia[verticeDestino.id][verticeOrigen.id] !== 0) {
+            alert("Ya existe esta arista");
+            this.finalizarCreacionArista();
+            return;
+        }
+
+        //Si la arista ya existe pero no es bidireccional, la hacemos bidireccional
+        if(this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id]) {
+            const aristaExistente = this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id];
+            
+            //debemos comprobar si la arista es inversa
+            if(aristaExistente.origen === verticeOrigen) {
+                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
+                    alert("Ya existe esta arista");
+                    this.finalizarCreacionArista();
+                    return;
+                }
+
+                //Modificamos la arista
+                aristaExistente.peso = [peso, aristaExistente.peso[1]];
+                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+                
+                this.finalizarCreacionArista();
+                return;
+            
+            } else { //Arista inversa
+                
+                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
+                    alert("Ya existe esta arista");
+                    this.finalizarCreacionArista();
+                    return;
+                }
+
+                //Modificamos la arista
+                aristaExistente.peso = [aristaExistente.peso[0], peso];
+                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+                
+                this.finalizarCreacionArista();
+                return;
+
+            }
+        }
+        
+        //Creamos la arista
+        const nuevaArista = new Arista(verticeOrigen, verticeDestino, [false, false], [peso, 0], [0,0], this);
+        this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
+        this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+        this.finalizarCreacionArista();
         
     }
 
