@@ -1,7 +1,7 @@
 import type Posicion from '../../../interfaces/Posicion';
 
 //import type Vertice from '../../../interfaces/Vertice';
-import MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
+import type MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
 import Vertice from '../../../classes/Vertice';
 import Arista from '../../../classes/Arista';
 import Grafo from '../../../classes/Grafo';
@@ -11,7 +11,7 @@ import Consola from '../../../classes/Consola';
 const verticeRadio = 35;
 
 function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
-    const matrizAdyacencia = new MatrizAdyacencia();
+    const matrizAdyacencia: MatrizAdyacencia = [];
 
     for (let i = 0; i < cantVertices; i++) {
         const arreglo: number[] = [];
@@ -151,10 +151,12 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     asignarGrafoAVertices(vertices, grafo);
     asignarGrafoAAristas(aristas, grafo);
 
+    console.log({grafo});
+
     return grafo;
 }
 
-function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarVertices: Function): Grafo {
+function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarGrafo: Function): Grafo {
     const matrizAdyacencia = generarMatrizAlAzar(cantVertices);
 
     //tomamos el primer vertice como fuente y el ultimo como sumidero
@@ -169,7 +171,7 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
 
     const posiciones = generarPosicionesVertices(cantVertices, width, height);
 
-    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarVertices);
+    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarGrafo);
 }
 
 export {

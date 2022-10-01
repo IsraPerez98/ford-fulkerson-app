@@ -1,7 +1,8 @@
 <script lang="ts">
 
     import type Grafo from '../../../classes/Grafo';
-    import MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
+    import type MatrizAdyacencia from '../../../classes/MatrizAdyacencia';
+    import type Posicion from '../../../interfaces/Posicion';
 
     import {crearNuevoVerticeDinamico} from '../Funciones/ModificacionGrafo';
 
@@ -63,12 +64,13 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 const json = JSON.parse(reader.result as string);
-                const matrizAdyacencia = new MatrizAdyacencia(json.matrizAdyacencia);
-                const posicionesVertices = json.posicionesVertices;
-                const fuentes = json.fuentes;
-                const sumideros = json.sumideros;
+                const matrizAdyacencia: MatrizAdyacencia = json.matrizAdyacencia;
+                const posicionesVertices: Posicion[] = json.posicionesVertices;
+                const fuentes: boolean[] = json.fuentes;
+                const sumideros: boolean[] = json.sumideros;
 
                 grafo.generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros);
+                grafo.recargarGrafo();
             }
             reader.readAsText(file);
         }
