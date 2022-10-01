@@ -32,13 +32,52 @@ class Grafo {
     //recargarVertices: Function; // Funcion para recargar los vertices del grafo
     recargarGrafo: Function; // Funcion para recargar el grafo
 
-    iniciarCreacionArista() {
+    iniciarCreacionArista(): void {
         this.nuevaAristaVerticeOrigen = null;
         this.creandoArista = true;
         this.recargarGrafo();
     }
 
-    finalizarCreacionArista() {
+    seleccionarVerticeNuevaArista(vertice: Vertice): void {
+        this.nuevaAristaVerticeOrigen = vertice;
+
+        //dibujamos un vertice falso conectado por una arista al vertice seleccionado
+        const verticeFalso = new Vertice(this.vertices.length, false, false, {x: vertice.posicion.x, y: vertice.posicion.y}, "", 0, this);
+        this.vertices.push(verticeFalso);
+        
+        const arista = new Arista(verticeFalso, vertice, [false,false], [0,0], [0,0], this);
+        this.aristas[vertice.id][vertice.id] = arista;
+
+        this.recargarGrafo();
+
+        //hacemos que el vertice falso siga al mouse
+        const mousemove = (e: MouseEvent) => {
+            verticeFalso.mover({ x: e.clientX, y: e.clientY });
+        }
+    
+        window.addEventListener("mousemove", mousemove);
+
+        let firstClick = false
+        const mousedown = () => {
+            
+            if(!firstClick) {
+                firstClick = true;
+                return;
+            }
+            
+            this.vertices.splice(this.vertices.indexOf(verticeFalso), 1);
+            this.aristas[vertice.id][vertice.id] = null;
+            
+            
+            document.removeEventListener("mousemove", mousemove);
+            document.removeEventListener("mousedown", mousedown);
+            this.finalizarCreacionArista();
+        }
+
+        document.addEventListener("mousedown", mousedown);
+    }
+
+    finalizarCreacionArista(): void {
         this.creandoArista = false;
         this.nuevaAristaVerticeOrigen = null;
         this.recargarGrafo();

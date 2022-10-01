@@ -49,7 +49,7 @@ class Vertice {
         this.sumidero = sumidero;
         this.posicion = posicion;
 
-        this.radio = radio || 35;
+        this.radio = (radio === undefined || radio === null) ? 35 : radio;
 
         this.grafo = grafo || null;
     }

@@ -43,7 +43,7 @@
         }
         else if(creandoArista) {
             if(grafo.nuevaAristaVerticeOrigen == null) {
-                grafo.nuevaAristaVerticeOrigen = vertice;
+                grafo.seleccionarVerticeNuevaArista(vertice);
             }
             else {
                 grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE EL PESO
