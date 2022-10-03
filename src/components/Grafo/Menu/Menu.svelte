@@ -130,13 +130,13 @@
             <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
                 <div class="absolute bottom-1 ml-3 text-base" >
-                    ➕
+                    ✨
                 </div>
             </button>
             <button title="Agregar Arista" on:click={onClickCrearNuevaArista} disabled={!puedeModificarGrafo} class="disabled:grayscale">
-                🪡
+                🔗
                 <div class="absolute bottom-1 ml-3 text-base" >
-                    ➕
+                    ✨
                 </div>
             </button>
         </div>
@@ -144,13 +144,13 @@
             <button title="Eliminar Vertice" on:click={onClickEliminarVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
                 <div class="absolute bottom-1 ml-3 text-base" >
-                    ➖
+                    ❌
                 </div>
             </button>
             <button title="Eliminar Arista" on:click={onClickEliminarArista} disabled={!puedeModificarGrafo} class="disabled:grayscale">
-                🪡
+                🔗
                 <div class="absolute bottom-1 ml-3 text-base" >
-                    ➖
+                    ❌
                 </div>
             </button>
         </div>
