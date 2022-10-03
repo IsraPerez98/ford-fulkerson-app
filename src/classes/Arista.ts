@@ -33,6 +33,10 @@ class Arista {
         this.grafo = grafo;
     }
 
+    eliminar(): void { // elimina la arista del grafo
+        this.grafo.eliminarArista(this);
+    }
+
     constructor(origen: Vertice, destino: Vertice, esCamino: boolean[], peso: number[], flujo: number[], grafo: Grafo | null) {
         this.origen = origen;
         this.destino = destino;

@@ -25,7 +25,9 @@ class Grafo {
     creandoArista: boolean; // representa si se esta creando una arista
     nuevaAristaVerticeOrigen: Vertice; // representa el vertice origen de la arista que se esta creando
 
-    eliminandoVertice: boolean;
+    eliminandoVertice: boolean; //representa si se esta eliminando un vertice
+
+    eliminandoArista: boolean; //representa si se esta eliminando una arista
 
     ejecutandoFlujoMaximo: boolean; // representa si el grafo esta ejecutando el algoritmo de flujo maximo
     avanzarIteracionFlujoMaximo: boolean; // representa si el usuario presiono el boton de siguiente iteracion
@@ -33,6 +35,16 @@ class Grafo {
     //recargarAristas: Function; // Funcion para recargar las aristas del grafo
     //recargarVertices: Function; // Funcion para recargar los vertices del grafo
     recargarGrafo: Function; // Funcion para recargar el grafo
+
+    iniciarEliminacionArista(): void {
+        this.eliminandoArista = true;
+        this.recargarGrafo();
+    }
+
+    finalizarEliminacionArista(): void {
+        this.eliminandoArista = false;
+        this.recargarGrafo();
+    }
 
     iniciarCreacionArista(): void {
         this.nuevaAristaVerticeOrigen = null;

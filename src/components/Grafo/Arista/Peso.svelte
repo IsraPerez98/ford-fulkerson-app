@@ -1,4 +1,6 @@
 <script lang="ts">
+
+    export let onClickArista: Function;
     
     export let posicion: { x: number; y: number };
     
@@ -32,12 +34,16 @@
         
         cambiarPeso(pesoNuevo);
     }
+
+    function onClick() {
+        onClickArista();
+    }
     
     
 </script>
 
 {#if (peso == "∞" || !isNaN(Number(peso))) && Number(peso) !== 0}
-    <foreignObject x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
+    <foreignObject on:click={onClick} x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
         <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
             
             {#if cambiarPeso}

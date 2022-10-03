@@ -15,7 +15,10 @@
         esCamino: boolean[]; 
         peso: number[];
         flujo: number[];
+        eliminandoArista: boolean;
     };
+
+    $: eliminandoArista = arista.grafo.eliminandoArista;
 
     let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
 
@@ -27,7 +30,8 @@
             destinoPos: structuredClone(arista.destino.posicion),
             esCamino: structuredClone([...arista.esCamino]),
             peso: structuredClone([...arista.peso]),
-            flujo: structuredClone([...arista.flujo])
+            flujo: structuredClone([...arista.flujo]),
+            eliminandoArista: structuredClone(eliminandoArista),
         };
     }
 
@@ -51,6 +55,12 @@
                 color1 = "stroke-yellow-300";
             }
         }
+
+        if(eliminandoArista) {
+            color1 = "stroke-gray-700";
+            color2 = "stroke-gray-700";
+        }
+
         return [color1, color2];
     }
 
@@ -73,6 +83,13 @@
                 color1 = "fill-yellow-300";
             }
         }
+
+        if(eliminandoArista) {
+            color1 = "fill-gray-700";
+            color2 = "fill-gray-700";
+        }
+
+
         return [color1, color2];
     }
 
@@ -83,6 +100,11 @@
     function calcularColoresBG() {
         let color1 = "bg-emerald-800";
         let color2 = "bg-blue-600";
+
+        if(eliminandoArista) {
+            color1 = "bg-gray-700";
+            color2 = "bg-gray-700";
+        }
         
         /*
         if(arista.esCamino[0]) {
@@ -179,6 +201,11 @@
             return;
         }
 
+        //si se estan elimiando aristas
+        if(eliminandoArista !== prevArista.eliminandoArista) {
+            updateArista();
+        }
+
         //si algun peso cambia 
         if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
             updateArista();
@@ -201,6 +228,14 @@
     });
 
 
+    function onClickArista() {
+        if(eliminandoArista) {
+            arista.eliminar();
+            arista.grafo.finalizarEliminacionArista();
+        }
+    }
+
+
 
 </script>
 <svg>
@@ -208,6 +243,7 @@
     {#if dibujarAristaBidireccional} <!--Bidireccional-->
         <line 
             class="{coloresStroke[0]} stroke-2" 
+            on:click={onClickArista}
             x1={parametros.x1} 
             y1={parametros.y1}
             x2={(parametros.x1 + parametros.x2) / 2}
@@ -217,6 +253,7 @@
 
         <line 
             class="{coloresStroke[1]} stroke-2" 
+            on:click={onClickArista}
             x1={(parametros.x1 + parametros.x2) / 2} 
             y1={(parametros.y1 + parametros.y2) / 2}
             x2={parametros.x2}
@@ -225,17 +262,20 @@
         </line>
 
         <Flecha
+            onClickArista={onClickArista}
             posicion={{x: parametros.x2, y: parametros.y2}}
             angulo={parametros.angulo + (Math.PI / 2)}
             fillColor="{coloresFill[1]}"
         />
         <Flecha
+            onClickArista={onClickArista}
             posicion={{x: parametros.x1, y: parametros.y1}}
             angulo={parametros.angulo - (Math.PI / 2)}
             fillColor="{coloresFill[0]}"
         />
 
         <Peso
+            onClickArista={onClickArista}
             posicion={
                 {
                     x: posicionPesos[0][0],
@@ -247,6 +287,7 @@
             cambiarPeso={arista.cambiarPeso.bind(arista)}
         />
         <Peso
+            onClickArista={onClickArista}
             posicion={
                 {
                     x: posicionPesos[1][0],
@@ -260,6 +301,7 @@
     {:else} <!--Unidireccional-->
         <line 
             class="{coloresStroke[0]} stroke-2" 
+            on:click={onClickArista}
             x1={parametros.x1}
             y1={parametros.y1} 
             x2={parametros.x2}
@@ -269,11 +311,13 @@
 
         {#if (arista.peso[0] !== 0)}
             <Flecha
+                onClickArista={onClickArista}
                 posicion={{x: parametros.x2, y: parametros.y2}}
                 angulo={parametros.angulo + (Math.PI / 2)}
                 fillColor="{coloresFill[0]}"
             />
             <Peso
+                onClickArista={onClickArista}
                 posicion={
                     {
                         x: posicionPesos[0][0],
@@ -286,11 +330,13 @@
             />
         {:else}
             <Flecha
+                onClickArista={onClickArista}
                 posicion={{x: parametros.x1, y: parametros.y1}}
                 angulo={parametros.angulo - (Math.PI / 2)}
                 fillColor="{coloresFill[0]}"
             />
             <Peso
+                onClickArista={onClickArista}
                 posicion={
                     {
                         x: posicionPesos[1][0],
@@ -307,6 +353,7 @@
         <!--Dibujamos el flujo reutilizando el componente peso-->
     {#if arista.esCamino[0]}
         <Peso
+            onClickArista={onClickArista}
             posicion={
                 {
                     x: posicionFlujo[0][0],
@@ -320,6 +367,7 @@
     {/if}
     {#if arista.esCamino[1]}
         <Peso
+            onClickArista={onClickArista}
             posicion={
                 {
                     x: posicionFlujo[1][0],
