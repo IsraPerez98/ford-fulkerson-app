@@ -6,7 +6,7 @@ class Consola {
 
     printTextoExplicativo(texto: string) {
         this.textoExplicativo.push(texto);
-        if(this.textoExplicativo.length > 5) {
+        if(this.textoExplicativo.length > 1000) {
             this.textoExplicativo.shift();
         }
 
