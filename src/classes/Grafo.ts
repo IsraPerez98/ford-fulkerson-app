@@ -16,35 +16,33 @@ function cancelarConClick(callback: Function) {
 }
 
 class Grafo {
-    matrizAdyacencia: MatrizAdyacencia; // representa la matriz de adyacencia del grafo
-    redResidual: number[][];
+    public matrizAdyacencia: MatrizAdyacencia; // representa la matriz de adyacencia del grafo
+    public redResidual: number[][];
 
-    fuentes: boolean[]; // representa los vertices que son fuentes
-    sumideros: boolean[]; // representa los vertices que son sumiderosq
+    public fuentes: boolean[]; // representa los vertices que son fuentes
+    public sumideros: boolean[]; // representa los vertices que son sumiderosq
 
-    vertices: Vertice[]; // representa los vertices del grafo
-    aristas: Arista[][]; // representa las aristas del grafo
+    public vertices: Vertice[]; // representa los vertices del grafo
+    public aristas: Arista[][]; // representa las aristas del grafo
 
-    consola: Consola; //Consola para mostrar mensajes del algoritmo
+    public consola: Consola; //Consola para mostrar mensajes del algoritmo
 
-    width: number; // representa el ancho del grafo
-    height: number; // representa el alto del grafo
+    public width: number; // representa el ancho del grafo
+    public height: number; // representa el alto del grafo
 
-    creandoVertice: boolean; // representa si se esta creando un vertice
+    public creandoVertice: boolean; // representa si se esta creando un vertice
 
-    creandoArista: boolean; // representa si se esta creando una arista
-    nuevaAristaVerticeOrigen: Vertice; // representa el vertice origen de la arista que se esta creando
+    public creandoArista: boolean; // representa si se esta creando una arista
+    public nuevaAristaVerticeOrigen: Vertice; // representa el vertice origen de la arista que se esta creando
 
-    eliminandoVertice: boolean; //representa si se esta eliminando un vertice
+    public eliminandoVertice: boolean; //representa si se esta eliminando un vertice
 
-    eliminandoArista: boolean; //representa si se esta eliminando una arista
+    public eliminandoArista: boolean; //representa si se esta eliminando una arista
 
-    ejecutandoFlujoMaximo: boolean; // representa si el grafo esta ejecutando el algoritmo de flujo maximo
-    avanzarIteracionFlujoMaximo: boolean; // representa si el usuario presiono el boton de siguiente iteracion
+    public ejecutandoFlujoMaximo: boolean; // representa si el grafo esta ejecutando el algoritmo de flujo maximo
+    private avanzarIteracionFlujoMaximo: boolean; // representa si el usuario presiono el boton de siguiente iteracion
 
-    //recargarAristas: Function; // Funcion para recargar las aristas del grafo
-    //recargarVertices: Function; // Funcion para recargar los vertices del grafo
-    recargarGrafo: Function; // Funcion para recargar el grafo
+    public recargarGrafo: Function; // Funcion para recargar el grafo con svelte
 
     public iniciarCreacionVertice(): void {
         this.creandoVertice = true;
@@ -52,7 +50,7 @@ class Grafo {
 
     }
 
-    public crearVerticeDinamico(): void {
+    private crearVerticeDinamico(): void {
         const centro: Posicion = {
             x: this.width / 2,
             y: this.height / 2,
@@ -88,12 +86,12 @@ class Grafo {
         window.addEventListener("mouseup", mousedown);
     }
 
-    finalizarCreacionVertice(): void {
+    public finalizarCreacionVertice(): void {
         this.creandoVertice = false;
         this.recargarGrafo();
     }
 
-    iniciarEliminacionArista(): void {
+    public iniciarEliminacionArista(): void {
         this.eliminandoArista = true;
         this.recargarGrafo();
         const mousedown = async (e: MouseEvent) => {
@@ -106,12 +104,12 @@ class Grafo {
         //cancelarConClick(this.finalizarEliminacionArista.bind(this));
     }
 
-    finalizarEliminacionArista(): void {
+    public finalizarEliminacionArista(): void {
         this.eliminandoArista = false;
         this.recargarGrafo();
     }
 
-    iniciarCreacionArista(): void {
+    public iniciarCreacionArista(): void {
         this.nuevaAristaVerticeOrigen = null;
         this.creandoArista = true;
         this.recargarGrafo();
@@ -125,7 +123,7 @@ class Grafo {
         document.addEventListener("mousedown", mousedown);
     }
 
-    seleccionarVerticeNuevaArista(vertice: Vertice): void {
+    public seleccionarVerticeNuevaArista(vertice: Vertice): void {
         this.nuevaAristaVerticeOrigen = vertice;
 
         //dibujamos un vertice falso conectado por una arista al vertice seleccionado
@@ -164,19 +162,19 @@ class Grafo {
         document.addEventListener("mousedown", mousedown);
     }
 
-    finalizarCreacionArista(): void {
+    public finalizarCreacionArista(): void {
         this.creandoArista = false;
         this.nuevaAristaVerticeOrigen = null;
         this.recargarGrafo();
     }
 
-    iniciarEliminacionVertice(): void {
+    public iniciarEliminacionVertice(): void {
         this.eliminandoVertice = true;
         this.recargarGrafo();
         cancelarConClick(this.finalizarEliminacionVertice.bind(this));
     }
 
-    eliminarVertice(vertice: Vertice): void {
+    public eliminarVertice(vertice: Vertice): void {
         console.log({vertice});
         
 
@@ -208,12 +206,12 @@ class Grafo {
         this.recargarGrafo();
     }
 
-    finalizarEliminacionVertice(): void {
+    public finalizarEliminacionVertice(): void {
         this.eliminandoVertice = false;
         this.recargarGrafo();
     }
 
-    generarGrafoAlAzar(cantVertices: number): void {
+    public generarGrafoAlAzar(cantVertices: number): void {
         const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarGrafo);
         
         this.matrizAdyacencia = grafo.matrizAdyacencia;
@@ -225,7 +223,7 @@ class Grafo {
         this.recargarGrafo();
     }
 
-    eliminarArista(arista: Arista): void { // funcion que elimina una arista del grafo
+    public eliminarArista(arista: Arista): void { // funcion que elimina una arista del grafo
         this.matrizAdyacencia[arista.origen.id][arista.destino.id] = 0;
         this.matrizAdyacencia[arista.destino.id][arista.origen.id] = 0;
         this.aristas[arista.origen.id][arista.destino.id] = null;
@@ -234,7 +232,7 @@ class Grafo {
         this.recargarGrafo();
     }
 
-    guardarGrafo(): void { // funcion que guarda el grafo en un archivo local
+    public guardarGrafo(): void { // funcion que guarda el grafo en un archivo local
         
         //copiamos los valores de la matriz de adyacencia sin la propiedad de grafo
         const matrizAdyacencia: number[][] = [];
@@ -265,8 +263,139 @@ class Grafo {
         link.href = url;
         link.click();
     }
+    
+    public inciarFlujoMaximo() {
+        this.ejecutandoFlujoMaximo = true;
+        this.avanzarIteracionFlujoMaximo = false;
 
-    DFSRecursivo(verticeActual: Vertice, destino: Vertice, visitados: boolean[], camino: Vertice[]) : Vertice[] {
+        const fuentes = this.vertices.filter(vertice => vertice.fuente);
+        const sumideros = this.vertices.filter(vertice => vertice.sumidero);
+
+        if(fuentes.length === 0) {
+            alert("Debe haber al menos una fuente");
+            this.finalizarFlujoMaximo();
+            return;
+        }
+
+        if(sumideros.length === 0) {
+            alert("Debe haber al menos un sumidero");
+            this.finalizarFlujoMaximo();
+            return;
+        }
+
+        if(fuentes.length > 1 || sumideros.length > 1) {
+            //TODO: EJECTUAR ALGORITMO DE FLUJO MAXIMO CON FUENTES Y SUMIDEROS MULTIPLES
+            alert("Solo puede haber una fuente y un sumidero");
+            this.finalizarFlujoMaximo();
+            return;
+        }
+
+        const fuente = fuentes[0];
+        const sumidero = sumideros[0];
+        this.calcularFlujoMaximo(fuente, sumidero);
+    }
+
+    public continuarFlujoMaximo() {
+        this.avanzarIteracionFlujoMaximo = true;
+    }
+
+    public finalizarFlujoMaximo() {
+        this.ejecutandoFlujoMaximo = false;
+        this.avanzarIteracionFlujoMaximo = false;
+        this.clearCaminos();
+        this.recargarGrafo();
+    }
+    
+    public generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
+        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarGrafo);
+        
+        this.matrizAdyacencia = grafo.matrizAdyacencia;
+        this.fuentes = grafo.fuentes;
+        this.sumideros = grafo.sumideros;
+        this.vertices = grafo.vertices;
+        this.aristas = grafo.aristas;
+        this.ejecutandoFlujoMaximo = false;
+        
+        this.recargarGrafo();
+    }
+
+    public crearNuevoVertice(fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string, radio?: number): void {
+        const nuevoVertice = new Vertice(this.vertices.length, fuente, sumidero, posicion, nombre, radio, this);
+        this.vertices.push(nuevoVertice);
+        
+        this.fuentes.push(fuente);
+        this.sumideros.push(sumidero);
+
+        //generamos una nueva fila y columna en la matriz de adyacencia
+        this.matrizAdyacencia.push(Array(this.vertices.length).fill(0));
+        for(let i = 0; i < this.matrizAdyacencia.length; i++) {
+            this.matrizAdyacencia[i].push(0);
+        }
+
+        //generamos una nueva fila y columna en la matriz de aristas
+        this.aristas.push(Array(this.vertices.length).fill(null));
+        for(let i = 0; i < this.aristas.length; i++) {
+            this.aristas[i].push(null);
+        }
+
+        this.recargarGrafo();
+        
+    }
+
+    public crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, peso: number): void {
+        //console.log({verticeOrigen, verticeDestino, peso});
+        //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
+        if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0 && this.matrizAdyacencia[verticeDestino.id][verticeOrigen.id] !== 0) {
+            alert("Ya existe esta arista");
+            this.finalizarCreacionArista();
+            return;
+        }
+
+        //Si la arista ya existe pero no es bidireccional, la hacemos bidireccional
+        if(this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id]) {
+            const aristaExistente = this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id];
+            
+            //debemos comprobar si la arista es inversa
+            if(aristaExistente.origen === verticeOrigen) {
+                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
+                    alert("Ya existe esta arista");
+                    this.finalizarCreacionArista();
+                    return;
+                }
+
+                //Modificamos la arista
+                aristaExistente.peso = [peso, aristaExistente.peso[1]];
+                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+                
+                this.finalizarCreacionArista();
+                return;
+            
+            } else { //Arista inversa
+                
+                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
+                    alert("Ya existe esta arista");
+                    this.finalizarCreacionArista();
+                    return;
+                }
+
+                //Modificamos la arista
+                aristaExistente.peso = [aristaExistente.peso[0], peso];
+                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+                
+                this.finalizarCreacionArista();
+                return;
+
+            }
+        }
+        
+        //Creamos la arista
+        const nuevaArista = new Arista(verticeOrigen, verticeDestino, [false, false], [peso, 0], [0,0], this);
+        this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
+        this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+        this.finalizarCreacionArista();
+    }
+
+    private DFSRecursivo(verticeActual: Vertice, destino: Vertice, visitados: boolean[], camino: Vertice[]) : Vertice[] {
         visitados[verticeActual.id] = true;
         if(verticeActual === destino) {
             return [...camino, destino];
@@ -285,7 +414,7 @@ class Grafo {
         return null;
     }
 
-    buscarCamino(origen: Vertice, destino: Vertice): Vertice[] {
+    private buscarCamino(origen: Vertice, destino: Vertice): Vertice[] {
         //DFS
         let visitados = new Array(this.vertices.length).fill(false);
         //console.log({redResidual: this.redResidual, visitados});
@@ -297,7 +426,7 @@ class Grafo {
         return camino;
     }
 
-    clearCaminos(): void {
+    private clearCaminos(): void {
         for (let i = 0; i < this.aristas.length; i++) {
             for (let j = 0; j < this.aristas.length; j++) {
                 if(this.aristas[i][j]) {
@@ -308,7 +437,7 @@ class Grafo {
         }
     }
 
-    dibujarCamino(camino: Vertice[], flujo: number) {
+    private dibujarCamino(camino: Vertice[], flujo: number) {
         for(let i = 0; i < camino.length - 1; i++) {
             const vertice = camino[i];
             const verticeSiguiente = camino[i + 1];
@@ -337,7 +466,7 @@ class Grafo {
         this.recargarGrafo();
     }
 
-    async esperarProximaIteracion(): Promise<void> { // funcion que espera a que el usuario presione el boton de siguiente iteracion
+    private async esperarProximaIteracion(): Promise<void> { // funcion que espera a que el usuario presione el boton de siguiente iteracion
         this.recargarGrafo();
         console.log("Esperando siguiente iteracion");
         while(!this.avanzarIteracionFlujoMaximo) {
@@ -347,7 +476,7 @@ class Grafo {
         this.recargarGrafo();
     }
 
-    recargarRedResidual(): void {
+    private recargarRedResidual(): void {
         const nuevaRedResidual: number[][] = [];
         for(let i = 0; i < this.matrizAdyacencia.length; i++) {
             nuevaRedResidual.push([]);
@@ -358,7 +487,7 @@ class Grafo {
         this.redResidual = nuevaRedResidual;
     }
 
-    async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
+    private async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
         
         this.recargarRedResidual(); // <-- Hacemos esto aca para evitar problemas al mostrar la variable en consola
 
@@ -455,137 +584,6 @@ class Grafo {
 
             await this.esperarProximaIteracion();
         }
-    }
-    
-    inciarFlujoMaximo() {
-        this.ejecutandoFlujoMaximo = true;
-        this.avanzarIteracionFlujoMaximo = false;
-
-        const fuentes = this.vertices.filter(vertice => vertice.fuente);
-        const sumideros = this.vertices.filter(vertice => vertice.sumidero);
-
-        if(fuentes.length === 0) {
-            alert("Debe haber al menos una fuente");
-            this.finalizarFlujoMaximo();
-            return;
-        }
-
-        if(sumideros.length === 0) {
-            alert("Debe haber al menos un sumidero");
-            this.finalizarFlujoMaximo();
-            return;
-        }
-
-        if(fuentes.length > 1 || sumideros.length > 1) {
-            //TODO: EJECTUAR ALGORITMO DE FLUJO MAXIMO CON FUENTES Y SUMIDEROS MULTIPLES
-            alert("Solo puede haber una fuente y un sumidero");
-            this.finalizarFlujoMaximo();
-            return;
-        }
-
-        const fuente = fuentes[0];
-        const sumidero = sumideros[0];
-        this.calcularFlujoMaximo(fuente, sumidero);
-    }
-
-    continuarFlujoMaximo() {
-        this.avanzarIteracionFlujoMaximo = true;
-    }
-
-    finalizarFlujoMaximo() {
-        this.ejecutandoFlujoMaximo = false;
-        this.avanzarIteracionFlujoMaximo = false;
-        this.clearCaminos();
-        this.recargarGrafo();
-    }
-    
-    generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
-        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarGrafo);
-        
-        this.matrizAdyacencia = grafo.matrizAdyacencia;
-        this.fuentes = grafo.fuentes;
-        this.sumideros = grafo.sumideros;
-        this.vertices = grafo.vertices;
-        this.aristas = grafo.aristas;
-        this.ejecutandoFlujoMaximo = false;
-        
-        this.recargarGrafo();
-    }
-
-    crearNuevoVertice(fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string, radio?: number): void {
-        const nuevoVertice = new Vertice(this.vertices.length, fuente, sumidero, posicion, nombre, radio, this);
-        this.vertices.push(nuevoVertice);
-        
-        this.fuentes.push(fuente);
-        this.sumideros.push(sumidero);
-
-        //generamos una nueva fila y columna en la matriz de adyacencia
-        this.matrizAdyacencia.push(Array(this.vertices.length).fill(0));
-        for(let i = 0; i < this.matrizAdyacencia.length; i++) {
-            this.matrizAdyacencia[i].push(0);
-        }
-
-        //generamos una nueva fila y columna en la matriz de aristas
-        this.aristas.push(Array(this.vertices.length).fill(null));
-        for(let i = 0; i < this.aristas.length; i++) {
-            this.aristas[i].push(null);
-        }
-
-        this.recargarGrafo();
-        
-    }
-
-    crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, peso: number): void {
-        //console.log({verticeOrigen, verticeDestino, peso});
-        //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
-        if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0 && this.matrizAdyacencia[verticeDestino.id][verticeOrigen.id] !== 0) {
-            alert("Ya existe esta arista");
-            this.finalizarCreacionArista();
-            return;
-        }
-
-        //Si la arista ya existe pero no es bidireccional, la hacemos bidireccional
-        if(this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id]) {
-            const aristaExistente = this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id];
-            
-            //debemos comprobar si la arista es inversa
-            if(aristaExistente.origen === verticeOrigen) {
-                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
-                    alert("Ya existe esta arista");
-                    this.finalizarCreacionArista();
-                    return;
-                }
-
-                //Modificamos la arista
-                aristaExistente.peso = [peso, aristaExistente.peso[1]];
-                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
-                
-                this.finalizarCreacionArista();
-                return;
-            
-            } else { //Arista inversa
-                
-                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
-                    alert("Ya existe esta arista");
-                    this.finalizarCreacionArista();
-                    return;
-                }
-
-                //Modificamos la arista
-                aristaExistente.peso = [aristaExistente.peso[0], peso];
-                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
-                
-                this.finalizarCreacionArista();
-                return;
-
-            }
-        }
-        
-        //Creamos la arista
-        const nuevaArista = new Arista(verticeOrigen, verticeDestino, [false, false], [peso, 0], [0,0], this);
-        this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
-        this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
-        this.finalizarCreacionArista();
     }
 
     constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], consola: Consola, width: number, height: number, recargarGrafo: Function) {

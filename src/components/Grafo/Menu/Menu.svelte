@@ -4,15 +4,13 @@
     import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
     import type Posicion from '../../../interfaces/Posicion';
 
-    import {crearNuevoVerticeDinamico} from '../Funciones/ModificacionGrafo';
-
     export let grafo: Grafo;
 
     $: estaEjecutandoFlujoMaximo = grafo.ejecutandoFlujoMaximo;
     $: estaModificandoGrafo = grafo.creandoArista || grafo.creandoVertice || grafo.eliminandoArista || grafo.eliminandoVertice;
 
     $: puedeIniciarFlujoMaximo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo;
-    $: puedeContinuarFlujoMaximo = estaEjecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo;
+    $: puedeContinuarFlujoMaximo = estaEjecutandoFlujoMaximo;
     $: puedeDetenerFlujoMaximo = estaEjecutandoFlujoMaximo;
     $: puedeModificarGrafo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo;
 
@@ -82,7 +80,7 @@
 
     function onClickCrearNuevoVertice() {
         if(!puedeModificarGrafo) return;
-        crearNuevoVerticeDinamico(grafo);
+        grafo.iniciarCreacionVertice();
     }
 
     function onClickCrearNuevaArista() {

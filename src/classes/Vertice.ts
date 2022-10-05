@@ -2,19 +2,19 @@ import type Grafo from './Grafo';
 import type Posicion from '../interfaces/Posicion';
 
 class Vertice {
-    id: number; // representa un id utilizado para identificar el vetice
-    nombre: string | null; // representa el nombre del vetice, puede ser null si no se ha definido
+    public id: number; // representa un id utilizado para identificar el vetice
+    public nombre: string | null; // representa el nombre del vetice, puede ser null si no se ha definido
     
-    fuente: boolean; // representa si el vetice es una fuente
-    sumidero: boolean; // representa si el vetice es un sumidero
+    public fuente: boolean; // representa si el vetice es una fuente
+    public sumidero: boolean; // representa si el vetice es un sumidero
     
-    posicion: Posicion; // representa la posicion del vertice en el canvas
+    public posicion: Posicion; // representa la posicion del vertice en el canvas
 
-    radio: number; // representa el radio del vertice en el canvas
+    public radio: number; // representa el radio del vertice en el canvas
     
-    grafo: Grafo | null; // representa el grafo al que pertenece el vertice
+    public grafo: Grafo | null; // representa el grafo al que pertenece el vertice
 
-    mover(posicion: Posicion) : void { // mueve el vertice a la posicion indicada
+    public mover(posicion: Posicion) : void { // mueve el vertice a la posicion indicada
         const nuevaPosicion: Posicion = {
             x: Math.max(this.radio, Math.min(this.grafo.width - (this.radio * 2), posicion.x)),
             y: Math.max(this.radio, Math.min(this.grafo.height - (this.radio), posicion.y)),
@@ -25,22 +25,22 @@ class Vertice {
         this.grafo.recargarGrafo();
     }
 
-    eliminar(): void { // elimina el vertice del grafo
+    public eliminar(): void { // elimina el vertice del grafo
         this.grafo.eliminarVertice(this);
     }
     
     
-    toggleFuente(): void { // Funcion para cambiar el estado de fuente del vertice
+    public toggleFuente(): void { // Funcion para cambiar el estado de fuente del vertice
         this.fuente = !this.fuente;
         this.grafo.fuentes[this.id] = this.fuente;
     }
     
-    toggleSumidero(): void { // Funcion para cambiar el estado de sumidero del vertice
+    public toggleSumidero(): void { // Funcion para cambiar el estado de sumidero del vertice
         this.sumidero = !this.sumidero;
         this.grafo.sumideros[this.id] = this.sumidero;
     }
 
-    asignarGrafo(grafo: Grafo) : void { // asigna el grafo al vertice
+    public asignarGrafo(grafo: Grafo) : void { // asigna el grafo al vertice
         this.grafo = grafo;
     }
 
