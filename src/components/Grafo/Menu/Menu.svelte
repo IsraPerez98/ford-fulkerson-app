@@ -8,10 +8,13 @@
 
     export let grafo: Grafo;
 
-    $: puedeIniciarFlujoMaximo = !grafo.ejecutandoFlujoMaximo && !grafo.creandoArista;
-    $: puedeContinuarFlujoMaximo = grafo.ejecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo;
-    $: puedeDetenerFlujoMaximo = grafo.ejecutandoFlujoMaximo;
-    $: puedeModificarGrafo = !grafo.ejecutandoFlujoMaximo && !grafo.creandoArista;
+    $: estaEjecutandoFlujoMaximo = grafo.ejecutandoFlujoMaximo;
+    $: estaModificandoGrafo = grafo.creandoArista || grafo.creandoVertice || grafo.eliminandoArista || grafo.eliminandoVertice;
+
+    $: puedeIniciarFlujoMaximo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo;
+    $: puedeContinuarFlujoMaximo = estaEjecutandoFlujoMaximo && !grafo.avanzarIteracionFlujoMaximo;
+    $: puedeDetenerFlujoMaximo = estaEjecutandoFlujoMaximo;
+    $: puedeModificarGrafo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo;
 
     function onClickAyuda() {
         console.log("Ayuda");

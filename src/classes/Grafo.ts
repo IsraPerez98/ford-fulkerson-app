@@ -7,6 +7,14 @@ import type Consola from "./Consola";
 
 import { generarGrafoAlAzar, generarGrafo } from "../components/Grafo/Funciones/GeneracionGrafo";
 
+function cancelarConClick(callback: Function) {
+    const mousedown = (e: MouseEvent) => {
+        callback();
+        document.removeEventListener("mousedown", mousedown);
+    };
+    document.addEventListener("mousedown", mousedown);
+}
+
 class Grafo {
     matrizAdyacencia: MatrizAdyacencia; // representa la matriz de adyacencia del grafo
     redResidual: number[][];
@@ -22,6 +30,8 @@ class Grafo {
     width: number; // representa el ancho del grafo
     height: number; // representa el alto del grafo
 
+    creandoVertice: boolean; // representa si se esta creando un vertice
+
     creandoArista: boolean; // representa si se esta creando una arista
     nuevaAristaVerticeOrigen: Vertice; // representa el vertice origen de la arista que se esta creando
 
@@ -36,9 +46,64 @@ class Grafo {
     //recargarVertices: Function; // Funcion para recargar los vertices del grafo
     recargarGrafo: Function; // Funcion para recargar el grafo
 
+    public iniciarCreacionVertice(): void {
+        this.creandoVertice = true;
+        this.recargarGrafo();
+
+    }
+
+    public crearVerticeDinamico(): void {
+        const centro: Posicion = {
+            x: this.width / 2,
+            y: this.height / 2,
+        };
+        const nuevoVertice = new Vertice(this.vertices.length, false, false, centro, "Nuevo Vertice", null, this);
+    
+        //lo metemos al grafo para que sea renderizado
+        this.vertices.push(nuevoVertice);
+        this.recargarGrafo();
+    
+        //hacemos que el nuevo grafo siga al mouse
+        const mousemove = (e: MouseEvent) => {
+            nuevoVertice.mover({ x: e.clientX, y: e.clientY });
+        }
+    
+        window.addEventListener("mousemove", mousemove);
+    
+        //cuando se haga click, se crea el vertice
+        const mousedown = (e: MouseEvent) => {
+            //eliminamos el vertice falso
+            this.vertices.splice(this.vertices.indexOf(nuevoVertice), 1);
+    
+            //creamos el vertice real
+            this.crearNuevoVertice(false, false, { x: e.clientX, y: e.clientY }, null, null);
+
+            this.finalizarCreacionVertice();
+    
+            //quitamos los listeners
+            window.removeEventListener("mousemove", mousemove);
+            window.removeEventListener("mouseup", mousedown);
+        }
+    
+        window.addEventListener("mouseup", mousedown);
+    }
+
+    finalizarCreacionVertice(): void {
+        this.creandoVertice = false;
+        this.recargarGrafo();
+    }
+
     iniciarEliminacionArista(): void {
         this.eliminandoArista = true;
         this.recargarGrafo();
+        const mousedown = async (e: MouseEvent) => {
+            //esperamos 100ms para que el evento de click del vertice se ejecute
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            this.finalizarEliminacionArista();
+            document.removeEventListener("mousedown", mousedown);
+        };
+        document.addEventListener("mousedown", mousedown);
+        //cancelarConClick(this.finalizarEliminacionArista.bind(this));
     }
 
     finalizarEliminacionArista(): void {
@@ -50,6 +115,14 @@ class Grafo {
         this.nuevaAristaVerticeOrigen = null;
         this.creandoArista = true;
         this.recargarGrafo();
+        //cancelarConClick(this.finalizarCreacionArista.bind(this));
+        const mousedown = (e: MouseEvent) => {
+            if(!this.nuevaAristaVerticeOrigen) {
+                this.finalizarCreacionArista();
+                document.removeEventListener("mousedown", mousedown);
+            }
+        };
+        document.addEventListener("mousedown", mousedown);
     }
 
     seleccionarVerticeNuevaArista(vertice: Vertice): void {
@@ -100,6 +173,7 @@ class Grafo {
     iniciarEliminacionVertice(): void {
         this.eliminandoVertice = true;
         this.recargarGrafo();
+        cancelarConClick(this.finalizarEliminacionVertice.bind(this));
     }
 
     eliminarVertice(vertice: Vertice): void {
