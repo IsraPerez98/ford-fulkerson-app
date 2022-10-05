@@ -285,71 +285,97 @@ class Grafo {
     }
 
     async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
-        let flujoMaximo = 0;
-        this.recargarRedResidual();
+        this.consola.printTextoExplicativo("✨ Iniciamos la variable de flujo maximo en 0");
+        this.consola.setUbicacionPseudoCodigo("DEFINIR FLUJO_MAXIMO = 0");
 
-        //printConsola("Iniciamos la variable de flujo maximo en 0");
-        this.consola.printTextoExplicativo("Iniciamos la variable de flujo maximo en 0");
-        //printConsola("Creamos la red residual como una copia de la matriz de adyacencia");
-        this.consola.printTextoExplicativo("Creamos la red residual como una copia de la matriz de adyacencia");
+        let flujoMaximo = 0;
+
+        await this.esperarProximaIteracion();
+        
+        this.consola.printTextoExplicativo("🕸️ Creamos la red residual como una copia de la matriz de adyacencia");
+        this.consola.setUbicacionPseudoCodigo("DEFINIR RED_RESIDUAL = MATRIZ_ADYACENCIA");
+
+        this.recargarRedResidual();
 
         await this.esperarProximaIteracion();
 
+        this.consola.printTextoExplicativo("🔍️ Buscamos un camino desde la fuente al sumidero, utilizando la red residual");
+        this.consola.setUbicacionPseudoCodigo("CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)");
+
+        let camino = this.buscarCamino(fuente, sumidero);
+        
+        await this.esperarProximaIteracion();
+
         while(true) {
-            //printConsola("Buscamos un camino desde la fuente al sumidero, utilizando la red residual");
-            this.consola.printTextoExplicativo("Buscamos un camino desde la fuente al sumidero, utilizando la red residual");
-            const camino = this.buscarCamino(fuente, sumidero);
+            
             if(!camino) {
-                //printConsola("No existe otro camino desde la fuente al sumidero, por lo tanto el flujo maximo es: " + flujoMaximo);
-                this.consola.printTextoExplicativo("No existe otro camino desde la fuente al sumidero, por lo tanto el flujo maximo es: " + flujoMaximo);
-                console.log({flujoMaximo});
-                alert("El flujo maximo es: " + flujoMaximo);
+                
+                this.consola.printTextoExplicativo("🚫 No existe otro camino desde la fuente al sumidero, por lo tanto finalizamos el algoritmo");
+                this.consola.setUbicacionPseudoCodigo("FIN_MIENTRAS");
+                await this.esperarProximaIteracion();
+                
+                this.consola.printTextoExplicativo("🎉 El flujo maximo es: " + flujoMaximo);
+                this.consola.setUbicacionPseudoCodigo("RETORNAR FLUJO_MAXIMO");
+                await this.esperarProximaIteracion();
+
                 this.finalizarFlujoMaximo();
                 return;
             }
-            //printConsola("Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
-            this.consola.printTextoExplicativo("Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
+            
+            this.consola.printTextoExplicativo("🗺️ Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
+            this.consola.setUbicacionPseudoCodigo("MIENTRAS EXISTA CAMINO:");
             this.dibujarCamino(camino, 0);
             await this.esperarProximaIteracion();
             
-            //calculamos el cuello de botella del camino
-            //printConsola("Calculamos el cuello de botella del camino, es decir el valor minimo de las aristas que lo componen");
-            this.consola.printTextoExplicativo("Calculamos el cuello de botella del camino, es decir el valor minimo de las aristas que lo componen");
+            this.consola.printTextoExplicativo("📈 Calculamos el flujo que puede pasar por el camino");
+            this.consola.printTextoExplicativo("📈 El flujo que puede pasar por el camino es el minimo entre las aristas que lo componen");
+            this.consola.setUbicacionPseudoCodigo("    FLUJO_MINIMO = MINIMO(CAPACIDADES(CAMINO))");
+            
             let cuelloBotella = Number.MAX_SAFE_INTEGER;
             for(let i = 0; i < camino.length - 1; i++) {
                 const vertice = camino[i];
                 const verticeSiguiente = camino[i + 1];
-                //console.log({vertice, verticeSiguiente});
-                //console.log({redResidual});
+
                 const peso = this.redResidual[vertice.id][verticeSiguiente.id];
-                //console.log({peso});
+
                 if(peso < cuelloBotella) {
                     cuelloBotella = peso;
                 }
             }
-            flujoMaximo += cuelloBotella;
-            this.dibujarCamino(camino, cuelloBotella);
+            this.consola.printTextoExplicativo("🚰 El flujo minimo del camino es: " + cuelloBotella);
 
-            //console.log({cuelloBotella});
-            //printConsola("El cuello de botella es: " + cuelloBotella);
-            //printConsola("Actualizamos el flujo maximo sumando el cuello de botella al flujo maximo actual que es: " + flujoMaximo);
-            this.consola.printTextoExplicativo("El cuello de botella es: " + cuelloBotella);
-            this.consola.printTextoExplicativo("Actualizamos el flujo maximo sumando el cuello de botella al flujo maximo actual que es: " + flujoMaximo);
             await this.esperarProximaIteracion();
 
-            //actualizamos la red residual
-            //printConsola("Actualizamos la red residual, restando el cuello de botella a las aristas que componen el camino");
-            this.consola.printTextoExplicativo("Actualizamos la red residual, restando el cuello de botella a las aristas que componen el camino");
+            this.consola.printTextoExplicativo("➕ Sumamos el flujo minimo al flujo maximo");
+            this.consola.setUbicacionPseudoCodigo("    FLUJO_MAXIMO = FLUJO_MAXIMO + FLUJO_MINIMO");
+            
+            flujoMaximo += cuelloBotella;
+            this.dibujarCamino(camino, cuelloBotella);
+            this.consola.printTextoExplicativo("🚰 El flujo maximo actualmente es: " + flujoMaximo);
+
+            await this.esperarProximaIteracion();
+
+            this.consola.printTextoExplicativo("🕸️ Actualizamos la red residual");
+            this.consola.printTextoExplicativo("🕸️ Restamos el flujo minimo a las aristas que componen el camino");
+            this.consola.printTextoExplicativo("🤔 ¿Por que restamos el flujo minimo a las aristas que componen el camino?");
+            this.consola.printTextoExplicativo("🤔 Porque de esta forma estamos indicando que el flujo minimo ya pasó por esas aristas");
+            this.consola.setUbicacionPseudoCodigo("    ACTUALIZAR_CAPACIDADES(RED_RESIDUAL ,CAMINO, FLUJO_MINIMO)")
+            
             for(let i = 0; i < camino.length - 1; i++) {
                 const vertice = camino[i];
                 const verticeSiguiente = camino[i + 1];
                 this.redResidual[vertice.id][verticeSiguiente.id] -= cuelloBotella;
-                //redResidual[verticeSiguiente.id - 1][vertice.id - 1] += cuelloBotella;
             }
             //TODO: Dibujar los caminos antiguos
             this.clearCaminos();
 
-            //console.log({redResidual});
+            await this.esperarProximaIteracion();
+
+            this.consola.printTextoExplicativo("🔍️ Buscamos un nuevo camino desde la fuente al sumidero, utilizando la red residual");
+            this.consola.setUbicacionPseudoCodigo("    CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)");
+            
+            camino = this.buscarCamino(fuente, sumidero);
+
             await this.esperarProximaIteracion();
         }
     }
