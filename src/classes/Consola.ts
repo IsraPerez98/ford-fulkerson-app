@@ -7,6 +7,7 @@ class Consola {
     private categorias = [
         "EXPLICACION",
         "PSEUDOCODIGO",
+        "RED_RESIDUAL",
     ]
 
     public categoria = this.categorias[0];

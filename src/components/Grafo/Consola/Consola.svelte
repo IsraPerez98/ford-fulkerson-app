@@ -1,8 +1,10 @@
 <script lang="ts">
     import type Consola from "../../../classes/Consola";
+    import Grafo from "../Grafo.svelte";
 
     import Explicacion from "./Explicacion.svelte";
     import Pseudocodigo from "./Pseudocodigo.svelte";
+    import RedResidual from "./RedResidual.svelte";
 
     export let consola: Consola;
 
@@ -16,6 +18,10 @@
 
     function onClickButtonPseudocodigo(): void {
         consola.cambiarCategoria("PSEUDOCODIGO");
+    }
+
+    function onClickButtonRedAumentada(): void {
+        consola.cambiarCategoria("RED_RESIDUAL");
     }
 
 </script>
@@ -36,6 +42,9 @@
                 <button on:click={onClickButtonPseudocodigo} class:active={categoria === "PSEUDOCODIGO"} class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
                     Pseudocodigo
                 </button>
+                <button on:click={onClickButtonRedAumentada} class:active={categoria === "RED_RESIDUAL"} class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
+                    Red Residual
+                </button>
             </div>
             <div class="bg-white overflow-auto h-72 w-[32rem] shadow-lg ring-1 flex flex-col divide-y ">
                 {#if categoria === "EXPLICACION"}
@@ -46,6 +55,11 @@
                     <Pseudocodigo 
                         pseudoCodigo={consola.pseudoCodigo} 
                         lineaActual={consola.ubicacionPseudoCodigo}
+                    />
+                {:else if categoria === "RED_RESIDUAL"}
+                    <RedResidual
+                        matrizAdyacencia={consola.grafo.matrizAdyacencia}
+                        redResidual={consola.grafo.redResidual}
                     />
                 {/if}
             </div>

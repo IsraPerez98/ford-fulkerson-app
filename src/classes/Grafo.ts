@@ -285,6 +285,9 @@ class Grafo {
     }
 
     async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
+        
+        this.recargarRedResidual(); // <-- Hacemos esto aca para evitar problemas al mostrar la variable en consola
+
         this.consola.printTextoExplicativo("✨ Iniciamos la variable de flujo maximo en 0");
         this.consola.setUbicacionPseudoCodigo("DEFINIR FLUJO_MAXIMO = 0");
 
@@ -295,7 +298,7 @@ class Grafo {
         this.consola.printTextoExplicativo("🕸️ Creamos la red residual como una copia de la matriz de adyacencia");
         this.consola.setUbicacionPseudoCodigo("DEFINIR RED_RESIDUAL = MATRIZ_ADYACENCIA");
 
-        this.recargarRedResidual();
+        //this.recargarRedResidual();
 
         await this.esperarProximaIteracion();
 
