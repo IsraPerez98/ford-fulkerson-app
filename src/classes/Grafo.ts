@@ -47,7 +47,7 @@ class Grafo {
     public iniciarCreacionVertice(): void {
         this.creandoVertice = true;
         this.recargarGrafo();
-
+        this.crearVerticeDinamico();
     }
 
     private crearVerticeDinamico(): void {
