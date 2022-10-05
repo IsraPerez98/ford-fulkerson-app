@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { afterUpdate } from "svelte";
     import type Consola from "../../../classes/Consola";
 
     import Explicacion from "./Explicacion.svelte";
@@ -6,6 +7,18 @@
     export let consola: Consola;
 
     $: textoExplicativo = consola.textoExplicativo;
+
+    let divScroll: HTMLDivElement;
+
+    function autoScroll(): void {
+        if(divScroll) {
+            console.log("autoscroll");
+            console.log(divScroll.scrollHeight);
+            divScroll.scrollTop = divScroll.scrollHeight;
+        }
+    }
+
+    afterUpdate(autoScroll);
 
 </script>
 
@@ -23,9 +36,11 @@
                     Info
                 </button>
             </div>
-            <Explicacion
-                textoExplicativo={textoExplicativo}
-            />
+            <div bind:this={divScroll} class="bg-white overflow-auto h-72 shadow-lg ring-1 flex flex-col divide-y ">
+                <Explicacion
+                    textoExplicativo={textoExplicativo}
+                />
+            </div>
         </div>
     </div>
 {/if}
