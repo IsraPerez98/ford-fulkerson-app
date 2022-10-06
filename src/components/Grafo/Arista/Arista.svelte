@@ -6,6 +6,9 @@
 
     import Flecha from "./Flecha.svelte";
     import Peso from "./Peso.svelte";
+
+    $: pesoRestante = arista.peso[0] - arista.flujo[0];
+    $: pesoRestanteInverso = arista.peso[1] - arista.flujo[1];
     
     export let arista: Arista;
     let prevArista: {
@@ -105,15 +108,23 @@
             color1 = "bg-gray-700";
             color2 = "bg-gray-700";
         }
+
+        if(pesoRestante !== arista.peso[0]) {
+            color2 = "bg-orange-700";
+        }
+
+        if(pesoRestanteInverso !== arista.peso[1]) {
+            color1 = "bg-orange-700";
+        }
         
-        /*
-        if(arista.esCamino[0]) {
-            color1 = "bg-yellow-300";
+        if(pesoRestante === 0 && arista.peso[0] !== 0) {
+            color2 = "bg-rose-700";
+            console.log(color2, arista);
         }
-        if(arista.esCamino[1]) {
-            color2 = "bg-yellow-300";
+
+        if(pesoRestanteInverso === 0 && arista.peso[1] !== 0) {
+            color1 = "bg-rose-700";
         }
-        */
         
         return [color1, color2];
     }
@@ -223,6 +234,11 @@
             updateArista();
         }
 
+        //si cambia el flujo
+        if(prevArista.flujo[0] !== arista.flujo[0] || prevArista.flujo[1] !== arista.flujo[1]) {
+            updateArista();
+        }
+
         copiarValoresPrevArista();
         
     });
@@ -282,7 +298,7 @@
                     y: posicionPesos[0][1],
                 }
             }
-            peso={arista.peso[0]}
+            peso={pesoRestante}
             bgColor={coloresBG[1]}
             cambiarPeso={arista.cambiarPeso.bind(arista)}
         />
@@ -294,7 +310,7 @@
                     y: posicionPesos[1][1],
                 }
             }
-            peso={arista.peso[1]}
+            peso={pesoRestanteInverso}
             bgColor={coloresBG[0]}
             cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
         />
@@ -324,7 +340,7 @@
                         y: posicionPesos[0][1],
                     }
                 }
-                peso={arista.peso[0]}
+                peso={pesoRestante}
                 bgColor="{coloresBG[0]}"
                 cambiarPeso={arista.cambiarPeso.bind(arista)}
             />
@@ -343,7 +359,7 @@
                         y: posicionPesos[1][1],
                     }
                 }
-                peso={arista.peso[1]}
+                peso={pesoRestanteInverso}
                 bgColor="{coloresBG[0]}"
                 cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
             />
@@ -363,6 +379,7 @@
             peso={arista.flujo[0]}
             bgColor={bgPesoFlujo}
             textColor={"text-black"}
+            dibujarCero={false}
         />
     {/if}
     {#if arista.esCamino[1]}
@@ -377,6 +394,7 @@
             peso={arista.flujo[1]}
             bgColor={bgPesoFlujo}
             textColor={"text-black"}
+            dibujarCero={false}
         />
     {/if}
 </svg>

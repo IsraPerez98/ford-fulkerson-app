@@ -15,6 +15,8 @@
     export let cambiarPeso: Function | null = null;
 
     export let textColor: string = "text-white";
+
+    export let dibujarCero: boolean = true;
     
     const radiopeso = 20;
     
@@ -42,7 +44,7 @@
     
 </script>
 
-{#if (peso == "∞" || !isNaN(Number(peso))) && Number(peso) !== 0}
+{#if (peso == "∞" || !isNaN(Number(peso))) && (dibujarCero || Number(peso) !== 0 ) }
     <foreignObject on:click={onClick} x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
         <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
             
