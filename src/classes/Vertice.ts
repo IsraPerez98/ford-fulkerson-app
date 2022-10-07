@@ -44,6 +44,15 @@ class Vertice {
         this.grafo = grafo;
     }
 
+    public reposicionarLimites(width: number, height: number): void { // reposiciona el vertice en caso de que se haya cambiado el tamaño del canvas
+        const nuevaPosX = Math.max(this.radio, Math.min(width - (this.radio * 2), this.posicion.x));
+        const nuevaPosY = Math.max(this.radio, Math.min(height - (this.radio), this.posicion.y));
+        
+        if (nuevaPosX !== this.posicion.x || nuevaPosY !== this.posicion.y) {
+            this.mover({ x: nuevaPosX, y: nuevaPosY });
+        }
+    }
+
     constructor(id: number, fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string , radio?: number, grafo?: Grafo) {
         this.id = id;
         this.nombre = nombre || null;

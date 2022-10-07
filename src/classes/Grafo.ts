@@ -586,6 +586,16 @@ class Grafo {
         }
     }
 
+    public cambiarTamanio(width: number, height: number ) {
+        
+        this.width = width;
+        this.height = height;
+
+        for(let i = 0; i < this.vertices.length; i++) {
+            this.vertices[i].reposicionarLimites(width, height);
+        }
+    }
+
     public actualizarComponentes(matrizAdyacencia?: MatrizAdyacencia, fuentes?: boolean[], sumideros?: boolean[], vertices?: Vertice[], aristas?: Arista[][], width?: number, height?: number, recargarGrafo?: Function) {
         if(matrizAdyacencia) {
             this.matrizAdyacencia = matrizAdyacencia;

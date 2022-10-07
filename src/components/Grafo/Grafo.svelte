@@ -28,8 +28,7 @@
             prevWidth = width;
             prevHeight = height;
             
-            grafo.width = width;
-            grafo.height = height;
+            grafo.cambiarTamanio(width, height);
         }
     });
 
