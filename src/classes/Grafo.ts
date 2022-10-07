@@ -239,7 +239,7 @@ class Grafo {
         for (let i = 0; i < this.matrizAdyacencia.length; i++) {
             matrizAdyacencia[i] = [];
             for (let j = 0; j < this.matrizAdyacencia[i].length; j++) {
-                matrizAdyacencia[i][j] = this.matrizAdyacencia[i][j];
+                matrizAdyacencia[i][j] = (this.matrizAdyacencia[i][j] !== Infinity ? this.matrizAdyacencia[i][j] : -1); // JSON NO SOPORTA INFINITY
             }
         }
 
@@ -283,15 +283,36 @@ class Grafo {
             return;
         }
 
+        let fuente = fuentes[0];
+        let sumidero = sumideros[0];
+
         if(fuentes.length > 1 || sumideros.length > 1) {
-            //TODO: EJECTUAR ALGORITMO DE FLUJO MAXIMO CON FUENTES Y SUMIDEROS MULTIPLES
-            alert("Solo puede haber una fuente y un sumidero");
-            this.finalizarFlujoMaximo();
-            return;
+            if(!confirm("Se deben agregar vertices extra para ejecutar el algoritmo de flujo maximo con multiples fuentes y sumideros. ¿Desea continuar?")) {
+                this.finalizarFlujoMaximo();
+                return;
+            }
+
+            if(fuentes.length > 1) {
+                const verticeNuevo = this.crearNuevoVertice(true, false, {x: this.width / 3, y: this.height / 2});
+                for(let i = 0; i < fuentes.length; i++) {
+                    this.crearNuevaArista(verticeNuevo, fuentes[i], Infinity);
+                    fuentes[i].toggleFuente();
+                }
+
+                fuente = verticeNuevo;
+            }
+
+            if(sumideros.length > 1) {
+                const verticeNuevo = this.crearNuevoVertice(false, true, {x: this.width * 2 / 3, y: this.height / 2});
+                for(let i = 0; i < sumideros.length; i++) {
+                    this.crearNuevaArista(sumideros[i], verticeNuevo, Infinity);
+                    sumideros[i].toggleSumidero();
+                }
+
+                sumidero = verticeNuevo;
+            }
         }
 
-        const fuente = fuentes[0];
-        const sumidero = sumideros[0];
         this.calcularFlujoMaximo(fuente, sumidero);
     }
 
@@ -319,7 +340,7 @@ class Grafo {
         this.recargarGrafo();
     }
 
-    public crearNuevoVertice(fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string, radio?: number): void {
+    public crearNuevoVertice(fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string, radio?: number): Vertice {
         const nuevoVertice = new Vertice(this.vertices.length, fuente, sumidero, posicion, nombre, radio, this);
         this.vertices.push(nuevoVertice);
         
@@ -339,6 +360,7 @@ class Grafo {
         }
 
         this.recargarGrafo();
+        return nuevoVertice;
         
     }
 

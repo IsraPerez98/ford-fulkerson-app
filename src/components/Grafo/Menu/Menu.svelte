@@ -66,6 +66,14 @@
             reader.onload = (e) => {
                 const json = JSON.parse(reader.result as string);
                 const matrizAdyacencia: MatrizAdyacencia = json.matrizAdyacencia;
+                //revisamos los valores -1 en la matriz de adyacencia que corresponden a Infinity
+                for(let i = 0; i < matrizAdyacencia.length; i++) {
+                    for(let j = 0; j < matrizAdyacencia[i].length; j++) {
+                        if(matrizAdyacencia[i][j] === -1) {
+                            matrizAdyacencia[i][j] = Infinity;
+                        }
+                    }
+                }
                 const posicionesVertices: Posicion[] = json.posicionesVertices;
                 const fuentes: boolean[] = json.fuentes;
                 const sumideros: boolean[] = json.sumideros;
