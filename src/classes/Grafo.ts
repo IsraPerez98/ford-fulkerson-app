@@ -212,7 +212,7 @@ class Grafo {
     }
 
     public generarGrafoAlAzar(cantVertices: number): void {
-        const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarGrafo);
+        const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarGrafo, this);
         
         this.matrizAdyacencia = grafo.matrizAdyacencia;
         this.fuentes = grafo.fuentes;
@@ -307,7 +307,7 @@ class Grafo {
     }
     
     public generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
-        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarGrafo);
+        const grafo: Grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros , this.width, this.height, this.recargarGrafo, this);
         
         this.matrizAdyacencia = grafo.matrizAdyacencia;
         this.fuentes = grafo.fuentes;
@@ -583,6 +583,33 @@ class Grafo {
             camino = this.buscarCamino(fuente, sumidero);
 
             await this.esperarProximaIteracion();
+        }
+    }
+
+    public actualizarComponentes(matrizAdyacencia?: MatrizAdyacencia, fuentes?: boolean[], sumideros?: boolean[], vertices?: Vertice[], aristas?: Arista[][], width?: number, height?: number, recargarGrafo?: Function) {
+        if(matrizAdyacencia) {
+            this.matrizAdyacencia = matrizAdyacencia;
+        }
+        if(fuentes) {
+            this.fuentes = fuentes;
+        }
+        if(sumideros) {
+            this.sumideros = sumideros;
+        }
+        if(vertices) {
+            this.vertices = vertices;
+        }
+        if(aristas) {
+            this.aristas = aristas;
+        }
+        if(width) {
+            this.width = width;
+        }
+        if(height) {
+            this.height = height;
+        }
+        if(recargarGrafo) {
+            this.recargarGrafo = recargarGrafo;
         }
     }
 

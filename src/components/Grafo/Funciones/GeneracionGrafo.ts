@@ -140,12 +140,16 @@ function asignarGrafoAAristas(aristas: Arista[][], grafo: Grafo) {
     }
 }
 
-function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarGrafo: Function) : Grafo {
+function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[] , width: number, height: number, recargarGrafo: Function, grafo?: Grafo) : Grafo {
     const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posicionesVertices);
     const aristas = generarAristas(matrizAdyacencia, vertices);
     const consola = new Consola();
 
-    const grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarGrafo);
+    if(!grafo) {
+        grafo = new Grafo(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarGrafo);
+    } else {
+        grafo.actualizarComponentes(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarGrafo);
+    }
 
     consola.asignarGrafo(grafo);
     asignarGrafoAVertices(vertices, grafo);
@@ -156,7 +160,7 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     return grafo;
 }
 
-function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarGrafo: Function): Grafo {
+function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarGrafo: Function, grafo?: Grafo): Grafo {
     const matrizAdyacencia = generarMatrizAlAzar(cantVertices);
 
     //tomamos el primer vertice como fuente y el ultimo como sumidero
@@ -171,7 +175,7 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
 
     const posiciones = generarPosicionesVertices(cantVertices, width, height);
 
-    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarGrafo);
+    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarGrafo, grafo);
 }
 
 export {
