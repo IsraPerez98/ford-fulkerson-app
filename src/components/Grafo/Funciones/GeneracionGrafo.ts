@@ -33,53 +33,25 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
 }
 
 function generarPosicionesVertices(cantVertices: number, width: number, height: number): Posicion[] {
-    const extra = 2;
+    const centro = {
+        x: width / 2,
+        y: height / 2
+    };
 
-    const x_min = verticeRadio;
-    const x_max = width - (verticeRadio * 2);
-    const y_min = verticeRadio;
-    const y_max = height - verticeRadio;
-
-    const cantDivisiones = cantVertices * extra;
-    const divisiones = Math.sqrt(cantDivisiones);
-    const divisiones_x = Math.round(divisiones);
-    const divisiones_y = Math.ceil(divisiones);
-
-    //console.log({divisiones_x, divisiones_y});
-
-    const x_div = Math.floor((x_max - x_min) / divisiones_x);
-    const y_div = Math.floor((y_max - y_min) / divisiones_y);
-
-
-    const x_mid_offset = Math.floor(x_div / 2);
-    const y_mid_offset = Math.floor(y_div / 2);
-
-    //construimos una matriz con las posiciones de los vertices
-    const matrizPosiciones: {x: number, y: number}[][] = [];
-    for (let i = 0; i < divisiones_x; i++) {
-        matrizPosiciones.push([]);
-        for (let j = 0; j < divisiones_y; j++) {
-            matrizPosiciones[i].push({
-                x: x_min + (i * x_div) + x_mid_offset,
-                y: y_min + (j * y_div) + y_mid_offset,
-            });
-        }
+    if (cantVertices === 1) {
+        return [centro];
     }
 
-    //colocamos cada vertice en una posicion de la matriz de forma intercalada, para que no queden todos en la misma linea
-    let posiciones = [];
-    let vertice = 0;
-    for(let i = 0; i < matrizPosiciones.length; i++) {
-        for(let j = 0; j < matrizPosiciones[i].length; j++) {
-            if( cantVertices > vertice && ( (i+j) % extra === 0)) {
-                const posicion = {
-                    x: matrizPosiciones[i][j].x, 
-                    y: matrizPosiciones[i][j].y
-                }
-                posiciones.push(posicion);
-                vertice++;
-            }
-        }
+    const distancia = Math.min(width, height) / 2 - verticeRadio * 2;
+
+    const angulo = 2 * Math.PI / cantVertices;
+
+    const posiciones: Posicion[] = [];
+
+    for (let i = 0; i < cantVertices; i++) {
+        const x = centro.x + distancia * Math.cos(i * angulo);
+        const y = centro.y + distancia * Math.sin(i * angulo);
+        posiciones.push({x, y});
     }
 
     return posiciones;
