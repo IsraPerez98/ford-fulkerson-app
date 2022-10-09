@@ -6,7 +6,7 @@
     
     export let peso: number | string;
 
-    if(peso === Infinity) {
+    $: if(peso === Infinity) {
         peso = "∞";
     }
     
@@ -44,7 +44,7 @@
     
 </script>
 
-{#if (peso == "∞" || !isNaN(Number(peso))) && (dibujarCero || Number(peso) !== 0 ) }
+{#if (peso == "∞" || (!isNaN(Number(peso)) && peso > 0 )) && (dibujarCero || Number(peso) !== 0 ) }
     <foreignObject on:click={onClick} x={posicion.x - radiopeso} y={posicion.y - radiopeso} width={radiopeso * 2} height={radiopeso * 2}>
         <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
             

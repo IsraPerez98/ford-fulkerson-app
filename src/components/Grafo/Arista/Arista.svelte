@@ -7,391 +7,451 @@
     import Flecha from "./Flecha.svelte";
     import Peso from "./Peso.svelte";
 
-    $: pesoRestante = arista.peso[0] - arista.flujo[0];
-    $: pesoRestanteInverso = arista.peso[1] - arista.flujo[1];
-    
-    export let arista: Arista;
+    export let arista: Arista | null;
+    export let aristaInversa: Arista | null;
+
+    $: aristaInversa = arista === aristaInversa ? null : aristaInversa;
+
+    $: aristaBidireccional = (arista && aristaInversa);
+    $: aristaPrincipal = arista || aristaInversa;
+
+    $: eliminandoArista = aristaPrincipal.grafo.eliminandoArista;
+
+    let posicionesArista: {
+        inicio: Posicion,
+        puntoMedio: Posicion,
+        final: Posicion,
+        angulo: number,
+    };
+
+    let posicionesPesos: {
+        posicionPeso: Posicion,
+        posicionPesoInverso: Posicion,
+    };
+
+    let posicionesFlujos: {
+        posicionFlujo: Posicion,
+        posicionFlujoInverso: Posicion,
+    };
+
+    let colores: {
+        coloresStroke: {
+            color: string,
+            colorInverso: string,
+        },
+        coloresFill: {
+            color: string,
+            colorInverso: string,
+        },
+        coloresBG: {
+            color: string,
+            colorInverso: string,
+        },
+    };
+
+    const bgPesoFlujo = "bg-yellow-300";
+
     let prevArista: {
         origenPos: Posicion,
         destinoPos: Posicion,
 
-        esCamino: boolean[]; 
-        peso: number[];
-        flujo: number[];
-        eliminandoArista: boolean;
-    };
-
-    $: eliminandoArista = arista.grafo.eliminandoArista;
-
-    let dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-
-    //console.log(arista.esCamino, arista.peso);
-
-    function copiarValoresPrevArista() {
-        prevArista = {
-            origenPos: structuredClone(arista.origen.posicion),
-            destinoPos: structuredClone(arista.destino.posicion),
-            esCamino: structuredClone([...arista.esCamino]),
-            peso: structuredClone([...arista.peso]),
-            flujo: structuredClone([...arista.flujo]),
-            eliminandoArista: structuredClone(eliminandoArista),
-        };
+        esCamino: boolean,
+        peso: number,
+        flujo: number,
     }
 
+    let prevAristaInversa: {
+        origenPos: Posicion,
+        destinoPos: Posicion,
 
-    function calcularColoresStroke() {
-        let color1 = "stroke-emerald-600";
-        let color2 = "stroke-blue-600";
-
-        //las aristas se dibujan en sentido inverso
-        if(arista.esCamino[1]) {
-            //console.log(arista.flujo[0]);
-            color1 = "stroke-yellow-300";
-            if (!dibujarAristaBidireccional) {
-                color2 = "stroke-yellow-300";
-            }
-        }
-        if(arista.esCamino[0]) {
-            //console.log(arista.flujo[1]);
-            color2 = "stroke-yellow-300";
-            if (!dibujarAristaBidireccional) {
-                color1 = "stroke-yellow-300";
-            }
-        }
-
-        if(eliminandoArista) {
-            color1 = "stroke-gray-700";
-            color2 = "stroke-gray-700";
-        }
-
-        return [color1, color2];
+        esCamino: boolean,
+        peso: number,
+        flujo: number,
     }
 
-    let coloresStroke = calcularColoresStroke();
+    function copiarValoresPrevArista(): void {
+        if(arista) {
+            prevArista = {
+                origenPos: arista.origen.posicion,
+                destinoPos: arista.destino.posicion,
 
-    function calcularColoresFill() {
-        let color1 = "fill-emerald-800";
-        let color2 = "fill-blue-600";
-
-        //las aristas se dibujan en sentido inverso
-        if(arista.esCamino[1]) {
-            color1 = "fill-yellow-300";
-            if (!dibujarAristaBidireccional) {
-                color2 = "fill-yellow-300";
+                esCamino: arista.esCamino,
+                peso: arista.peso,
+                flujo: arista.flujo,
             }
         }
-        if(arista.esCamino[0]) {
-            color2 = "fill-yellow-300";
-            if (!dibujarAristaBidireccional) {
-                color1 = "fill-yellow-300";
+        if(aristaInversa) {
+            prevAristaInversa = {
+                origenPos: aristaInversa.origen.posicion,
+                destinoPos: aristaInversa.destino.posicion,
+
+                esCamino: aristaInversa.esCamino,
+                peso: aristaInversa.peso,
+                flujo: aristaInversa.flujo,
             }
         }
-
-        if(eliminandoArista) {
-            color1 = "fill-gray-700";
-            color2 = "fill-gray-700";
-        }
-
-
-        return [color1, color2];
     }
 
-    let coloresFill = calcularColoresFill();
+    const coloresStroke = {
+        "normal": "stroke-emerald-600",
+        "inverso": "stroke-blue-600",
+        "camino": "stroke-yellow-300",
+        "eliminando": "stroke-gray-700",
+    }
 
-    const bgPesoFlujo = "bg-yellow-300";
-
-    function calcularColoresBG() {
-        let color1 = "bg-emerald-800";
-        let color2 = "bg-blue-600";
-
-        if(eliminandoArista) {
-            color1 = "bg-gray-700";
-            color2 = "bg-gray-700";
-        }
-
-        if(pesoRestante !== arista.peso[0]) {
-            color2 = "bg-orange-700";
-        }
-
-        if(pesoRestanteInverso !== arista.peso[1]) {
-            color1 = "bg-orange-700";
-        }
+    function calcularColoresStroke() : {color: string, colorInverso: string} {
+        let color = coloresStroke.normal;
+        let colorInverso = aristaBidireccional ? coloresStroke.inverso : coloresStroke.normal;
         
-        if(pesoRestante === 0 && arista.peso[0] !== 0) {
-            color2 = "bg-rose-700";
-            console.log(color2, arista);
+        if(arista && arista.esCamino) {
+            color = coloresStroke.camino;
+        }
+        if(aristaInversa && aristaInversa.esCamino) {
+            colorInverso = coloresStroke.camino;
         }
 
-        if(pesoRestanteInverso === 0 && arista.peso[1] !== 0) {
-            color1 = "bg-rose-700";
+        if(eliminandoArista) {
+            color = coloresStroke.eliminando;
+            colorInverso = coloresStroke.eliminando;
         }
-        
-        return [color1, color2];
+
+        return {color, colorInverso};
     }
 
-    let coloresBG = calcularColoresBG();
+    const coloresFill = {
+        "normal": "fill-emerald-600",
+        "inverso": "fill-blue-600",
+        "camino": "fill-yellow-300",
+        "eliminando": "fill-gray-700",
+    }
 
+    function calcularColoresFill() : {color: string, colorInverso: string} {
+        let color = coloresFill.normal;
+        let colorInverso = aristaBidireccional ? coloresFill.inverso : coloresFill.normal;
+        
+        if(arista && arista.esCamino) {
+            color = coloresFill.camino;
+        }
+        if(aristaInversa && aristaInversa.esCamino) {
+            colorInverso = coloresFill.camino;
+        }
 
-    function calcularParametros() {
-        const posOrigen = arista.origen.posicion;
-        const posDestino = arista.destino.posicion;
+        if(eliminandoArista) {
+            color = coloresFill.eliminando;
+            colorInverso = coloresFill.eliminando;
+        }
 
-        const radioOrigen = arista.origen.radio;
-        const radioDestino = arista.destino.radio;
-        //calculamos el angulo de la linea
+        return {color, colorInverso};
+    }
+
+    const coloresBG = {
+        "normal": "bg-emerald-800",
+        "inverso": "bg-blue-600",
+        "eliminando": "bg-gray-700",
+        "flujo": "bg-orange-700",
+        "flujoCompleto": "bg-rose-700",
+    }
+
+    function calcularColoresBG() : {color: string, colorInverso: string} {
+        let color = coloresBG.normal;
+        let colorInverso = aristaBidireccional ? coloresBG.inverso : coloresBG.normal;
+        
+        if(arista && arista.flujo !== 0) {
+            color = coloresBG.flujo;
+        }
+
+        if(aristaInversa && aristaInversa.flujo !== 0) {
+            colorInverso = coloresBG.flujo;
+        }
+
+        if(arista && arista.flujo === arista.peso) {
+            color = coloresBG.flujoCompleto;
+        }
+
+        if(aristaInversa && aristaInversa.flujo === aristaInversa.peso) {
+            colorInverso = coloresBG.flujoCompleto;
+        }
+
+        if(eliminandoArista) {
+            color = coloresBG.eliminando;
+            colorInverso = coloresBG.eliminando;
+        }
+
+        return {color, colorInverso};
+    }
+
+    function calcularPosicionesArista() : { inicio: Posicion, puntoMedio: Posicion, final: Posicion, angulo: number} {
+        const posOrigen = aristaPrincipal.origen.posicion;
+        const posDestino = aristaPrincipal.destino.posicion;
+
+        const radioOrigen = aristaPrincipal.origen.radio;
+        const radioDestino = aristaPrincipal.destino.radio;
+
         const angulo = Math.atan2(posDestino.y - posOrigen.y, posDestino.x - posOrigen.x);
 
-        //calculamos donde dibujar la linea para no tapar el vertice
-        const x1 = posOrigen.x + radioOrigen * Math.cos(angulo);
-        const y1 = posOrigen.y + radioOrigen * Math.sin(angulo);
+        const inicio = {
+            x: posOrigen.x + radioOrigen * Math.cos(angulo),
+            y: posOrigen.y + radioOrigen * Math.sin(angulo),
+        };
 
-        const x2 = posDestino.x - radioDestino * Math.cos(angulo);
-        const y2 = posDestino.y - radioDestino * Math.sin(angulo);
+        const final = {
+            x: posDestino.x - radioDestino * Math.cos(angulo),
+            y: posDestino.y - radioDestino * Math.sin(angulo),
+        };
 
-        return {
-            x1,
-            y1,
-            x2,
-            y2,
-            angulo
+        const puntoMedio = {
+            x: (inicio.x + final.x) / 2,
+            y: (inicio.y + final.y) / 2,
+        };
+
+        return {inicio, puntoMedio, final, angulo};
+    }
+
+    function calcularPosicionesPesos() : {posicionPeso: Posicion, posicionPesoInverso: Posicion} {
+        if(aristaBidireccional) {
+            const distancia = 0.75;
+            const posicionPeso = {
+                x: posicionesArista.inicio.x + ( posicionesArista.final.x - posicionesArista.inicio.x ) * distancia,
+                y: posicionesArista.inicio.y + ( posicionesArista.final.y - posicionesArista.inicio.y ) * distancia,
+            };
+
+            const posicionPesoInverso = {
+                x: posicionesArista.final.x - ( posicionesArista.final.x - posicionesArista.inicio.x ) * distancia,
+                y: posicionesArista.final.y - ( posicionesArista.final.y - posicionesArista.inicio.y ) * distancia,
+            };
+
+            return {posicionPeso, posicionPesoInverso};
+        }
+
+        const puntoMedio = posicionesArista.puntoMedio;
+
+        return {posicionPeso: puntoMedio, posicionPesoInverso: puntoMedio};
+    }
+
+    function calcularPosicionFlujos(): {posicionFlujo: Posicion, posicionFlujoInverso: Posicion} {
+        const diametro = 20 * 2;
+
+        const posicionFlujo = {
+            x: posicionesPesos.posicionPeso.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
+            y: posicionesPesos.posicionPeso.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2),
+        }
+
+        const posicionFlujoInverso = {
+            x: posicionesPesos.posicionPesoInverso.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
+            y: posicionesPesos.posicionPesoInverso.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2),
+        }
+
+        return {posicionFlujo, posicionFlujoInverso};
+    }
+
+    function updateArista(): void {
+        posicionesArista = calcularPosicionesArista();
+        posicionesPesos = calcularPosicionesPesos();
+        posicionesFlujos = calcularPosicionFlujos();
+
+        const coloresStroke = calcularColoresStroke();
+        const coloresFill = calcularColoresFill();
+        const coloresBG = calcularColoresBG();
+
+        colores = {
+            coloresStroke,
+            coloresFill,
+            coloresBG,
         };
     }
 
-    let parametros = calcularParametros();
-
-    function calcularPosicionPesos(): number[][] {
-        if(dibujarAristaBidireccional) {
-            //dibujamos los pesos con un 25% de distancia entre los vertices
-            const distancia = 0.75;
-            const x1 = parametros.x1 + (parametros.x2 - parametros.x1) * distancia;
-            const y1 = parametros.y1 + (parametros.y2 - parametros.y1) * distancia;
-            const x2 = parametros.x2 - (parametros.x2 - parametros.x1) * distancia;
-            const y2 = parametros.y2 - (parametros.y2 - parametros.y1) * distancia;
-            return [[x1, y1], [x2, y2]];
-        } else {
-            //dibujamos los pesos con al centro
-            const x = (arista.destino.posicion.x + arista.origen.posicion.x) / 2;
-            const y = (arista.destino.posicion.y + arista.origen.posicion.y) / 2;
-            return [[x, y], [x, y]];
-        }
-    }
-
-    let posicionPesos = calcularPosicionPesos();
-
-    function calcularPosicionFlujo(): number[][] {
-        const distancia = 40;
-        const x1 = posicionPesos[0][0] + distancia * Math.cos(parametros.angulo + Math.PI / 2);
-        const y1 = posicionPesos[0][1] + distancia * Math.sin(parametros.angulo + Math.PI / 2);
-        
-        const x2 = posicionPesos[1][0] + distancia * Math.cos(parametros.angulo + Math.PI / 2);
-        const y2 = posicionPesos[1][1] + distancia * Math.sin(parametros.angulo + Math.PI / 2);
-
-        return [[x1, y1], [x2, y2]];
-    }
-
-    let posicionFlujo = calcularPosicionFlujo();
-
-    function updateArista(): void {
-        //console.log("Recargando Arista ", arista);
-        dibujarAristaBidireccional = ( arista.peso[0] !== 0 && arista.peso[1] !== 0 );
-        parametros = calcularParametros();
-        
-        coloresStroke = calcularColoresStroke();
-        coloresFill = calcularColoresFill();
-        coloresBG = calcularColoresBG();
-        
-        posicionPesos = calcularPosicionPesos();
-        posicionFlujo = calcularPosicionFlujo();
-    }
-
-    beforeUpdate(() => { //TODO: simplificar los ifs
-        if(!prevArista) {
+    beforeUpdate(() => {
+        if(!prevArista && !prevAristaInversa) {
             copiarValoresPrevArista();
             updateArista();
-            
             return;
         }
 
-        //si se estan elimiando aristas
-        if(eliminandoArista !== prevArista.eliminandoArista) {
+        //si se crea una arista
+        if(!prevArista && arista || !prevAristaInversa && aristaInversa) {
+            copiarValoresPrevArista();
             updateArista();
+            return;
         }
 
-        //si algun peso cambia 
-        if(prevArista.peso[0] !== arista.peso[0] || prevArista.peso[1] !== arista.peso[1]) {
+        //si se cambia algun peso
+        if(prevArista && arista && prevArista.peso !== arista.peso) {
+            copiarValoresPrevArista();
             updateArista();
+            return;
+        }
+        if(prevAristaInversa && aristaInversa && prevAristaInversa.peso !== aristaInversa.peso) {
+            copiarValoresPrevArista();
+            updateArista();
+            return;
         }
 
-        //si se cambia la posicion del origen o del destino 
-        const posOrigen = arista.origen.posicion;
-        const posDestino = arista.destino.posicion;
-        if(posOrigen.x !== prevArista.origenPos.x || posOrigen.y !== prevArista.origenPos.y || posDestino.x !== prevArista.destinoPos.x || posDestino.y !== prevArista.destinoPos.y) {
+        //si se cambia el flujo
+        if(prevArista && arista && prevArista.flujo !== arista.flujo) {
+            copiarValoresPrevArista();
             updateArista();
+            return;
+        }
+        if(prevAristaInversa && aristaInversa && prevAristaInversa.flujo !== aristaInversa.flujo) {
+            copiarValoresPrevArista();
+            updateArista();
+            return;
         }
 
-        //si cambia el estado de camino 
-        if(prevArista.esCamino[0] !== arista.esCamino[0] || prevArista.esCamino[1] !== arista.esCamino[1]) {
+        //si cambia el estado de camino
+        if(prevArista && arista && prevArista.esCamino !== arista.esCamino) {
+            copiarValoresPrevArista();
             updateArista();
+            return;
+        }
+        if(prevAristaInversa && aristaInversa && prevAristaInversa.esCamino !== aristaInversa.esCamino) {
+            copiarValoresPrevArista();
+            updateArista();
+            return;
         }
 
         //si cambia el flujo
-        if(prevArista.flujo[0] !== arista.flujo[0] || prevArista.flujo[1] !== arista.flujo[1]) {
+        if(prevArista && arista && prevArista.flujo !== arista.flujo) {
+            copiarValoresPrevArista();
             updateArista();
+            return;
+        }
+        if(prevAristaInversa && aristaInversa && prevAristaInversa.flujo !== aristaInversa.flujo) {
+            copiarValoresPrevArista();
+            updateArista();
+            return;
         }
 
-        copiarValoresPrevArista();
-        
-    });
+        //si cambia la posicion de un vertice
+        if(prevArista && arista && (prevArista.origenPos.x !== arista.origen.posicion.x || prevArista.origenPos.y !== arista.origen.posicion.y || prevArista.destinoPos.x !== arista.destino.posicion.x || prevArista.destinoPos.y !== arista.destino.posicion.y)) {
+            copiarValoresPrevArista();
+            updateArista();
+            return;
+        }
+        if(prevAristaInversa && aristaInversa && (prevAristaInversa.origenPos.x !== aristaInversa.origen.posicion.x || prevAristaInversa.origenPos.y !== aristaInversa.origen.posicion.y || prevAristaInversa.destinoPos.x !== aristaInversa.destino.posicion.x || prevAristaInversa.destinoPos.y !== aristaInversa.destino.posicion.y)) {
+            copiarValoresPrevArista();
+            updateArista();
+            return;
+        }
 
+    });
 
     function onClickArista() {
         if(eliminandoArista) {
-            arista.eliminar();
-            arista.grafo.finalizarEliminacionArista();
+            if(arista) {
+                arista.eliminar();
+            }
+            if(aristaInversa) {
+                aristaInversa.eliminar();
+            }
+
+            aristaPrincipal.grafo.finalizarEliminacionArista();
         }
     }
 
-
-
 </script>
+
 <svg>
-    
-    {#if dibujarAristaBidireccional} <!--Bidireccional-->
-        <line 
-            class="{coloresStroke[0]} stroke-2" 
+    {#if aristaBidireccional}
+        <line
+            class="{colores.coloresStroke.colorInverso} stroke-2"
             on:click={onClickArista}
-            x1={parametros.x1} 
-            y1={parametros.y1}
-            x2={(parametros.x1 + parametros.x2) / 2}
-            y2={(parametros.y1 + parametros.y2) / 2}
-        >
-        </line>
-
-        <line 
-            class="{coloresStroke[1]} stroke-2" 
-            on:click={onClickArista}
-            x1={(parametros.x1 + parametros.x2) / 2} 
-            y1={(parametros.y1 + parametros.y2) / 2}
-            x2={parametros.x2}
-            y2={parametros.y2}
-        >
-        </line>
-
-        <Flecha
-            onClickArista={onClickArista}
-            posicion={{x: parametros.x2, y: parametros.y2}}
-            angulo={parametros.angulo + (Math.PI / 2)}
-            fillColor="{coloresFill[1]}"
+            x1={posicionesArista.inicio.x}
+            y1={posicionesArista.inicio.y}
+            x2={posicionesArista.puntoMedio.x}
+            y2={posicionesArista.puntoMedio.y}
         />
+
+        <line
+            class="{colores.coloresStroke.color} stroke-2"
+            on:click={onClickArista}
+            x1={posicionesArista.puntoMedio.x}
+            y1={posicionesArista.puntoMedio.y}
+            x2={posicionesArista.final.x}
+            y2={posicionesArista.final.y}
+        />
+
         <Flecha
             onClickArista={onClickArista}
-            posicion={{x: parametros.x1, y: parametros.y1}}
-            angulo={parametros.angulo - (Math.PI / 2)}
-            fillColor="{coloresFill[0]}"
+            posicion={posicionesArista.inicio}
+            angulo={posicionesArista.angulo - (Math.PI / 2)}
+            fillColor={colores.coloresFill.colorInverso}
+        />
+
+        <Flecha
+            onClickArista={onClickArista}
+            posicion={posicionesArista.final}
+            angulo={posicionesArista.angulo + (Math.PI / 2)}
+            fillColor={colores.coloresFill.color}
         />
 
         <Peso
             onClickArista={onClickArista}
-            posicion={
-                {
-                    x: posicionPesos[0][0],
-                    y: posicionPesos[0][1],
-                }
-            }
-            peso={pesoRestante}
-            bgColor={coloresBG[1]}
+            posicion={posicionesPesos.posicionPeso}
+            peso={arista.peso}
+            bgColor={colores.coloresBG.color}
             cambiarPeso={arista.cambiarPeso.bind(arista)}
         />
+
         <Peso
             onClickArista={onClickArista}
-            posicion={
-                {
-                    x: posicionPesos[1][0],
-                    y: posicionPesos[1][1],
-                }
-            }
-            peso={pesoRestanteInverso}
-            bgColor={coloresBG[0]}
-            cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
+            posicion={posicionesPesos.posicionPesoInverso}
+            peso={aristaInversa.peso}
+            bgColor={colores.coloresBG.colorInverso}
+            cambiarPeso={aristaInversa.cambiarPeso.bind(aristaInversa)}
         />
     {:else} <!--Unidireccional-->
-        <line 
-            class="{coloresStroke[0]} stroke-2" 
+        <line
+            class="{arista === aristaPrincipal ? colores.coloresStroke.color : colores.coloresStroke.colorInverso} stroke-2"
             on:click={onClickArista}
-            x1={parametros.x1}
-            y1={parametros.y1} 
-            x2={parametros.x2}
-            y2={parametros.y2}
-        >
-        </line>
+            x1={posicionesArista.inicio.x}
+            y1={posicionesArista.inicio.y}
+            x2={posicionesArista.final.x}
+            y2={posicionesArista.final.y}
+        />
 
-        {#if (arista.peso[0] !== 0)}
-            <Flecha
-                onClickArista={onClickArista}
-                posicion={{x: parametros.x2, y: parametros.y2}}
-                angulo={parametros.angulo + (Math.PI / 2)}
-                fillColor="{coloresFill[0]}"
-            />
-            <Peso
-                onClickArista={onClickArista}
-                posicion={
-                    {
-                        x: posicionPesos[0][0],
-                        y: posicionPesos[0][1],
-                    }
-                }
-                peso={pesoRestante}
-                bgColor="{coloresBG[0]}"
-                cambiarPeso={arista.cambiarPeso.bind(arista)}
-            />
-        {:else}
-            <Flecha
-                onClickArista={onClickArista}
-                posicion={{x: parametros.x1, y: parametros.y1}}
-                angulo={parametros.angulo - (Math.PI / 2)}
-                fillColor="{coloresFill[0]}"
-            />
-            <Peso
-                onClickArista={onClickArista}
-                posicion={
-                    {
-                        x: posicionPesos[1][0],
-                        y: posicionPesos[1][1],
-                    }
-                }
-                peso={pesoRestanteInverso}
-                bgColor="{coloresBG[0]}"
-                cambiarPeso={arista.cambiarPesoInverso.bind(arista)}
-            />
-        {/if}
-    {/if } 
+        <Flecha
+            onClickArista={onClickArista}
+            posicion={posicionesArista.final}
+            angulo={posicionesArista.angulo + (Math.PI / 2)}
+            fillColor={arista === aristaPrincipal ? colores.coloresFill.color : colores.coloresFill.colorInverso}
+        />
 
-        <!--Dibujamos el flujo reutilizando el componente peso-->
-    {#if arista.esCamino[0]}
+        <Peso
+            onClickArista={onClickArista}
+            posicion={posicionesPesos.posicionPeso}
+            peso={aristaPrincipal.peso}
+            bgColor={arista === aristaPrincipal ? colores.coloresBG.color : colores.coloresBG.colorInverso}
+            cambiarPeso={aristaPrincipal.cambiarPeso.bind(aristaPrincipal)}
+        />
+    {/if}
+
+    <!--Dibujamos el flujo reutilizando el componente peso-->
+    {#if arista && arista.esCamino}
         <Peso
             onClickArista={onClickArista}
             posicion={
                 {
-                    x: posicionFlujo[0][0],
-                    y: posicionFlujo[0][1],
+                    x: posicionesFlujos.posicionFlujo.x,
+                    y: posicionesFlujos.posicionFlujo.y,
                 }
             }
-            peso={arista.flujo[0]}
+            peso={arista.flujo}
             bgColor={bgPesoFlujo}
             textColor={"text-black"}
             dibujarCero={false}
         />
     {/if}
-    {#if arista.esCamino[1]}
+    {#if aristaInversa && aristaInversa.esCamino}
         <Peso
             onClickArista={onClickArista}
             posicion={
                 {
-                    x: posicionFlujo[1][0],
-                    y: posicionFlujo[1][1],
+                    x: posicionesFlujos.posicionFlujoInverso.x,
+                    y: posicionesFlujos.posicionFlujoInverso.y,
                 }
             }
-            peso={arista.flujo[1]}
+            peso={aristaInversa.flujo}
             bgColor={bgPesoFlujo}
             textColor={"text-black"}
             dibujarCero={false}

@@ -67,10 +67,13 @@
         
 
         <svg height={height}>
-            {#each aristas as aristasDeVertice}
-                {#each aristasDeVertice as arista}
-                    {#if arista}
-                        <AristaComponent {arista} />
+            {#each Array(aristas.length) as _, i}
+                {#each Array(i+1) as _, j}
+                    {#if aristas[i][j] || aristas[j][i]}
+                        <AristaComponent 
+                            arista={aristas[i][j]}
+                            aristaInversa={aristas[j][i]}
+                        />
                     {/if}
                 {/each}
             {/each}

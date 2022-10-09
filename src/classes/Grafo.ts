@@ -127,10 +127,10 @@ class Grafo {
         this.nuevaAristaVerticeOrigen = vertice;
 
         //dibujamos un vertice falso conectado por una arista al vertice seleccionado
-        const verticeFalso = new Vertice(this.vertices.length, false, false, {x: vertice.posicion.x, y: vertice.posicion.y}, "", 0, this);
+        const verticeFalso = new Vertice(-1, false, false, {x: vertice.posicion.x, y: vertice.posicion.y}, "", 0, this);
         this.vertices.push(verticeFalso);
         
-        const arista = new Arista(verticeFalso, vertice, [false,false], [0,0], [0,0], this);
+        const arista = new Arista(vertice, verticeFalso, false, -1, 0, this);
         this.aristas[vertice.id][vertice.id] = arista;
 
         this.recargarGrafo();
@@ -225,9 +225,9 @@ class Grafo {
 
     public eliminarArista(arista: Arista): void { // funcion que elimina una arista del grafo
         this.matrizAdyacencia[arista.origen.id][arista.destino.id] = 0;
-        this.matrizAdyacencia[arista.destino.id][arista.origen.id] = 0;
+        //this.matrizAdyacencia[arista.destino.id][arista.origen.id] = 0;
         this.aristas[arista.origen.id][arista.destino.id] = null;
-        this.aristas[arista.destino.id][arista.origen.id] = null;
+        //this.aristas[arista.destino.id][arista.origen.id] = null;
         
         this.recargarGrafo();
     }
@@ -367,51 +367,14 @@ class Grafo {
     public crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, peso: number): void {
         //console.log({verticeOrigen, verticeDestino, peso});
         //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
-        if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0 && this.matrizAdyacencia[verticeDestino.id][verticeOrigen.id] !== 0) {
+        if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
             alert("Ya existe esta arista");
             this.finalizarCreacionArista();
             return;
         }
-
-        //Si la arista ya existe pero no es bidireccional, la hacemos bidireccional
-        if(this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id]) {
-            const aristaExistente = this.aristas[verticeOrigen.id][verticeDestino.id] || this.aristas[verticeDestino.id][verticeOrigen.id];
-            
-            //debemos comprobar si la arista es inversa
-            if(aristaExistente.origen === verticeOrigen) {
-                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
-                    alert("Ya existe esta arista");
-                    this.finalizarCreacionArista();
-                    return;
-                }
-
-                //Modificamos la arista
-                aristaExistente.peso = [peso, aristaExistente.peso[1]];
-                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
-                
-                this.finalizarCreacionArista();
-                return;
-            
-            } else { //Arista inversa
-                
-                if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
-                    alert("Ya existe esta arista");
-                    this.finalizarCreacionArista();
-                    return;
-                }
-
-                //Modificamos la arista
-                aristaExistente.peso = [aristaExistente.peso[0], peso];
-                this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
-                
-                this.finalizarCreacionArista();
-                return;
-
-            }
-        }
         
         //Creamos la arista
-        const nuevaArista = new Arista(verticeOrigen, verticeDestino, [false, false], [peso, 0], [0,0], this);
+        const nuevaArista = new Arista(verticeOrigen, verticeDestino, false, peso, 0, this);
         this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
         this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
         this.finalizarCreacionArista();
@@ -452,8 +415,8 @@ class Grafo {
         for (let i = 0; i < this.aristas.length; i++) {
             for (let j = 0; j < this.aristas.length; j++) {
                 if(this.aristas[i][j]) {
-                    this.aristas[i][j].esCamino = [false, false];
-                    this.aristas[i][j].flujo = [0, 0];
+                    this.aristas[i][j].esCamino = false;
+                    this.aristas[i][j].flujo = 0;
                 }
             }
         }
@@ -471,18 +434,10 @@ class Grafo {
     
             if(arista) {
                 console.log({arista});
-                arista.esCamino = [true, arista.esCamino[1]];
-                arista.flujo = [flujo, arista.flujo[1]];
+                arista.esCamino = true;
+                arista.flujo = flujo;
             }
             
-    
-            const aristaInversa = this.aristas[verticeSiguiente.id][vertice.id];
-    
-            if(aristaInversa) {
-                console.log({aristaInversa});
-                aristaInversa.esCamino = [aristaInversa.esCamino[0], true];
-                aristaInversa.flujo = [aristaInversa.flujo[0], flujo];
-            }
         }
     
         this.recargarGrafo();

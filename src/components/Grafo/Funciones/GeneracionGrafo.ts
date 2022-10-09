@@ -80,16 +80,16 @@ function generarAristas(matrizAdyacencia: MatrizAdyacencia, vertices: Vertice[])
 
     for (let i = 0; i < matrizAdyacencia.length; i++) {
         //arregloAristas.push([]);
-        for (let j = 0; j < i; j++) {
+        for (let j = 0; j < matrizAdyacencia.length; j++) {
 
             if(j === i) continue;
-            if(matrizAdyacencia[i][j] === 0 && matrizAdyacencia[j][i] === 0) continue;
+            if(matrizAdyacencia[i][j] === 0) continue;
 
             const origen = vertices[i];
             const destino = vertices[j];
-            const esCamino = [false, false];
-            const peso = [matrizAdyacencia[i][j], matrizAdyacencia[j][i]];
-            const flujo = [0, 0];
+            const esCamino = false;
+            const peso = matrizAdyacencia[i][j];
+            const flujo = 0;
 
 
             const nuevaArista = new Arista(origen, destino, esCamino, peso, flujo, null);
