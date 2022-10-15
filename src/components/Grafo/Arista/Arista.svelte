@@ -267,68 +267,35 @@
             return;
         }
 
+        //actualizamos los valores de la arista representada
+        if(
+        
         //si se crea una arista
-        if(!prevArista && arista || !prevAristaInversa && aristaInversa) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
+        (!prevArista && arista || !prevAristaInversa && aristaInversa) ||
+        
+        //si se elimina una arista
+        (prevArista && !arista || prevAristaInversa && !aristaInversa) ||
 
         //si se cambia algun peso
-        if(prevArista && arista && prevArista.peso !== arista.peso) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
-        if(prevAristaInversa && aristaInversa && prevAristaInversa.peso !== aristaInversa.peso) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
+        (prevArista && arista && prevArista.peso !== arista.peso) ||
+        (prevAristaInversa && aristaInversa && prevAristaInversa.peso !== aristaInversa.peso) ||
+
 
         //si se cambia el flujo
-        if(prevArista && arista && prevArista.flujo !== arista.flujo) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
-        if(prevAristaInversa && aristaInversa && prevAristaInversa.flujo !== aristaInversa.flujo) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
+        (prevArista && arista && prevArista.flujo !== arista.flujo) ||
+        (prevAristaInversa && aristaInversa && prevAristaInversa.flujo !== aristaInversa.flujo) ||
+
 
         //si cambia el estado de camino
-        if(prevArista && arista && prevArista.esCamino !== arista.esCamino) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
-        if(prevAristaInversa && aristaInversa && prevAristaInversa.esCamino !== aristaInversa.esCamino) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
-
-        //si cambia el flujo
-        if(prevArista && arista && prevArista.flujo !== arista.flujo) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
-        if(prevAristaInversa && aristaInversa && prevAristaInversa.flujo !== aristaInversa.flujo) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
+        (prevArista && arista && prevArista.esCamino !== arista.esCamino) ||
+        (prevAristaInversa && aristaInversa && prevAristaInversa.esCamino !== aristaInversa.esCamino) ||
 
         //si cambia la posicion de un vertice
-        if(prevArista && arista && (prevArista.origenPos.x !== arista.origen.posicion.x || prevArista.origenPos.y !== arista.origen.posicion.y || prevArista.destinoPos.x !== arista.destino.posicion.x || prevArista.destinoPos.y !== arista.destino.posicion.y)) {
-            copiarValoresPrevArista();
-            updateArista();
-            return;
-        }
-        if(prevAristaInversa && aristaInversa && (prevAristaInversa.origenPos.x !== aristaInversa.origen.posicion.x || prevAristaInversa.origenPos.y !== aristaInversa.origen.posicion.y || prevAristaInversa.destinoPos.x !== aristaInversa.destino.posicion.x || prevAristaInversa.destinoPos.y !== aristaInversa.destino.posicion.y)) {
+        (prevArista && arista && (prevArista.origenPos.x !== arista.origen.posicion.x || prevArista.origenPos.y !== arista.origen.posicion.y || prevArista.destinoPos.x !== arista.destino.posicion.x || prevArista.destinoPos.y !== arista.destino.posicion.y)) ||
+        (prevAristaInversa && aristaInversa && (prevAristaInversa.origenPos.x !== aristaInversa.origen.posicion.x || prevAristaInversa.origenPos.y !== aristaInversa.origen.posicion.y || prevAristaInversa.destinoPos.x !== aristaInversa.destino.posicion.x || prevAristaInversa.destinoPos.y !== aristaInversa.destino.posicion.y)) 
+        
+        )
+        {
             copiarValoresPrevArista();
             updateArista();
             return;
