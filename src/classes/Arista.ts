@@ -5,6 +5,7 @@ class Arista {
     public origen: Vertice; // representa el vertice de origen de la arista
     public destino: Vertice; // representa el vertice de destino de la arista
     public esCamino: boolean; // representa si la arista es parte de un camino
+    public fueCamino: boolean; // representa si la arista fue parte de un camino en iteraciones previas
     public peso: number; // representa el peso de la arista
     public flujo: number; // representa el flujo actual de la arista
 
@@ -29,10 +30,11 @@ class Arista {
         this.grafo.eliminarArista(this);
     }
 
-    constructor(origen: Vertice, destino: Vertice, esCamino: boolean, peso: number, flujo: number, grafo: Grafo | null) {
+    constructor(origen: Vertice, destino: Vertice, esCamino: boolean, fueCamino: boolean, peso: number, flujo: number, grafo: Grafo | null) {
         this.origen = origen;
         this.destino = destino;
         this.esCamino = esCamino;
+        this.fueCamino = fueCamino;
         this.peso = peso;
         this.flujo = flujo;
 

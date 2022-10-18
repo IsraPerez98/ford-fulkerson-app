@@ -96,6 +96,7 @@
         "normal": "stroke-emerald-600",
         "inverso": "stroke-blue-600",
         "camino": "stroke-yellow-300",
+        "fueCamino": "stroke-gray-600",
         "eliminando": "stroke-gray-700",
     }
 
@@ -110,6 +111,14 @@
             colorInverso = coloresStroke.camino;
         }
 
+        if(arista && arista.fueCamino) {
+            color = coloresStroke.fueCamino;
+        }
+
+        if(aristaInversa && aristaInversa.fueCamino) {
+            colorInverso = coloresStroke.fueCamino;
+        }
+
         if(eliminandoArista) {
             color = coloresStroke.eliminando;
             colorInverso = coloresStroke.eliminando;
@@ -122,6 +131,7 @@
         "normal": "fill-emerald-600",
         "inverso": "fill-blue-600",
         "camino": "fill-yellow-300",
+        "fueCamino": "fill-gray-600",
         "eliminando": "fill-gray-700",
     }
 
@@ -134,6 +144,14 @@
         }
         if(aristaInversa && aristaInversa.esCamino) {
             colorInverso = coloresFill.camino;
+        }
+
+        if(arista && arista.fueCamino) {
+            color = coloresFill.fueCamino;
+        }
+
+        if(aristaInversa && aristaInversa.fueCamino) {
+            colorInverso = coloresFill.fueCamino;
         }
 
         if(eliminandoArista) {
@@ -394,7 +412,7 @@
     {/if}
 
     <!--Dibujamos el flujo reutilizando el componente peso-->
-    {#if arista && arista.esCamino}
+    {#if arista && (arista.esCamino || arista.fueCamino)}
         <Peso
             onClickArista={onClickArista}
             posicion={
@@ -409,7 +427,7 @@
             dibujarCero={false}
         />
     {/if}
-    {#if aristaInversa && aristaInversa.esCamino}
+    {#if aristaInversa && (aristaInversa.esCamino || aristaInversa.fueCamino)}
         <Peso
             onClickArista={onClickArista}
             posicion={

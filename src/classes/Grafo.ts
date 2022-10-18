@@ -130,7 +130,7 @@ class Grafo {
         const verticeFalso = new Vertice(-1, false, false, {x: vertice.posicion.x, y: vertice.posicion.y}, "", 0, this);
         this.vertices.push(verticeFalso);
         
-        const arista = new Arista(vertice, verticeFalso, false, -1, 0, this);
+        const arista = new Arista(vertice, verticeFalso, false, false, -1, 0, this);
         this.aristas[vertice.id][vertice.id] = arista;
 
         this.recargarGrafo();
@@ -374,7 +374,7 @@ class Grafo {
         }
         
         //Creamos la arista
-        const nuevaArista = new Arista(verticeOrigen, verticeDestino, false, peso, 0, this);
+        const nuevaArista = new Arista(verticeOrigen, verticeDestino, false, false, peso, 0, this);
         this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
         this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
         this.finalizarCreacionArista();
@@ -416,6 +416,7 @@ class Grafo {
             for (let j = 0; j < this.aristas.length; j++) {
                 if(this.aristas[i][j]) {
                     this.aristas[i][j].esCamino = false;
+                    this.aristas[i][j].fueCamino = false;
                     this.aristas[i][j].flujo = 0;
                 }
             }
@@ -423,6 +424,15 @@ class Grafo {
     }
 
     private dibujarCamino(camino: Vertice[], flujo: number) {
+        //los caminos anteriores se guardan y se dibujan de otra forma
+        for (let i = 0; i < this.aristas.length; i++) {
+            for (let j = 0; j < this.aristas.length; j++) {
+                if(this.aristas[i][j] && this.aristas[i][j].esCamino) {
+                    this.aristas[i][j].esCamino = false;
+                    this.aristas[i][j].fueCamino = true;
+                }
+            }
+        }
         for(let i = 0; i < camino.length - 1; i++) {
             const vertice = camino[i];
             const verticeSiguiente = camino[i + 1];
@@ -435,7 +445,9 @@ class Grafo {
             if(arista) {
                 console.log({arista});
                 arista.esCamino = true;
-                arista.flujo = flujo;
+                arista.fueCamino = false;
+                //arista.flujo = flujo;
+                arista.flujo = arista.flujo + flujo;
             }
             
         }
@@ -549,8 +561,8 @@ class Grafo {
                 const verticeSiguiente = camino[i + 1];
                 this.redResidual[vertice.id][verticeSiguiente.id] -= cuelloBotella;
             }
-            //TODO: Dibujar los caminos antiguos
-            this.clearCaminos();
+            
+            //this.clearCaminos();
 
             await this.esperarProximaIteracion();
 
