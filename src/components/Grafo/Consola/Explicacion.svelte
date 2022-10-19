@@ -2,6 +2,7 @@
     import { afterUpdate } from "svelte";
 
     export let textoExplicativo: string[];
+    let prevTextoExplicativo: string;
 
     let divScroll: HTMLDivElement;
 
@@ -13,7 +14,14 @@
         }
     }
 
-    afterUpdate(autoScroll);
+    afterUpdate(() => {
+        const ultimoTexto = textoExplicativo[textoExplicativo.length - 1];
+        if(prevTextoExplicativo !== ultimoTexto) {
+            prevTextoExplicativo = ultimoTexto;
+            autoScroll();
+        }
+    });
+
 </script>
 
 <div bind:this={divScroll} class="overflow-auto ">

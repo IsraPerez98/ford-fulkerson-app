@@ -4,6 +4,8 @@
     export let pseudoCodigo: string[];
     export let lineaActual: number;
 
+    let prevLinea: number;
+
     let divScroll: HTMLDivElement;
 
     function autoScroll(): void {
@@ -14,7 +16,12 @@
         }
     }
 
-    afterUpdate(autoScroll);
+    afterUpdate(() => {
+        if(prevLinea !== lineaActual) {
+            prevLinea = lineaActual;
+            autoScroll();
+        }
+    });
 </script>
 
 <div bind:this={divScroll} class="overflow-auto ">
