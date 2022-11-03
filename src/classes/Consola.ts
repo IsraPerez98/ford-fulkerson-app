@@ -4,6 +4,18 @@ import type Grafo from "./Grafo";
 class Consola {
     public grafo: Grafo | null;
 
+    public abierta: boolean = false;
+
+    public abrir() {
+        this.abierta = true;
+        this.grafo.recargarGrafo();
+    }
+
+    public cerrar() {
+        this.abierta = false;
+        this.grafo.recargarGrafo();
+    }
+
     private categorias = [
         "EXPLICACION",
         "PSEUDOCODIGO",

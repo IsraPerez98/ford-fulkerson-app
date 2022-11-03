@@ -330,6 +330,8 @@ class Grafo {
             this.abortarFlujoMaximo.abort();
             this.abortarFlujoMaximo = null;
         }
+
+        this.recargarRedResidual();
     }
     
     public generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
@@ -653,6 +655,8 @@ class Grafo {
         
         this.ejecutandoFlujoMaximo = false;
         this.avanzarIteracionFlujoMaximo = false;
+
+        this.recargarRedResidual();
     }
 }
 
