@@ -51,19 +51,6 @@
 
 <div>
     <svg width={width} height={height} class="select-none">
-        <foreignObject width={"100%"} height={"100%"}>
-            {#if consola}
-                <ConsolaComponent 
-                    consola={consola}
-                />
-            {/if}
-        </foreignObject>
-
-        <foreignObject width="100%" height="40px" >
-            <Menu 
-                grafo={grafo}
-            />
-        </foreignObject>
         
 
         <svg height={height}>
@@ -82,5 +69,20 @@
                 <VerticeComponent {vertice} />
             {/each}
         </svg>
+
+        <foreignObject width="100%" height="40px" >
+            <Menu 
+                grafo={grafo}
+            />
+        </foreignObject>
+
+        <foreignObject width="100%" height="100%" class="pointer-events-none">
+            {#if consola}
+                <ConsolaComponent 
+                    consola={consola}
+                />
+            {/if}
+        </foreignObject>
+        
     </svg>
 </div>

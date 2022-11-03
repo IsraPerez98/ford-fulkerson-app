@@ -44,7 +44,7 @@
 
 </script>
 
-<div class="absolute bottom-0 right-0">
+<div class="absolute bottom-0 right-0 pointer-events-auto">
     {#if consola.abierta }
             <div class="flex rounded-t-lg bg-indigo-700 overflow-hidden h-8">
                 <button class="text-base bg-rose-700 ml-0 h-full w-12" on:click={onClickCerrar}>
