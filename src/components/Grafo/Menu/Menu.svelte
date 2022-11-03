@@ -109,9 +109,9 @@
 </script>
 
 <div class="w-full h-10 bg-gray-900 flex">
-    <div class="flex my-auto ml-2 text-2xl space-x-10 px-2">
-        <button title="Ayuda" on:click={onClickAyuda}>
-            ℹ️
+    <div class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2">
+        <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
+            ?
         </button>
         <div class="flex my-auto text-2xl space-x-4">
             <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={!puedeIniciarFlujoMaximo} class="disabled:grayscale" >
