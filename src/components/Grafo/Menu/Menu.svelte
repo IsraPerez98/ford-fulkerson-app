@@ -4,6 +4,8 @@
     import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
     import type Posicion from '../../../interfaces/Posicion';
 
+    import ModeSwitcher from './ModeSwitcher.svelte';
+
     export let grafo: Grafo;
 
     $: estaEjecutandoFlujoMaximo = grafo.ejecutandoFlujoMaximo;
@@ -108,8 +110,8 @@
 
 </script>
 
-<div class="w-full h-10 bg-gray-900 flex">
-    <div class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2">
+<div class="w-full h-10 bg-slate-700 dark:bg-gray-900 flex">
+    <div class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
         </button>
@@ -163,5 +165,8 @@
                 </div>
             </button>
         </div>
+    </div>
+    <div class="my-auto ml-auto mr-4">
+        <ModeSwitcher />
     </div>
 </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
 
-	import ModeSwitcher from './ModeSwitcher.svelte';
 	import Tailwindcss from './Tailwindcss.svelte';
 	import Grafo from './components/Grafo/Grafo.svelte';
 	
@@ -10,10 +9,8 @@
 </script>
 
 <Tailwindcss />
-
-<ModeSwitcher />
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<main class="w-full h-full">
+<main class="w-full h-full bg-stone-100 dark:bg-gray-800">
 	<Grafo width={innerWidth} height={innerHeight} />
 </main>
