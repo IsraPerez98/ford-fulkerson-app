@@ -9,6 +9,19 @@
 
     $: categoria = consola.categoria;
 
+    $: titulo = () => {
+        switch(categoria) {
+            case "EXPLICACION":
+                return "Explicación";
+            case "PSEUDOCODIGO":
+                return "Pseudocódigo";
+            case "RED_RESIDUAL":
+                return "Red Residual";
+            default:
+                return "Informacion del algoritmo";
+        }
+    }
+
     function onClickButtonExplicacion(): void {
         consola.cambiarCategoria("EXPLICACION");
     }
@@ -33,25 +46,25 @@
 
 <div class="absolute bottom-0 right-0">
     {#if consola.abierta }
-            <div class="flex items-center justify-between rounded-t-lg bg-indigo-700 pl-16 py-2 px-9">
-                <p class="text-base">
-                    Información del Algoritmo de Flujo Máximo
-                </p>
-                <button class="text-2xl" on:click={onClickCerrar}>
-                    <i>X</i>
+            <div class="flex rounded-t-lg bg-indigo-700 overflow-hidden h-8">
+                <button class="text-base bg-rose-700 ml-0 h-full w-12" on:click={onClickCerrar}>
+                    <p>X</p>
                 </button>
+                <p class="text-base m-auto">
+                    {titulo()}
+                </p>
             </div>
             <div class="flex flex-row">
-                <div class="flex flex-col h-auto py-2 px-1 w-12 bg-slate-900 text-xs text-center ">
+                <div class="flex flex-col h-auto py-2 px-1 w-12 bg-slate-900 text-xl text-center ">
                     <!--TODO: MENU PARA CATEGORIAS-->
                     <button on:click={onClickButtonExplicacion} class:active={categoria === "EXPLICACION" } class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
-                        Info
+                        🤔
                     </button>
                     <button on:click={onClickButtonPseudocodigo} class:active={categoria === "PSEUDOCODIGO"} class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
-                        Pseudocodigo
+                        🖥️
                     </button>
                     <button on:click={onClickButtonRedAumentada} class:active={categoria === "RED_RESIDUAL"} class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
-                        Red Residual
+                        🕸️
                     </button>
                 </div>
                 <div class="bg-white overflow-auto h-72 w-[32rem] shadow-lg ring-1 flex flex-col divide-y ">
@@ -75,9 +88,9 @@
     {:else} <!-- Consola cerrada / boton abrir -->
         <div class="bg-white rounded-full w-16 h-16 mr-4 mb-4">
             <button on:click={onClickAbrir} class="w-full h-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-700" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm1 0v12h12V3H4z" clip-rule="evenodd" />
-                </svg>
+                <div class="w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center">
+                    <p class="text-2xl text-white">?</p>
+                </div>
             </button>
         </div>
     {/if}
