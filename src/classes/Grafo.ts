@@ -497,6 +497,10 @@ class Grafo {
 
     private async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
 
+        if(!this.consola.abierta) {
+            this.consola.abrir();
+        }
+
         try {
 
             this.abortarFlujoMaximo = new AbortController();
