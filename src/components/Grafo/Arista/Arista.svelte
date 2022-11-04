@@ -16,6 +16,7 @@
     $: aristaPrincipal = arista || aristaInversa;
 
     $: eliminandoArista = aristaPrincipal.grafo.eliminandoArista;
+    let prevEliminandoArista = eliminandoArista;
 
     let posicionesArista: {
         inicio: Posicion,
@@ -70,6 +71,7 @@
     }
 
     function copiarValoresPrevArista(): void {
+        prevEliminandoArista = eliminandoArista;
         if(arista) {
             prevArista = {
                 origenPos: arista.origen.posicion,
@@ -287,6 +289,9 @@
 
         //actualizamos los valores de la arista representada
         if(
+
+        //si se inicia o finaliza la eliminacion de aristas
+        (prevEliminandoArista && !eliminandoArista) || (!prevEliminandoArista && eliminandoArista) ||
         
         //si se crea una arista
         (!prevArista && arista || !prevAristaInversa && aristaInversa) ||
