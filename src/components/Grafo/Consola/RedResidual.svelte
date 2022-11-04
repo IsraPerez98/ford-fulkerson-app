@@ -29,13 +29,13 @@
                 {:else if i === 0}
                     <div class="p-2 rounded-lg shadow-lg bg-slate-800">
                         <p >
-                            {j}
+                            {j-1}
                         </p>
                     </div>
                 {:else if j === 0}
                     <div class="p-2 rounded-lg shadow-lg bg-slate-800">
                         <p >
-                            {i}
+                            {i-1}
                         </p>
                     </div>
                 {:else}
