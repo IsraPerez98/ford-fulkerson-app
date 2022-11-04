@@ -1,10 +1,17 @@
 <script lang="ts">
 
+    import { getContext } from 'svelte';
+
+    import Ayuda from '../Ayuda/Ayuda.svelte';
+
     import type Grafo from '../../classes/Grafo';
     import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
     import type Posicion from '../../interfaces/Posicion';
 
     import ModeSwitcher from './ModeSwitcher.svelte';
+
+    //@ts-ignore
+    const { open } = getContext('simple-modal');
 
     export let grafo: Grafo;
 
@@ -17,7 +24,7 @@
     $: puedeModificarGrafo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo;
 
     function onClickAyuda() {
-        console.log("Ayuda");
+        open(Ayuda);
     }
 
     function onClickIniciarFlujo() {
