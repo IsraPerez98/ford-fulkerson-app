@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type Consola from "../../../classes/Consola";
+    import type Consola from "../../classes/Consola";
 
     import Explicacion from "./Explicacion.svelte";
     import Pseudocodigo from "./Pseudocodigo.svelte";

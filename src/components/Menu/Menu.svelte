@@ -1,8 +1,8 @@
 <script lang="ts">
 
-    import type Grafo from '../../../classes/Grafo';
-    import type MatrizAdyacencia from '../../../interfaces/MatrizAdyacencia';
-    import type Posicion from '../../../interfaces/Posicion';
+    import type Grafo from '../../classes/Grafo';
+    import type MatrizAdyacencia from '../../interfaces/MatrizAdyacencia';
+    import type Posicion from '../../interfaces/Posicion';
 
     import ModeSwitcher from './ModeSwitcher.svelte';
 

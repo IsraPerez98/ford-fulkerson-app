@@ -1,8 +1,8 @@
 <script lang="ts">
     import { generarGrafoAlAzar } from './Funciones/GeneracionGrafo';
 
-    import Menu from './Menu/Menu.svelte';
-    import ConsolaComponent from './Consola/Consola.svelte';
+    import Menu from '../Menu/Menu.svelte';
+    import ConsolaComponent from '../Consola/Consola.svelte';
     import VerticeComponent from './Vertice/Vertice.svelte';
     import AristaComponent from './Arista/Arista.svelte';
 
