@@ -6,11 +6,13 @@
     import Grafo from "./Items/Grafo/Grafo.md";
     //@ts-ignore
     import MatrizAdyacencia from "./Items/Grafo/MatrizAdyacencia.md";
+    //@ts-ignore
+    import GrafoDirigido from "./Items/Grafo/GrafoDirigido.md";
 
     const itemsAyuda: ItemsAyuda = {
         categorias: [
             {
-                titulo: "Comprendiendo un grafo",
+                titulo: "Conceptos de un grafo",
                 items: [
                     {
                         titulo: "Grafo",
@@ -19,6 +21,10 @@
                     {
                         titulo: "Matriz de adyacencia",
                         componente: MatrizAdyacencia,
+                    },
+                    {
+                        titulo: "Grafo dirigido",
+                        componente: GrafoDirigido,
                     },
                 ]
             }
