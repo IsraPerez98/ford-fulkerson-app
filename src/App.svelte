@@ -13,7 +13,7 @@
 <Tailwindcss />
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<Modal>
+<Modal styleWindow={{ width: '70rem', height: '40rem' }}>
 <main class="w-full h-full bg-stone-100 dark:bg-gray-800">
 	<Grafo width={innerWidth} height={innerHeight} />
 </main>

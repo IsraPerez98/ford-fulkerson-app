@@ -7,6 +7,8 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 
+const { markdown } = require('svelte-preprocess-markdown');
+
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -44,10 +46,14 @@ export default {
 			compilerOptions: {
 				dev: !production,
 			},
-			preprocess: sveltePreprocess({
-				sourceMap: !production,
-				postcss: true,
-			}),
+			extensions: ['.svelte', '.md'],
+			preprocess: [
+				sveltePreprocess({
+					sourceMap: !production,
+					postcss: true,
+				}),
+				markdown(),
+			],
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
