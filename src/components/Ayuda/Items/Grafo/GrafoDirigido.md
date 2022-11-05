@@ -17,3 +17,7 @@ Generalmente se representa un grafo dirigido con una flecha que indica la direcc
 &nbsp;
 
 En la imagen anterior, se presenta un grafo dirigido, en el que cada arista tiene una dirección representada por una flecha.
+
+&nbsp;
+
+Cabe destacar que la **matriz de adyacencia** para un grafo dirigido no es simétrica y el valor de cada entrada es 1 si existe una arista desde el vértice **i** al vértice **j** y 0 en caso contrario.
