@@ -57,7 +57,7 @@
                     {#each categoria.items as item, indexItem}
                         <button class="h-12 w-full p-2" on:click={() => {onClickItem(indexCategoria, indexItem)}}>
                             <p class="text-base font-medium text-left">
-                                {indexCategoria}-{indexItem}.- {item.titulo}
+                                {indexCategoria + 1}-{indexItem + 1}.- {item.titulo}
                             </p>
                         </button>
                     {/each}
