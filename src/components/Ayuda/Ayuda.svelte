@@ -8,11 +8,20 @@
     import MatrizAdyacencia from "./Items/Grafo/MatrizAdyacencia.md";
     //@ts-ignore
     import GrafoDirigido from "./Items/Grafo/GrafoDirigido.md";
+    
+    //@ts-ignore
+    import RedDeFlujo from "./Items/FlujoMaximo/RedDeFlujo.md";
+    //@ts-ignore
+    import ProblemaFlujoMaximo from "./Items/FlujoMaximo/ProblemaFlujoMaximo.md";
+    //@ts-ignore
+    import TeoremaFMCM from "./Items/FlujoMaximo/TeoremaFMCM.md";
+    //@ts-ignore
+    import AlgoritmoFordFulkerson from "./Items/FlujoMaximo/AlgoritmoFordFulkerson.md";
 
     const itemsAyuda: ItemsAyuda = {
         categorias: [
             {
-                titulo: "Conceptos de un grafo",
+                titulo: "Conceptos básicos de un grafo",
                 items: [
                     {
                         titulo: "Grafo",
@@ -25,7 +34,28 @@
                     {
                         titulo: "Grafo dirigido",
                         componente: GrafoDirigido,
+                    }
+                ]
+            },
+            {
+                titulo: "Concetos del flujo maximo",
+                items: [
+                    {
+                        titulo: "Red de flujo",
+                        componente: RedDeFlujo,
                     },
+                    {
+                        titulo: "Problema de flujo maximo",
+                        componente: ProblemaFlujoMaximo,
+                    },
+                    {
+                        titulo: "Teorema de flujo máximo y corte mínimo",
+                        componente: TeoremaFMCM,
+                    },
+                    {
+                        titulo: "Algoritmo de Ford-Fulkerson",
+                        componente: AlgoritmoFordFulkerson,
+                    }
                 ]
             }
         ]
