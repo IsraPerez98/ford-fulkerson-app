@@ -3,6 +3,15 @@
     import type ItemsAyuda from "../../interfaces/ItemsAyuda";
 
     //@ts-ignore
+    import Interfaz from './Items/App/Interfaz.md';
+    //@ts-ignore
+    import MenuSuperior from './Items/App/MenuSuperior.md';
+    //@ts-ignore
+    import SeccionGrafo from './Items/App/SeccionGrafo.md';
+    //@ts-ignore
+    import SeccionInferior from './Items/App/SeccionInferior.md';
+
+    //@ts-ignore
     import Grafo from "./Items/Grafo/Grafo.md";
     //@ts-ignore
     import MatrizAdyacencia from "./Items/Grafo/MatrizAdyacencia.md";
@@ -20,6 +29,27 @@
 
     const itemsAyuda: ItemsAyuda = {
         categorias: [
+            {
+                titulo: "Entendiendo la aplicación",
+                items: [
+                    {
+                        titulo: "Interfaz",
+                        componente: Interfaz,
+                    },
+                    {
+                        titulo: "Menú superior",
+                        componente: MenuSuperior,
+                    },
+                    {
+                        titulo: "Grafo",
+                        componente: SeccionGrafo,
+                    },
+                    {
+                        titulo: "Sección inferior",
+                        componente: SeccionInferior,
+                    },
+                ]
+            },
             {
                 titulo: "Conceptos básicos de un grafo",
                 items: [
