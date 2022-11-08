@@ -55,15 +55,15 @@
                 </p>
             </div>
             <div class="flex flex-row">
-                <div class="flex flex-col h-auto py-2 px-1 w-12 bg-slate-900 text-xl text-center ">
+                <div class="flex flex-col h-auto py-2 space-y-4 w-12 bg-slate-900 text-xl text-center ">
                     <!--TODO: MENU PARA CATEGORIAS-->
-                    <button on:click={onClickButtonExplicacion} class:active={categoria === "EXPLICACION" } class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
+                    <button on:click={onClickButtonExplicacion} class:bg-violet-800={categoria === "EXPLICACION" } class="py-3 hover:bg-gray-700">
                         🤔
                     </button>
-                    <button on:click={onClickButtonPseudocodigo} class:active={categoria === "PSEUDOCODIGO"} class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
+                    <button on:click={onClickButtonPseudocodigo} class:bg-violet-800={categoria === "PSEUDOCODIGO"} class="py-3 hover:bg-gray-700">
                         🖥️
                     </button>
-                    <button on:click={onClickButtonRedAumentada} class:active={categoria === "RED_RESIDUAL"} class="py-3 hover:bg-gray-700 active:bg-gray-700 ">
+                    <button on:click={onClickButtonRedAumentada} class:bg-violet-800={categoria === "RED_RESIDUAL"} class="py-3 hover:bg-gray-700">
                         🕸️
                     </button>
                 </div>
