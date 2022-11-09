@@ -2,7 +2,7 @@
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Grafo](/img/Ayuda/App/Grafo/Grafo.png)
 
 &nbsp;
 
@@ -14,7 +14,7 @@ En la parte central de la interfaz se encuentra el grafo, que contiene los vért
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Vértices](/img/Ayuda/App/Grafo/Vertices.png)
 
 &nbsp;
 
@@ -33,7 +33,7 @@ Es posible cambiar el tipo de vértice haciendo click sobre el botón correspond
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Cambiar tipo de vértice](/img/Ayuda/App/Grafo/ModificarVertices.png)
 
 &nbsp;
 
@@ -41,7 +41,7 @@ Es posible cambiar el tipo de vértice haciendo click sobre el botón correspond
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Aristas](/img/Ayuda/App/Grafo/Aristas.png)
 
 &nbsp;
 
@@ -53,10 +53,14 @@ Algunas aristas son bidireccionales, lo que significa que el flujo puede pasar e
 
 &nbsp;
 
+![Aristas bidireccionales](/img/Ayuda/App/Grafo/AristasBidireccionales.png)
+
+&nbsp;
+
 Es posible modificar el peso de una arista seleccionando la misma y escribiendo el nuevo valor en el cuadro de texto.
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Modificar peso de arista](/img/Ayuda/App/Grafo/CambiarPeso.png)
 
 &nbsp;
