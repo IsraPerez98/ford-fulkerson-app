@@ -8,7 +8,7 @@ La interfaz de la aplicación web se divide en tres partes principales:
 
 &nbsp;
 
-![Menú Superior](./img/Ayuda/App/MenuSuperior.png)
+![Menú Superior](./img/Ayuda/App/Interfaz/MenuSuperior.png)
 
 &nbsp;
 
@@ -18,7 +18,7 @@ En el menú superior se encuentran los elementos para ejecutar el algoritmo y re
 
 &nbsp;
 
-![Grafo](./img/Ayuda/App/Grafo.png)
+![Grafo](./img/Ayuda/App/Interfaz/Grafo.png)
 
 &nbsp;
 
@@ -30,11 +30,11 @@ En la parte central de la interfaz se encuentra el grafo, cada vértice se repre
 
 &nbsp;
 
-![Abrir Explicación](./img/Ayuda/App/AbrirExplicacion.png)
+![Abrir Explicación](./img/Ayuda/App/Interfaz/AbrirExplicacion.png)
 
 &nbsp;
 
-![Explicación](./img/Ayuda/App/Explicacion.png)
+![Explicación](./img/Ayuda/App/Interfaz/Explicacion.png)
 
 &nbsp;
 
