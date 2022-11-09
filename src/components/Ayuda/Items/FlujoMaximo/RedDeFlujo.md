@@ -4,7 +4,7 @@ Una red de flujo consiste en un grafo dirigido, en el cual cada arista posee una
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Red de flujo](/img/Ayuda/FlujoMaximo/RedDeFlujo/RedDeFlujo.png)
 
 &nbsp;
 
