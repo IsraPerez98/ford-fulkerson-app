@@ -6,15 +6,11 @@ En la parte inferior de la interfaz se encuentra la información del algoritmo, 
 
 &nbsp;
 
-# IMAGEN PENDIENTE
-
-&nbsp;
-
 ## Explicación
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Explicación](/img/Ayuda/App/SeccionInferior/Explicacion.png)
 
 &nbsp;
 
@@ -26,7 +22,7 @@ Se incluye la explicación paso a paso de cada parte del algoritmo.
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Pseudocódigo](/img/Ayuda/App/SeccionInferior/Pseudocodigo.png)
 
 &nbsp;
 
@@ -38,7 +34,7 @@ Se incluye el pseudocódigo del algoritmo, en el cual se resalta la línea que s
 
 &nbsp;
 
-# IMAGEN PENDIENTE
+![Red residual](/img/Ayuda/App/SeccionInferior/RedResidual.png)
 
 &nbsp;
 
