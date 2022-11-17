@@ -41,7 +41,7 @@
         }
         
         
-        cambiarPeso(pesoNuevo);
+        this.value = cambiarPeso(pesoNuevo);
     }
 
     function onClick() {

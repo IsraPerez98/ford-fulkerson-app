@@ -12,7 +12,13 @@ class Arista {
     public grafo: Grafo | null; // representa el grafo al que pertenece la arista
 
     
-    public cambiarPeso(peso: number): void{ // funcion que cambia el peso de la arista
+    public cambiarPeso(peso: number): number{ // funcion que cambia el peso de la arista
+        //si se esta ejecutando el algoritmo no se puede cambiar el peso
+        if(this.grafo?.ejecutandoFlujoMaximo) {
+            alert("No se puede cambiar el peso de una arista mientras se esta ejecutando el algoritmo");
+            return this.peso;
+        }
+
         this.peso = peso;
         this.grafo.matrizAdyacencia[this.origen.id][this.destino.id] = peso;
         this.grafo.recargarGrafo();
@@ -20,6 +26,8 @@ class Arista {
         if(this.peso === 0){
             this.grafo.eliminarArista(this);
         }
+
+        return this.peso;
     }
 
     public asignarGrafo(grafo: Grafo) : void { // asigna el grafo a la arista
