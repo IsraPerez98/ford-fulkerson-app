@@ -51,6 +51,11 @@
             return;
         }
 
+        if(Number(numeroVertices) > 15) {
+            alert("El número de vértices no puede ser mayor a 15");
+            return;
+        }
+
         const confirmar = confirm("Esto eliminará el grafo actual, ¿desea continuar?");
         if(!confirmar) return;
 

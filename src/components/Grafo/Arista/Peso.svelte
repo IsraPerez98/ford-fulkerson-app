@@ -26,9 +26,16 @@
         const pesoNuevo = parseInt(this.value);
         
         //si el peso nuevo no es un numero no se cambia
-        if(isNaN(pesoNuevo) || pesoNuevo < 0) {
+        if(isNaN(pesoNuevo) || pesoNuevo < 0 ) {
             console.log("Nuevo peso no es un numero valido");
             alert("Nuevo peso no es un numero valido");
+            this.value = pesoActual;
+            return;
+        }
+
+        if( pesoNuevo > 999 ) {
+            console.log("El peso no puede ser mayor a 1000");
+            alert("El peso no puede ser mayor a 1000");
             this.value = pesoActual;
             return;
         }
