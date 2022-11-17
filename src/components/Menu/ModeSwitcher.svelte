@@ -17,7 +17,7 @@
     const theme = window.localStorage.getItem(THEME_KEY);
     if (theme === 'dark') {
       setDarkTheme(true);
-    } else if (theme == null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    } else if (theme == null) {
       setDarkTheme(true);
     }
   });
