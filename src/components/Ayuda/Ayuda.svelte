@@ -125,7 +125,35 @@
             </div>
         {/each}
     </div>
-    <div class="w-3/4 h-full overflow-y-scroll p-6">
-        <svelte:component this={componenteSeleccionado} />
+    <div class="w-3/4 h-full pr-2 pt-8 pb-2">
+        <article class="w-full h-full overflow-y-scroll px-6">
+            <svelte:component this={componenteSeleccionado} />
+        </article>
     </div>
 </div>
+
+<style>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    article :global(h1) {
+        @apply text-2xl text-sky-600 font-bold text-center pb-2 mb-4 w-full border-b border-slate-300;
+    }
+
+    article :global(h2) {
+        @apply text-xl font-bold text-slate-500 text-justify mx-auto w-full my-4 pt-3 border-t border-slate-200;
+    }
+
+    article :global(h5) {
+        @apply text-sm font-bold text-slate-500 text-center w-full my-4 ;
+    }
+
+    article :global(p) {
+        @apply text-lg my-4 text-justify font-sans;
+    }
+
+    article :global(img) {
+        @apply rounded-2xl mx-auto border-2 border-indigo-500 my-4 max-w-2xl max-h-72 shadow-2xl;
+    }
+</style>
