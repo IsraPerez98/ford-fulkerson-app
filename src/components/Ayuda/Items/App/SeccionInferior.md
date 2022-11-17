@@ -1,7 +1,3 @@
-# Sección Inferior
-
-
-
 En la parte inferior de la interfaz se encuentra la información del algoritmo, donde se explica paso a paso la ejecución de este junto con su pseudocódigo y los valores de la red residual *Gf*.
 
 

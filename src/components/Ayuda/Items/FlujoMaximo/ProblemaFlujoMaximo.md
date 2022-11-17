@@ -1,5 +1,3 @@
-# Problema de flujo máximo
-
 El problema del flujo máximo consiste en encontrar el flujo máximo que puede pasar por una red de flujo, desde la fuente al sumidero o destino.
 
 

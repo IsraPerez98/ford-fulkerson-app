@@ -1,7 +1,3 @@
-# Grafo
-
-
-
 ![Grafo](/img/Ayuda/App/Grafo/Grafo.png)
 
 

@@ -1,7 +1,3 @@
-# Grafo Dirigido
-
-
-
 Un grafo dirigido corresponde a un grafo en el que las aristas tienen una dirección. El conjunto de aristas **E** contempla arcos **e = (x,y)** tales que **x** es un vértice emisor o de partida mientras que **y** es un vértice receptor o de llegada.
 
 

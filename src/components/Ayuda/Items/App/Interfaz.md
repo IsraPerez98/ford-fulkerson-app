@@ -1,7 +1,3 @@
-# Interfaz
-
-
-
 La interfaz de la aplicación web se divide en tres partes principales:
 
 ## Menú superior

@@ -1,7 +1,3 @@
-# Algoritmo de Ford-Fulkerson
-
-
-
 Utilizando el teorema de flujo máximo y corte mínimo, se puede construir un algoritmo para encontrar el flujo máximo en una red de flujo. Este algoritmo se conoce como el algoritmo de Ford-Fulkerson.
 
 

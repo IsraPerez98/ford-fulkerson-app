@@ -1,7 +1,3 @@
-# Matriz de Adyacencia
-
-
-
 Una matriz de adyacencia es una matriz cuadrada que representa un grafo. Cada entrada de la matriz representa una arista entre dos vértices. Si la entrada es 1, significa que existe una arista entre los vértices. Si la entrada es 0, significa que no existe una arista entre los vértices.
 
 

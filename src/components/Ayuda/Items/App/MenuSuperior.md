@@ -1,7 +1,3 @@
-# Menú superior
-
-
-
 El menú superior se divide en seis secciones principales:
 
 

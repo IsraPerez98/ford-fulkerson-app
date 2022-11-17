@@ -1,7 +1,3 @@
-# Grafo
-
-
-
 Un grafo es una estructura de datos que consiste en un conjunto de **vértices** y **aristas**. 
 
 
