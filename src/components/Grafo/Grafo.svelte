@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { generarGrafoAlAzar } from './Funciones/GeneracionGrafo';
+    import { generarGrafoAlAzar } from '../../util/GeneracionGrafo';
 
     import Menu from '../Menu/Menu.svelte';
     import ConsolaComponent from '../Consola/Consola.svelte';

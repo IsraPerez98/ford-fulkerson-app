@@ -5,7 +5,7 @@ import Arista from "./Arista";
 import type Posicion from "../interfaces/Posicion";
 import type Consola from "./Consola";
 
-import { generarGrafoAlAzar, generarGrafo } from "../components/Grafo/Funciones/GeneracionGrafo";
+import { generarGrafoAlAzar, generarGrafo } from "../util/GeneracionGrafo";
 
 function cancelarConClick(callback: Function) {
     const mousedown = (e: MouseEvent) => {
