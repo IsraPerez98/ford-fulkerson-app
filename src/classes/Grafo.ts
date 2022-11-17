@@ -260,7 +260,9 @@ class Grafo {
         const blob = new Blob([JSON.stringify(grafo)], {type: "application/json"});
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.download = "grafo.json";
+        const fecha = new Date();
+        const fechaStr = fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + "-" + fecha.getHours() + "-" + fecha.getMinutes() + "-" + fecha.getSeconds();
+        link.download = "grafo-" + fechaStr + ".json"; 
         link.href = url;
         link.click();
     }
