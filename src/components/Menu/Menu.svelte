@@ -1,6 +1,6 @@
 <script lang="ts">
-
     import { getContext } from 'svelte';
+    import { twemoji } from 'twemoji-svelte-action';
 
     import Ayuda from '../Ayuda/Ayuda.svelte';
 
@@ -118,7 +118,7 @@
 </script>
 
 <div class="w-full h-10 bg-slate-700 dark:bg-gray-900 flex">
-    <div class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white">
+    <div use:twemoji={{className: 'emoji-menu'}} class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
         </button>
@@ -177,3 +177,10 @@
         <ModeSwitcher />
     </div>
 </div>
+
+<style global>
+    img.emoji-menu {
+        height: 1.25em;
+        width: 1.25em;
+    }
+</style>

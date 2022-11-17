@@ -1,1 +1,12418 @@
-var app=function(){"use strict";function e(){}const t=e=>e;function n(e){return e()}function o(){return Object.create(null)}function i(e){e.forEach(n)}function r(e){return"function"==typeof e}function a(e,t){return e!=e?t==t:e!==t||e&&"object"==typeof e||"function"==typeof e}let s;function l(e,t){return s||(s=document.createElement("a")),s.href=t,e===s.href}function c(e,t,n,o){return e[1]&&o?function(e,t){for(const n in t)e[n]=t[n];return e}(n.ctx.slice(),e[1](o(t))):n.ctx}function u(e){return null==e?"":e}const d="undefined"!=typeof window;let p=d?()=>window.performance.now():()=>Date.now(),m=d?e=>requestAnimationFrame(e):e;const f=new Set;function g(e){f.forEach((t=>{t.c(e)||(f.delete(t),t.f())})),0!==f.size&&m(g)}function h(e,t){e.appendChild(t)}function x(e){if(!e)return document;const t=e.getRootNode?e.getRootNode():e.ownerDocument;return t&&t.host?t:e.ownerDocument}function y(e){const t=$("style");return function(e,t){h(e.head||e,t)}(x(e),t),t.sheet}function C(e,t,n){e.insertBefore(t,n||null)}function b(e){e.parentNode.removeChild(e)}function v(e,t){for(let n=0;n<e.length;n+=1)e[n]&&e[n].d(t)}function $(e){return document.createElement(e)}function w(e){return document.createElementNS("http://www.w3.org/2000/svg",e)}function A(e){return document.createTextNode(e)}function E(){return A(" ")}function M(){return A("")}function j(e,t,n,o){return e.addEventListener(t,n,o),()=>e.removeEventListener(t,n,o)}function I(e,t,n){null==n?e.removeAttribute(t):e.getAttribute(t)!==n&&e.setAttribute(t,n)}function L(e,t){t=""+t,e.wholeText!==t&&(e.data=t)}function P(e,t,n,o){null===n?e.style.removeProperty(t):e.style.setProperty(t,n,o?"important":"")}function T(e,t,n){e.classList[n?"add":"remove"](t)}function O(e,t,{bubbles:n=!1,cancelable:o=!1}={}){const i=document.createEvent("CustomEvent");return i.initCustomEvent(e,n,o,t),i}const z=new Map;let F,k=0;function S(e,t,n,o,i,r,a,s=0){const l=16.666/o;let c="{\n";for(let e=0;e<=1;e+=l){const o=t+(n-t)*r(e);c+=100*e+`%{${a(o,1-o)}}\n`}const u=c+`100% {${a(n,1-n)}}\n}`,d=`__svelte_${function(e){let t=5381,n=e.length;for(;n--;)t=(t<<5)-t^e.charCodeAt(n);return t>>>0}(u)}_${s}`,p=x(e),{stylesheet:m,rules:f}=z.get(p)||function(e,t){const n={stylesheet:y(t),rules:{}};return z.set(e,n),n}(p,e);f[d]||(f[d]=!0,m.insertRule(`@keyframes ${d} ${u}`,m.cssRules.length));const g=e.style.animation||"";return e.style.animation=`${g?`${g}, `:""}${d} ${o}ms linear ${i}ms 1 both`,k+=1,d}function N(e,t){const n=(e.style.animation||"").split(", "),o=n.filter(t?e=>e.indexOf(t)<0:e=>-1===e.indexOf("__svelte")),i=n.length-o.length;i&&(e.style.animation=o.join(", "),k-=i,k||m((()=>{k||(z.forEach((e=>{const{stylesheet:t}=e;let n=t.cssRules.length;for(;n--;)t.deleteRule(n);e.rules={}})),z.clear())})))}function R(e){F=e}function G(){if(!F)throw new Error("Function called outside component initialization");return F}function D(e){G().$$.before_update.push(e)}function B(e){G().$$.on_mount.push(e)}function _(e){G().$$.after_update.push(e)}function U(e,t){return G().$$.context.set(e,t),t}const H=[],W=[],V=[],q=[],X=Promise.resolve();let J=!1;function Y(e){V.push(e)}const K=new Set;let Z,Q=0;function ee(){const e=F;do{for(;Q<H.length;){const e=H[Q];Q++,R(e),te(e.$$)}for(R(null),H.length=0,Q=0;W.length;)W.pop()();for(let e=0;e<V.length;e+=1){const t=V[e];K.has(t)||(K.add(t),t())}V.length=0}while(H.length);for(;q.length;)q.pop()();J=!1,K.clear(),R(e)}function te(e){if(null!==e.fragment){e.update(),i(e.before_update);const t=e.dirty;e.dirty=[-1],e.fragment&&e.fragment.p(e.ctx,t),e.after_update.forEach(Y)}}function ne(e,t,n){e.dispatchEvent(O(`${t?"intro":"outro"}${n}`))}const oe=new Set;let ie;function re(){ie={r:0,c:[],p:ie}}function ae(){ie.r||i(ie.c),ie=ie.p}function se(e,t){e&&e.i&&(oe.delete(e),e.i(t))}function le(e,t,n,o){if(e&&e.o){if(oe.has(e))return;oe.add(e),ie.c.push((()=>{oe.delete(e),o&&(n&&e.d(1),o())})),e.o(t)}}const ce={duration:0};function ue(n,o,a,s){let l=o(n,a),c=s?0:1,u=null,d=null,h=null;function x(){h&&N(n,h)}function y(e,t){const n=e.b-c;return t*=Math.abs(n),{a:c,b:e.b,d:n,duration:t,start:e.start,end:e.start+t,group:e.group}}function C(o){const{delay:r=0,duration:a=300,easing:s=t,tick:C=e,css:b}=l||ce,v={start:p()+r,b:o};o||(v.group=ie,ie.r+=1),u||d?d=v:(b&&(x(),h=S(n,c,o,a,r,s,b)),o&&C(0,1),u=y(v,a),Y((()=>ne(n,o,"start"))),function(e){let t;0===f.size&&m(g),new Promise((n=>{f.add(t={c:e,f:n})}))}((e=>{if(d&&e>d.start&&(u=y(d,a),d=null,ne(n,u.b,"start"),b&&(x(),h=S(n,c,u.b,u.duration,0,s,l.css))),u)if(e>=u.end)C(c=u.b,1-c),ne(n,u.b,"end"),d||(u.b?x():--u.group.r||i(u.group.c)),u=null;else if(e>=u.start){const t=e-u.start;c=u.a+u.d*s(t/u.duration),C(c,1-c)}return!(!u&&!d)})))}return{run(e){r(l)?(Z||(Z=Promise.resolve(),Z.then((()=>{Z=null}))),Z).then((()=>{l=l(),C(e)})):C(e)},end(){x(),u=d=null}}}const de="undefined"!=typeof window?window:"undefined"!=typeof globalThis?globalThis:global;function pe(e){e&&e.c()}function me(e,t,o,a){const{fragment:s,on_mount:l,on_destroy:c,after_update:u}=e.$$;s&&s.m(t,o),a||Y((()=>{const t=l.map(n).filter(r);c?c.push(...t):i(t),e.$$.on_mount=[]})),u.forEach(Y)}function fe(e,t){const n=e.$$;null!==n.fragment&&(i(n.on_destroy),n.fragment&&n.fragment.d(t),n.on_destroy=n.fragment=null,n.ctx=[])}function ge(e,t){-1===e.$$.dirty[0]&&(H.push(e),J||(J=!0,X.then(ee)),e.$$.dirty.fill(0)),e.$$.dirty[t/31|0]|=1<<t%31}function he(t,n,r,a,s,l,c,u=[-1]){const d=F;R(t);const p=t.$$={fragment:null,ctx:null,props:l,update:e,not_equal:s,bound:o(),on_mount:[],on_destroy:[],on_disconnect:[],before_update:[],after_update:[],context:new Map(n.context||(d?d.$$.context:[])),callbacks:o(),dirty:u,skip_bound:!1,root:n.target||d.$$.root};c&&c(p.root);let m=!1;if(p.ctx=r?r(t,n.props||{},((e,n,...o)=>{const i=o.length?o[0]:n;return p.ctx&&s(p.ctx[e],p.ctx[e]=i)&&(!p.skip_bound&&p.bound[e]&&p.bound[e](i),m&&ge(t,e)),n})):[],p.update(),m=!0,i(p.before_update),p.fragment=!!a&&a(p.ctx),n.target){if(n.hydrate){const e=function(e){return Array.from(e.childNodes)}(n.target);p.fragment&&p.fragment.l(e),e.forEach(b)}else p.fragment&&p.fragment.c();n.intro&&se(t.$$.fragment),me(t,n.target,n.anchor,n.customElement),ee()}R(d)}class xe{$destroy(){fe(this,1),this.$destroy=e}$on(e,t){const n=this.$$.callbacks[e]||(this.$$.callbacks[e]=[]);return n.push(t),()=>{const e=n.indexOf(t);-1!==e&&n.splice(e,1)}}$set(e){var t;this.$$set&&(t=e,0!==Object.keys(t).length)&&(this.$$.skip_bound=!0,this.$$set(e),this.$$.skip_bound=!1)}}function ye(e,{delay:n=0,duration:o=400,easing:i=t}={}){const r=+getComputedStyle(e).opacity;return{delay:n,duration:o,easing:i,css:e=>"opacity: "+e*r}}const{window:Ce}=de;function be(e){let t,n,o,a,s,l,c,d,p,m,f,g,x,y,v,w,A,M=e[1].closeButton&&ve(e);var L=e[2];return L&&(l=new L({})),{c(){t=$("div"),n=$("div"),o=$("div"),M&&M.c(),a=E(),s=$("div"),l&&pe(l.$$.fragment),I(s,"class",c=u(e[1].classContent)+" svelte-1p8jtl6"),I(s,"style",e[9]),T(s,"content",!e[0]),I(o,"class",d=u(e[1].classWindow)+" svelte-1p8jtl6"),I(o,"role","dialog"),I(o,"aria-modal","true"),I(o,"aria-label",p=e[1].ariaLabelledBy?null:e[1].ariaLabel||null),I(o,"aria-labelledby",m=e[1].ariaLabelledBy||null),I(o,"style",e[8]),T(o,"window",!e[0]),I(n,"class",g=u(e[1].classWindowWrap)+" svelte-1p8jtl6"),I(n,"style",e[7]),T(n,"wrap",!e[0]),I(t,"class",x=u(e[1].classBg)+" svelte-1p8jtl6"),I(t,"style",e[6]),T(t,"bg",!e[0])},m(i,c){C(i,t,c),h(t,n),h(n,o),M&&M.m(o,null),h(o,a),h(o,s),l&&me(l,s,null),e[49](o),e[50](n),e[51](t),v=!0,w||(A=[j(o,"introstart",(function(){r(e[13])&&e[13].apply(this,arguments)})),j(o,"outrostart",(function(){r(e[14])&&e[14].apply(this,arguments)})),j(o,"introend",(function(){r(e[15])&&e[15].apply(this,arguments)})),j(o,"outroend",(function(){r(e[16])&&e[16].apply(this,arguments)})),j(t,"mousedown",e[20]),j(t,"mouseup",e[21])],w=!0)},p(i,r){if((e=i)[1].closeButton?M?(M.p(e,r),2&r[0]&&se(M,1)):(M=ve(e),M.c(),se(M,1),M.m(o,a)):M&&(re(),le(M,1,1,(()=>{M=null})),ae()),L!==(L=e[2])){if(l){re();const e=l;le(e.$$.fragment,1,0,(()=>{fe(e,1)})),ae()}L?(l=new L({}),pe(l.$$.fragment),se(l.$$.fragment,1),me(l,s,null)):l=null}(!v||2&r[0]&&c!==(c=u(e[1].classContent)+" svelte-1p8jtl6"))&&I(s,"class",c),(!v||512&r[0])&&I(s,"style",e[9]),3&r[0]&&T(s,"content",!e[0]),(!v||2&r[0]&&d!==(d=u(e[1].classWindow)+" svelte-1p8jtl6"))&&I(o,"class",d),(!v||2&r[0]&&p!==(p=e[1].ariaLabelledBy?null:e[1].ariaLabel||null))&&I(o,"aria-label",p),(!v||2&r[0]&&m!==(m=e[1].ariaLabelledBy||null))&&I(o,"aria-labelledby",m),(!v||256&r[0])&&I(o,"style",e[8]),3&r[0]&&T(o,"window",!e[0]),(!v||2&r[0]&&g!==(g=u(e[1].classWindowWrap)+" svelte-1p8jtl6"))&&I(n,"class",g),(!v||128&r[0])&&I(n,"style",e[7]),3&r[0]&&T(n,"wrap",!e[0]),(!v||2&r[0]&&x!==(x=u(e[1].classBg)+" svelte-1p8jtl6"))&&I(t,"class",x),(!v||64&r[0])&&I(t,"style",e[6]),3&r[0]&&T(t,"bg",!e[0])},i(n){v||(se(M),l&&se(l.$$.fragment,n),Y((()=>{f||(f=ue(o,e[12],e[1].transitionWindowProps,!0)),f.run(1)})),Y((()=>{y||(y=ue(t,e[11],e[1].transitionBgProps,!0)),y.run(1)})),v=!0)},o(n){le(M),l&&le(l.$$.fragment,n),f||(f=ue(o,e[12],e[1].transitionWindowProps,!1)),f.run(0),y||(y=ue(t,e[11],e[1].transitionBgProps,!1)),y.run(0),v=!1},d(n){n&&b(t),M&&M.d(),l&&fe(l),e[49](null),n&&f&&f.end(),e[50](null),e[51](null),n&&y&&y.end(),w=!1,i(A)}}}function ve(e){let t,n,o,i,r;const a=[we,$e],s=[];function l(e,n){return 2&n[0]&&(t=null),null==t&&(t=!!e[17](e[1].closeButton)),t?0:1}return n=l(e,[-1,-1,-1]),o=s[n]=a[n](e),{c(){o.c(),i=M()},m(e,t){s[n].m(e,t),C(e,i,t),r=!0},p(e,t){let r=n;n=l(e,t),n===r?s[n].p(e,t):(re(),le(s[r],1,1,(()=>{s[r]=null})),ae(),o=s[n],o?o.p(e,t):(o=s[n]=a[n](e),o.c()),se(o,1),o.m(i.parentNode,i))},i(e){r||(se(o),r=!0)},o(e){le(o),r=!1},d(e){s[n].d(e),e&&b(i)}}}function $e(t){let n,o,i,r;return{c(){n=$("button"),I(n,"class",o=u(t[1].classCloseButton)+" svelte-1p8jtl6"),I(n,"aria-label","Close modal"),I(n,"style",t[10]),I(n,"type","button"),T(n,"close",!t[0])},m(e,o){C(e,n,o),i||(r=j(n,"click",t[18]),i=!0)},p(e,t){2&t[0]&&o!==(o=u(e[1].classCloseButton)+" svelte-1p8jtl6")&&I(n,"class",o),1024&t[0]&&I(n,"style",e[10]),3&t[0]&&T(n,"close",!e[0])},i:e,o:e,d(e){e&&b(n),i=!1,r()}}}function we(e){let t,n,o;var i=e[1].closeButton;function r(e){return{props:{onClose:e[18]}}}return i&&(t=new i(r(e))),{c(){t&&pe(t.$$.fragment),n=M()},m(e,i){t&&me(t,e,i),C(e,n,i),o=!0},p(e,o){if(i!==(i=e[1].closeButton)){if(t){re();const e=t;le(e.$$.fragment,1,0,(()=>{fe(e,1)})),ae()}i?(t=new i(r(e)),pe(t.$$.fragment),se(t.$$.fragment,1),me(t,n.parentNode,n)):t=null}},i(e){o||(t&&se(t.$$.fragment,e),o=!0)},o(e){t&&le(t.$$.fragment,e),o=!1},d(e){e&&b(n),t&&fe(t,e)}}}function Ae(e){let t,n,o,i,r=e[2]&&be(e);const a=e[48].default,s=function(e,t,n,o){if(e){const i=c(e,t,n,o);return e[0](i)}}(a,e,e[47],null);return{c(){r&&r.c(),t=E(),s&&s.c()},m(a,l){r&&r.m(a,l),C(a,t,l),s&&s.m(a,l),n=!0,o||(i=j(Ce,"keydown",e[19]),o=!0)},p(e,o){e[2]?r?(r.p(e,o),4&o[0]&&se(r,1)):(r=be(e),r.c(),se(r,1),r.m(t.parentNode,t)):r&&(re(),le(r,1,1,(()=>{r=null})),ae()),s&&s.p&&(!n||65536&o[1])&&function(e,t,n,o,i,r){if(i){const a=c(t,n,o,r);e.p(a,i)}}(s,a,e,e[47],n?function(e,t,n,o){if(e[2]&&o){const i=e[2](o(n));if(void 0===t.dirty)return i;if("object"==typeof i){const e=[],n=Math.max(t.dirty.length,i.length);for(let o=0;o<n;o+=1)e[o]=t.dirty[o]|i[o];return e}return t.dirty|i}return t.dirty}(a,e[47],o,null):function(e){if(e.ctx.length>32){const t=[],n=e.ctx.length/32;for(let e=0;e<n;e++)t[e]=-1;return t}return-1}(e[47]),null)},i(e){n||(se(r),se(s,e),n=!0)},o(e){le(r),le(s,e),n=!1},d(e){r&&r.d(e),e&&b(t),s&&s.d(e),o=!1,i()}}}function Ee(e,t,n){let{$$slots:o={},$$scope:i}=t;const r=function(){const e=G();return(t,n,{cancelable:o=!1}={})=>{const i=e.$$.callbacks[t];if(i){const r=O(t,n,{cancelable:o});return i.slice().forEach((t=>{t.call(e,r)})),!r.defaultPrevented}return!0}}(),a=U,s=e=>e.tabIndex>=0&&!e.hidden&&!e.disabled&&"none"!==e.style.display&&"hidden"!==e.type&&Boolean(e.offsetWidth||e.offsetHeight||e.getClientRects().length);let{isTabbable:l=s}=t,{show:c=null}=t,{key:u="simple-modal"}=t,{ariaLabel:d=null}=t,{ariaLabelledBy:p=null}=t,{closeButton:m=!0}=t,{closeOnEsc:f=!0}=t,{closeOnOuterClick:g=!0}=t,{styleBg:h={}}=t,{styleWindowWrap:x={}}=t,{styleWindow:y={}}=t,{styleContent:C={}}=t,{styleCloseButton:b={}}=t,{classBg:v=null}=t,{classWindowWrap:$=null}=t,{classWindow:w=null}=t,{classContent:A=null}=t,{classCloseButton:E=null}=t,{unstyled:M=!1}=t,{setContext:j=a}=t,{transitionBg:I=ye}=t,{transitionBgProps:L={duration:250}}=t,{transitionWindow:P=I}=t,{transitionWindowProps:T=L}=t,{disableFocusTrap:z=!1}=t;const F={ariaLabel:d,ariaLabelledBy:p,closeButton:m,closeOnEsc:f,closeOnOuterClick:g,styleBg:h,styleWindowWrap:x,styleWindow:y,styleContent:C,styleCloseButton:b,classBg:v,classWindowWrap:$,classWindow:w,classContent:A,classCloseButton:E,transitionBg:I,transitionBgProps:L,transitionWindow:P,transitionWindowProps:T,disableFocusTrap:z,isTabbable:l,unstyled:M};let k,S,N,R,D,_,H,V,q,X,J,Y,K,Z,Q,ee={...F},te=null;const ne=e=>e?Object.keys(e).reduce(((t,n)=>`${t}; ${(e=>e.replace(/([a-zA-Z])(?=[A-Z])/g,"$1-").toLowerCase())(n)}: ${e[n]}`),""):"",oe=e=>!!(e&&e.constructor&&e.call&&e.apply),ie=()=>{};let re=ie,ae=ie,se=ie,le=ie;const ce=(e,t={},o={},i={})=>{n(2,te=function(e,t={}){return function(n){return new e({...n,props:{...t,...n.props}})}}(e,t)),n(1,ee={...F,...o}),n(6,D=ne(Object.assign({},{width:window.innerWidth,height:window.innerHeight},ee.styleBg))),n(7,_=ne(ee.styleWindowWrap)),n(8,H=ne(ee.styleWindow)),n(9,V=ne(ee.styleContent)),n(10,q=ne(ee.styleCloseButton)),n(11,X=ee.transitionBg),n(12,J=ee.transitionWindow),de(),n(13,re=e=>{i.onOpen&&i.onOpen(e),r("open"),r("opening")}),n(14,ae=e=>{i.onClose&&i.onClose(e),r("close"),r("closing")}),n(15,se=e=>{i.onOpened&&i.onOpened(e),r("opened")}),n(16,le=e=>{i.onClosed&&i.onClosed(e),r("closed")})},ue=(e={})=>{te&&(n(14,ae=e.onClose||ae),n(16,le=e.onClosed||le),n(2,te=null),pe())},de=()=>{R=window.scrollY,Y=document.body.style.position,K=document.body.style.overflow,Z=document.body.style.width,document.body.style.position="fixed",document.body.style.top=`-${R}px`,document.body.style.overflow="hidden",document.body.style.width="100%"},pe=()=>{document.body.style.position=Y||"",document.body.style.top="",document.body.style.overflow=K||"",document.body.style.width=Z||"",window.scrollTo(0,R)};j(u,{open:ce,close:ue});let me=!1;var fe;return fe=()=>{me&&ue()},G().$$.on_destroy.push(fe),B((()=>{n(46,me=!0)})),e.$$set=e=>{"isTabbable"in e&&n(22,l=e.isTabbable),"show"in e&&n(23,c=e.show),"key"in e&&n(24,u=e.key),"ariaLabel"in e&&n(25,d=e.ariaLabel),"ariaLabelledBy"in e&&n(26,p=e.ariaLabelledBy),"closeButton"in e&&n(27,m=e.closeButton),"closeOnEsc"in e&&n(28,f=e.closeOnEsc),"closeOnOuterClick"in e&&n(29,g=e.closeOnOuterClick),"styleBg"in e&&n(30,h=e.styleBg),"styleWindowWrap"in e&&n(31,x=e.styleWindowWrap),"styleWindow"in e&&n(32,y=e.styleWindow),"styleContent"in e&&n(33,C=e.styleContent),"styleCloseButton"in e&&n(34,b=e.styleCloseButton),"classBg"in e&&n(35,v=e.classBg),"classWindowWrap"in e&&n(36,$=e.classWindowWrap),"classWindow"in e&&n(37,w=e.classWindow),"classContent"in e&&n(38,A=e.classContent),"classCloseButton"in e&&n(39,E=e.classCloseButton),"unstyled"in e&&n(0,M=e.unstyled),"setContext"in e&&n(40,j=e.setContext),"transitionBg"in e&&n(41,I=e.transitionBg),"transitionBgProps"in e&&n(42,L=e.transitionBgProps),"transitionWindow"in e&&n(43,P=e.transitionWindow),"transitionWindowProps"in e&&n(44,T=e.transitionWindowProps),"disableFocusTrap"in e&&n(45,z=e.disableFocusTrap),"$$scope"in e&&n(47,i=e.$$scope)},e.$$.update=()=>{8388608&e.$$.dirty[0]|32768&e.$$.dirty[1]&&me&&(oe(c)?ce(c):ue())},[M,ee,te,k,S,N,D,_,H,V,q,X,J,re,ae,se,le,oe,ue,e=>{if(ee.closeOnEsc&&te&&"Escape"===e.key&&(e.preventDefault(),ue()),te&&"Tab"===e.key&&!ee.disableFocusTrap){const t=N.querySelectorAll("*"),n=Array.from(t).filter(ee.isTabbable).sort(((e,t)=>e.tabIndex-t.tabIndex));let o=n.indexOf(document.activeElement);-1===o&&e.shiftKey&&(o=0),o+=n.length+(e.shiftKey?-1:1),o%=n.length,n[o].focus(),e.preventDefault()}},e=>{!ee.closeOnOuterClick||e.target!==k&&e.target!==S||(Q=e.target)},e=>{ee.closeOnOuterClick&&e.target===Q&&(e.preventDefault(),ue())},l,c,u,d,p,m,f,g,h,x,y,C,b,v,$,w,A,E,j,I,L,P,T,z,me,i,o,function(e){W[e?"unshift":"push"]((()=>{N=e,n(5,N)}))},function(e){W[e?"unshift":"push"]((()=>{S=e,n(4,S)}))},function(e){W[e?"unshift":"push"]((()=>{k=e,n(3,k)}))}]}class Me extends xe{constructor(e){super(),he(this,e,Ee,Ae,a,{isTabbable:22,show:23,key:24,ariaLabel:25,ariaLabelledBy:26,closeButton:27,closeOnEsc:28,closeOnOuterClick:29,styleBg:30,styleWindowWrap:31,styleWindow:32,styleContent:33,styleCloseButton:34,classBg:35,classWindowWrap:36,classWindow:37,classContent:38,classCloseButton:39,unstyled:0,setContext:40,transitionBg:41,transitionBgProps:42,transitionWindow:43,transitionWindowProps:44,disableFocusTrap:45},null,[-1,-1,-1])}}class je extends xe{constructor(e){super(),he(this,e,null,null,a,{})}}class Ie{constructor(e,t,n,o,i,r,a){this.id=e,this.nombre=i||null,this.fuente=t,this.sumidero=n,this.posicion=o,this.radio=null==r?35:r,this.grafo=a||null}mover(e){const t={x:Math.max(this.radio,Math.min(this.grafo.width-2*this.radio,e.x)),y:Math.max(this.radio,Math.min(this.grafo.height-this.radio,e.y))};this.posicion=t,this.grafo.recargarGrafo()}eliminar(){this.grafo.eliminarVertice(this)}toggleFuente(){this.fuente=!this.fuente,this.grafo.fuentes[this.id]=this.fuente}toggleSumidero(){this.sumidero=!this.sumidero,this.grafo.sumideros[this.id]=this.sumidero}asignarGrafo(e){this.grafo=e}reposicionarLimites(e,t){const n=Math.max(this.radio,Math.min(e-2*this.radio,this.posicion.x)),o=Math.max(this.radio,Math.min(t-this.radio,this.posicion.y));n===this.posicion.x&&o===this.posicion.y||this.mover({x:n,y:o})}}class Le{constructor(e,t,n,o,i,r,a){this.origen=e,this.destino=t,this.esCamino=n,this.fueCamino=o,this.peso=i,this.flujo=r,this.grafo=a}cambiarPeso(e){this.peso=e,this.grafo.matrizAdyacencia[this.origen.id][this.destino.id]=e,this.grafo.recargarGrafo(),0===this.peso&&this.grafo.eliminarArista(this)}asignarGrafo(e){this.grafo=e}eliminar(){this.grafo.eliminarArista(this)}}class Pe{constructor(e,t,n,o,i,r,a,s,l){this.matrizAdyacencia=e,this.fuentes=t,this.sumideros=n,this.vertices=o,this.aristas=i,this.width=a,this.height=s,this.consola=r,this.recargarGrafo=l,this.ejecutandoFlujoMaximo=!1,this.avanzarIteracionFlujoMaximo=!1,this.recargarRedResidual()}iniciarCreacionVertice(){this.creandoVertice=!0,this.recargarGrafo(),this.crearVerticeDinamico()}crearVerticeDinamico(){const e={x:this.width/2,y:this.height/2},t=new Ie(this.vertices.length,!1,!1,e,"Nuevo Vertice",null,this);this.vertices.push(t),this.recargarGrafo();const n=e=>{t.mover({x:e.clientX,y:e.clientY})};window.addEventListener("mousemove",n);const o=e=>{this.vertices.splice(this.vertices.indexOf(t),1),this.crearNuevoVertice(!1,!1,{x:e.clientX,y:e.clientY},null,null),this.finalizarCreacionVertice(),window.removeEventListener("mousemove",n),window.removeEventListener("mouseup",o)};window.addEventListener("mouseup",o)}finalizarCreacionVertice(){this.creandoVertice=!1,this.recargarGrafo()}iniciarEliminacionArista(){this.eliminandoArista=!0,this.recargarGrafo();const e=async t=>{await new Promise((e=>setTimeout(e,100))),this.finalizarEliminacionArista(),document.removeEventListener("mousedown",e)};document.addEventListener("mousedown",e)}finalizarEliminacionArista(){this.eliminandoArista=!1,this.recargarGrafo()}iniciarCreacionArista(){this.nuevaAristaVerticeOrigen=null,this.creandoArista=!0,this.recargarGrafo();const e=t=>{this.nuevaAristaVerticeOrigen||(this.finalizarCreacionArista(),document.removeEventListener("mousedown",e))};document.addEventListener("mousedown",e)}seleccionarVerticeNuevaArista(e){this.nuevaAristaVerticeOrigen=e;const t=new Ie(-1,!1,!1,{x:e.posicion.x,y:e.posicion.y},"",0,this);this.vertices.push(t);const n=new Le(e,t,!1,!1,-1,0,this);this.aristas[e.id][e.id]=n,this.recargarGrafo();const o=e=>{t.mover({x:e.clientX,y:e.clientY})};window.addEventListener("mousemove",o);let i=!1;const r=()=>{i?(this.vertices.splice(this.vertices.indexOf(t),1),this.aristas[e.id][e.id]=null,document.removeEventListener("mousemove",o),document.removeEventListener("mousedown",r),this.finalizarCreacionArista()):i=!0};document.addEventListener("mousedown",r)}finalizarCreacionArista(){this.creandoArista=!1,this.nuevaAristaVerticeOrigen=null,this.recargarGrafo()}iniciarEliminacionVertice(){this.eliminandoVertice=!0,this.recargarGrafo(),function(e){const t=n=>{e(),document.removeEventListener("mousedown",t)};document.addEventListener("mousedown",t)}(this.finalizarEliminacionVertice.bind(this))}eliminarVertice(e){console.log({vertice:e}),this.vertices.splice(e.id,1),this.fuentes.splice(e.id,1),this.sumideros.splice(e.id,1);for(let t=e.id;t<this.vertices.length;t++)this.vertices[t].id--;this.matrizAdyacencia.splice(e.id,1);for(let t=0;t<this.matrizAdyacencia.length;t++)this.matrizAdyacencia[t].splice(e.id,1);console.log(this.matrizAdyacencia),this.aristas.splice(e.id,1);for(let t=0;t<this.aristas.length;t++)this.aristas[t].splice(e.id,1);this.recargarGrafo()}finalizarEliminacionVertice(){this.eliminandoVertice=!1,this.recargarGrafo()}generarGrafoAlAzar(e){const t=ze(e,this.width,this.height,this.recargarGrafo,this);this.matrizAdyacencia=t.matrizAdyacencia,this.fuentes=t.fuentes,this.sumideros=t.sumideros,this.vertices=t.vertices,this.aristas=t.aristas,this.recargarGrafo()}eliminarArista(e){this.matrizAdyacencia[e.origen.id][e.destino.id]=0,this.aristas[e.origen.id][e.destino.id]=null,this.recargarGrafo()}guardarGrafo(){const e=[];for(let t=0;t<this.matrizAdyacencia.length;t++){e[t]=[];for(let n=0;n<this.matrizAdyacencia[t].length;n++)e[t][n]=this.matrizAdyacencia[t][n]!==1/0?this.matrizAdyacencia[t][n]:-1}const t=[];for(let e=0;e<this.vertices.length;e++)t.push(this.vertices[e].posicion);const n={matrizAdyacencia:e,posicionesVertices:t,fuentes:this.fuentes,sumideros:this.sumideros},o=new Blob([JSON.stringify(n)],{type:"application/json"}),i=URL.createObjectURL(o),r=document.createElement("a");r.download="grafo.json",r.href=i,r.click()}inciarFlujoMaximo(){this.ejecutandoFlujoMaximo=!0,this.avanzarIteracionFlujoMaximo=!1;const e=this.vertices.filter((e=>e.fuente)),t=this.vertices.filter((e=>e.sumidero));if(0===e.length)return alert("Debe haber al menos una fuente"),void this.finalizarFlujoMaximo();if(0===t.length)return alert("Debe haber al menos un sumidero"),void this.finalizarFlujoMaximo();let n=e[0],o=t[0];if(e.length>1||t.length>1){if(!confirm("Se deben agregar vertices extra para ejecutar el algoritmo de flujo maximo con multiples fuentes y sumideros. ¿Desea continuar?"))return void this.finalizarFlujoMaximo();if(e.length>1){const t=this.crearNuevoVertice(!0,!1,{x:this.width/3,y:this.height/2});for(let n=0;n<e.length;n++)this.crearNuevaArista(t,e[n],1/0),e[n].toggleFuente();n=t}if(t.length>1){const e=this.crearNuevoVertice(!1,!0,{x:2*this.width/3,y:this.height/2});for(let n=0;n<t.length;n++)this.crearNuevaArista(t[n],e,1/0),t[n].toggleSumidero();o=e}}this.calcularFlujoMaximo(n,o)}continuarFlujoMaximo(){this.avanzarIteracionFlujoMaximo=!0}finalizarFlujoMaximo(){this.ejecutandoFlujoMaximo=!1,this.avanzarIteracionFlujoMaximo=!1,this.clearCaminos(),this.recargarGrafo(),this.abortarFlujoMaximo&&(this.abortarFlujoMaximo.abort(),this.abortarFlujoMaximo=null),this.recargarRedResidual()}generarGrafo(e,t,n,o){const i=Oe(e,t,n,o,this.width,this.height,this.recargarGrafo,this);this.matrizAdyacencia=i.matrizAdyacencia,this.fuentes=i.fuentes,this.sumideros=i.sumideros,this.vertices=i.vertices,this.aristas=i.aristas,this.ejecutandoFlujoMaximo=!1,this.recargarGrafo()}crearNuevoVertice(e,t,n,o,i){const r=new Ie(this.vertices.length,e,t,n,o,i,this);this.vertices.push(r),this.fuentes.push(e),this.sumideros.push(t),this.matrizAdyacencia.push(Array(this.vertices.length).fill(0));for(let e=0;e<this.matrizAdyacencia.length;e++)this.matrizAdyacencia[e].push(0);this.aristas.push(Array(this.vertices.length).fill(null));for(let e=0;e<this.aristas.length;e++)this.aristas[e].push(null);return this.recargarGrafo(),r}crearNuevaArista(e,t,n){if(0!==this.matrizAdyacencia[e.id][t.id])return alert("Ya existe esta arista"),void this.finalizarCreacionArista();const o=new Le(e,t,!1,!1,n,0,this);this.aristas[e.id][t.id]=o,this.matrizAdyacencia[e.id][t.id]=n,this.finalizarCreacionArista()}DFSRecursivo(e,t,n,o){if(n[e.id]=!0,e===t)return[...o,t];for(let i=0;i<this.vertices.length;i++)if(0!==this.redResidual[e.id][i]&&!n[i]){const r=this.DFSRecursivo(this.vertices[i],t,n,[...o,e]);if(r)return r}return null}buscarCamino(e,t){let n=new Array(this.vertices.length).fill(!1),o=[];return o=this.DFSRecursivo(e,t,n,o),o}clearCaminos(){for(let e=0;e<this.aristas.length;e++)for(let t=0;t<this.aristas.length;t++)this.aristas[e][t]&&(this.aristas[e][t].esCamino=!1,this.aristas[e][t].fueCamino=!1,this.aristas[e][t].flujo=0)}dibujarCamino(e,t){for(let e=0;e<this.aristas.length;e++)for(let t=0;t<this.aristas.length;t++)this.aristas[e][t]&&this.aristas[e][t].esCamino&&(this.aristas[e][t].esCamino=!1,this.aristas[e][t].fueCamino=!0);for(let n=0;n<e.length-1;n++){const o=e[n],i=e[n+1],r=this.aristas[o.id][i.id];r&&(console.log({arista:r}),r.esCamino=!0,r.fueCamino=!1,r.flujo=r.flujo+t)}this.recargarGrafo()}recargarRedResidual(){const e=[];for(let t=0;t<this.matrizAdyacencia.length;t++){e.push([]);for(let n=0;n<this.matrizAdyacencia.length;n++)e[t].push(structuredClone(this.matrizAdyacencia[t][n]))}this.redResidual=e}async esperarProximaIteracion(){for(;!this.avanzarIteracionFlujoMaximo&&this.abortarFlujoMaximo&&!this.abortarFlujoMaximo.signal.aborted;)await new Promise((e=>setTimeout(e,100)));return new Promise(((e,t)=>{if(!this.abortarFlujoMaximo||this.abortarFlujoMaximo.signal.aborted){t(new Error("El flujo maximo fue abortado"))}this.recargarGrafo(),console.log("Esperando siguiente iteracion"),this.avanzarIteracionFlujoMaximo=!1,this.recargarGrafo(),e()}))}async calcularFlujoMaximo(e,t){this.consola.abierta||this.consola.abrir();try{this.abortarFlujoMaximo=new AbortController,this.recargarRedResidual(),this.consola.printTextoExplicativo("✨ Iniciamos la variable de flujo maximo en 0"),this.consola.setUbicacionPseudoCodigo("DEFINIR FLUJO_MAXIMO = 0");let n=0;await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("🕸️ Creamos la red residual como una copia de la matriz de adyacencia"),this.consola.setUbicacionPseudoCodigo("DEFINIR RED_RESIDUAL = MATRIZ_ADYACENCIA"),await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("🔍️ Buscamos un camino desde la fuente al sumidero, utilizando la red residual"),this.consola.setUbicacionPseudoCodigo("CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)");let o=this.buscarCamino(e,t);for(await this.esperarProximaIteracion();;){if(!o)return this.consola.printTextoExplicativo("🚫 No existe otro camino desde la fuente al sumidero, por lo tanto finalizamos el algoritmo"),this.consola.setUbicacionPseudoCodigo("FIN_MIENTRAS"),await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("🎉 El flujo maximo es: "+n),this.consola.setUbicacionPseudoCodigo("RETORNAR FLUJO_MAXIMO"),await this.esperarProximaIteracion(),void this.finalizarFlujoMaximo();this.consola.printTextoExplicativo("🗺️ Existe un camino desde la fuente al sumidero, pasando por los vertices: "+o.map((e=>e.id)).join(", ")),this.consola.setUbicacionPseudoCodigo("MIENTRAS EXISTA CAMINO:"),this.dibujarCamino(o,0),await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("📈 Calculamos el flujo que puede pasar por el camino"),this.consola.printTextoExplicativo("📈 El flujo que puede pasar por el camino es el minimo entre las aristas que lo componen"),this.consola.setUbicacionPseudoCodigo("    FLUJO_MINIMO = MINIMO(CAPACIDADES(CAMINO))");let i=Number.MAX_SAFE_INTEGER;for(let e=0;e<o.length-1;e++){const t=o[e],n=o[e+1],r=this.redResidual[t.id][n.id];r<i&&(i=r)}this.consola.printTextoExplicativo("🚰 El flujo minimo del camino es: "+i),await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("➕ Sumamos el flujo minimo al flujo maximo"),this.consola.setUbicacionPseudoCodigo("    FLUJO_MAXIMO = FLUJO_MAXIMO + FLUJO_MINIMO"),n+=i,this.dibujarCamino(o,i),this.consola.printTextoExplicativo("🚰 El flujo maximo actualmente es: "+n),await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("🕸️ Actualizamos la red residual"),this.consola.printTextoExplicativo("🕸️ Restamos el flujo minimo a las aristas que componen el camino"),this.consola.printTextoExplicativo("🤔 ¿Por que restamos el flujo minimo a las aristas que componen el camino?"),this.consola.printTextoExplicativo("🤔 Porque de esta forma estamos indicando que el flujo minimo ya pasó por esas aristas"),this.consola.setUbicacionPseudoCodigo("    ACTUALIZAR_CAPACIDADES(RED_RESIDUAL ,CAMINO, FLUJO_MINIMO)");for(let e=0;e<o.length-1;e++){const t=o[e],n=o[e+1];this.redResidual[t.id][n.id]-=i}await this.esperarProximaIteracion(),this.consola.printTextoExplicativo("🔍️ Buscamos un nuevo camino desde la fuente al sumidero, utilizando la red residual"),this.consola.setUbicacionPseudoCodigo("    CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)"),o=this.buscarCamino(e,t),await this.esperarProximaIteracion()}}catch(e){console.log(e)}}cambiarTamanio(e,t){this.width=e,this.height=t;for(let n=0;n<this.vertices.length;n++)this.vertices[n].reposicionarLimites(e,t)}actualizarComponentes(e,t,n,o,i,r,a,s){e&&(this.matrizAdyacencia=e),t&&(this.fuentes=t),n&&(this.sumideros=n),o&&(this.vertices=o),i&&(this.aristas=i),r&&(this.width=r),a&&(this.height=a),s&&(this.recargarGrafo=s)}}class Te{constructor(e){this.abierta=!1,this.categorias=["EXPLICACION","PSEUDOCODIGO","RED_RESIDUAL"],this.categoria=this.categorias[0],this.pseudoCodigo=["DEFINIR FLUJO_MAXIMO = 0","DEFINIR RED_RESIDUAL = MATRIZ_ADYACENCIA","CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)","MIENTRAS EXISTA CAMINO:","    FLUJO_MINIMO = MINIMO(CAPACIDADES(CAMINO))","    FLUJO_MAXIMO = FLUJO_MAXIMO + FLUJO_MINIMO","    ACTUALIZAR_CAPACIDADES(RED_RESIDUAL ,CAMINO, FLUJO_MINIMO)","    CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)","FIN_MIENTRAS","RETORNAR FLUJO_MAXIMO"],this.ubicacionPseudoCodigo=-1,this.textoExplicativo=[],this.grafo=e||null}abrir(){this.abierta=!0,this.grafo.recargarGrafo()}cerrar(){this.abierta=!1,this.grafo.recargarGrafo()}cambiarCategoria(e){-1!==this.categorias.indexOf(e)?(this.categoria=e,this.grafo.recargarGrafo()):console.log("Categoría no valida: "+e)}setUbicacionPseudoCodigo(e){const t=this.pseudoCodigo.indexOf(e);-1!==t?(this.ubicacionPseudoCodigo=t,this.grafo.recargarGrafo()):console.log("Pseudocódigo no valido: "+e)}printTextoExplicativo(e){this.textoExplicativo.push(e),this.textoExplicativo.length>1e3&&this.textoExplicativo.shift(),this.grafo.recargarGrafo()}asignarGrafo(e){this.grafo=e}}function Oe(e,t,n,o,i,r,a,s){const l=function(e,t,n,o){const i=[];for(let r=0;r<e.length;r++){const e=new Ie(r,t[r],n[r],o[r]);i.push(e)}return i}(e,n,o,t),c=function(e,t){const n=[];e.forEach((e=>{n.push(new Array(e.length).fill(null))}));for(let o=0;o<e.length;o++)for(let i=0;i<e.length;i++){if(i===o)continue;if(0===e[o][i])continue;const r=t[o],a=t[i],s=!1,l=!1,c=e[o][i],u=new Le(r,a,s,l,c,0,null);n[o][i]=u}return n}(e,l),u=new Te;return s?s.actualizarComponentes(e,n,o,l,c,i,r,a):s=new Pe(e,n,o,l,c,u,i,r,a),u.asignarGrafo(s),function(e,t){for(const n of e)n.asignarGrafo(t)}(l,s),function(e,t){for(const n of e)for(const e of n)e&&e.asignarGrafo(t)}(c,s),console.log({grafo:s}),s}function ze(e,t,n,o,i){const r=function(e){const t=[];for(let n=0;n<e;n++){const o=[];for(let t=0;t<e;t++)n===t?o.push(0):Math.random()>.5?o.push(Math.floor(100*Math.random())):o.push(0);t.push(o)}return t}(e),a=[],s=[];for(let t=0;t<e;t++)a.push(!1),s.push(!1);a[0]=!0,s[e-1]=!0;const l=function(e,t,n){const o={x:t/2,y:n/2};if(1===e)return[o];const i=Math.min(t,n)/2-70,r=2*Math.PI/e,a=[];for(let t=0;t<e;t++){const e=o.x+i*Math.cos(t*r),n=o.y+i*Math.sin(t*r);a.push({x:e,y:n})}return a}(e,t,n);return Oe(r,l,a,s,t,n,o,i)}function Fe(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O,z,F,k,S,N,R,G,D,B,_,U,H,W,V;return{c(){n=$("h1"),n.textContent="Interfaz",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.textContent="La interfaz de la aplicación web se divide en tres partes principales:",s=E(),l=$("h2"),l.textContent="Menú superior",c=E(),u=$("p"),u.textContent=" ",d=E(),p=$("p"),p.innerHTML='<img src="./img/Ayuda/App/Interfaz/MenuSuperior.png" alt="Menú Superior"/>',m=E(),f=$("p"),f.textContent=" ",g=E(),h=$("p"),h.textContent="En el menú superior se encuentran los elementos para ejecutar el algoritmo y realizar modificaciones al grafo.",x=E(),y=$("h2"),y.textContent="Grafo",v=E(),w=$("p"),w.textContent=" ",A=E(),M=$("p"),M.innerHTML='<img src="./img/Ayuda/App/Interfaz/Grafo.png" alt="Grafo"/>',j=E(),I=$("p"),I.textContent=" ",L=E(),P=$("p"),P.textContent="En la parte central de la interfaz se encuentra el grafo, cada vértice se representa por un círculo y cada arista por una línea con su respectivo peso. Los vértices se pueden arrastrar para modificar la posición del grafo. Además, se pueden agregar y eliminar vértices y aristas.",T=E(),O=$("p"),O.textContent=" ",z=E(),F=$("h2"),F.textContent="Información del algoritmo",k=E(),S=$("p"),S.textContent=" ",N=E(),R=$("p"),R.innerHTML='<img src="./img/Ayuda/App/Interfaz/AbrirExplicacion.png" alt="Abrir Explicación"/>',G=E(),D=$("p"),D.textContent=" ",B=E(),_=$("p"),_.innerHTML='<img src="./img/Ayuda/App/Interfaz/Explicacion.png" alt="Explicación"/>',U=E(),H=$("p"),H.textContent=" ",W=E(),V=$("p"),V.innerHTML="En la parte inferior de la interfaz se encuentra la información del algoritmo, donde se explica paso a paso la ejecución de este junto con su pseudocódigo y los valores de la red residual <em>Gf</em>."},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t),C(e,R,t),C(e,G,t),C(e,D,t),C(e,B,t),C(e,_,t),C(e,U,t),C(e,H,t),C(e,W,t),C(e,V,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N),e&&b(R),e&&b(G),e&&b(D),e&&b(B),e&&b(_),e&&b(U),e&&b(H),e&&b(W),e&&b(V)}}}class ke extends xe{constructor(e){super(),he(this,e,null,Fe,a,{})}}function Se(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O,z,F,k,S,N,R,G,D,B,_,U,H,W,V,q,X,J,Y,K,Z,Q,ee,te,ne,oe,ie,re,ae,se,le,ce,ue,de,pe,me,fe,ge,he,xe,ye,Ce,be,ve,$e,we,Ae,Ee,Me,je,Ie,Le,Pe,Te,Oe,ze,Fe;return{c(){n=$("h1"),n.textContent="Menú superior",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.textContent="El menú superior se divide en seis secciones principales:",s=E(),l=$("p"),l.textContent=" ",c=E(),u=$("p"),u.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/MenuSuperior.png" alt="Menú superior"/>',d=E(),p=$("p"),p.textContent=" ",m=E(),f=$("h2"),f.textContent="Sección de ayuda",g=E(),h=$("p"),h.textContent=" ",x=E(),y=$("p"),y.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/SeccionAyuda.png" alt="Sección de Ayuda"/>',v=E(),w=$("p"),w.textContent=" ",A=E(),M=$("p"),M.textContent="En la sección de ayuda, se encuentra solamente un ítem, el cual al ser seleccionado muestra una ventana emergente con la información de la aplicación y recursos relacionados al tema de flujo máximo.",j=E(),I=$("p"),I.textContent=" ",L=E(),P=$("h2"),P.textContent="Sección de ejecución",T=E(),O=$("p"),O.textContent=" ",z=E(),F=$("p"),F.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/SeccionEjecucion.png" alt="Sección de Ejecución"/>',k=E(),S=$("p"),S.textContent=" ",N=E(),R=$("p"),R.textContent="La sección de ejecución contiene tres ítems, que permiten controlar la ejecución del algoritmo de flujo máximo con el grafo actual.",G=E(),D=$("p"),D.textContent="El primero inicia la ejecución del flujo máximo, el segundo permite avanzar una iteración del algoritmo y el tercero detiene la ejecución.",B=E(),_=$("p"),_.textContent=" ",U=E(),H=$("h2"),H.textContent="Sección de generación y guardado",W=E(),V=$("p"),V.textContent=" ",q=E(),X=$("p"),X.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/SeccionGeneracionyGuardado.png" alt="Sección de Generación y Guardado"/>',J=E(),Y=$("p"),Y.textContent=" ",K=E(),Z=$("p"),Z.textContent="En la sección de generación y guardado, se encuentran tres ítems, los cuales permiten generan un grafo aleatorio, guardar el grafo actual en un archivo ó abrir un archivo con un grafo previamente guardado respectivamente.",Q=E(),ee=$("p"),ee.textContent=" ",te=E(),ne=$("h2"),ne.textContent="Sección de creación de componentes",oe=E(),ie=$("p"),ie.textContent=" ",re=E(),ae=$("p"),ae.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/SeccionCreacionComponentes.png" alt="Sección de Creación de Componentes"/>',se=E(),le=$("p"),le.textContent=" ",ce=E(),ue=$("p"),ue.textContent="La sección de creación de componentes incluye dos ítems, los cuales al ser seleccionados permiten agregar un vértice o una arista respectivamente.",de=E(),pe=$("p"),pe.textContent=" ",me=E(),fe=$("h2"),fe.textContent="Sección de eliminación de componentes",ge=E(),he=$("p"),he.textContent=" ",xe=E(),ye=$("p"),ye.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/SeccionEliminacionComponentes.png" alt="Sección de Eliminación de Componentes"/>',Ce=E(),be=$("p"),be.textContent=" ",ve=E(),$e=$("p"),$e.textContent="En la sección de eliminación de componentes se encuentran dos ítems, los cuales permiten eliminar un vertice o una arista respectivamente.",we=E(),Ae=$("p"),Ae.textContent=" ",Ee=E(),Me=$("h2"),Me.textContent="Sección de cambio de tema",je=E(),Ie=$("p"),Ie.textContent=" ",Le=E(),Pe=$("p"),Pe.innerHTML='<img src="/img/Ayuda/App/MenuSuperior/SeccionCambioTema.png" alt="Sección de Cambio de Tema"/>',Te=E(),Oe=$("p"),Oe.textContent=" ",ze=E(),Fe=$("p"),Fe.textContent="La sección de cambio de tema contiene solo un ítem que permite al usuario alternar entre el tema oscuro y claro de la aplicación."},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t),C(e,R,t),C(e,G,t),C(e,D,t),C(e,B,t),C(e,_,t),C(e,U,t),C(e,H,t),C(e,W,t),C(e,V,t),C(e,q,t),C(e,X,t),C(e,J,t),C(e,Y,t),C(e,K,t),C(e,Z,t),C(e,Q,t),C(e,ee,t),C(e,te,t),C(e,ne,t),C(e,oe,t),C(e,ie,t),C(e,re,t),C(e,ae,t),C(e,se,t),C(e,le,t),C(e,ce,t),C(e,ue,t),C(e,de,t),C(e,pe,t),C(e,me,t),C(e,fe,t),C(e,ge,t),C(e,he,t),C(e,xe,t),C(e,ye,t),C(e,Ce,t),C(e,be,t),C(e,ve,t),C(e,$e,t),C(e,we,t),C(e,Ae,t),C(e,Ee,t),C(e,Me,t),C(e,je,t),C(e,Ie,t),C(e,Le,t),C(e,Pe,t),C(e,Te,t),C(e,Oe,t),C(e,ze,t),C(e,Fe,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N),e&&b(R),e&&b(G),e&&b(D),e&&b(B),e&&b(_),e&&b(U),e&&b(H),e&&b(W),e&&b(V),e&&b(q),e&&b(X),e&&b(J),e&&b(Y),e&&b(K),e&&b(Z),e&&b(Q),e&&b(ee),e&&b(te),e&&b(ne),e&&b(oe),e&&b(ie),e&&b(re),e&&b(ae),e&&b(se),e&&b(le),e&&b(ce),e&&b(ue),e&&b(de),e&&b(pe),e&&b(me),e&&b(fe),e&&b(ge),e&&b(he),e&&b(xe),e&&b(ye),e&&b(Ce),e&&b(be),e&&b(ve),e&&b($e),e&&b(we),e&&b(Ae),e&&b(Ee),e&&b(Me),e&&b(je),e&&b(Ie),e&&b(Le),e&&b(Pe),e&&b(Te),e&&b(Oe),e&&b(ze),e&&b(Fe)}}}class Ne extends xe{constructor(e){super(),he(this,e,null,Se,a,{})}}function Re(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O,z,F,k,S,N,R,G,D,B,_,U,H,W,V,q,X,J,Y,K,Z,Q,ee,te,ne,oe,ie,re,ae,se,le,ce,ue,de,pe,me,fe;return{c(){n=$("h1"),n.textContent="Grafo",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.innerHTML='<img src="/img/Ayuda/App/Grafo/Grafo.png" alt="Grafo"/>',s=E(),l=$("p"),l.textContent=" ",c=E(),u=$("p"),u.textContent="En la parte central de la interfaz se encuentra el grafo, que contiene los vértices y las aristas.",d=E(),p=$("p"),p.textContent=" ",m=E(),f=$("h2"),f.textContent="Vértices",g=E(),h=$("p"),h.textContent=" ",x=E(),y=$("p"),y.innerHTML='<img src="/img/Ayuda/App/Grafo/Vertices.png" alt="Vértices"/>',v=E(),w=$("p"),w.textContent=" ",A=E(),M=$("p"),M.textContent="Cada vértice se representa por un círculo, el cual puede ser arrastrado para modificar la posición del grafo.\nEl color denota el tipo de vértice, siendo:",j=E(),I=$("p"),I.textContent=" ",L=E(),P=$("ul"),P.innerHTML="<li><strong>Verde</strong>: Fuente</li> \n<li><strong>Rojo</strong>: Sumidero</li> \n<li><strong>Morado</strong>: Vértice intermedio</li>",T=E(),O=$("p"),O.textContent=" ",z=E(),F=$("p"),F.textContent="Es posible cambiar el tipo de vértice haciendo click sobre el botón correspondiente.",k=E(),S=$("p"),S.textContent=" ",N=E(),R=$("p"),R.innerHTML='<img src="/img/Ayuda/App/Grafo/ModificarVertices.png" alt="Cambiar tipo de vértice"/>',G=E(),D=$("p"),D.textContent=" ",B=E(),_=$("h2"),_.textContent="Aristas",U=E(),H=$("p"),H.textContent=" ",W=E(),V=$("p"),V.innerHTML='<img src="/img/Ayuda/App/Grafo/Aristas.png" alt="Aristas"/>',q=E(),X=$("p"),X.textContent=" ",J=E(),Y=$("p"),Y.textContent="Cada arista se representa por una línea con su respectivo peso, indicado en el centro de la misma.",K=E(),Z=$("p"),Z.textContent=" ",Q=E(),ee=$("p"),ee.textContent="Algunas aristas son bidireccionales, lo que significa que el flujo puede pasar en ambas direcciones. Para indicar esto, se dibuja una flecha en cada extremo de la arista, con colores distintos y se señala el flujo máximo que puede pasar por cada dirección.",te=E(),ne=$("p"),ne.textContent=" ",oe=E(),ie=$("p"),ie.innerHTML='<img src="/img/Ayuda/App/Grafo/AristasBidireccionales.png" alt="Aristas bidireccionales"/>',re=E(),ae=$("p"),ae.textContent=" ",se=E(),le=$("p"),le.textContent="Es posible modificar el peso de una arista seleccionando la misma y escribiendo el nuevo valor en el cuadro de texto.",ce=E(),ue=$("p"),ue.textContent=" ",de=E(),pe=$("p"),pe.innerHTML='<img src="/img/Ayuda/App/Grafo/CambiarPeso.png" alt="Modificar peso de arista"/>',me=E(),fe=$("p"),fe.textContent=" "},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t),C(e,R,t),C(e,G,t),C(e,D,t),C(e,B,t),C(e,_,t),C(e,U,t),C(e,H,t),C(e,W,t),C(e,V,t),C(e,q,t),C(e,X,t),C(e,J,t),C(e,Y,t),C(e,K,t),C(e,Z,t),C(e,Q,t),C(e,ee,t),C(e,te,t),C(e,ne,t),C(e,oe,t),C(e,ie,t),C(e,re,t),C(e,ae,t),C(e,se,t),C(e,le,t),C(e,ce,t),C(e,ue,t),C(e,de,t),C(e,pe,t),C(e,me,t),C(e,fe,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N),e&&b(R),e&&b(G),e&&b(D),e&&b(B),e&&b(_),e&&b(U),e&&b(H),e&&b(W),e&&b(V),e&&b(q),e&&b(X),e&&b(J),e&&b(Y),e&&b(K),e&&b(Z),e&&b(Q),e&&b(ee),e&&b(te),e&&b(ne),e&&b(oe),e&&b(ie),e&&b(re),e&&b(ae),e&&b(se),e&&b(le),e&&b(ce),e&&b(ue),e&&b(de),e&&b(pe),e&&b(me),e&&b(fe)}}}class Ge extends xe{constructor(e){super(),he(this,e,null,Re,a,{})}}function De(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O,z,F,k,S,N,R,G,D,B,_,U,H,W,V;return{c(){n=$("h1"),n.textContent="Sección Inferior",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.innerHTML="En la parte inferior de la interfaz se encuentra la información del algoritmo, donde se explica paso a paso la ejecución de este junto con su pseudocódigo y los valores de la red residual <em>Gf</em>.",s=E(),l=$("p"),l.textContent=" ",c=E(),u=$("h2"),u.textContent="Explicación",d=E(),p=$("p"),p.textContent=" ",m=E(),f=$("p"),f.innerHTML='<img src="/img/Ayuda/App/SeccionInferior/Explicacion.png" alt="Explicación"/>',g=E(),h=$("p"),h.textContent=" ",x=E(),y=$("p"),y.textContent="Se incluye la explicación paso a paso de cada parte del algoritmo.",v=E(),w=$("p"),w.textContent=" ",A=E(),M=$("h2"),M.textContent="Pseudocódigo",j=E(),I=$("p"),I.textContent=" ",L=E(),P=$("p"),P.innerHTML='<img src="/img/Ayuda/App/SeccionInferior/Pseudocodigo.png" alt="Pseudocódigo"/>',T=E(),O=$("p"),O.textContent=" ",z=E(),F=$("p"),F.textContent="Se incluye el pseudocódigo del algoritmo, en el cual se resalta la línea que se está ejecutando en cada momento.",k=E(),S=$("p"),S.textContent=" ",N=E(),R=$("h2"),R.textContent="Red residual",G=E(),D=$("p"),D.textContent=" ",B=E(),_=$("p"),_.innerHTML='<img src="/img/Ayuda/App/SeccionInferior/RedResidual.png" alt="Red residual"/>',U=E(),H=$("p"),H.textContent=" ",W=E(),V=$("p"),V.innerHTML="Se incluye la red residual <em>Gf</em> en formato de matriz de adyacencia en cada momento de la ejecución del algoritmo."},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t),C(e,R,t),C(e,G,t),C(e,D,t),C(e,B,t),C(e,_,t),C(e,U,t),C(e,H,t),C(e,W,t),C(e,V,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N),e&&b(R),e&&b(G),e&&b(D),e&&b(B),e&&b(_),e&&b(U),e&&b(H),e&&b(W),e&&b(V)}}}class Be extends xe{constructor(e){super(),he(this,e,null,De,a,{})}}function _e(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O,z,F,k,S,N,R,G,D;return{c(){n=$("h1"),n.textContent="Grafo",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.innerHTML="Un grafo es una estructura de datos que consiste en un conjunto de <strong>vértices</strong> y <strong>aristas</strong>.",s=E(),l=$("p"),l.textContent=" ",c=E(),u=$("p"),u.textContent="Las aristas son las conexiones entre los vértices. Los grafos pueden ser dirigidos o no dirigidos. En un grafo dirigido, las aristas tienen una dirección, mientras que en un grafo no dirigido, las aristas no tienen una dirección.",d=E(),p=$("p"),p.textContent=" ",m=E(),f=$("p"),f.innerHTML='<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/400px-6n-graf.svg.png" alt="Grafo con 6 vértices y 7 aristas"/>',g=E(),h=$("p"),h.textContent=" ",x=E(),y=$("h5"),y.innerHTML='Fuente: <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/1920px-6n-graf.svg.png">Wikimedia</a>',v=E(),w=$("p"),w.textContent=" ",A=E(),M=$("p"),M.textContent="En la imagen anterior, el grafo tiene 6 vértices y 7 aristas.",j=E(),I=$("p"),I.textContent=" ",L=E(),P=$("p"),P.textContent="Es posible representar matemáticamente un grafo con la ecuación:",T=E(),O=$("p"),O.textContent=" ",z=E(),F=$("p"),F.innerHTML="<strong>G = (V, E)</strong>",k=E(),S=$("p"),S.textContent=" ",N=E(),R=$("p"),R.innerHTML="Donde <strong>V</strong> es el conjunto de vértices y <strong>E</strong> es el conjunto de aristas.",G=E(),D=$("p"),D.textContent=" "},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t),C(e,R,t),C(e,G,t),C(e,D,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N),e&&b(R),e&&b(G),e&&b(D)}}}class Ue extends xe{constructor(e){super(),he(this,e,null,_e,a,{})}}function He(t){let n,o,i,r,a,s,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,L,P,T,O,z,F,k,S;return{c(){n=$("h1"),n.textContent="Matriz de Adyacencia",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.textContent="Una matriz de adyacencia es una matriz cuadrada que representa un grafo. Cada entrada de la matriz representa una arista entre dos vértices. Si la entrada es 1, significa que existe una arista entre los vértices. Si la entrada es 0, significa que no existe una arista entre los vértices.",s=E(),c=$("p"),c.textContent=" ",u=E(),d=$("img"),m=E(),f=$("p"),f.textContent=" ",g=E(),h=$("h5"),h.innerHTML='Fuente: <a href="https://www.programiz.com/dsa/graph-adjacency-matrix">Programiz</a>',x=E(),y=$("p"),y.textContent=" ",v=E(),w=$("p"),w.textContent="Para el grafo de la imagen anterior, la matriz de adyacencia es:",A=E(),M=$("p"),M.textContent=" ",j=E(),L=$("img"),T=E(),O=$("p"),O.textContent=" ",z=E(),F=$("h5"),F.innerHTML='Fuente: <a href="https://www.programiz.com/dsa/graph-adjacency-matrix">Programiz</a>',k=E(),S=$("p"),S.textContent=" ",l(d.src,p="https://www.programiz.com/sites/tutorial2program/files/adjacency-matrix-graph.png")||I(d,"src","https://www.programiz.com/sites/tutorial2program/files/adjacency-matrix-graph.png"),I(d,"width","300"),I(d,"height","300"),I(d,"alt","Grafo con 4 vértices y 4 aristas"),l(L.src,P="https://www.programiz.com/sites/tutorial2program/files/adjacency-matrix-representation_1.png")||I(L,"src","https://www.programiz.com/sites/tutorial2program/files/adjacency-matrix-representation_1.png"),I(L,"width","300"),I(L,"height","300"),I(L,"alt","Matriz de adyacencia del grafo de la imagen anterior")},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,L,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(c),e&&b(u),e&&b(d),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(L),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S)}}}class We extends xe{constructor(e){super(),he(this,e,null,He,a,{})}}function Ve(t){let n,o,i,r,a,s,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,L,P,T,O,z,F,k,S,N;return{c(){n=$("h1"),n.textContent="Grafo Dirigido",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.innerHTML="Un grafo dirigido corresponde a un grafo en el que las aristas tienen una dirección. El conjunto de aristas <strong>E</strong> contempla arcos <strong>e = (x,y)</strong> tales que <strong>x</strong> es un vértice emisor o de partida mientras que <strong>y</strong> es un vértice receptor o de llegada.",s=E(),c=$("p"),c.textContent=" ",u=E(),d=$("p"),d.textContent="Generalmente se representa un grafo dirigido con una flecha que indica la dirección de la arista.",p=E(),m=$("p"),m.textContent=" ",f=E(),g=$("img"),x=E(),y=$("h5"),y.innerHTML='Fuente: <a href="https://www.techiedelight.com/eulerian-path-directed-graph/">Techie Delight</a>',v=E(),w=$("p"),w.textContent=" ",A=E(),M=$("p"),M.textContent="En la imagen anterior, se presenta un grafo dirigido, en el que cada arista tiene una dirección representada por una flecha.",j=E(),L=$("p"),L.textContent=" ",P=E(),T=$("p"),T.innerHTML="Cabe destacar que la <strong>matriz de adyacencia</strong> para un grafo dirigido no es simétrica y el valor de cada entrada es 1 si existe una arista desde el vértice <strong>i</strong> al vértice <strong>j</strong> y 0 en caso contrario.",O=E(),z=$("p"),z.textContent="Para el grafo dirigido de la imagen anterior, la matriz de adyacencia es:",F=E(),k=$("p"),k.textContent=" ",S=E(),N=$("p"),N.innerHTML='<img src="/img/Ayuda/Grafo/GrafoDirigido/MatrizAdyacencia.png" alt="Matriz de adyacencia"/>',l(g.src,h="https://www.techiedelight.com/wp-content/uploads/Eulerian-path-for-directed-graphs.png")||I(g,"src","https://www.techiedelight.com/wp-content/uploads/Eulerian-path-for-directed-graphs.png"),I(g,"width","300"),I(g,"height","300"),I(g,"alt","Grafo dirigido")},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N)}}}class qe extends xe{constructor(e){super(),he(this,e,null,Ve,a,{})}}function Xe(t){let n,o,i,r,a,s,l,c,u,d,p,m,f;return{c(){n=$("h1"),n.textContent="Red de flujo",o=E(),i=$("p"),i.innerHTML="Una red de flujo consiste en un grafo dirigido, en el cual cada arista posee una capacidad y un flujo. Contiene dos o más vértices llamados fuente y sumidero, los cuales se representan como <strong>s</strong> y <strong>t</strong> respectivamente, el flujo de la red va desde el vértice fuente hasta el vértice sumidero.",r=E(),a=$("p"),a.textContent=" ",s=E(),l=$("p"),l.innerHTML='<img src="/img/Ayuda/FlujoMaximo/RedDeFlujo/RedDeFlujo.png" alt="Red de flujo"/>',c=E(),u=$("p"),u.textContent=" ",d=E(),p=$("p"),p.textContent="En la figura anterior se presenta una red de flujo, donde el vértice 1 corresponde a la fuente y el vértice 5 al sumidero.",m=E(),f=$("p"),f.textContent=" "},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f)}}}class Je extends xe{constructor(e){super(),he(this,e,null,Xe,a,{})}}function Ye(t){let n,o,i,r,a,s,l,c,u,d,p;return{c(){n=$("h1"),n.textContent="Problema de flujo máximo",o=E(),i=$("p"),i.textContent="El problema del flujo máximo consiste en encontrar el flujo máximo que puede pasar por una red de flujo, desde la fuente al sumidero o destino.",r=E(),a=$("p"),a.textContent=" ",s=E(),l=$("p"),l.innerHTML='<img src="/img/Ayuda/FlujoMaximo/FlujoMaximo/FlujoMaximo.png" alt="Problema de flujo máximo"/>',c=E(),u=$("p"),u.textContent=" ",d=E(),p=$("p"),p.textContent="En la figura anterior se presenta una red de flujo, donde el vértice 1 corresponde a la fuente y el vértice 5 al sumidero. Y el flujo máximo que puede pasar por la red es de 53."},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p)}}}class Ke extends xe{constructor(e){super(),he(this,e,null,Ye,a,{})}}function Ze(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O;return{c(){n=$("h1"),n.textContent="Teorema de flujo máximo y corte mínimo",o=E(),i=$("p"),i.textContent="Este teorema fue propuesto inicialmente en 1956 por L. R. Ford y D. R. Fulkerson, el cual establece que el flujo máximo de una red de flujo es igual a la suma de las capacidades de las aristas, tales que si estas son eliminadas de la red, la fuente y el sumidero dejan de estar conectados.",r=E(),a=$("p"),a.textContent=" ",s=E(),l=$("p"),l.innerHTML="Para este algoritmo se utilizan los conceptos de <strong>redes residuales</strong>, <strong>trayectorias de aumento</strong>, y los <strong>cortes</strong>.",c=E(),u=$("p"),u.textContent=" ",d=E(),p=$("h2"),p.textContent="Redes residuales",m=E(),f=$("p"),f.innerHTML="Dada una red <em>G</em> y un flujo <em>f</em>, se puede construir una red residual <em>Gf</em> que contiene las aristas con la capacidad restante de <em>G</em>. Cada arista residual representada como <em>cf</em> se construye restando el flujo <em>f</em> a la capacidad de cada arista original, es decir, <em>cf(u,v) = c(u,v) - f(u,v)</em>. Solamente se consideran las aristas que puedan soportar mas flujo, es decir, aquellas que posean una capacidad residual <em>cf(u,v) &gt; 0</em>.",g=E(),h=$("p"),h.textContent=" ",x=E(),y=$("h2"),y.textContent="Trayectorias de aumento",v=E(),w=$("p"),w.innerHTML="Dada una red de flujo <em>G = (V,E)</em> y un flujo <em>f</em>, una trayectoria o camino de aumento <em>p</em> es un camino simple desde la fuente <em>s</em> hasta el sumidero <em>t</em>. Es posible aumentar el flujo en una arista <em>(u,v)</em> de una trayectoria de aumento <em>p</em> por una cantidad de <em>cf(u,v)</em>.",A=E(),M=$("p"),M.textContent=" ",j=E(),I=$("h2"),I.textContent="Cortes",L=E(),P=$("p"),P.innerHTML="Un corte <em>s-t</em>  <em>C = (S,T)</em> es una partición de los vértices <em>V</em> tal que <em>s ∈ S</em> y <em>t ∈ T</em>, donde <em>s</em> y <em>t</em> corresponden a los vértices fuente y destino respectivamente, es decir <em>s-t</em> es una división de los vértices de la red de flujo en dos partes, una incluye a la fuente y la otra al destino. El grupo de cortes <em>Xc</em> de un corte <em>C</em> es un grupo de vértices que conectan la fuente con el destino.",T=E(),O=$("p"),O.textContent=" "},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O)}}}class Qe extends xe{constructor(e){super(),he(this,e,null,Ze,a,{})}}function et(t){let n,o,i,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,w,A,M,j,I,L,P,T,O,z,F,k,S,N,R,G,D,B,_,U,H;return{c(){n=$("h1"),n.textContent="Algoritmo de Ford-Fulkerson",o=E(),i=$("p"),i.textContent=" ",r=E(),a=$("p"),a.textContent="Utilizando el teorema de flujo máximo y corte mínimo, se puede construir un algoritmo para encontrar el flujo máximo en una red de flujo. Este algoritmo se conoce como el algoritmo de Ford-Fulkerson.",s=E(),l=$("p"),l.textContent=" ",c=E(),u=$("p"),u.textContent="El algoritmo se basa en repetir el siguiente proceso:",d=E(),p=$("ol"),p.innerHTML="<li>Construir una red residual <em>Gf</em>.</li> \n<li>Encontrar una trayectoria de aumento <em>p</em> en <em>Gf</em>.</li> \n<li>Aumentar el flujo en <em>p</em>.</li>",m=E(),f=$("p"),f.textContent=" ",g=E(),h=$("p"),h.innerHTML="El algoritmo termina cuando no exista una trayectoria de aumento en <em>Gf</em>. El flujo máximo en <em>G</em> es igual a la suma de los flujos en las aristas de la red residual <em>Gf</em>.",x=E(),y=$("p"),y.textContent=" ",v=E(),w=$("p"),w.innerHTML="La complejidad del algoritmo de Ford-Fulkerson es de <em>O(|E| ⋅ f\\</em>)<em>, donde <em>|E|</em> es el número de aristas y <em>f\\</em></em> es el flujo máximo.",A=E(),M=$("p"),M.textContent=" ",j=E(),I=$("h2"),I.textContent="Algoritmo de Edmonds-Karp",L=E(),P=$("p"),P.textContent=" ",T=E(),O=$("p"),O.innerHTML="Originalmente el algoritmo de Ford-Fulkerson utiliza una búsqueda en profundidad para encontrar una trayectoria de aumento en la red residual <strong>(DFS)</strong>. Sin embargo, este algoritmo puede ser mejorado utilizando una búsqueda en amplitud <strong>(BFS)</strong>, el cual se conoce como el algoritmo de Edmonds-Karp.",z=E(),F=$("p"),F.textContent=" ",k=E(),S=$("p"),S.innerHTML="Al realizar esta modificación, la complejidad del algoritmo de Edmonds-Karp es de <em>O(|V| ⋅ |E|^2)</em>, donde <em>|V|</em> es el número de vértices y <em>|E|</em> es el número de aristas.",N=E(),R=$("p"),R.textContent=" ",G=E(),D=$("p"),D.innerHTML='Cabe destacar que en este algoritmo, la complejidad no depende de la variable de flujo maximo y por lo tanto es un algoritmo <a href="https://es.wikipedia.org/wiki/Complejidad_temporal#Tiempo_polinomial_fuerte_y_d%C3%A9bil"><strong>fuertemente polinomial</strong></a>.',B=E(),_=$("p"),_.textContent=" ",U=E(),H=$("p"),H.innerHTML="De forma paralela el científico soviético Yefim Dinitz en 1970 de forma independiente, logró desarrollar un algoritmo <em>O(|V| ⋅ |E|^2)</em> para encontrar el flujo máximo en una red de flujo, el cual se conoce como el algoritmo de Dinitz. Al igual que el algoritmo de Edmonds-Karp, este algoritmo utiliza una búsqueda en amplitud <strong>(BFS)</strong> para encontrar una trayectoria de aumento en la red residual."},m(e,t){C(e,n,t),C(e,o,t),C(e,i,t),C(e,r,t),C(e,a,t),C(e,s,t),C(e,l,t),C(e,c,t),C(e,u,t),C(e,d,t),C(e,p,t),C(e,m,t),C(e,f,t),C(e,g,t),C(e,h,t),C(e,x,t),C(e,y,t),C(e,v,t),C(e,w,t),C(e,A,t),C(e,M,t),C(e,j,t),C(e,I,t),C(e,L,t),C(e,P,t),C(e,T,t),C(e,O,t),C(e,z,t),C(e,F,t),C(e,k,t),C(e,S,t),C(e,N,t),C(e,R,t),C(e,G,t),C(e,D,t),C(e,B,t),C(e,_,t),C(e,U,t),C(e,H,t)},p:e,i:e,o:e,d(e){e&&b(n),e&&b(o),e&&b(i),e&&b(r),e&&b(a),e&&b(s),e&&b(l),e&&b(c),e&&b(u),e&&b(d),e&&b(p),e&&b(m),e&&b(f),e&&b(g),e&&b(h),e&&b(x),e&&b(y),e&&b(v),e&&b(w),e&&b(A),e&&b(M),e&&b(j),e&&b(I),e&&b(L),e&&b(P),e&&b(T),e&&b(O),e&&b(z),e&&b(F),e&&b(k),e&&b(S),e&&b(N),e&&b(R),e&&b(G),e&&b(D),e&&b(B),e&&b(_),e&&b(U),e&&b(H)}}}class tt extends xe{constructor(e){super(),he(this,e,null,et,a,{})}}function nt(e,t,n){const o=e.slice();return o[6]=t[n],o[8]=n,o}function ot(e,t,n){const o=e.slice();return o[9]=t[n],o[11]=n,o}function it(e){let t,n,o,i,r,a,s,l,c,u,d=e[8]+1+"",p=e[11]+1+"",m=e[9].titulo+"";function f(){return e[3](e[8],e[11])}return{c(){t=$("button"),n=$("p"),o=A(d),i=A("-"),r=A(p),a=A(".- "),s=A(m),l=E(),I(n,"class","text-base font-medium text-left"),I(t,"class","h-12 w-full p-2")},m(e,d){C(e,t,d),h(t,n),h(n,o),h(n,i),h(n,r),h(n,a),h(n,s),h(t,l),c||(u=j(t,"click",f),c=!0)},p(t,n){e=t},d(e){e&&b(t),c=!1,u()}}}function rt(e){let t,n,o,i,r,a,s,l,c,u,d,p=e[8]+1+"",m=e[6].titulo+"",f=e[6].items,g=[];for(let t=0;t<f.length;t+=1)g[t]=it(ot(e,f,t));return{c(){t=$("div"),n=$("div"),o=$("p"),i=A(p),r=A(" .- "),a=A(m),s=E(),l=$("hr"),c=E(),u=$("div");for(let e=0;e<g.length;e+=1)g[e].c();d=E(),I(o,"class","text-lg font-semibold text-left"),I(n,"class","w-full h-12 p-2"),I(l,"class","w-full bg-black"),I(u,"class","flex flex-col w-full divide-y"),I(t,"class","w-full")},m(e,p){C(e,t,p),h(t,n),h(n,o),h(o,i),h(o,r),h(o,a),h(t,s),h(t,l),h(t,c),h(t,u);for(let e=0;e<g.length;e+=1)g[e].m(u,null);h(t,d)},p(e,t){if(6&t){let n;for(f=e[6].items,n=0;n<f.length;n+=1){const o=ot(e,f,n);g[n]?g[n].p(o,t):(g[n]=it(o),g[n].c(),g[n].m(u,null))}for(;n<g.length;n+=1)g[n].d(1);g.length=f.length}},d(e){e&&b(t),v(g,e)}}}function at(e){let t,n,o,i,r,a,s=e[1].categorias,l=[];for(let t=0;t<s.length;t+=1)l[t]=rt(nt(e,s,t));var c=e[0];return c&&(r=new c({})),{c(){t=$("div"),n=$("div");for(let e=0;e<l.length;e+=1)l[e].c();o=E(),i=$("div"),r&&pe(r.$$.fragment),I(n,"class","w-1/4 h-full flex flex-col divide-y overflow-x-hidden overflow-y-scroll whitespace-nowrap"),I(i,"class","w-3/4 h-full overflow-y-scroll p-6"),I(t,"style","height: 38rem"),I(t,"class","w-full flex flex-row divide-x overflow-hidden")},m(e,s){C(e,t,s),h(t,n);for(let e=0;e<l.length;e+=1)l[e].m(n,null);h(t,o),h(t,i),r&&me(r,i,null),a=!0},p(e,[t]){if(6&t){let o;for(s=e[1].categorias,o=0;o<s.length;o+=1){const i=nt(e,s,o);l[o]?l[o].p(i,t):(l[o]=rt(i),l[o].c(),l[o].m(n,null))}for(;o<l.length;o+=1)l[o].d(1);l.length=s.length}if(c!==(c=e[0])){if(r){re();const e=r;le(e.$$.fragment,1,0,(()=>{fe(e,1)})),ae()}c?(r=new c({}),pe(r.$$.fragment),se(r.$$.fragment,1),me(r,i,null)):r=null}},i(e){a||(r&&se(r.$$.fragment,e),a=!0)},o(e){r&&le(r.$$.fragment,e),a=!1},d(e){e&&b(t),v(l,e),r&&fe(r)}}}function st(e,t,n){const o={categorias:[{titulo:"Entendiendo la aplicación",items:[{titulo:"Interfaz",componente:ke},{titulo:"Menú superior",componente:Ne},{titulo:"Grafo",componente:Ge},{titulo:"Sección inferior",componente:Be}]},{titulo:"Conceptos básicos de un grafo",items:[{titulo:"Grafo",componente:Ue},{titulo:"Matriz de adyacencia",componente:We},{titulo:"Grafo dirigido",componente:qe}]},{titulo:"Concetos del flujo maximo",items:[{titulo:"Red de flujo",componente:Je},{titulo:"Problema de flujo maximo",componente:Ke},{titulo:"Teorema de flujo máximo y corte mínimo",componente:Qe},{titulo:"Algoritmo de Ford-Fulkerson",componente:tt}]}]};let i=0,r=0,a=o.categorias[i].items[r].componente;function s(e,t){i=e,r=t,n(0,a=o.categorias[i].items[r].componente)}return[a,o,s,(e,t)=>{s(e,t)}]}class lt extends xe{constructor(e){super(),he(this,e,st,at,a,{})}}function ct(e){let t,n;return{c(){t=w("svg"),n=w("path"),I(n,"d","M256 144C194.1 144 144 194.1 144 256c0 61.86 50.14 112 112 112s112-50.14 112-112C368 194.1 317.9 144 256 144zM256 320c-35.29 0-64-28.71-64-64c0-35.29 28.71-64 64-64s64 28.71 64 64C320 291.3 291.3 320 256 320zM256 112c13.25 0 24-10.75 24-24v-64C280 10.75 269.3 0 256 0S232 10.75 232 24v64C232 101.3 242.8 112 256 112zM256 400c-13.25 0-24 10.75-24 24v64C232 501.3 242.8 512 256 512s24-10.75 24-24v-64C280 410.8 269.3 400 256 400zM488 232h-64c-13.25 0-24 10.75-24 24s10.75 24 24 24h64C501.3 280 512 269.3 512 256S501.3 232 488 232zM112 256c0-13.25-10.75-24-24-24h-64C10.75 232 0 242.8 0 256s10.75 24 24 24h64C101.3 280 112 269.3 112 256zM391.8 357.8c-9.344-9.375-24.56-9.372-33.94 .0031s-9.375 24.56 0 33.93l45.25 45.28c4.672 4.688 10.83 7.031 16.97 7.031s12.28-2.344 16.97-7.031c9.375-9.375 9.375-24.56 0-33.94L391.8 357.8zM120.2 154.2c4.672 4.688 10.83 7.031 16.97 7.031S149.5 158.9 154.2 154.2c9.375-9.375 9.375-24.56 0-33.93L108.9 74.97c-9.344-9.375-24.56-9.375-33.94 0s-9.375 24.56 0 33.94L120.2 154.2zM374.8 161.2c6.141 0 12.3-2.344 16.97-7.031l45.25-45.28c9.375-9.375 9.375-24.56 0-33.94s-24.59-9.375-33.94 0l-45.25 45.28c-9.375 9.375-9.375 24.56 0 33.93C362.5 158.9 368.7 161.2 374.8 161.2zM120.2 357.8l-45.25 45.28c-9.375 9.375-9.375 24.56 0 33.94c4.688 4.688 10.83 7.031 16.97 7.031s12.3-2.344 16.97-7.031l45.25-45.28c9.375-9.375 9.375-24.56 0-33.93S129.6 348.4 120.2 357.8z"),I(t,"aria-hidden","true"),I(t,"focusable","false"),I(t,"data-prefix","far"),I(t,"data-icon","sun"),I(t,"class","svg-inline--fa fa-sun fa-w-16 fill-gray-900"),I(t,"role","img"),I(t,"xmlns","http://www.w3.org/2000/svg"),I(t,"viewBox","0 0 512 512")},m(e,o){C(e,t,o),h(t,n)},d(e){e&&b(t)}}}function ut(e){let t,n;return{c(){t=w("svg"),n=w("path"),I(n,"d","M279.135 512c78.756 0 150.982-35.804 198.844-94.775 28.27-34.831-2.558-85.722-46.249-77.401-82.348 15.683-158.272-47.268-158.272-130.792 0-48.424 26.06-92.292 67.434-115.836 38.745-22.05 28.999-80.788-15.022-88.919A257.936 257.936 0 0 0 279.135 0c-141.36 0-256 114.575-256 256 0 141.36 114.576 256 256 256zm0-464c12.985 0 25.689 1.201 38.016 3.478-54.76 31.163-91.693 90.042-91.693 157.554 0 113.848 103.641 199.2 215.252 177.944C402.574 433.964 344.366 464 279.135 464c-114.875 0-208-93.125-208-208s93.125-208 208-208z"),I(t,"aria-hidden","true"),I(t,"focusable","false"),I(t,"data-prefix","far"),I(t,"data-icon","moon"),I(t,"class","svg-inline--fa fa-moon fa-w-16 fill-white"),I(t,"role","img"),I(t,"xmlns","http://www.w3.org/2000/svg"),I(t,"viewBox","0 0 512 512")},m(e,o){C(e,t,o),h(t,n)},d(e){e&&b(t)}}}function dt(t){let n,o,i;function r(e,t){return e[0]?ut:ct}let a=r(t),s=a(t);return{c(){n=$("div"),s.c(),I(n,"class","w-6 h-6 ")},m(e,r){C(e,n,r),s.m(n,null),o||(i=j(n,"click",t[1]),o=!0)},p(e,[t]){a!==(a=r(e))&&(s.d(1),s=a(e),s&&(s.c(),s.m(n,null)))},i:e,o:e,d(e){e&&b(n),s.d(),o=!1,i()}}}const pt="themePreference";function mt(e,t,n){let o=!1;function i(e){n(0,o=e),document.documentElement.classList.toggle("dark",o)}return B((()=>{const e=window.localStorage.getItem(pt);("dark"===e||null==e&&window.matchMedia("(prefers-color-scheme: dark)").matches)&&i(!0)})),[o,function(){i(!o),window.localStorage.setItem(pt,o?"dark":"light")}]}class ft extends xe{constructor(e){super(),he(this,e,mt,dt,a,{})}}function gt(e){let t,n,o,r,a,s,l,c,u,d,p,m,f,g,x,y,v,w,M,L,P,T,O,z,F,k,S,N,R,G,D,B,_,U,H,W,V,q,X,J,Y,K,Z,Q,ee,te,ne,oe,ie,re,ae,ce,ue,de,ge;return ce=new ft({}),{c(){t=$("div"),n=$("div"),o=$("button"),o.textContent="?",r=E(),a=$("div"),s=$("button"),l=A("▶️"),u=E(),d=$("button"),p=A("⏯️"),f=E(),g=$("button"),x=A("⏹️"),v=E(),w=$("div"),M=$("button"),L=A("🎲"),T=E(),O=$("button"),O.textContent="💾",z=E(),F=$("button"),k=A("📁"),N=E(),R=$("div"),G=$("button"),D=A("🔵\n                "),B=$("div"),B.textContent="✨",U=E(),H=$("button"),W=A("🔗\n                "),V=$("div"),V.textContent="✨",X=E(),J=$("div"),Y=$("button"),K=A("🔵\n                "),Z=$("div"),Z.textContent="❌",ee=E(),te=$("button"),ne=A("🔗\n                "),oe=$("div"),oe.textContent="❌",re=E(),ae=$("div"),pe(ce.$$.fragment),I(o,"title","Ayuda"),I(o,"class","bg-indigo-600 w-8 h-8 rounded-lg "),I(s,"title","Iniciar Algoritmo de Flujo Maximo"),s.disabled=c=!e[3],I(s,"class","disabled:grayscale"),I(d,"title","Avanzar Algoritmo de Flujo Maximo"),d.disabled=m=!e[2],I(d,"class","disabled:grayscale"),I(g,"title","Detener Algoritmo de Flujo Maximo"),g.disabled=y=!e[1],I(g,"class","disabled:grayscale"),I(a,"class","flex my-auto text-2xl space-x-4"),I(M,"title","Generar Grafo Aleatorio"),M.disabled=P=!e[0],I(M,"class","disabled:grayscale"),I(O,"title","Guardar Grafo"),I(O,"class","disabled:grayscale"),I(F,"title","Cargar Grafo"),F.disabled=S=!e[0],I(F,"class","disabled:grayscale"),I(w,"class","flex my-auto text-2xl space-x-4"),I(B,"class","absolute bottom-1 ml-3 text-base"),I(G,"title","Agregar Vertice"),G.disabled=_=!e[0],I(G,"class","disabled:grayscale"),I(V,"class","absolute bottom-1 ml-3 text-base"),I(H,"title","Agregar Arista"),H.disabled=q=!e[0],I(H,"class","disabled:grayscale"),I(R,"class","flex my-auto text-2xl space-x-4"),I(Z,"class","absolute bottom-1 ml-3 text-base"),I(Y,"title","Eliminar Vertice"),Y.disabled=Q=!e[0],I(Y,"class","disabled:grayscale"),I(oe,"class","absolute bottom-1 ml-3 text-base"),I(te,"title","Eliminar Arista"),te.disabled=ie=!e[0],I(te,"class","disabled:grayscale"),I(J,"class","flex my-auto text-2xl space-x-4"),I(n,"class","flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white"),I(ae,"class","my-auto ml-auto mr-4"),I(t,"class","w-full h-10 bg-slate-700 dark:bg-gray-900 flex")},m(i,c){C(i,t,c),h(t,n),h(n,o),h(n,r),h(n,a),h(a,s),h(s,l),h(a,u),h(a,d),h(d,p),h(a,f),h(a,g),h(g,x),h(n,v),h(n,w),h(w,M),h(M,L),h(w,T),h(w,O),h(w,z),h(w,F),h(F,k),h(n,N),h(n,R),h(R,G),h(G,D),h(G,B),h(R,U),h(R,H),h(H,W),h(H,V),h(n,X),h(n,J),h(J,Y),h(Y,K),h(Y,Z),h(J,ee),h(J,te),h(te,ne),h(te,oe),h(t,re),h(t,ae),me(ce,ae,null),ue=!0,de||(ge=[j(o,"click",e[4]),j(s,"click",e[5]),j(d,"click",e[6]),j(g,"click",e[7]),j(M,"click",e[8]),j(O,"click",e[9]),j(F,"click",e[10]),j(G,"click",e[11]),j(H,"click",e[12]),j(Y,"click",e[13]),j(te,"click",e[14])],de=!0)},p(e,[t]){(!ue||8&t&&c!==(c=!e[3]))&&(s.disabled=c),(!ue||4&t&&m!==(m=!e[2]))&&(d.disabled=m),(!ue||2&t&&y!==(y=!e[1]))&&(g.disabled=y),(!ue||1&t&&P!==(P=!e[0]))&&(M.disabled=P),(!ue||1&t&&S!==(S=!e[0]))&&(F.disabled=S),(!ue||1&t&&_!==(_=!e[0]))&&(G.disabled=_),(!ue||1&t&&q!==(q=!e[0]))&&(H.disabled=q),(!ue||1&t&&Q!==(Q=!e[0]))&&(Y.disabled=Q),(!ue||1&t&&ie!==(ie=!e[0]))&&(te.disabled=ie)},i(e){ue||(se(ce.$$.fragment,e),ue=!0)},o(e){le(ce.$$.fragment,e),ue=!1},d(e){e&&b(t),fe(ce),de=!1,i(ge)}}}function ht(e,t,n){let o,i,r,a,s,l;const{open:c}=(u="simple-modal",G().$$.context.get(u));var u;let{grafo:d}=t;return e.$$set=e=>{"grafo"in e&&n(15,d=e.grafo)},e.$$.update=()=>{32768&e.$$.dirty&&n(17,o=d.ejecutandoFlujoMaximo),32768&e.$$.dirty&&n(16,i=d.creandoArista||d.creandoVertice||d.eliminandoArista||d.eliminandoVertice),196608&e.$$.dirty&&n(3,r=!o&&!i),131072&e.$$.dirty&&n(2,a=o),131072&e.$$.dirty&&n(1,s=o),196608&e.$$.dirty&&n(0,l=!o&&!i)},[l,s,a,r,function(){c(lt)},function(){r&&d.inciarFlujoMaximo()},function(){a&&d.continuarFlujoMaximo()},function(){s&&d.finalizarFlujoMaximo()},function(){if(!l)return;const e=prompt("Ingrese el número de vértices del grafo");if(null===e||""===e||isNaN(Number(e))||Number(e)<1)return void alert("Ingrese un número válido");if(!confirm("Esto eliminará el grafo actual, ¿desea continuar?"))return;const t=Number(e);d.generarGrafoAlAzar(t)},function(){d.guardarGrafo()},function(){if(!l)return;const e=document.createElement("input");e.type="file",e.accept="application/json",e.onchange=e=>{const t=e.target.files[0],n=new FileReader;n.onload=e=>{const t=JSON.parse(n.result),o=t.matrizAdyacencia;for(let e=0;e<o.length;e++)for(let t=0;t<o[e].length;t++)-1===o[e][t]&&(o[e][t]=1/0);const i=t.posicionesVertices,r=t.fuentes,a=t.sumideros;d.generarGrafo(o,i,r,a),d.recargarGrafo()},n.readAsText(t)},e.click()},function(){l&&d.iniciarCreacionVertice()},function(){l&&d.iniciarCreacionArista()},function(){l&&d.iniciarEliminacionVertice()},function(){l&&d.iniciarEliminacionArista()},d,i,o]}class xt extends xe{constructor(e){super(),he(this,e,ht,gt,a,{grafo:15})}}function yt(e,t,n){const o=e.slice();return o[5]=t[n],o}function Ct(e){let t,n,o,i,r=e[5]+"";return{c(){t=$("div"),n=$("p"),o=A(r),i=E(),I(n,"class","text-slate-900 text-sm font-medium"),I(t,"class","min-h-12 py-3 mx-4 flex items-center text-clip")},m(e,r){C(e,t,r),h(t,n),h(n,o),h(t,i)},p(e,t){1&t&&r!==(r=e[5]+"")&&L(o,r)},d(e){e&&b(t)}}}function bt(t){let n,o=t[0],i=[];for(let e=0;e<o.length;e+=1)i[e]=Ct(yt(t,o,e));return{c(){n=$("div");for(let e=0;e<i.length;e+=1)i[e].c();I(n,"class","overflow-auto ")},m(e,o){C(e,n,o);for(let e=0;e<i.length;e+=1)i[e].m(n,null);t[2](n)},p(e,[t]){if(1&t){let r;for(o=e[0],r=0;r<o.length;r+=1){const a=yt(e,o,r);i[r]?i[r].p(a,t):(i[r]=Ct(a),i[r].c(),i[r].m(n,null))}for(;r<i.length;r+=1)i[r].d(1);i.length=o.length}},i:e,o:e,d(e){e&&b(n),v(i,e),t[2](null)}}}function vt(e,t,n){let o,i,{textoExplicativo:r}=t;return _((()=>{const e=r[r.length-1];o!==e&&(o=e,i&&n(1,i.scrollTop=i.scrollHeight,i))})),e.$$set=e=>{"textoExplicativo"in e&&n(0,r=e.textoExplicativo)},[r,i,function(e){W[e?"unshift":"push"]((()=>{i=e,n(1,i)}))}]}class $t extends xe{constructor(e){super(),he(this,e,vt,bt,a,{textoExplicativo:0})}}function wt(e,t,n){const o=e.slice();return o[6]=t[n],o[8]=n,o}function At(e){let t,n,o=e[6]+"";return{c(){t=$("p"),n=A(o),I(t,"class","text-slate-900 text-sm font-medium")},m(e,o){C(e,t,o),h(t,n)},p(e,t){1&t&&o!==(o=e[6]+"")&&L(n,o)},d(e){e&&b(t)}}}function Et(e){let t,n,o=e[6]+"";return{c(){t=$("p"),n=A(o),I(t,"class","text-slate-900 text-sm font-medium bg-yellow-300")},m(e,o){C(e,t,o),h(t,n)},p(e,t){1&t&&o!==(o=e[6]+"")&&L(n,o)},d(e){e&&b(t)}}}function Mt(e){let t,n;function o(e,t){return e[1]===e[8]?Et:At}let i=o(e),r=i(e);return{c(){t=$("div"),r.c(),n=E(),I(t,"class","min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap")},m(e,o){C(e,t,o),r.m(t,null),h(t,n)},p(e,a){i===(i=o(e))&&r?r.p(e,a):(r.d(1),r=i(e),r&&(r.c(),r.m(t,n)))},d(e){e&&b(t),r.d()}}}function jt(t){let n,o=t[0],i=[];for(let e=0;e<o.length;e+=1)i[e]=Mt(wt(t,o,e));return{c(){n=$("div");for(let e=0;e<i.length;e+=1)i[e].c();I(n,"class","overflow-auto ")},m(e,o){C(e,n,o);for(let e=0;e<i.length;e+=1)i[e].m(n,null);t[3](n)},p(e,[t]){if(3&t){let r;for(o=e[0],r=0;r<o.length;r+=1){const a=wt(e,o,r);i[r]?i[r].p(a,t):(i[r]=Mt(a),i[r].c(),i[r].m(n,null))}for(;r<i.length;r+=1)i[r].d(1);i.length=o.length}},i:e,o:e,d(e){e&&b(n),v(i,e),t[3](null)}}}function It(e,t,n){let o,i,{pseudoCodigo:r}=t,{lineaActual:a}=t;return _((()=>{o!==a&&(o=a,i&&n(2,i.scrollTop=i.scrollHeight*(a/r.length),i))})),e.$$set=e=>{"pseudoCodigo"in e&&n(0,r=e.pseudoCodigo),"lineaActual"in e&&n(1,a=e.lineaActual)},[r,a,i,function(e){W[e?"unshift":"push"]((()=>{i=e,n(2,i)}))}]}class Lt extends xe{constructor(e){super(),he(this,e,It,jt,a,{pseudoCodigo:0,lineaActual:1})}}function Pt(e,t,n){const o=e.slice();return o[4]=t[n],o[6]=n,o}function Tt(e,t,n){const o=e.slice();return o[4]=t[n],o[8]=n,o}function Ot(e){let t,n,o,i,r,a=e[0][e[6]-1][e[8]-1]+"";return{c(){t=$("div"),n=$("p"),o=A(a),i=E(),I(t,"class",r="p-2 rounded-lg shadow-lg text-slate-800 "+e[1][e[6]-1][e[8]-1])},m(e,r){C(e,t,r),h(t,n),h(n,o),h(t,i)},p(e,n){1&n&&a!==(a=e[0][e[6]-1][e[8]-1]+"")&&L(o,a),2&n&&r!==(r="p-2 rounded-lg shadow-lg text-slate-800 "+e[1][e[6]-1][e[8]-1])&&I(t,"class",r)},d(e){e&&b(t)}}}function zt(t){let n,o,i,r,a=t[6]-1+"";return{c(){n=$("div"),o=$("p"),i=A(a),r=E(),I(n,"class","p-2 rounded-lg shadow-lg bg-slate-800")},m(e,t){C(e,n,t),h(n,o),h(o,i),h(n,r)},p:e,d(e){e&&b(n)}}}function Ft(t){let n,o,i,r,a=t[8]-1+"";return{c(){n=$("div"),o=$("p"),i=A(a),r=E(),I(n,"class","p-2 rounded-lg shadow-lg bg-slate-800")},m(e,t){C(e,n,t),h(n,o),h(o,i),h(n,r)},p:e,d(e){e&&b(n)}}}function kt(t){let n;return{c(){n=$("div"),n.innerHTML="<p>Índice</p> \n                    ",I(n,"class","p-2 rounded-lg shadow-lg bg-slate-800")},m(e,t){C(e,n,t)},p:e,d(e){e&&b(n)}}}function St(e){let t;let n=function(e,t){return 0===e[6]&&0===e[8]?kt:0===e[6]?Ft:0===e[8]?zt:Ot}(e),o=n(e);return{c(){o.c(),t=M()},m(e,n){o.m(e,n),C(e,t,n)},p(e,t){o.p(e,t)},d(e){o.d(e),e&&b(t)}}}function Nt(e){let t,n=Array(e[2]+1),o=[];for(let t=0;t<n.length;t+=1)o[t]=St(Tt(e,n,t));return{c(){for(let e=0;e<o.length;e+=1)o[e].c();t=M()},m(e,n){for(let t=0;t<o.length;t+=1)o[t].m(e,n);C(e,t,n)},p(e,i){if(7&i){let r;for(n=Array(e[2]+1),r=0;r<n.length;r+=1){const a=Tt(e,n,r);o[r]?o[r].p(a,i):(o[r]=St(a),o[r].c(),o[r].m(t.parentNode,t))}for(;r<o.length;r+=1)o[r].d(1);o.length=n.length}},d(e){v(o,e),e&&b(t)}}}function Rt(t){let n,o,i=Array(t[2]+1),r=[];for(let e=0;e<i.length;e+=1)r[e]=Nt(Pt(t,i,e));return{c(){n=$("div"),o=$("div");for(let e=0;e<r.length;e+=1)r[e].c();P(o,"grid-template-columns","repeat("+(t[2]+1)+", minmax(0, 1fr))"),I(o,"class","grid gap-3"),I(n,"class","overflow-auto text-white text-sm font-medium text-center p-4")},m(e,t){C(e,n,t),h(n,o);for(let e=0;e<r.length;e+=1)r[e].m(o,null)},p(e,[t]){if(7&t){let n;for(i=Array(e[2]+1),n=0;n<i.length;n+=1){const a=Pt(e,i,n);r[n]?r[n].p(a,t):(r[n]=Nt(a),r[n].c(),r[n].m(o,null))}for(;n<r.length;n+=1)r[n].d(1);r.length=i.length}4&t&&P(o,"grid-template-columns","repeat("+(e[2]+1)+", minmax(0, 1fr))")},i:e,o:e,d(e){e&&b(n),v(r,e)}}}function Gt(e,t,n){let o,i,{matrizAdyacencia:r}=t,{redResidual:a}=t;return e.$$set=e=>{"matrizAdyacencia"in e&&n(3,r=e.matrizAdyacencia),"redResidual"in e&&n(0,a=e.redResidual)},e.$$.update=()=>{1&e.$$.dirty&&n(2,o=a.length),9&e.$$.dirty&&n(1,i=r.map(((e,t)=>e.map(((e,n)=>r[t][n]!==a[t][n]?"bg-rose-400":a[t][n]<=0?"bg-gray-200":"bg-emerald-400")))))},[a,i,o,r]}class Dt extends xe{constructor(e){super(),he(this,e,Gt,Rt,a,{matrizAdyacencia:3,redResidual:0})}}function Bt(t){let n,o,i,r;return{c(){n=$("div"),o=$("button"),o.innerHTML='<div class="w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center"><p class="text-2xl text-white">?</p></div>',I(o,"class","w-full h-full flex items-center justify-center"),I(n,"class","bg-white rounded-full w-16 h-16 mr-4 mb-4")},m(e,a){C(e,n,a),h(n,o),i||(r=j(o,"click",t[6]),i=!0)},p:e,i:e,o:e,d(e){e&&b(n),i=!1,r()}}}function _t(e){let t,n,o,r,a,s,l,c,u,d,p,m,f,g,x,y,v,w,M,P,O=e[2]()+"";const z=[Wt,Ht,Ut],F=[];function k(e,t){return"EXPLICACION"===e[1]?0:"PSEUDOCODIGO"===e[1]?1:"RED_RESIDUAL"===e[1]?2:-1}return~(y=k(e))&&(v=F[y]=z[y](e)),{c(){t=$("div"),n=$("button"),n.innerHTML="<p>X</p>",o=E(),r=$("p"),a=A(O),s=E(),l=$("div"),c=$("div"),u=$("button"),u.textContent="🤔",d=E(),p=$("button"),p.textContent="🖥️",m=E(),f=$("button"),f.textContent="🕸️",g=E(),x=$("div"),v&&v.c(),I(n,"class","text-base bg-rose-700 ml-0 h-full w-12"),I(r,"class","text-base m-auto"),I(t,"class","flex rounded-t-lg bg-indigo-700 overflow-hidden h-8"),I(u,"class","py-3 hover:bg-gray-700"),T(u,"bg-violet-800","EXPLICACION"===e[1]),I(p,"class","py-3 hover:bg-gray-700"),T(p,"bg-violet-800","PSEUDOCODIGO"===e[1]),I(f,"class","py-3 hover:bg-gray-700"),T(f,"bg-violet-800","RED_RESIDUAL"===e[1]),I(c,"class","flex flex-col h-auto py-2 space-y-4 w-12 bg-slate-900 text-xl text-center "),I(x,"class","bg-white overflow-auto h-72 w-[32rem] shadow-lg ring-1 flex flex-col divide-y "),I(l,"class","flex flex-row")},m(i,b){C(i,t,b),h(t,n),h(t,o),h(t,r),h(r,a),C(i,s,b),C(i,l,b),h(l,c),h(c,u),h(c,d),h(c,p),h(c,m),h(c,f),h(l,g),h(l,x),~y&&F[y].m(x,null),w=!0,M||(P=[j(n,"click",e[7]),j(u,"click",e[3]),j(p,"click",e[4]),j(f,"click",e[5])],M=!0)},p(e,t){(!w||4&t)&&O!==(O=e[2]()+"")&&L(a,O),2&t&&T(u,"bg-violet-800","EXPLICACION"===e[1]),2&t&&T(p,"bg-violet-800","PSEUDOCODIGO"===e[1]),2&t&&T(f,"bg-violet-800","RED_RESIDUAL"===e[1]);let n=y;y=k(e),y===n?~y&&F[y].p(e,t):(v&&(re(),le(F[n],1,1,(()=>{F[n]=null})),ae()),~y?(v=F[y],v?v.p(e,t):(v=F[y]=z[y](e),v.c()),se(v,1),v.m(x,null)):v=null)},i(e){w||(se(v),w=!0)},o(e){le(v),w=!1},d(e){e&&b(t),e&&b(s),e&&b(l),~y&&F[y].d(),M=!1,i(P)}}}function Ut(e){let t,n;return t=new Dt({props:{matrizAdyacencia:e[0].grafo.matrizAdyacencia,redResidual:e[0].grafo.redResidual}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};1&n&&(o.matrizAdyacencia=e[0].grafo.matrizAdyacencia),1&n&&(o.redResidual=e[0].grafo.redResidual),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function Ht(e){let t,n;return t=new Lt({props:{pseudoCodigo:e[0].pseudoCodigo,lineaActual:e[0].ubicacionPseudoCodigo}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};1&n&&(o.pseudoCodigo=e[0].pseudoCodigo),1&n&&(o.lineaActual=e[0].ubicacionPseudoCodigo),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function Wt(e){let t,n;return t=new $t({props:{textoExplicativo:e[0].textoExplicativo}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};1&n&&(o.textoExplicativo=e[0].textoExplicativo),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function Vt(e){let t,n,o,i;const r=[_t,Bt],a=[];function s(e,t){return e[0].abierta?0:1}return n=s(e),o=a[n]=r[n](e),{c(){t=$("div"),o.c(),I(t,"class","absolute bottom-0 right-0 pointer-events-auto")},m(e,o){C(e,t,o),a[n].m(t,null),i=!0},p(e,[i]){let l=n;n=s(e),n===l?a[n].p(e,i):(re(),le(a[l],1,1,(()=>{a[l]=null})),ae(),o=a[n],o?o.p(e,i):(o=a[n]=r[n](e),o.c()),se(o,1),o.m(t,null))},i(e){i||(se(o),i=!0)},o(e){le(o),i=!1},d(e){e&&b(t),a[n].d()}}}function qt(e,t,n){let o,i,{consola:r}=t;return e.$$set=e=>{"consola"in e&&n(0,r=e.consola)},e.$$.update=()=>{1&e.$$.dirty&&n(1,o=r.categoria),2&e.$$.dirty&&n(2,i=()=>{switch(o){case"EXPLICACION":return"Explicación";case"PSEUDOCODIGO":return"Pseudocódigo";case"RED_RESIDUAL":return"Red Residual";default:return"Informacion del algoritmo"}})},[r,o,i,function(){r.cambiarCategoria("EXPLICACION")},function(){r.cambiarCategoria("PSEUDOCODIGO")},function(){r.cambiarCategoria("RED_RESIDUAL")},function(){r.abrir()},function(){r.cerrar()}]}class Xt extends xe{constructor(e){super(),he(this,e,qt,Vt,a,{consola:0})}}function Jt(t){let n,o,r,a,s,l,c,u,d,p,m,f,g,x,y,v,M,T,O,z,F,k;return{c(){n=w("foreignObject"),o=$("div"),r=$("div"),a=$("p"),s=A(t[3]),c=E(),u=$("div"),d=$("button"),p=A("🔼"),f=E(),g=$("button"),x=A("🔽"),I(a,"class","text-white text-center m-auto select-none"),P(r,"width",2*t[0].radio+"px "),P(r,"height",2*t[0].radio+"px "),I(r,"class",l="cursor-pointer flex "+t[1]+" rounded-full border border-white/20 overflow:hidden"),I(d,"style",m=t[0].fuente?"":"filter:grayscale(1);"),I(d,"title","Convertir en fuente"),I(g,"style",y=t[0].sumidero?"":"filter:grayscale(1);"),I(g,"title","Convertir en sumidero"),I(u,"style",v="width: "+t[0].radio+"px ;height: "+t[0].radio+"px ; "+(t[2]?"display:block":"display:none")),I(u,"class","text-lg"),I(o,"class","flex h-full w-full"),I(n,"x",M=t[0].posicion.x-t[0].radio),I(n,"y",T=t[0].posicion.y-t[0].radio),I(n,"width",O=3*t[0].radio),I(n,"height",z=3*t[0].radio)},m(e,i){C(e,n,i),h(n,o),h(o,r),h(r,a),h(a,s),h(o,c),h(o,u),h(u,d),h(d,p),h(u,f),h(u,g),h(g,x),F||(k=[j(window,"mousemove",t[6]),j(window,"mouseup",t[5]),j(r,"mousedown",t[4]),j(d,"click",t[14]),j(g,"click",t[15]),j(n,"mouseenter",t[7]),j(n,"mouseleave",t[8])],F=!0)},p(e,[t]){8&t&&L(s,e[3]),1&t&&P(r,"width",2*e[0].radio+"px "),1&t&&P(r,"height",2*e[0].radio+"px "),2&t&&l!==(l="cursor-pointer flex "+e[1]+" rounded-full border border-white/20 overflow:hidden")&&I(r,"class",l),1&t&&m!==(m=e[0].fuente?"":"filter:grayscale(1);")&&I(d,"style",m),1&t&&y!==(y=e[0].sumidero?"":"filter:grayscale(1);")&&I(g,"style",y),5&t&&v!==(v="width: "+e[0].radio+"px ;height: "+e[0].radio+"px ; "+(e[2]?"display:block":"display:none"))&&I(u,"style",v),1&t&&M!==(M=e[0].posicion.x-e[0].radio)&&I(n,"x",M),1&t&&T!==(T=e[0].posicion.y-e[0].radio)&&I(n,"y",T),1&t&&O!==(O=3*e[0].radio)&&I(n,"width",O),1&t&&z!==(z=3*e[0].radio)&&I(n,"height",z)},i:e,o:e,d(e){e&&b(n),F=!1,i(k)}}}function Yt(e,t,n){let o,i,r,a,{vertice:s}=t,l="bg-purple-800",c=!1,u=!1;function d(){s.toggleFuente(),n(0,s)}function p(){s.toggleSumidero(),n(0,s)}return e.$$set=e=>{"vertice"in e&&n(0,s=e.vertice)},e.$$.update=()=>{if(1&e.$$.dirty&&n(3,o=s.nombre?s.nombre:`Vert. ${s.id}`),1&e.$$.dirty&&n(11,i=s.grafo),2048&e.$$.dirty&&n(12,r=i.creandoArista),2048&e.$$.dirty&&n(13,a=i.eliminandoVertice),12291&e.$$.dirty){let e="bg-purple-800";s.fuente&&(e="bg-green-700"),s.sumidero&&(e="bg-red-800"),a&&(e="bg-gray-700"),r&&(e="bg-yellow-700"),e!=l&&n(1,l=e)}},[s,l,u,o,function(){a?(s.eliminar(),i.finalizarEliminacionVertice()):r?null==i.nuevaAristaVerticeOrigen?i.seleccionarVerticeNuevaArista(s):i.crearNuevaArista(i.nuevaAristaVerticeOrigen,s,1):c=!0},function(){c=!1},function(e){if(c){const t=s.posicion.x+e.movementX,o=s.posicion.y+e.movementY;s.mover({x:t,y:o}),n(0,s)}},function(){n(2,u=!0)},function(){n(2,u=!1)},d,p,i,r,a,()=>{d()},()=>{p()}]}class Kt extends xe{constructor(e){super(),he(this,e,Yt,Jt,a,{vertice:0})}}function Zt(t){let n,o,i,r,a;return{c(){n=w("polygon"),I(n,"class",o=`${t[1]}`),I(n,"points","-15,25 0,0 15,25, 0,15"),I(n,"transform",i=`translate( ${t[0].x}, ${t[0].y} ) rotate(${t[2]})`)},m(e,o){C(e,n,o),r||(a=j(n,"click",t[3]),r=!0)},p(e,[t]){2&t&&o!==(o=`${e[1]}`)&&I(n,"class",o),5&t&&i!==(i=`translate( ${e[0].x}, ${e[0].y} ) rotate(${e[2]})`)&&I(n,"transform",i)},i:e,o:e,d(e){e&&b(n),r=!1,a()}}}function Qt(e,t,n){let o,{posicion:i}=t,{angulo:r}=t,{fillColor:a}=t,{onClickArista:s}=t;return e.$$set=e=>{"posicion"in e&&n(0,i=e.posicion),"angulo"in e&&n(4,r=e.angulo),"fillColor"in e&&n(1,a=e.fillColor),"onClickArista"in e&&n(5,s=e.onClickArista)},e.$$.update=()=>{16&e.$$.dirty&&n(2,o=180*r/Math.PI)},[i,a,o,function(){s()},r,s]}class en extends xe{constructor(e){super(),he(this,e,Qt,Zt,a,{posicion:0,angulo:4,fillColor:1,onClickArista:5})}}function tn(e){let t,n,o,i,r,a,s;function l(e,t){return e[3]?on:nn}let c=l(e),u=c(e);return{c(){t=w("foreignObject"),n=$("div"),u.c(),I(n,"class",o="flex w-full h-full "+e[4]+" text-center "+e[2]+" rounded-full border border-white/20"),I(t,"x",i=e[1].x-an),I(t,"y",r=e[1].y-an),I(t,"width",2*an),I(t,"height",2*an)},m(o,i){C(o,t,i),h(t,n),u.m(n,null),a||(s=j(t,"click",e[7]),a=!0)},p(e,a){c===(c=l(e))&&u?u.p(e,a):(u.d(1),u=c(e),u&&(u.c(),u.m(n,null))),20&a&&o!==(o="flex w-full h-full "+e[4]+" text-center "+e[2]+" rounded-full border border-white/20")&&I(n,"class",o),2&a&&i!==(i=e[1].x-an)&&I(t,"x",i),2&a&&r!==(r=e[1].y-an)&&I(t,"y",r)},d(e){e&&b(t),u.d(),a=!1,s()}}}function nn(e){let t,n;return{c(){t=$("div"),n=A(e[0]),I(t,"class","m-auto text-center ")},m(e,o){C(e,t,o),h(t,n)},p(e,t){1&t&&L(n,e[0])},d(e){e&&b(t)}}}function on(e){let t,n,o;return{c(){t=$("input"),I(t,"type","text"),I(t,"class","w-full h-full text-center bg-transparent appearance-none border-none outline-none  svelte-b7ty09"),t.value=e[0]},m(i,r){C(i,t,r),n||(o=j(t,"change",e[6]),n=!0)},p(e,n){1&n&&t.value!==e[0]&&(t.value=e[0])},d(e){e&&b(t),n=!1,o()}}}function rn(t){let n,o=("∞"==t[0]||!isNaN(Number(t[0]))&&t[0]>0)&&(t[5]||0!==Number(t[0])),i=o&&tn(t);return{c(){i&&i.c(),n=M()},m(e,t){i&&i.m(e,t),C(e,n,t)},p(e,[t]){33&t&&(o=("∞"==e[0]||!isNaN(Number(e[0]))&&e[0]>0)&&(e[5]||0!==Number(e[0]))),o?i?i.p(e,t):(i=tn(e),i.c(),i.m(n.parentNode,n)):i&&(i.d(1),i=null)},i:e,o:e,d(e){i&&i.d(e),e&&b(n)}}}const an=20;function sn(e,t,n){let{onClickArista:o}=t,{posicion:i}=t,{peso:r}=t,{bgColor:a}=t,{cambiarPeso:s=null}=t,{textColor:l="text-white"}=t,{dibujarCero:c=!0}=t;return e.$$set=e=>{"onClickArista"in e&&n(8,o=e.onClickArista),"posicion"in e&&n(1,i=e.posicion),"peso"in e&&n(0,r=e.peso),"bgColor"in e&&n(2,a=e.bgColor),"cambiarPeso"in e&&n(3,s=e.cambiarPeso),"textColor"in e&&n(4,l=e.textColor),"dibujarCero"in e&&n(5,c=e.dibujarCero)},e.$$.update=()=>{1&e.$$.dirty&&r===1/0&&n(0,r="∞")},[r,i,a,s,l,c,function(){const e=r,t=parseInt(this.value);if(isNaN(t)||t<0)return console.log("Nuevo peso no es un numero valido"),alert("Nuevo peso no es un numero valido"),void(this.value=e);s(t)},function(){o()},o]}class ln extends xe{constructor(e){super(),he(this,e,sn,rn,a,{onClickArista:8,posicion:1,peso:0,bgColor:2,cambiarPeso:3,textColor:4,dibujarCero:5})}}function cn(e){let t,n,o,i,r,a,s,l,c,u,d;return s=new en({props:{onClickArista:e[8],posicion:e[3].final,angulo:e[3].angulo+Math.PI/2,fillColor:e[1]===e[2]?e[6].coloresFill.color:e[6].coloresFill.colorInverso}}),l=new ln({props:{onClickArista:e[8],posicion:e[4].posicionPeso,peso:e[2].peso,bgColor:e[1]===e[2]?e[6].coloresBG.color:e[6].coloresBG.colorInverso,cambiarPeso:e[2].cambiarPeso.bind(e[2])}}),{c(){t=w("line"),pe(s.$$.fragment),pe(l.$$.fragment),I(t,"class",n=(e[1]===e[2]?e[6].coloresStroke.color:e[6].coloresStroke.colorInverso)+" stroke-2"),I(t,"x1",o=e[3].inicio.x),I(t,"y1",i=e[3].inicio.y),I(t,"x2",r=e[3].final.x),I(t,"y2",a=e[3].final.y)},m(n,o){C(n,t,o),me(s,n,o),me(l,n,o),c=!0,u||(d=j(t,"click",e[8]),u=!0)},p(e,u){(!c||70&u&&n!==(n=(e[1]===e[2]?e[6].coloresStroke.color:e[6].coloresStroke.colorInverso)+" stroke-2"))&&I(t,"class",n),(!c||8&u&&o!==(o=e[3].inicio.x))&&I(t,"x1",o),(!c||8&u&&i!==(i=e[3].inicio.y))&&I(t,"y1",i),(!c||8&u&&r!==(r=e[3].final.x))&&I(t,"x2",r),(!c||8&u&&a!==(a=e[3].final.y))&&I(t,"y2",a);const d={};8&u&&(d.posicion=e[3].final),8&u&&(d.angulo=e[3].angulo+Math.PI/2),70&u&&(d.fillColor=e[1]===e[2]?e[6].coloresFill.color:e[6].coloresFill.colorInverso),s.$set(d);const p={};16&u&&(p.posicion=e[4].posicionPeso),4&u&&(p.peso=e[2].peso),70&u&&(p.bgColor=e[1]===e[2]?e[6].coloresBG.color:e[6].coloresBG.colorInverso),4&u&&(p.cambiarPeso=e[2].cambiarPeso.bind(e[2])),l.$set(p)},i(e){c||(se(s.$$.fragment,e),se(l.$$.fragment,e),c=!0)},o(e){le(s.$$.fragment,e),le(l.$$.fragment,e),c=!1},d(e){e&&b(t),fe(s,e),fe(l,e),u=!1,d()}}}function un(e){let t,n,o,r,a,s,l,c,u,d,p,m,f,g,h,x,y,v,$;return f=new en({props:{onClickArista:e[8],posicion:e[3].inicio,angulo:e[3].angulo-Math.PI/2,fillColor:e[6].coloresFill.colorInverso}}),g=new en({props:{onClickArista:e[8],posicion:e[3].final,angulo:e[3].angulo+Math.PI/2,fillColor:e[6].coloresFill.color}}),h=new ln({props:{onClickArista:e[8],posicion:e[4].posicionPeso,peso:e[1].peso,bgColor:e[6].coloresBG.color,cambiarPeso:e[1].cambiarPeso.bind(e[1])}}),x=new ln({props:{onClickArista:e[8],posicion:e[4].posicionPesoInverso,peso:e[0].peso,bgColor:e[6].coloresBG.colorInverso,cambiarPeso:e[0].cambiarPeso.bind(e[0])}}),{c(){t=w("line"),l=w("line"),pe(f.$$.fragment),pe(g.$$.fragment),pe(h.$$.fragment),pe(x.$$.fragment),I(t,"class",n=e[6].coloresStroke.colorInverso+" stroke-2"),I(t,"x1",o=e[3].inicio.x),I(t,"y1",r=e[3].inicio.y),I(t,"x2",a=e[3].puntoMedio.x),I(t,"y2",s=e[3].puntoMedio.y),I(l,"class",c=e[6].coloresStroke.color+" stroke-2"),I(l,"x1",u=e[3].puntoMedio.x),I(l,"y1",d=e[3].puntoMedio.y),I(l,"x2",p=e[3].final.x),I(l,"y2",m=e[3].final.y)},m(n,o){C(n,t,o),C(n,l,o),me(f,n,o),me(g,n,o),me(h,n,o),me(x,n,o),y=!0,v||($=[j(t,"click",e[8]),j(l,"click",e[8])],v=!0)},p(e,i){(!y||64&i&&n!==(n=e[6].coloresStroke.colorInverso+" stroke-2"))&&I(t,"class",n),(!y||8&i&&o!==(o=e[3].inicio.x))&&I(t,"x1",o),(!y||8&i&&r!==(r=e[3].inicio.y))&&I(t,"y1",r),(!y||8&i&&a!==(a=e[3].puntoMedio.x))&&I(t,"x2",a),(!y||8&i&&s!==(s=e[3].puntoMedio.y))&&I(t,"y2",s),(!y||64&i&&c!==(c=e[6].coloresStroke.color+" stroke-2"))&&I(l,"class",c),(!y||8&i&&u!==(u=e[3].puntoMedio.x))&&I(l,"x1",u),(!y||8&i&&d!==(d=e[3].puntoMedio.y))&&I(l,"y1",d),(!y||8&i&&p!==(p=e[3].final.x))&&I(l,"x2",p),(!y||8&i&&m!==(m=e[3].final.y))&&I(l,"y2",m);const C={};8&i&&(C.posicion=e[3].inicio),8&i&&(C.angulo=e[3].angulo-Math.PI/2),64&i&&(C.fillColor=e[6].coloresFill.colorInverso),f.$set(C);const b={};8&i&&(b.posicion=e[3].final),8&i&&(b.angulo=e[3].angulo+Math.PI/2),64&i&&(b.fillColor=e[6].coloresFill.color),g.$set(b);const v={};16&i&&(v.posicion=e[4].posicionPeso),2&i&&(v.peso=e[1].peso),64&i&&(v.bgColor=e[6].coloresBG.color),2&i&&(v.cambiarPeso=e[1].cambiarPeso.bind(e[1])),h.$set(v);const $={};16&i&&($.posicion=e[4].posicionPesoInverso),1&i&&($.peso=e[0].peso),64&i&&($.bgColor=e[6].coloresBG.colorInverso),1&i&&($.cambiarPeso=e[0].cambiarPeso.bind(e[0])),x.$set($)},i(e){y||(se(f.$$.fragment,e),se(g.$$.fragment,e),se(h.$$.fragment,e),se(x.$$.fragment,e),y=!0)},o(e){le(f.$$.fragment,e),le(g.$$.fragment,e),le(h.$$.fragment,e),le(x.$$.fragment,e),y=!1},d(e){e&&b(t),e&&b(l),fe(f,e),fe(g,e),fe(h,e),fe(x,e),v=!1,i($)}}}function dn(e){let t,n;return t=new ln({props:{onClickArista:e[8],posicion:{x:e[5].posicionFlujo.x,y:e[5].posicionFlujo.y},peso:e[1].flujo,bgColor:fn,textColor:"text-black",dibujarCero:!1}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};32&n&&(o.posicion={x:e[5].posicionFlujo.x,y:e[5].posicionFlujo.y}),2&n&&(o.peso=e[1].flujo),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function pn(e){let t,n;return t=new ln({props:{onClickArista:e[8],posicion:{x:e[5].posicionFlujoInverso.x,y:e[5].posicionFlujoInverso.y},peso:e[0].flujo,bgColor:fn,textColor:"text-black",dibujarCero:!1}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};32&n&&(o.posicion={x:e[5].posicionFlujoInverso.x,y:e[5].posicionFlujoInverso.y}),1&n&&(o.peso=e[0].flujo),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function mn(e){let t,n,o,i,r,a;const s=[un,cn],l=[];function c(e,t){return e[7]?0:1}n=c(e),o=l[n]=s[n](e);let u=e[1]&&(e[1].esCamino||e[1].fueCamino)&&dn(e),d=e[0]&&(e[0].esCamino||e[0].fueCamino)&&pn(e);return{c(){t=w("svg"),o.c(),i=M(),u&&u.c(),r=M(),d&&d.c()},m(e,o){C(e,t,o),l[n].m(t,null),h(t,i),u&&u.m(t,null),h(t,r),d&&d.m(t,null),a=!0},p(e,[a]){let p=n;n=c(e),n===p?l[n].p(e,a):(re(),le(l[p],1,1,(()=>{l[p]=null})),ae(),o=l[n],o?o.p(e,a):(o=l[n]=s[n](e),o.c()),se(o,1),o.m(t,i)),e[1]&&(e[1].esCamino||e[1].fueCamino)?u?(u.p(e,a),2&a&&se(u,1)):(u=dn(e),u.c(),se(u,1),u.m(t,r)):u&&(re(),le(u,1,1,(()=>{u=null})),ae()),e[0]&&(e[0].esCamino||e[0].fueCamino)?d?(d.p(e,a),1&a&&se(d,1)):(d=pn(e),d.c(),se(d,1),d.m(t,null)):d&&(re(),le(d,1,1,(()=>{d=null})),ae())},i(e){a||(se(o),se(u),se(d),a=!0)},o(e){le(o),le(u),le(d),a=!1},d(e){e&&b(t),l[n].d(),u&&u.d(),d&&d.d()}}}const fn="bg-yellow-300";function gn(e,t,n){let o,i,r,a,s,l,c,u,d,{arista:p}=t,{aristaInversa:m}=t,f=r;function g(){f=r,p&&(u={origenPos:p.origen.posicion,destinoPos:p.destino.posicion,esCamino:p.esCamino,peso:p.peso,flujo:p.flujo}),m&&(d={origenPos:m.origen.posicion,destinoPos:m.destino.posicion,esCamino:m.esCamino,peso:m.peso,flujo:m.flujo})}const h="stroke-emerald-600",x="stroke-blue-600",y="stroke-yellow-300",C="stroke-gray-600",b="stroke-gray-700";function v(){let e=h,t=o?x:h;return p&&p.esCamino&&(e=y),m&&m.esCamino&&(t=y),p&&p.fueCamino&&(e=C),m&&m.fueCamino&&(t=C),r&&(e=b,t=b),{color:e,colorInverso:t}}const $="fill-emerald-600",w="fill-blue-600",A="fill-yellow-300",E="fill-gray-600",M="fill-gray-700";function j(){let e=$,t=o?w:$;return p&&p.esCamino&&(e=A),m&&m.esCamino&&(t=A),p&&p.fueCamino&&(e=E),m&&m.fueCamino&&(t=E),r&&(e=M,t=M),{color:e,colorInverso:t}}const I="bg-emerald-800",L="bg-blue-600",P="bg-gray-700",T="bg-orange-700",O="bg-rose-700";function z(){let e=I,t=o?L:I;return p&&0!==p.flujo&&(e=T),m&&0!==m.flujo&&(t=T),p&&p.flujo===p.peso&&(e=O),m&&m.flujo===m.peso&&(t=O),r&&(e=P,t=P),{color:e,colorInverso:t}}function F(){n(3,a=function(){const e=i.origen.posicion,t=i.destino.posicion,n=i.origen.radio,o=i.destino.radio,r=Math.atan2(t.y-e.y,t.x-e.x),a={x:e.x+n*Math.cos(r),y:e.y+n*Math.sin(r)},s={x:t.x-o*Math.cos(r),y:t.y-o*Math.sin(r)};return{inicio:a,puntoMedio:{x:(a.x+s.x)/2,y:(a.y+s.y)/2},final:s,angulo:r}}()),n(4,s=function(){if(o){const e=.75;return{posicionPeso:{x:a.inicio.x+(a.final.x-a.inicio.x)*e,y:a.inicio.y+(a.final.y-a.inicio.y)*e},posicionPesoInverso:{x:a.final.x-(a.final.x-a.inicio.x)*e,y:a.final.y-(a.final.y-a.inicio.y)*e}}}const e=a.puntoMedio;return{posicionPeso:e,posicionPesoInverso:e}}()),n(5,l={posicionFlujo:{x:s.posicionPeso.x+40*Math.cos(a.angulo+Math.PI/2),y:s.posicionPeso.y+40*Math.sin(a.angulo+Math.PI/2)},posicionFlujoInverso:{x:s.posicionPesoInverso.x+40*Math.cos(a.angulo+Math.PI/2),y:s.posicionPesoInverso.y+40*Math.sin(a.angulo+Math.PI/2)}});const e=v(),t=j(),r=z();n(6,c={coloresStroke:e,coloresFill:t,coloresBG:r})}return D((()=>u||d?f&&!r||!f&&r||!u&&p||!d&&m||u&&!p||d&&!m||u&&p&&u.peso!==p.peso||d&&m&&d.peso!==m.peso||u&&p&&u.flujo!==p.flujo||d&&m&&d.flujo!==m.flujo||u&&p&&u.esCamino!==p.esCamino||d&&m&&d.esCamino!==m.esCamino||u&&p&&(u.origenPos.x!==p.origen.posicion.x||u.origenPos.y!==p.origen.posicion.y||u.destinoPos.x!==p.destino.posicion.x||u.destinoPos.y!==p.destino.posicion.y)||d&&m&&(d.origenPos.x!==m.origen.posicion.x||d.origenPos.y!==m.origen.posicion.y||d.destinoPos.x!==m.destino.posicion.x||d.destinoPos.y!==m.destino.posicion.y)?(g(),void F()):void 0:(g(),void F()))),e.$$set=e=>{"arista"in e&&n(1,p=e.arista),"aristaInversa"in e&&n(0,m=e.aristaInversa)},e.$$.update=()=>{3&e.$$.dirty&&n(0,m=p===m?null:m),3&e.$$.dirty&&n(7,o=p&&m),3&e.$$.dirty&&n(2,i=p||m),4&e.$$.dirty&&(r=i.grafo.eliminandoArista)},[m,p,i,a,s,l,c,o,function(){r&&(p&&p.eliminar(),m&&m.eliminar(),i.grafo.finalizarEliminacionArista())}]}class hn extends xe{constructor(e){super(),he(this,e,gn,mn,a,{arista:1,aristaInversa:0})}}function xn(e,t,n){const o=e.slice();return o[9]=t[n],o}function yn(e,t,n){const o=e.slice();return o[12]=t[n],o[14]=n,o}function Cn(e,t,n){const o=e.slice();return o[12]=t[n],o[16]=n,o}function bn(e){let t,n;return t=new hn({props:{arista:e[2][e[14]][e[16]],aristaInversa:e[2][e[16]][e[14]]}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};4&n&&(o.arista=e[2][e[14]][e[16]]),4&n&&(o.aristaInversa=e[2][e[16]][e[14]]),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function vn(e){let t,n,o=(e[2][e[14]][e[16]]||e[2][e[16]][e[14]])&&bn(e);return{c(){o&&o.c(),t=M()},m(e,i){o&&o.m(e,i),C(e,t,i),n=!0},p(e,n){e[2][e[14]][e[16]]||e[2][e[16]][e[14]]?o?(o.p(e,n),4&n&&se(o,1)):(o=bn(e),o.c(),se(o,1),o.m(t.parentNode,t)):o&&(re(),le(o,1,1,(()=>{o=null})),ae())},i(e){n||(se(o),n=!0)},o(e){le(o),n=!1},d(e){o&&o.d(e),e&&b(t)}}}function $n(e){let t,n,o=Array(e[14]+1),i=[];for(let t=0;t<o.length;t+=1)i[t]=vn(Cn(e,o,t));const r=e=>le(i[e],1,1,(()=>{i[e]=null}));return{c(){for(let e=0;e<i.length;e+=1)i[e].c();t=M()},m(e,o){for(let t=0;t<i.length;t+=1)i[t].m(e,o);C(e,t,o),n=!0},p(e,n){if(4&n){let a;for(o=Array(e[14]+1),a=0;a<o.length;a+=1){const r=Cn(e,o,a);i[a]?(i[a].p(r,n),se(i[a],1)):(i[a]=vn(r),i[a].c(),se(i[a],1),i[a].m(t.parentNode,t))}for(re(),a=o.length;a<i.length;a+=1)r(a);ae()}},i(e){if(!n){for(let e=0;e<o.length;e+=1)se(i[e]);n=!0}},o(e){i=i.filter(Boolean);for(let e=0;e<i.length;e+=1)le(i[e]);n=!1},d(e){v(i,e),e&&b(t)}}}function wn(e){let t,n;return t=new Kt({props:{vertice:e[9]}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};8&n&&(o.vertice=e[9]),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function An(e){let t,n;return t=new Xt({props:{consola:e[4]}}),{c(){pe(t.$$.fragment)},m(e,o){me(t,e,o),n=!0},p(e,n){const o={};16&n&&(o.consola=e[4]),t.$set(o)},i(e){n||(se(t.$$.fragment,e),n=!0)},o(e){le(t.$$.fragment,e),n=!1},d(e){fe(t,e)}}}function En(e){let t,n,o,i,r,a,s,l,c=Array(e[2].length),u=[];for(let t=0;t<c.length;t+=1)u[t]=$n(yn(e,c,t));const d=e=>le(u[e],1,1,(()=>{u[e]=null}));let p=e[3],m=[];for(let t=0;t<p.length;t+=1)m[t]=wn(xn(e,p,t));const f=e=>le(m[e],1,1,(()=>{m[e]=null}));a=new xt({props:{grafo:e[5]}});let g=e[4]&&An(e);return{c(){t=$("div"),n=w("svg"),o=w("svg");for(let e=0;e<u.length;e+=1)u[e].c();i=M();for(let e=0;e<m.length;e+=1)m[e].c();r=w("foreignObject"),pe(a.$$.fragment),s=w("foreignObject"),g&&g.c(),I(o,"height",e[1]),I(r,"width","100%"),I(r,"height","40px"),I(s,"width","100%"),I(s,"height","100%"),I(s,"class","pointer-events-none"),I(n,"width",e[0]),I(n,"height",e[1]),I(n,"class","select-none")},m(e,c){C(e,t,c),h(t,n),h(n,o);for(let e=0;e<u.length;e+=1)u[e].m(o,null);h(o,i);for(let e=0;e<m.length;e+=1)m[e].m(o,null);h(n,r),me(a,r,null),h(n,s),g&&g.m(s,null),l=!0},p(e,[t]){if(4&t){let n;for(c=Array(e[2].length),n=0;n<c.length;n+=1){const r=yn(e,c,n);u[n]?(u[n].p(r,t),se(u[n],1)):(u[n]=$n(r),u[n].c(),se(u[n],1),u[n].m(o,i))}for(re(),n=c.length;n<u.length;n+=1)d(n);ae()}if(8&t){let n;for(p=e[3],n=0;n<p.length;n+=1){const i=xn(e,p,n);m[n]?(m[n].p(i,t),se(m[n],1)):(m[n]=wn(i),m[n].c(),se(m[n],1),m[n].m(o,null))}for(re(),n=p.length;n<m.length;n+=1)f(n);ae()}(!l||2&t)&&I(o,"height",e[1]);const r={};32&t&&(r.grafo=e[5]),a.$set(r),e[4]?g?(g.p(e,t),16&t&&se(g,1)):(g=An(e),g.c(),se(g,1),g.m(s,null)):g&&(re(),le(g,1,1,(()=>{g=null})),ae()),(!l||1&t)&&I(n,"width",e[0]),(!l||2&t)&&I(n,"height",e[1])},i(e){if(!l){for(let e=0;e<c.length;e+=1)se(u[e]);for(let e=0;e<p.length;e+=1)se(m[e]);se(a.$$.fragment,e),se(g),l=!0}},o(e){u=u.filter(Boolean);for(let e=0;e<u.length;e+=1)le(u[e]);m=m.filter(Boolean);for(let e=0;e<m.length;e+=1)le(m[e]);le(a.$$.fragment,e),le(g),l=!1},d(e){e&&b(t),v(u,e),v(m,e),fe(a),g&&g.d()}}}function Mn(e,t,n){let o,i,{width:r}=t,a=r,{height:s}=t,l=r,c=[],u=[];function d(){i&&(n(5,i),i.consola&&n(4,o=i.consola),i.vertices&&n(3,u=i.vertices),c&&n(2,c=i.aristas))}return D((()=>{a==r&&l==s||(a=r,l=s,i.cambiarTamanio(r,s))})),i=ze(5,r,s,d),d(),console.log(i.matrizAdyacencia),e.$$set=e=>{"width"in e&&n(0,r=e.width),"height"in e&&n(1,s=e.height)},[r,s,c,u,o,i]}class jn extends xe{constructor(e){super(),he(this,e,Mn,En,a,{width:0,height:1})}}const{window:In}=de;function Ln(e){let t,n,o;return n=new jn({props:{width:e[1],height:e[0]}}),{c(){t=$("main"),pe(n.$$.fragment),I(t,"class","w-full h-full bg-stone-100 dark:bg-gray-800")},m(e,i){C(e,t,i),me(n,t,null),o=!0},p(e,t){const o={};2&t&&(o.width=e[1]),1&t&&(o.height=e[0]),n.$set(o)},i(e){o||(se(n.$$.fragment,e),o=!0)},o(e){le(n.$$.fragment,e),o=!1},d(e){e&&b(t),fe(n)}}}function Pn(e){let t,n,o,i,r,a;return Y(e[2]),t=new je({}),o=new Me({props:{styleWindow:{width:"70rem",height:"40rem"},$$slots:{default:[Ln]},$$scope:{ctx:e}}}),{c(){pe(t.$$.fragment),n=E(),pe(o.$$.fragment)},m(s,l){me(t,s,l),C(s,n,l),me(o,s,l),i=!0,r||(a=j(In,"resize",e[2]),r=!0)},p(e,[t]){const n={};11&t&&(n.$$scope={dirty:t,ctx:e}),o.$set(n)},i(e){i||(se(t.$$.fragment,e),se(o.$$.fragment,e),i=!0)},o(e){le(t.$$.fragment,e),le(o.$$.fragment,e),i=!1},d(e){fe(t,e),e&&b(n),fe(o,e),r=!1,a()}}}function Tn(e,t,n){let o,i;return n(1,o=window.innerWidth),n(0,i=window.innerHeight),[i,o,function(){n(1,o=In.innerWidth),n(0,i=In.innerHeight)}]}return new class extends xe{constructor(e){super(),he(this,e,Tn,Pn,a,{})}}({target:document.body,props:{name:"world"}})}();
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+var app = (function () {
+    'use strict';
+
+    function noop() { }
+    const identity = x => x;
+    function assign(tar, src) {
+        // @ts-ignore
+        for (const k in src)
+            tar[k] = src[k];
+        return tar;
+    }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
+    function run(fn) {
+        return fn();
+    }
+    function blank_object() {
+        return Object.create(null);
+    }
+    function run_all(fns) {
+        fns.forEach(run);
+    }
+    function is_function(thing) {
+        return typeof thing === 'function';
+    }
+    function safe_not_equal(a, b) {
+        return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+    let src_url_equal_anchor;
+    function src_url_equal(element_src, url) {
+        if (!src_url_equal_anchor) {
+            src_url_equal_anchor = document.createElement('a');
+        }
+        src_url_equal_anchor.href = url;
+        return element_src === src_url_equal_anchor.href;
+    }
+    function is_empty(obj) {
+        return Object.keys(obj).length === 0;
+    }
+    function create_slot(definition, ctx, $$scope, fn) {
+        if (definition) {
+            const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
+            return definition[0](slot_ctx);
+        }
+    }
+    function get_slot_context(definition, ctx, $$scope, fn) {
+        return definition[1] && fn
+            ? assign($$scope.ctx.slice(), definition[1](fn(ctx)))
+            : $$scope.ctx;
+    }
+    function get_slot_changes(definition, $$scope, dirty, fn) {
+        if (definition[2] && fn) {
+            const lets = definition[2](fn(dirty));
+            if ($$scope.dirty === undefined) {
+                return lets;
+            }
+            if (typeof lets === 'object') {
+                const merged = [];
+                const len = Math.max($$scope.dirty.length, lets.length);
+                for (let i = 0; i < len; i += 1) {
+                    merged[i] = $$scope.dirty[i] | lets[i];
+                }
+                return merged;
+            }
+            return $$scope.dirty | lets;
+        }
+        return $$scope.dirty;
+    }
+    function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
+        if (slot_changes) {
+            const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
+            slot.p(slot_context, slot_changes);
+        }
+    }
+    function get_all_dirty_from_scope($$scope) {
+        if ($$scope.ctx.length > 32) {
+            const dirty = [];
+            const length = $$scope.ctx.length / 32;
+            for (let i = 0; i < length; i++) {
+                dirty[i] = -1;
+            }
+            return dirty;
+        }
+        return -1;
+    }
+    function null_to_empty(value) {
+        return value == null ? '' : value;
+    }
+    function action_destroyer(action_result) {
+        return action_result && is_function(action_result.destroy) ? action_result.destroy : noop;
+    }
+
+    const is_client = typeof window !== 'undefined';
+    let now = is_client
+        ? () => window.performance.now()
+        : () => Date.now();
+    let raf = is_client ? cb => requestAnimationFrame(cb) : noop;
+
+    const tasks = new Set();
+    function run_tasks(now) {
+        tasks.forEach(task => {
+            if (!task.c(now)) {
+                tasks.delete(task);
+                task.f();
+            }
+        });
+        if (tasks.size !== 0)
+            raf(run_tasks);
+    }
+    /**
+     * Creates a new task that runs on each raf frame
+     * until it returns a falsy value or is aborted
+     */
+    function loop(callback) {
+        let task;
+        if (tasks.size === 0)
+            raf(run_tasks);
+        return {
+            promise: new Promise(fulfill => {
+                tasks.add(task = { c: callback, f: fulfill });
+            }),
+            abort() {
+                tasks.delete(task);
+            }
+        };
+    }
+    function append(target, node) {
+        target.appendChild(node);
+    }
+    function get_root_for_style(node) {
+        if (!node)
+            return document;
+        const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+        if (root && root.host) {
+            return root;
+        }
+        return node.ownerDocument;
+    }
+    function append_empty_stylesheet(node) {
+        const style_element = element('style');
+        append_stylesheet(get_root_for_style(node), style_element);
+        return style_element.sheet;
+    }
+    function append_stylesheet(node, style) {
+        append(node.head || node, style);
+    }
+    function insert(target, node, anchor) {
+        target.insertBefore(node, anchor || null);
+    }
+    function detach(node) {
+        node.parentNode.removeChild(node);
+    }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function svg_element(name) {
+        return document.createElementNS('http://www.w3.org/2000/svg', name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else if (node.getAttribute(attribute) !== value)
+            node.setAttribute(attribute, value);
+    }
+    function children(element) {
+        return Array.from(element.childNodes);
+    }
+    function set_style(node, key, value, important) {
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
+    }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
+    function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, bubbles, cancelable, detail);
+        return e;
+    }
+
+    // we need to store the information for multiple documents because a Svelte application could also contain iframes
+    // https://github.com/sveltejs/svelte/issues/3624
+    const managed_styles = new Map();
+    let active = 0;
+    // https://github.com/darkskyapp/string-hash/blob/master/index.js
+    function hash(str) {
+        let hash = 5381;
+        let i = str.length;
+        while (i--)
+            hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+        return hash >>> 0;
+    }
+    function create_style_information(doc, node) {
+        const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+        managed_styles.set(doc, info);
+        return info;
+    }
+    function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+        const step = 16.666 / duration;
+        let keyframes = '{\n';
+        for (let p = 0; p <= 1; p += step) {
+            const t = a + (b - a) * ease(p);
+            keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+        }
+        const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+        const name = `__svelte_${hash(rule)}_${uid}`;
+        const doc = get_root_for_style(node);
+        const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+        if (!rules[name]) {
+            rules[name] = true;
+            stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+        }
+        const animation = node.style.animation || '';
+        node.style.animation = `${animation ? `${animation}, ` : ''}${name} ${duration}ms linear ${delay}ms 1 both`;
+        active += 1;
+        return name;
+    }
+    function delete_rule(node, name) {
+        const previous = (node.style.animation || '').split(', ');
+        const next = previous.filter(name
+            ? anim => anim.indexOf(name) < 0 // remove specific animation
+            : anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+        );
+        const deleted = previous.length - next.length;
+        if (deleted) {
+            node.style.animation = next.join(', ');
+            active -= deleted;
+            if (!active)
+                clear_rules();
+        }
+    }
+    function clear_rules() {
+        raf(() => {
+            if (active)
+                return;
+            managed_styles.forEach(info => {
+                const { stylesheet } = info;
+                let i = stylesheet.cssRules.length;
+                while (i--)
+                    stylesheet.deleteRule(i);
+                info.rules = {};
+            });
+            managed_styles.clear();
+        });
+    }
+
+    let current_component;
+    function set_current_component(component) {
+        current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error('Function called outside component initialization');
+        return current_component;
+    }
+    function beforeUpdate(fn) {
+        get_current_component().$$.before_update.push(fn);
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
+    function afterUpdate(fn) {
+        get_current_component().$$.after_update.push(fn);
+    }
+    function onDestroy(fn) {
+        get_current_component().$$.on_destroy.push(fn);
+    }
+    function createEventDispatcher() {
+        const component = get_current_component();
+        return (type, detail, { cancelable = false } = {}) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail, { cancelable });
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+                return !event.defaultPrevented;
+            }
+            return true;
+        };
+    }
+    function setContext(key, context) {
+        get_current_component().$$.context.set(key, context);
+        return context;
+    }
+    function getContext(key) {
+        return get_current_component().$$.context.get(key);
+    }
+    function getAllContexts() {
+        return get_current_component().$$.context;
+    }
+    function hasContext(key) {
+        return get_current_component().$$.context.has(key);
+    }
+
+    const dirty_components = [];
+    const binding_callbacks = [];
+    const render_callbacks = [];
+    const flush_callbacks = [];
+    const resolved_promise = Promise.resolve();
+    let update_scheduled = false;
+    function schedule_update() {
+        if (!update_scheduled) {
+            update_scheduled = true;
+            resolved_promise.then(flush);
+        }
+    }
+    function tick() {
+        schedule_update();
+        return resolved_promise;
+    }
+    function add_render_callback(fn) {
+        render_callbacks.push(fn);
+    }
+    // flush() calls callbacks in this order:
+    // 1. All beforeUpdate callbacks, in order: parents before children
+    // 2. All bind:this callbacks, in reverse order: children before parents.
+    // 3. All afterUpdate callbacks, in order: parents before children. EXCEPT
+    //    for afterUpdates called during the initial onMount, which are called in
+    //    reverse order: children before parents.
+    // Since callbacks might update component values, which could trigger another
+    // call to flush(), the following steps guard against this:
+    // 1. During beforeUpdate, any updated components will be added to the
+    //    dirty_components array and will cause a reentrant call to flush(). Because
+    //    the flush index is kept outside the function, the reentrant call will pick
+    //    up where the earlier call left off and go through all dirty components. The
+    //    current_component value is saved and restored so that the reentrant call will
+    //    not interfere with the "parent" flush() call.
+    // 2. bind:this callbacks cannot trigger new flush() calls.
+    // 3. During afterUpdate, any updated components will NOT have their afterUpdate
+    //    callback called a second time; the seen_callbacks set, outside the flush()
+    //    function, guarantees this behavior.
+    const seen_callbacks = new Set();
+    let flushidx = 0; // Do *not* move this inside the flush() function
+    function flush() {
+        const saved_component = current_component;
+        do {
+            // first, call beforeUpdate functions
+            // and update components
+            while (flushidx < dirty_components.length) {
+                const component = dirty_components[flushidx];
+                flushidx++;
+                set_current_component(component);
+                update(component.$$);
+            }
+            set_current_component(null);
+            dirty_components.length = 0;
+            flushidx = 0;
+            while (binding_callbacks.length)
+                binding_callbacks.pop()();
+            // then, once components are updated, call
+            // afterUpdate functions. This may cause
+            // subsequent updates...
+            for (let i = 0; i < render_callbacks.length; i += 1) {
+                const callback = render_callbacks[i];
+                if (!seen_callbacks.has(callback)) {
+                    // ...so guard against infinite loops
+                    seen_callbacks.add(callback);
+                    callback();
+                }
+            }
+            render_callbacks.length = 0;
+        } while (dirty_components.length);
+        while (flush_callbacks.length) {
+            flush_callbacks.pop()();
+        }
+        update_scheduled = false;
+        seen_callbacks.clear();
+        set_current_component(saved_component);
+    }
+    function update($$) {
+        if ($$.fragment !== null) {
+            $$.update();
+            run_all($$.before_update);
+            const dirty = $$.dirty;
+            $$.dirty = [-1];
+            $$.fragment && $$.fragment.p($$.ctx, dirty);
+            $$.after_update.forEach(add_render_callback);
+        }
+    }
+
+    let promise;
+    function wait() {
+        if (!promise) {
+            promise = Promise.resolve();
+            promise.then(() => {
+                promise = null;
+            });
+        }
+        return promise;
+    }
+    function dispatch(node, direction, kind) {
+        node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+    }
+    const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
+    function transition_in(block, local) {
+        if (block && block.i) {
+            outroing.delete(block);
+            block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
+        }
+    }
+    const null_transition = { duration: 0 };
+    function create_bidirectional_transition(node, fn, params, intro) {
+        let config = fn(node, params);
+        let t = intro ? 0 : 1;
+        let running_program = null;
+        let pending_program = null;
+        let animation_name = null;
+        function clear_animation() {
+            if (animation_name)
+                delete_rule(node, animation_name);
+        }
+        function init(program, duration) {
+            const d = (program.b - t);
+            duration *= Math.abs(d);
+            return {
+                a: t,
+                b: program.b,
+                d,
+                duration,
+                start: program.start,
+                end: program.start + duration,
+                group: program.group
+            };
+        }
+        function go(b) {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+            const program = {
+                start: now() + delay,
+                b
+            };
+            if (!b) {
+                // @ts-ignore todo: improve typings
+                program.group = outros;
+                outros.r += 1;
+            }
+            if (running_program || pending_program) {
+                pending_program = program;
+            }
+            else {
+                // if this is an intro, and there's a delay, we need to do
+                // an initial tick and/or apply CSS animation immediately
+                if (css) {
+                    clear_animation();
+                    animation_name = create_rule(node, t, b, duration, delay, easing, css);
+                }
+                if (b)
+                    tick(0, 1);
+                running_program = init(program, duration);
+                add_render_callback(() => dispatch(node, b, 'start'));
+                loop(now => {
+                    if (pending_program && now > pending_program.start) {
+                        running_program = init(pending_program, duration);
+                        pending_program = null;
+                        dispatch(node, running_program.b, 'start');
+                        if (css) {
+                            clear_animation();
+                            animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+                        }
+                    }
+                    if (running_program) {
+                        if (now >= running_program.end) {
+                            tick(t = running_program.b, 1 - t);
+                            dispatch(node, running_program.b, 'end');
+                            if (!pending_program) {
+                                // we're done
+                                if (running_program.b) {
+                                    // intro — we can tidy up immediately
+                                    clear_animation();
+                                }
+                                else {
+                                    // outro — needs to be coordinated
+                                    if (!--running_program.group.r)
+                                        run_all(running_program.group.c);
+                                }
+                            }
+                            running_program = null;
+                        }
+                        else if (now >= running_program.start) {
+                            const p = now - running_program.start;
+                            t = running_program.a + running_program.d * easing(p / running_program.duration);
+                            tick(t, 1 - t);
+                        }
+                    }
+                    return !!(running_program || pending_program);
+                });
+            }
+        }
+        return {
+            run(b) {
+                if (is_function(config)) {
+                    wait().then(() => {
+                        // @ts-ignore
+                        config = config();
+                        go(b);
+                    });
+                }
+                else {
+                    go(b);
+                }
+            },
+            end() {
+                clear_animation();
+                running_program = pending_program = null;
+            }
+        };
+    }
+
+    const globals = (typeof window !== 'undefined'
+        ? window
+        : typeof globalThis !== 'undefined'
+            ? globalThis
+            : global);
+    function create_component(block) {
+        block && block.c();
+    }
+    function mount_component(component, target, anchor, customElement) {
+        const { fragment, on_mount, on_destroy, after_update } = component.$$;
+        fragment && fragment.m(target, anchor);
+        if (!customElement) {
+            // onMount happens before the initial afterUpdate
+            add_render_callback(() => {
+                const new_on_destroy = on_mount.map(run).filter(is_function);
+                if (on_destroy) {
+                    on_destroy.push(...new_on_destroy);
+                }
+                else {
+                    // Edge case - component was destroyed immediately,
+                    // most likely as a result of a binding initialising
+                    run_all(new_on_destroy);
+                }
+                component.$$.on_mount = [];
+            });
+        }
+        after_update.forEach(add_render_callback);
+    }
+    function destroy_component(component, detaching) {
+        const $$ = component.$$;
+        if ($$.fragment !== null) {
+            run_all($$.on_destroy);
+            $$.fragment && $$.fragment.d(detaching);
+            // TODO null out other refs, including component.$$ (but need to
+            // preserve final state?)
+            $$.on_destroy = $$.fragment = null;
+            $$.ctx = [];
+        }
+    }
+    function make_dirty(component, i) {
+        if (component.$$.dirty[0] === -1) {
+            dirty_components.push(component);
+            schedule_update();
+            component.$$.dirty.fill(0);
+        }
+        component.$$.dirty[(i / 31) | 0] |= (1 << (i % 31));
+    }
+    function init(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
+        const parent_component = current_component;
+        set_current_component(component);
+        const $$ = component.$$ = {
+            fragment: null,
+            ctx: null,
+            // state
+            props,
+            update: noop,
+            not_equal,
+            bound: blank_object(),
+            // lifecycle
+            on_mount: [],
+            on_destroy: [],
+            on_disconnect: [],
+            before_update: [],
+            after_update: [],
+            context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
+            // everything else
+            callbacks: blank_object(),
+            dirty,
+            skip_bound: false,
+            root: options.target || parent_component.$$.root
+        };
+        append_styles && append_styles($$.root);
+        let ready = false;
+        $$.ctx = instance
+            ? instance(component, options.props || {}, (i, ret, ...rest) => {
+                const value = rest.length ? rest[0] : ret;
+                if ($$.ctx && not_equal($$.ctx[i], $$.ctx[i] = value)) {
+                    if (!$$.skip_bound && $$.bound[i])
+                        $$.bound[i](value);
+                    if (ready)
+                        make_dirty(component, i);
+                }
+                return ret;
+            })
+            : [];
+        $$.update();
+        ready = true;
+        run_all($$.before_update);
+        // `false` as a special case of no DOM component
+        $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
+        if (options.target) {
+            if (options.hydrate) {
+                const nodes = children(options.target);
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.l(nodes);
+                nodes.forEach(detach);
+            }
+            else {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment && $$.fragment.c();
+            }
+            if (options.intro)
+                transition_in(component.$$.fragment);
+            mount_component(component, options.target, options.anchor, options.customElement);
+            flush();
+        }
+        set_current_component(parent_component);
+    }
+    /**
+     * Base class for Svelte components. Used when dev=false.
+     */
+    class SvelteComponent {
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set($$props) {
+            if (this.$$set && !is_empty($$props)) {
+                this.$$.skip_bound = true;
+                this.$$set($$props);
+                this.$$.skip_bound = false;
+            }
+        }
+    }
+
+    function dispatch_dev(type, detail) {
+        document.dispatchEvent(custom_event(type, Object.assign({ version: '3.48.0' }, detail), { bubbles: true }));
+    }
+    function append_dev(target, node) {
+        dispatch_dev('SvelteDOMInsert', { target, node });
+        append(target, node);
+    }
+    function insert_dev(target, node, anchor) {
+        dispatch_dev('SvelteDOMInsert', { target, node, anchor });
+        insert(target, node, anchor);
+    }
+    function detach_dev(node) {
+        dispatch_dev('SvelteDOMRemove', { node });
+        detach(node);
+    }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ['capture'] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev('SvelteDOMAddEventListener', { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev('SvelteDOMRemoveEventListener', { node, event, handler, modifiers });
+            dispose();
+        };
+    }
+    function attr_dev(node, attribute, value) {
+        attr(node, attribute, value);
+        if (value == null)
+            dispatch_dev('SvelteDOMRemoveAttribute', { node, attribute });
+        else
+            dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
+    }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev('SvelteDOMSetProperty', { node, property, value });
+    }
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.wholeText === data)
+            return;
+        dispatch_dev('SvelteDOMSetData', { node: text, data });
+        text.data = data;
+    }
+    function validate_each_argument(arg) {
+        if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
+            let msg = '{#each} only iterates over array-like objects.';
+            if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
+                msg += ' You can use a spread to convert this iterable into an array.';
+            }
+            throw new Error(msg);
+        }
+    }
+    function validate_slots(name, slot, keys) {
+        for (const slot_key of Object.keys(slot)) {
+            if (!~keys.indexOf(slot_key)) {
+                console.warn(`<${name}> received an unexpected slot "${slot_key}".`);
+            }
+        }
+    }
+    /**
+     * Base class for Svelte components with some minor dev-enhancements. Used when dev=true.
+     */
+    class SvelteComponentDev extends SvelteComponent {
+        constructor(options) {
+            if (!options || (!options.target && !options.$$inline)) {
+                throw new Error("'target' is a required option");
+            }
+            super();
+        }
+        $destroy() {
+            super.$destroy();
+            this.$destroy = () => {
+                console.warn('Component was already destroyed'); // eslint-disable-line no-console
+            };
+        }
+        $capture_state() { }
+        $inject_state() { }
+    }
+    /**
+     * Base class to create strongly typed Svelte components.
+     * This only exists for typing purposes and should be used in `.d.ts` files.
+     *
+     * ### Example:
+     *
+     * You have component library on npm called `component-library`, from which
+     * you export a component called `MyComponent`. For Svelte+TypeScript users,
+     * you want to provide typings. Therefore you create a `index.d.ts`:
+     * ```ts
+     * import { SvelteComponentTyped } from "svelte";
+     * export class MyComponent extends SvelteComponentTyped<{foo: string}> {}
+     * ```
+     * Typing this makes it possible for IDEs like VS Code with the Svelte extension
+     * to provide intellisense and to use the component like this in a Svelte file
+     * with TypeScript:
+     * ```svelte
+     * <script lang="ts">
+     * 	import { MyComponent } from "component-library";
+     * </script>
+     * <MyComponent foo={'bar'} />
+     * ```
+     *
+     * #### Why not make this part of `SvelteComponent(Dev)`?
+     * Because
+     * ```ts
+     * class ASubclassOfSvelteComponent extends SvelteComponent<{foo: string}> {}
+     * const component: typeof SvelteComponent = ASubclassOfSvelteComponent;
+     * ```
+     * will throw a type error, so we need to separate the more strictly typed class.
+     */
+    class SvelteComponentTyped extends SvelteComponentDev {
+        constructor(options) {
+            super(options);
+        }
+    }
+
+    var svelte = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        SvelteComponent: SvelteComponentDev,
+        SvelteComponentTyped: SvelteComponentTyped,
+        afterUpdate: afterUpdate,
+        beforeUpdate: beforeUpdate,
+        createEventDispatcher: createEventDispatcher,
+        getAllContexts: getAllContexts,
+        getContext: getContext,
+        hasContext: hasContext,
+        onDestroy: onDestroy,
+        onMount: onMount,
+        setContext: setContext,
+        tick: tick
+    });
+
+    function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
+        const o = +getComputedStyle(node).opacity;
+        return {
+            delay,
+            duration,
+            easing,
+            css: t => `opacity: ${t * o}`
+        };
+    }
+
+    /* node_modules/svelte-simple-modal/src/Modal.svelte generated by Svelte v3.48.0 */
+
+    const { Object: Object_1, window: window_1$1 } = globals;
+    const file$o = "node_modules/svelte-simple-modal/src/Modal.svelte";
+
+    // (423:0) {#if Component}
+    function create_if_block$7(ctx) {
+    	let div3;
+    	let div2;
+    	let div1;
+    	let t;
+    	let div0;
+    	let switch_instance;
+    	let div0_class_value;
+    	let div1_class_value;
+    	let div1_aria_label_value;
+    	let div1_aria_labelledby_value;
+    	let div1_transition;
+    	let div2_class_value;
+    	let div3_class_value;
+    	let div3_transition;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	let if_block = /*state*/ ctx[1].closeButton && create_if_block_1$5(ctx);
+    	var switch_value = /*Component*/ ctx[2];
+
+    	function switch_props(ctx) {
+    		return { $$inline: true };
+    	}
+
+    	if (switch_value) {
+    		switch_instance = new switch_value(switch_props());
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div3 = element("div");
+    			div2 = element("div");
+    			div1 = element("div");
+    			if (if_block) if_block.c();
+    			t = space();
+    			div0 = element("div");
+    			if (switch_instance) create_component(switch_instance.$$.fragment);
+    			attr_dev(div0, "class", div0_class_value = "" + (null_to_empty(/*state*/ ctx[1].classContent) + " svelte-g4wg3a"));
+    			attr_dev(div0, "style", /*cssContent*/ ctx[9]);
+    			toggle_class(div0, "content", !/*unstyled*/ ctx[0]);
+    			add_location(div0, file$o, 467, 8, 11882);
+    			attr_dev(div1, "class", div1_class_value = "" + (null_to_empty(/*state*/ ctx[1].classWindow) + " svelte-g4wg3a"));
+    			attr_dev(div1, "role", "dialog");
+    			attr_dev(div1, "aria-modal", "true");
+
+    			attr_dev(div1, "aria-label", div1_aria_label_value = /*state*/ ctx[1].ariaLabelledBy
+    			? null
+    			: /*state*/ ctx[1].ariaLabel || null);
+
+    			attr_dev(div1, "aria-labelledby", div1_aria_labelledby_value = /*state*/ ctx[1].ariaLabelledBy || null);
+    			attr_dev(div1, "style", /*cssWindow*/ ctx[8]);
+    			toggle_class(div1, "window", !/*unstyled*/ ctx[0]);
+    			add_location(div1, file$o, 438, 6, 10907);
+    			attr_dev(div2, "class", div2_class_value = "" + (null_to_empty(/*state*/ ctx[1].classWindowWrap) + " svelte-g4wg3a"));
+    			attr_dev(div2, "style", /*cssWindowWrap*/ ctx[7]);
+    			toggle_class(div2, "wrap", !/*unstyled*/ ctx[0]);
+    			add_location(div2, file$o, 432, 4, 10774);
+    			attr_dev(div3, "class", div3_class_value = "" + (null_to_empty(/*state*/ ctx[1].classBg) + " svelte-g4wg3a"));
+    			attr_dev(div3, "style", /*cssBg*/ ctx[6]);
+    			toggle_class(div3, "bg", !/*unstyled*/ ctx[0]);
+    			add_location(div3, file$o, 423, 2, 10528);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div3, anchor);
+    			append_dev(div3, div2);
+    			append_dev(div2, div1);
+    			if (if_block) if_block.m(div1, null);
+    			append_dev(div1, t);
+    			append_dev(div1, div0);
+
+    			if (switch_instance) {
+    				mount_component(switch_instance, div0, null);
+    			}
+
+    			/*div1_binding*/ ctx[49](div1);
+    			/*div2_binding*/ ctx[50](div2);
+    			/*div3_binding*/ ctx[51](div3);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(
+    						div1,
+    						"introstart",
+    						function () {
+    							if (is_function(/*onOpen*/ ctx[13])) /*onOpen*/ ctx[13].apply(this, arguments);
+    						},
+    						false,
+    						false,
+    						false
+    					),
+    					listen_dev(
+    						div1,
+    						"outrostart",
+    						function () {
+    							if (is_function(/*onClose*/ ctx[14])) /*onClose*/ ctx[14].apply(this, arguments);
+    						},
+    						false,
+    						false,
+    						false
+    					),
+    					listen_dev(
+    						div1,
+    						"introend",
+    						function () {
+    							if (is_function(/*onOpened*/ ctx[15])) /*onOpened*/ ctx[15].apply(this, arguments);
+    						},
+    						false,
+    						false,
+    						false
+    					),
+    					listen_dev(
+    						div1,
+    						"outroend",
+    						function () {
+    							if (is_function(/*onClosed*/ ctx[16])) /*onClosed*/ ctx[16].apply(this, arguments);
+    						},
+    						false,
+    						false,
+    						false
+    					),
+    					listen_dev(div3, "mousedown", /*handleOuterMousedown*/ ctx[20], false, false, false),
+    					listen_dev(div3, "mouseup", /*handleOuterMouseup*/ ctx[21], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			if (/*state*/ ctx[1].closeButton) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty[0] & /*state*/ 2) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block_1$5(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(div1, t);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (switch_value !== (switch_value = /*Component*/ ctx[2])) {
+    				if (switch_instance) {
+    					group_outros();
+    					const old_component = switch_instance;
+
+    					transition_out(old_component.$$.fragment, 1, 0, () => {
+    						destroy_component(old_component, 1);
+    					});
+
+    					check_outros();
+    				}
+
+    				if (switch_value) {
+    					switch_instance = new switch_value(switch_props());
+    					create_component(switch_instance.$$.fragment);
+    					transition_in(switch_instance.$$.fragment, 1);
+    					mount_component(switch_instance, div0, null);
+    				} else {
+    					switch_instance = null;
+    				}
+    			}
+
+    			if (!current || dirty[0] & /*state*/ 2 && div0_class_value !== (div0_class_value = "" + (null_to_empty(/*state*/ ctx[1].classContent) + " svelte-g4wg3a"))) {
+    				attr_dev(div0, "class", div0_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*cssContent*/ 512) {
+    				attr_dev(div0, "style", /*cssContent*/ ctx[9]);
+    			}
+
+    			if (dirty[0] & /*state, unstyled*/ 3) {
+    				toggle_class(div0, "content", !/*unstyled*/ ctx[0]);
+    			}
+
+    			if (!current || dirty[0] & /*state*/ 2 && div1_class_value !== (div1_class_value = "" + (null_to_empty(/*state*/ ctx[1].classWindow) + " svelte-g4wg3a"))) {
+    				attr_dev(div1, "class", div1_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*state*/ 2 && div1_aria_label_value !== (div1_aria_label_value = /*state*/ ctx[1].ariaLabelledBy
+    			? null
+    			: /*state*/ ctx[1].ariaLabel || null)) {
+    				attr_dev(div1, "aria-label", div1_aria_label_value);
+    			}
+
+    			if (!current || dirty[0] & /*state*/ 2 && div1_aria_labelledby_value !== (div1_aria_labelledby_value = /*state*/ ctx[1].ariaLabelledBy || null)) {
+    				attr_dev(div1, "aria-labelledby", div1_aria_labelledby_value);
+    			}
+
+    			if (!current || dirty[0] & /*cssWindow*/ 256) {
+    				attr_dev(div1, "style", /*cssWindow*/ ctx[8]);
+    			}
+
+    			if (dirty[0] & /*state, unstyled*/ 3) {
+    				toggle_class(div1, "window", !/*unstyled*/ ctx[0]);
+    			}
+
+    			if (!current || dirty[0] & /*state*/ 2 && div2_class_value !== (div2_class_value = "" + (null_to_empty(/*state*/ ctx[1].classWindowWrap) + " svelte-g4wg3a"))) {
+    				attr_dev(div2, "class", div2_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*cssWindowWrap*/ 128) {
+    				attr_dev(div2, "style", /*cssWindowWrap*/ ctx[7]);
+    			}
+
+    			if (dirty[0] & /*state, unstyled*/ 3) {
+    				toggle_class(div2, "wrap", !/*unstyled*/ ctx[0]);
+    			}
+
+    			if (!current || dirty[0] & /*state*/ 2 && div3_class_value !== (div3_class_value = "" + (null_to_empty(/*state*/ ctx[1].classBg) + " svelte-g4wg3a"))) {
+    				attr_dev(div3, "class", div3_class_value);
+    			}
+
+    			if (!current || dirty[0] & /*cssBg*/ 64) {
+    				attr_dev(div3, "style", /*cssBg*/ ctx[6]);
+    			}
+
+    			if (dirty[0] & /*state, unstyled*/ 3) {
+    				toggle_class(div3, "bg", !/*unstyled*/ ctx[0]);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			if (switch_instance) transition_in(switch_instance.$$.fragment, local);
+
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, /*currentTransitionWindow*/ ctx[12], /*state*/ ctx[1].transitionWindowProps, true);
+    				div1_transition.run(1);
+    			});
+
+    			add_render_callback(() => {
+    				if (!div3_transition) div3_transition = create_bidirectional_transition(div3, /*currentTransitionBg*/ ctx[11], /*state*/ ctx[1].transitionBgProps, true);
+    				div3_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			if (switch_instance) transition_out(switch_instance.$$.fragment, local);
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, /*currentTransitionWindow*/ ctx[12], /*state*/ ctx[1].transitionWindowProps, false);
+    			div1_transition.run(0);
+    			if (!div3_transition) div3_transition = create_bidirectional_transition(div3, /*currentTransitionBg*/ ctx[11], /*state*/ ctx[1].transitionBgProps, false);
+    			div3_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div3);
+    			if (if_block) if_block.d();
+    			if (switch_instance) destroy_component(switch_instance);
+    			/*div1_binding*/ ctx[49](null);
+    			if (detaching && div1_transition) div1_transition.end();
+    			/*div2_binding*/ ctx[50](null);
+    			/*div3_binding*/ ctx[51](null);
+    			if (detaching && div3_transition) div3_transition.end();
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$7.name,
+    		type: "if",
+    		source: "(423:0) {#if Component}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (454:8) {#if state.closeButton}
+    function create_if_block_1$5(ctx) {
+    	let show_if;
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block_2$3, create_else_block$6];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (dirty[0] & /*state*/ 2) show_if = null;
+    		if (show_if == null) show_if = !!/*isFunction*/ ctx[17](/*state*/ ctx[1].closeButton);
+    		if (show_if) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx, [-1, -1, -1]);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx, dirty);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$5.name,
+    		type: "if",
+    		source: "(454:8) {#if state.closeButton}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (457:10) {:else}
+    function create_else_block$6(ctx) {
+    	let button;
+    	let button_class_value;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			attr_dev(button, "class", button_class_value = "" + (null_to_empty(/*state*/ ctx[1].classCloseButton) + " svelte-g4wg3a"));
+    			attr_dev(button, "aria-label", "Close modal");
+    			attr_dev(button, "style", /*cssCloseButton*/ ctx[10]);
+    			attr_dev(button, "type", "button");
+    			toggle_class(button, "close", !/*unstyled*/ ctx[0]);
+    			add_location(button, file$o, 457, 12, 11603);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", /*close*/ ctx[18], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*state*/ 2 && button_class_value !== (button_class_value = "" + (null_to_empty(/*state*/ ctx[1].classCloseButton) + " svelte-g4wg3a"))) {
+    				attr_dev(button, "class", button_class_value);
+    			}
+
+    			if (dirty[0] & /*cssCloseButton*/ 1024) {
+    				attr_dev(button, "style", /*cssCloseButton*/ ctx[10]);
+    			}
+
+    			if (dirty[0] & /*state, unstyled*/ 3) {
+    				toggle_class(button, "close", !/*unstyled*/ ctx[0]);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$6.name,
+    		type: "else",
+    		source: "(457:10) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (455:10) {#if isFunction(state.closeButton)}
+    function create_if_block_2$3(ctx) {
+    	let switch_instance;
+    	let switch_instance_anchor;
+    	let current;
+    	var switch_value = /*state*/ ctx[1].closeButton;
+
+    	function switch_props(ctx) {
+    		return {
+    			props: { onClose: /*close*/ ctx[18] },
+    			$$inline: true
+    		};
+    	}
+
+    	if (switch_value) {
+    		switch_instance = new switch_value(switch_props(ctx));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			if (switch_instance) create_component(switch_instance.$$.fragment);
+    			switch_instance_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (switch_instance) {
+    				mount_component(switch_instance, target, anchor);
+    			}
+
+    			insert_dev(target, switch_instance_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (switch_value !== (switch_value = /*state*/ ctx[1].closeButton)) {
+    				if (switch_instance) {
+    					group_outros();
+    					const old_component = switch_instance;
+
+    					transition_out(old_component.$$.fragment, 1, 0, () => {
+    						destroy_component(old_component, 1);
+    					});
+
+    					check_outros();
+    				}
+
+    				if (switch_value) {
+    					switch_instance = new switch_value(switch_props(ctx));
+    					create_component(switch_instance.$$.fragment);
+    					transition_in(switch_instance.$$.fragment, 1);
+    					mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
+    				} else {
+    					switch_instance = null;
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			if (switch_instance) transition_in(switch_instance.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (switch_instance) transition_out(switch_instance.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(switch_instance_anchor);
+    			if (switch_instance) destroy_component(switch_instance, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2$3.name,
+    		type: "if",
+    		source: "(455:10) {#if isFunction(state.closeButton)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$p(ctx) {
+    	let t;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	let if_block = /*Component*/ ctx[2] && create_if_block$7(ctx);
+    	const default_slot_template = /*#slots*/ ctx[48].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[47], null);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			t = space();
+    			if (default_slot) default_slot.c();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t, anchor);
+
+    			if (default_slot) {
+    				default_slot.m(target, anchor);
+    			}
+
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(window_1$1, "keydown", /*handleKeydown*/ ctx[19], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*Component*/ ctx[2]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty[0] & /*Component*/ 4) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block$7(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(t.parentNode, t);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty[1] & /*$$scope*/ 65536)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[47],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[47])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[47], dirty, null),
+    						null
+    					);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(t);
+    			if (default_slot) default_slot.d(detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$p.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function bind(Component, props = {}) {
+    	return function ModalComponent(options) {
+    		return new Component({
+    				...options,
+    				props: { ...props, ...options.props }
+    			});
+    	};
+    }
+
+    function instance$p($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Modal', slots, ['default']);
+    	const dispatch = createEventDispatcher();
+    	const baseSetContext = setContext;
+
+    	/**
+     * A basic function that checks if a node is tabbale
+     */
+    	const baseIsTabbable = node => node.tabIndex >= 0 && !node.hidden && !node.disabled && node.style.display !== 'none' && node.type !== 'hidden' && Boolean(node.offsetWidth || node.offsetHeight || node.getClientRects().length);
+
+    	let { isTabbable = baseIsTabbable } = $$props;
+    	let { show = null } = $$props;
+    	let { key = 'simple-modal' } = $$props;
+    	let { ariaLabel = null } = $$props;
+    	let { ariaLabelledBy = null } = $$props;
+    	let { closeButton = true } = $$props;
+    	let { closeOnEsc = true } = $$props;
+    	let { closeOnOuterClick = true } = $$props;
+    	let { styleBg = {} } = $$props;
+    	let { styleWindowWrap = {} } = $$props;
+    	let { styleWindow = {} } = $$props;
+    	let { styleContent = {} } = $$props;
+    	let { styleCloseButton = {} } = $$props;
+    	let { classBg = null } = $$props;
+    	let { classWindowWrap = null } = $$props;
+    	let { classWindow = null } = $$props;
+    	let { classContent = null } = $$props;
+    	let { classCloseButton = null } = $$props;
+    	let { unstyled = false } = $$props;
+    	let { setContext: setContext$1 = baseSetContext } = $$props;
+    	let { transitionBg = fade } = $$props;
+    	let { transitionBgProps = { duration: 250 } } = $$props;
+    	let { transitionWindow = transitionBg } = $$props;
+    	let { transitionWindowProps = transitionBgProps } = $$props;
+    	let { disableFocusTrap = false } = $$props;
+
+    	const defaultState = {
+    		ariaLabel,
+    		ariaLabelledBy,
+    		closeButton,
+    		closeOnEsc,
+    		closeOnOuterClick,
+    		styleBg,
+    		styleWindowWrap,
+    		styleWindow,
+    		styleContent,
+    		styleCloseButton,
+    		classBg,
+    		classWindowWrap,
+    		classWindow,
+    		classContent,
+    		classCloseButton,
+    		transitionBg,
+    		transitionBgProps,
+    		transitionWindow,
+    		transitionWindowProps,
+    		disableFocusTrap,
+    		isTabbable,
+    		unstyled
+    	};
+
+    	let state = { ...defaultState };
+    	let Component = null;
+    	let background;
+    	let wrap;
+    	let modalWindow;
+    	let scrollY;
+    	let cssBg;
+    	let cssWindowWrap;
+    	let cssWindow;
+    	let cssContent;
+    	let cssCloseButton;
+    	let currentTransitionBg;
+    	let currentTransitionWindow;
+    	let prevBodyPosition;
+    	let prevBodyOverflow;
+    	let prevBodyWidth;
+    	let outerClickTarget;
+    	const camelCaseToDash = str => str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-').toLowerCase();
+
+    	const toCssString = props => props
+    	? Object.keys(props).reduce((str, key) => `${str}; ${camelCaseToDash(key)}: ${props[key]}`, '')
+    	: '';
+
+    	const isFunction = f => !!(f && f.constructor && f.call && f.apply);
+
+    	const updateStyleTransition = () => {
+    		$$invalidate(6, cssBg = toCssString(Object.assign(
+    			{},
+    			{
+    				width: window.innerWidth,
+    				height: window.innerHeight
+    			},
+    			state.styleBg
+    		)));
+
+    		$$invalidate(7, cssWindowWrap = toCssString(state.styleWindowWrap));
+    		$$invalidate(8, cssWindow = toCssString(state.styleWindow));
+    		$$invalidate(9, cssContent = toCssString(state.styleContent));
+    		$$invalidate(10, cssCloseButton = toCssString(state.styleCloseButton));
+    		$$invalidate(11, currentTransitionBg = state.transitionBg);
+    		$$invalidate(12, currentTransitionWindow = state.transitionWindow);
+    	};
+
+    	const toVoid = () => {
+    		
+    	};
+
+    	let onOpen = toVoid;
+    	let onClose = toVoid;
+    	let onOpened = toVoid;
+    	let onClosed = toVoid;
+
+    	const open = (NewComponent, newProps = {}, options = {}, callback = {}) => {
+    		$$invalidate(2, Component = bind(NewComponent, newProps));
+    		$$invalidate(1, state = { ...defaultState, ...options });
+    		updateStyleTransition();
+    		disableScroll();
+
+    		$$invalidate(13, onOpen = event => {
+    			if (callback.onOpen) callback.onOpen(event);
+
+    			/**
+     * The open event is fired right before the modal opens
+     * @event {void} open
+     */
+    			dispatch('open');
+
+    			/**
+     * The opening event is fired right before the modal opens
+     * @event {void} opening
+     * @deprecated Listen to the `open` event instead
+     */
+    			dispatch('opening'); // Deprecated. Do not use!
+    		});
+
+    		$$invalidate(14, onClose = event => {
+    			if (callback.onClose) callback.onClose(event);
+
+    			/**
+     * The close event is fired right before the modal closes
+     * @event {void} close
+     */
+    			dispatch('close');
+
+    			/**
+     * The closing event is fired right before the modal closes
+     * @event {void} closing
+     * @deprecated Listen to the `close` event instead
+     */
+    			dispatch('closing'); // Deprecated. Do not use!
+    		});
+
+    		$$invalidate(15, onOpened = event => {
+    			if (callback.onOpened) callback.onOpened(event);
+
+    			/**
+     * The opened event is fired after the modal's opening transition
+     * @event {void} opened
+     */
+    			dispatch('opened');
+    		});
+
+    		$$invalidate(16, onClosed = event => {
+    			if (callback.onClosed) callback.onClosed(event);
+
+    			/**
+     * The closed event is fired after the modal's closing transition
+     * @event {void} closed
+     */
+    			dispatch('closed');
+    		});
+    	};
+
+    	const close = (callback = {}) => {
+    		if (!Component) return;
+    		$$invalidate(14, onClose = callback.onClose || onClose);
+    		$$invalidate(16, onClosed = callback.onClosed || onClosed);
+    		$$invalidate(2, Component = null);
+    		enableScroll();
+    	};
+
+    	const handleKeydown = event => {
+    		if (state.closeOnEsc && Component && event.key === 'Escape') {
+    			event.preventDefault();
+    			close();
+    		}
+
+    		if (Component && event.key === 'Tab' && !state.disableFocusTrap) {
+    			// trap focus
+    			const nodes = modalWindow.querySelectorAll('*');
+
+    			const tabbable = Array.from(nodes).filter(state.isTabbable).sort((a, b) => a.tabIndex - b.tabIndex);
+    			let index = tabbable.indexOf(document.activeElement);
+    			if (index === -1 && event.shiftKey) index = 0;
+    			index += tabbable.length + (event.shiftKey ? -1 : 1);
+    			index %= tabbable.length;
+    			tabbable[index].focus();
+    			event.preventDefault();
+    		}
+    	};
+
+    	const handleOuterMousedown = event => {
+    		if (state.closeOnOuterClick && (event.target === background || event.target === wrap)) outerClickTarget = event.target;
+    	};
+
+    	const handleOuterMouseup = event => {
+    		if (state.closeOnOuterClick && event.target === outerClickTarget) {
+    			event.preventDefault();
+    			close();
+    		}
+    	};
+
+    	const disableScroll = () => {
+    		scrollY = window.scrollY;
+    		prevBodyPosition = document.body.style.position;
+    		prevBodyOverflow = document.body.style.overflow;
+    		prevBodyWidth = document.body.style.width;
+    		document.body.style.position = 'fixed';
+    		document.body.style.top = `-${scrollY}px`;
+    		document.body.style.overflow = 'hidden';
+    		document.body.style.width = '100%';
+    	};
+
+    	const enableScroll = () => {
+    		document.body.style.position = prevBodyPosition || '';
+    		document.body.style.top = '';
+    		document.body.style.overflow = prevBodyOverflow || '';
+    		document.body.style.width = prevBodyWidth || '';
+    		window.scrollTo(0, scrollY);
+    	};
+
+    	setContext$1(key, { open, close });
+    	let isMounted = false;
+
+    	onDestroy(() => {
+    		if (isMounted) close();
+    	});
+
+    	onMount(() => {
+    		$$invalidate(46, isMounted = true);
+    	});
+
+    	const writable_props = [
+    		'isTabbable',
+    		'show',
+    		'key',
+    		'ariaLabel',
+    		'ariaLabelledBy',
+    		'closeButton',
+    		'closeOnEsc',
+    		'closeOnOuterClick',
+    		'styleBg',
+    		'styleWindowWrap',
+    		'styleWindow',
+    		'styleContent',
+    		'styleCloseButton',
+    		'classBg',
+    		'classWindowWrap',
+    		'classWindow',
+    		'classContent',
+    		'classCloseButton',
+    		'unstyled',
+    		'setContext',
+    		'transitionBg',
+    		'transitionBgProps',
+    		'transitionWindow',
+    		'transitionWindowProps',
+    		'disableFocusTrap'
+    	];
+
+    	Object_1.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Modal> was created with unknown prop '${key}'`);
+    	});
+
+    	function div1_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			modalWindow = $$value;
+    			$$invalidate(5, modalWindow);
+    		});
+    	}
+
+    	function div2_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			wrap = $$value;
+    			$$invalidate(4, wrap);
+    		});
+    	}
+
+    	function div3_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			background = $$value;
+    			$$invalidate(3, background);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('isTabbable' in $$props) $$invalidate(22, isTabbable = $$props.isTabbable);
+    		if ('show' in $$props) $$invalidate(23, show = $$props.show);
+    		if ('key' in $$props) $$invalidate(24, key = $$props.key);
+    		if ('ariaLabel' in $$props) $$invalidate(25, ariaLabel = $$props.ariaLabel);
+    		if ('ariaLabelledBy' in $$props) $$invalidate(26, ariaLabelledBy = $$props.ariaLabelledBy);
+    		if ('closeButton' in $$props) $$invalidate(27, closeButton = $$props.closeButton);
+    		if ('closeOnEsc' in $$props) $$invalidate(28, closeOnEsc = $$props.closeOnEsc);
+    		if ('closeOnOuterClick' in $$props) $$invalidate(29, closeOnOuterClick = $$props.closeOnOuterClick);
+    		if ('styleBg' in $$props) $$invalidate(30, styleBg = $$props.styleBg);
+    		if ('styleWindowWrap' in $$props) $$invalidate(31, styleWindowWrap = $$props.styleWindowWrap);
+    		if ('styleWindow' in $$props) $$invalidate(32, styleWindow = $$props.styleWindow);
+    		if ('styleContent' in $$props) $$invalidate(33, styleContent = $$props.styleContent);
+    		if ('styleCloseButton' in $$props) $$invalidate(34, styleCloseButton = $$props.styleCloseButton);
+    		if ('classBg' in $$props) $$invalidate(35, classBg = $$props.classBg);
+    		if ('classWindowWrap' in $$props) $$invalidate(36, classWindowWrap = $$props.classWindowWrap);
+    		if ('classWindow' in $$props) $$invalidate(37, classWindow = $$props.classWindow);
+    		if ('classContent' in $$props) $$invalidate(38, classContent = $$props.classContent);
+    		if ('classCloseButton' in $$props) $$invalidate(39, classCloseButton = $$props.classCloseButton);
+    		if ('unstyled' in $$props) $$invalidate(0, unstyled = $$props.unstyled);
+    		if ('setContext' in $$props) $$invalidate(40, setContext$1 = $$props.setContext);
+    		if ('transitionBg' in $$props) $$invalidate(41, transitionBg = $$props.transitionBg);
+    		if ('transitionBgProps' in $$props) $$invalidate(42, transitionBgProps = $$props.transitionBgProps);
+    		if ('transitionWindow' in $$props) $$invalidate(43, transitionWindow = $$props.transitionWindow);
+    		if ('transitionWindowProps' in $$props) $$invalidate(44, transitionWindowProps = $$props.transitionWindowProps);
+    		if ('disableFocusTrap' in $$props) $$invalidate(45, disableFocusTrap = $$props.disableFocusTrap);
+    		if ('$$scope' in $$props) $$invalidate(47, $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		bind,
+    		svelte,
+    		fade,
+    		createEventDispatcher,
+    		dispatch,
+    		baseSetContext,
+    		baseIsTabbable,
+    		isTabbable,
+    		show,
+    		key,
+    		ariaLabel,
+    		ariaLabelledBy,
+    		closeButton,
+    		closeOnEsc,
+    		closeOnOuterClick,
+    		styleBg,
+    		styleWindowWrap,
+    		styleWindow,
+    		styleContent,
+    		styleCloseButton,
+    		classBg,
+    		classWindowWrap,
+    		classWindow,
+    		classContent,
+    		classCloseButton,
+    		unstyled,
+    		setContext: setContext$1,
+    		transitionBg,
+    		transitionBgProps,
+    		transitionWindow,
+    		transitionWindowProps,
+    		disableFocusTrap,
+    		defaultState,
+    		state,
+    		Component,
+    		background,
+    		wrap,
+    		modalWindow,
+    		scrollY,
+    		cssBg,
+    		cssWindowWrap,
+    		cssWindow,
+    		cssContent,
+    		cssCloseButton,
+    		currentTransitionBg,
+    		currentTransitionWindow,
+    		prevBodyPosition,
+    		prevBodyOverflow,
+    		prevBodyWidth,
+    		outerClickTarget,
+    		camelCaseToDash,
+    		toCssString,
+    		isFunction,
+    		updateStyleTransition,
+    		toVoid,
+    		onOpen,
+    		onClose,
+    		onOpened,
+    		onClosed,
+    		open,
+    		close,
+    		handleKeydown,
+    		handleOuterMousedown,
+    		handleOuterMouseup,
+    		disableScroll,
+    		enableScroll,
+    		isMounted
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('isTabbable' in $$props) $$invalidate(22, isTabbable = $$props.isTabbable);
+    		if ('show' in $$props) $$invalidate(23, show = $$props.show);
+    		if ('key' in $$props) $$invalidate(24, key = $$props.key);
+    		if ('ariaLabel' in $$props) $$invalidate(25, ariaLabel = $$props.ariaLabel);
+    		if ('ariaLabelledBy' in $$props) $$invalidate(26, ariaLabelledBy = $$props.ariaLabelledBy);
+    		if ('closeButton' in $$props) $$invalidate(27, closeButton = $$props.closeButton);
+    		if ('closeOnEsc' in $$props) $$invalidate(28, closeOnEsc = $$props.closeOnEsc);
+    		if ('closeOnOuterClick' in $$props) $$invalidate(29, closeOnOuterClick = $$props.closeOnOuterClick);
+    		if ('styleBg' in $$props) $$invalidate(30, styleBg = $$props.styleBg);
+    		if ('styleWindowWrap' in $$props) $$invalidate(31, styleWindowWrap = $$props.styleWindowWrap);
+    		if ('styleWindow' in $$props) $$invalidate(32, styleWindow = $$props.styleWindow);
+    		if ('styleContent' in $$props) $$invalidate(33, styleContent = $$props.styleContent);
+    		if ('styleCloseButton' in $$props) $$invalidate(34, styleCloseButton = $$props.styleCloseButton);
+    		if ('classBg' in $$props) $$invalidate(35, classBg = $$props.classBg);
+    		if ('classWindowWrap' in $$props) $$invalidate(36, classWindowWrap = $$props.classWindowWrap);
+    		if ('classWindow' in $$props) $$invalidate(37, classWindow = $$props.classWindow);
+    		if ('classContent' in $$props) $$invalidate(38, classContent = $$props.classContent);
+    		if ('classCloseButton' in $$props) $$invalidate(39, classCloseButton = $$props.classCloseButton);
+    		if ('unstyled' in $$props) $$invalidate(0, unstyled = $$props.unstyled);
+    		if ('setContext' in $$props) $$invalidate(40, setContext$1 = $$props.setContext);
+    		if ('transitionBg' in $$props) $$invalidate(41, transitionBg = $$props.transitionBg);
+    		if ('transitionBgProps' in $$props) $$invalidate(42, transitionBgProps = $$props.transitionBgProps);
+    		if ('transitionWindow' in $$props) $$invalidate(43, transitionWindow = $$props.transitionWindow);
+    		if ('transitionWindowProps' in $$props) $$invalidate(44, transitionWindowProps = $$props.transitionWindowProps);
+    		if ('disableFocusTrap' in $$props) $$invalidate(45, disableFocusTrap = $$props.disableFocusTrap);
+    		if ('state' in $$props) $$invalidate(1, state = $$props.state);
+    		if ('Component' in $$props) $$invalidate(2, Component = $$props.Component);
+    		if ('background' in $$props) $$invalidate(3, background = $$props.background);
+    		if ('wrap' in $$props) $$invalidate(4, wrap = $$props.wrap);
+    		if ('modalWindow' in $$props) $$invalidate(5, modalWindow = $$props.modalWindow);
+    		if ('scrollY' in $$props) scrollY = $$props.scrollY;
+    		if ('cssBg' in $$props) $$invalidate(6, cssBg = $$props.cssBg);
+    		if ('cssWindowWrap' in $$props) $$invalidate(7, cssWindowWrap = $$props.cssWindowWrap);
+    		if ('cssWindow' in $$props) $$invalidate(8, cssWindow = $$props.cssWindow);
+    		if ('cssContent' in $$props) $$invalidate(9, cssContent = $$props.cssContent);
+    		if ('cssCloseButton' in $$props) $$invalidate(10, cssCloseButton = $$props.cssCloseButton);
+    		if ('currentTransitionBg' in $$props) $$invalidate(11, currentTransitionBg = $$props.currentTransitionBg);
+    		if ('currentTransitionWindow' in $$props) $$invalidate(12, currentTransitionWindow = $$props.currentTransitionWindow);
+    		if ('prevBodyPosition' in $$props) prevBodyPosition = $$props.prevBodyPosition;
+    		if ('prevBodyOverflow' in $$props) prevBodyOverflow = $$props.prevBodyOverflow;
+    		if ('prevBodyWidth' in $$props) prevBodyWidth = $$props.prevBodyWidth;
+    		if ('outerClickTarget' in $$props) outerClickTarget = $$props.outerClickTarget;
+    		if ('onOpen' in $$props) $$invalidate(13, onOpen = $$props.onOpen);
+    		if ('onClose' in $$props) $$invalidate(14, onClose = $$props.onClose);
+    		if ('onOpened' in $$props) $$invalidate(15, onOpened = $$props.onOpened);
+    		if ('onClosed' in $$props) $$invalidate(16, onClosed = $$props.onClosed);
+    		if ('isMounted' in $$props) $$invalidate(46, isMounted = $$props.isMounted);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty[0] & /*show*/ 8388608 | $$self.$$.dirty[1] & /*isMounted*/ 32768) {
+    			{
+    				if (isMounted) {
+    					if (isFunction(show)) {
+    						open(show);
+    					} else {
+    						close();
+    					}
+    				}
+    			}
+    		}
+    	};
+
+    	return [
+    		unstyled,
+    		state,
+    		Component,
+    		background,
+    		wrap,
+    		modalWindow,
+    		cssBg,
+    		cssWindowWrap,
+    		cssWindow,
+    		cssContent,
+    		cssCloseButton,
+    		currentTransitionBg,
+    		currentTransitionWindow,
+    		onOpen,
+    		onClose,
+    		onOpened,
+    		onClosed,
+    		isFunction,
+    		close,
+    		handleKeydown,
+    		handleOuterMousedown,
+    		handleOuterMouseup,
+    		isTabbable,
+    		show,
+    		key,
+    		ariaLabel,
+    		ariaLabelledBy,
+    		closeButton,
+    		closeOnEsc,
+    		closeOnOuterClick,
+    		styleBg,
+    		styleWindowWrap,
+    		styleWindow,
+    		styleContent,
+    		styleCloseButton,
+    		classBg,
+    		classWindowWrap,
+    		classWindow,
+    		classContent,
+    		classCloseButton,
+    		setContext$1,
+    		transitionBg,
+    		transitionBgProps,
+    		transitionWindow,
+    		transitionWindowProps,
+    		disableFocusTrap,
+    		isMounted,
+    		$$scope,
+    		slots,
+    		div1_binding,
+    		div2_binding,
+    		div3_binding
+    	];
+    }
+
+    class Modal extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(
+    			this,
+    			options,
+    			instance$p,
+    			create_fragment$p,
+    			safe_not_equal,
+    			{
+    				isTabbable: 22,
+    				show: 23,
+    				key: 24,
+    				ariaLabel: 25,
+    				ariaLabelledBy: 26,
+    				closeButton: 27,
+    				closeOnEsc: 28,
+    				closeOnOuterClick: 29,
+    				styleBg: 30,
+    				styleWindowWrap: 31,
+    				styleWindow: 32,
+    				styleContent: 33,
+    				styleCloseButton: 34,
+    				classBg: 35,
+    				classWindowWrap: 36,
+    				classWindow: 37,
+    				classContent: 38,
+    				classCloseButton: 39,
+    				unstyled: 0,
+    				setContext: 40,
+    				transitionBg: 41,
+    				transitionBgProps: 42,
+    				transitionWindow: 43,
+    				transitionWindowProps: 44,
+    				disableFocusTrap: 45
+    			},
+    			null,
+    			[-1, -1, -1]
+    		);
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Modal",
+    			options,
+    			id: create_fragment$p.name
+    		});
+    	}
+
+    	get isTabbable() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set isTabbable(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get show() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set show(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get key() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set key(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get ariaLabel() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set ariaLabel(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get ariaLabelledBy() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set ariaLabelledBy(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get closeButton() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set closeButton(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get closeOnEsc() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set closeOnEsc(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get closeOnOuterClick() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set closeOnOuterClick(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get styleBg() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set styleBg(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get styleWindowWrap() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set styleWindowWrap(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get styleWindow() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set styleWindow(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get styleContent() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set styleContent(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get styleCloseButton() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set styleCloseButton(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get classBg() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set classBg(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get classWindowWrap() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set classWindowWrap(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get classWindow() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set classWindow(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get classContent() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set classContent(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get classCloseButton() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set classCloseButton(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get unstyled() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set unstyled(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get setContext() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set setContext(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get transitionBg() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set transitionBg(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get transitionBgProps() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set transitionBgProps(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get transitionWindow() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set transitionWindow(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get transitionWindowProps() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set transitionWindowProps(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get disableFocusTrap() {
+    		throw new Error("<Modal>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set disableFocusTrap(value) {
+    		throw new Error("<Modal>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/Tailwindcss.svelte generated by Svelte v3.48.0 */
+
+    function create_fragment$o(ctx) {
+    	const block = {
+    		c: noop,
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$o.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$o($$self, $$props) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Tailwindcss', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Tailwindcss> was created with unknown prop '${key}'`);
+    	});
+
+    	return [];
+    }
+
+    class Tailwindcss extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$o, create_fragment$o, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Tailwindcss",
+    			options,
+    			id: create_fragment$o.name
+    		});
+    	}
+    }
+
+    class Vertice$1 {
+        constructor(id, fuente, sumidero, posicion, nombre, radio, grafo) {
+            this.id = id;
+            this.nombre = nombre || null;
+            this.fuente = fuente;
+            this.sumidero = sumidero;
+            this.posicion = posicion;
+            this.radio = (radio === undefined || radio === null) ? 35 : radio;
+            this.grafo = grafo || null;
+        }
+        mover(posicion) {
+            const nuevaPosicion = {
+                x: Math.max(this.radio, Math.min(this.grafo.width - (this.radio * 2), posicion.x)),
+                y: Math.max(this.radio, Math.min(this.grafo.height - (this.radio), posicion.y)),
+            };
+            this.posicion = nuevaPosicion;
+            this.grafo.recargarGrafo();
+        }
+        eliminar() {
+            this.grafo.eliminarVertice(this);
+        }
+        toggleFuente() {
+            this.fuente = !this.fuente;
+            this.grafo.fuentes[this.id] = this.fuente;
+        }
+        toggleSumidero() {
+            this.sumidero = !this.sumidero;
+            this.grafo.sumideros[this.id] = this.sumidero;
+        }
+        asignarGrafo(grafo) {
+            this.grafo = grafo;
+        }
+        reposicionarLimites(width, height) {
+            const nuevaPosX = Math.max(this.radio, Math.min(width - (this.radio * 2), this.posicion.x));
+            const nuevaPosY = Math.max(this.radio, Math.min(height - (this.radio), this.posicion.y));
+            if (nuevaPosX !== this.posicion.x || nuevaPosY !== this.posicion.y) {
+                this.mover({ x: nuevaPosX, y: nuevaPosY });
+            }
+        }
+    }
+
+    class Arista$1 {
+        constructor(origen, destino, esCamino, fueCamino, peso, flujo, grafo) {
+            this.origen = origen;
+            this.destino = destino;
+            this.esCamino = esCamino;
+            this.fueCamino = fueCamino;
+            this.peso = peso;
+            this.flujo = flujo;
+            this.grafo = grafo;
+        }
+        cambiarPeso(peso) {
+            this.peso = peso;
+            this.grafo.matrizAdyacencia[this.origen.id][this.destino.id] = peso;
+            this.grafo.recargarGrafo();
+            if (this.peso === 0) {
+                this.grafo.eliminarArista(this);
+            }
+        }
+        asignarGrafo(grafo) {
+            this.grafo = grafo;
+        }
+        eliminar() {
+            this.grafo.eliminarArista(this);
+        }
+    }
+
+    function cancelarConClick(callback) {
+        const mousedown = (e) => {
+            callback();
+            document.removeEventListener("mousedown", mousedown);
+        };
+        document.addEventListener("mousedown", mousedown);
+    }
+    class Grafo$2 {
+        constructor(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarGrafo) {
+            this.matrizAdyacencia = matrizAdyacencia;
+            this.fuentes = fuentes;
+            this.sumideros = sumideros;
+            this.vertices = vertices;
+            this.aristas = aristas;
+            this.width = width;
+            this.height = height;
+            this.consola = consola;
+            //this.recargarAristas = recargarAristas;
+            //this.recargarVertices = recargarVertices;
+            this.recargarGrafo = recargarGrafo;
+            this.ejecutandoFlujoMaximo = false;
+            this.avanzarIteracionFlujoMaximo = false;
+            this.recargarRedResidual();
+        }
+        iniciarCreacionVertice() {
+            this.creandoVertice = true;
+            this.recargarGrafo();
+            this.crearVerticeDinamico();
+        }
+        crearVerticeDinamico() {
+            const centro = {
+                x: this.width / 2,
+                y: this.height / 2,
+            };
+            const nuevoVertice = new Vertice$1(this.vertices.length, false, false, centro, "Nuevo Vertice", null, this);
+            //lo metemos al grafo para que sea renderizado
+            this.vertices.push(nuevoVertice);
+            this.recargarGrafo();
+            //hacemos que el nuevo grafo siga al mouse
+            const mousemove = (e) => {
+                nuevoVertice.mover({ x: e.clientX, y: e.clientY });
+            };
+            window.addEventListener("mousemove", mousemove);
+            //cuando se haga click, se crea el vertice
+            const mousedown = (e) => {
+                //eliminamos el vertice falso
+                this.vertices.splice(this.vertices.indexOf(nuevoVertice), 1);
+                //creamos el vertice real
+                this.crearNuevoVertice(false, false, { x: e.clientX, y: e.clientY }, null, null);
+                this.finalizarCreacionVertice();
+                //quitamos los listeners
+                window.removeEventListener("mousemove", mousemove);
+                window.removeEventListener("mouseup", mousedown);
+            };
+            window.addEventListener("mouseup", mousedown);
+        }
+        finalizarCreacionVertice() {
+            this.creandoVertice = false;
+            this.recargarGrafo();
+        }
+        iniciarEliminacionArista() {
+            this.eliminandoArista = true;
+            this.recargarGrafo();
+            const mousedown = async (e) => {
+                //esperamos 100ms para que el evento de click del vertice se ejecute
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                this.finalizarEliminacionArista();
+                document.removeEventListener("mousedown", mousedown);
+            };
+            document.addEventListener("mousedown", mousedown);
+            //cancelarConClick(this.finalizarEliminacionArista.bind(this));
+        }
+        finalizarEliminacionArista() {
+            this.eliminandoArista = false;
+            this.recargarGrafo();
+        }
+        iniciarCreacionArista() {
+            this.nuevaAristaVerticeOrigen = null;
+            this.creandoArista = true;
+            this.recargarGrafo();
+            //cancelarConClick(this.finalizarCreacionArista.bind(this));
+            const mousedown = (e) => {
+                if (!this.nuevaAristaVerticeOrigen) {
+                    this.finalizarCreacionArista();
+                    document.removeEventListener("mousedown", mousedown);
+                }
+            };
+            document.addEventListener("mousedown", mousedown);
+        }
+        seleccionarVerticeNuevaArista(vertice) {
+            this.nuevaAristaVerticeOrigen = vertice;
+            //dibujamos un vertice falso conectado por una arista al vertice seleccionado
+            const verticeFalso = new Vertice$1(-1, false, false, { x: vertice.posicion.x, y: vertice.posicion.y }, "", 0, this);
+            this.vertices.push(verticeFalso);
+            const arista = new Arista$1(vertice, verticeFalso, false, false, -1, 0, this);
+            this.aristas[vertice.id][vertice.id] = arista;
+            this.recargarGrafo();
+            //hacemos que el vertice falso siga al mouse
+            const mousemove = (e) => {
+                verticeFalso.mover({ x: e.clientX, y: e.clientY });
+            };
+            window.addEventListener("mousemove", mousemove);
+            let firstClick = false;
+            const mousedown = () => {
+                if (!firstClick) {
+                    firstClick = true;
+                    return;
+                }
+                this.vertices.splice(this.vertices.indexOf(verticeFalso), 1);
+                this.aristas[vertice.id][vertice.id] = null;
+                document.removeEventListener("mousemove", mousemove);
+                document.removeEventListener("mousedown", mousedown);
+                this.finalizarCreacionArista();
+            };
+            document.addEventListener("mousedown", mousedown);
+        }
+        finalizarCreacionArista() {
+            this.creandoArista = false;
+            this.nuevaAristaVerticeOrigen = null;
+            this.recargarGrafo();
+        }
+        iniciarEliminacionVertice() {
+            this.eliminandoVertice = true;
+            this.recargarGrafo();
+            cancelarConClick(this.finalizarEliminacionVertice.bind(this));
+        }
+        eliminarVertice(vertice) {
+            console.log({ vertice });
+            //eliminamos el vertice de los arreglos
+            this.vertices.splice(vertice.id, 1);
+            this.fuentes.splice(vertice.id, 1);
+            this.sumideros.splice(vertice.id, 1);
+            //dismunimos el id de los vertices posteriores
+            for (let i = vertice.id; i < this.vertices.length; i++) {
+                this.vertices[i].id--;
+            }
+            //eliminamos la columna y la fila de la matriz de adyacencia
+            this.matrizAdyacencia.splice(vertice.id, 1);
+            for (let i = 0; i < this.matrizAdyacencia.length; i++) {
+                this.matrizAdyacencia[i].splice(vertice.id, 1);
+            }
+            console.log(this.matrizAdyacencia);
+            //eliminamos la columna y la fila de la matriz de aristas
+            this.aristas.splice(vertice.id, 1);
+            for (let i = 0; i < this.aristas.length; i++) {
+                this.aristas[i].splice(vertice.id, 1);
+            }
+            this.recargarGrafo();
+        }
+        finalizarEliminacionVertice() {
+            this.eliminandoVertice = false;
+            this.recargarGrafo();
+        }
+        generarGrafoAlAzar(cantVertices) {
+            const grafo = generarGrafoAlAzar(cantVertices, this.width, this.height, this.recargarGrafo, this);
+            this.matrizAdyacencia = grafo.matrizAdyacencia;
+            this.fuentes = grafo.fuentes;
+            this.sumideros = grafo.sumideros;
+            this.vertices = grafo.vertices;
+            this.aristas = grafo.aristas;
+            this.recargarGrafo();
+        }
+        eliminarArista(arista) {
+            this.matrizAdyacencia[arista.origen.id][arista.destino.id] = 0;
+            //this.matrizAdyacencia[arista.destino.id][arista.origen.id] = 0;
+            this.aristas[arista.origen.id][arista.destino.id] = null;
+            //this.aristas[arista.destino.id][arista.origen.id] = null;
+            this.recargarGrafo();
+        }
+        guardarGrafo() {
+            //copiamos los valores de la matriz de adyacencia sin la propiedad de grafo
+            const matrizAdyacencia = [];
+            for (let i = 0; i < this.matrizAdyacencia.length; i++) {
+                matrizAdyacencia[i] = [];
+                for (let j = 0; j < this.matrizAdyacencia[i].length; j++) {
+                    matrizAdyacencia[i][j] = (this.matrizAdyacencia[i][j] !== Infinity ? this.matrizAdyacencia[i][j] : -1); // JSON NO SOPORTA INFINITY
+                }
+            }
+            //copiamos las posiciones de los vertices
+            const posicionesVertices = [];
+            for (let i = 0; i < this.vertices.length; i++) {
+                posicionesVertices.push(this.vertices[i].posicion);
+            }
+            const grafo = {
+                matrizAdyacencia,
+                posicionesVertices,
+                fuentes: this.fuentes,
+                sumideros: this.sumideros
+            };
+            const blob = new Blob([JSON.stringify(grafo)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = "grafo.json";
+            link.href = url;
+            link.click();
+        }
+        inciarFlujoMaximo() {
+            this.ejecutandoFlujoMaximo = true;
+            this.avanzarIteracionFlujoMaximo = false;
+            const fuentes = this.vertices.filter(vertice => vertice.fuente);
+            const sumideros = this.vertices.filter(vertice => vertice.sumidero);
+            if (fuentes.length === 0) {
+                alert("Debe haber al menos una fuente");
+                this.finalizarFlujoMaximo();
+                return;
+            }
+            if (sumideros.length === 0) {
+                alert("Debe haber al menos un sumidero");
+                this.finalizarFlujoMaximo();
+                return;
+            }
+            let fuente = fuentes[0];
+            let sumidero = sumideros[0];
+            if (fuentes.length > 1 || sumideros.length > 1) {
+                if (!confirm("Se deben agregar vertices extra para ejecutar el algoritmo de flujo maximo con multiples fuentes y sumideros. ¿Desea continuar?")) {
+                    this.finalizarFlujoMaximo();
+                    return;
+                }
+                if (fuentes.length > 1) {
+                    const verticeNuevo = this.crearNuevoVertice(true, false, { x: this.width / 3, y: this.height / 2 });
+                    for (let i = 0; i < fuentes.length; i++) {
+                        this.crearNuevaArista(verticeNuevo, fuentes[i], Infinity);
+                        fuentes[i].toggleFuente();
+                    }
+                    fuente = verticeNuevo;
+                }
+                if (sumideros.length > 1) {
+                    const verticeNuevo = this.crearNuevoVertice(false, true, { x: this.width * 2 / 3, y: this.height / 2 });
+                    for (let i = 0; i < sumideros.length; i++) {
+                        this.crearNuevaArista(sumideros[i], verticeNuevo, Infinity);
+                        sumideros[i].toggleSumidero();
+                    }
+                    sumidero = verticeNuevo;
+                }
+            }
+            this.calcularFlujoMaximo(fuente, sumidero);
+        }
+        continuarFlujoMaximo() {
+            this.avanzarIteracionFlujoMaximo = true;
+        }
+        finalizarFlujoMaximo() {
+            this.ejecutandoFlujoMaximo = false;
+            this.avanzarIteracionFlujoMaximo = false;
+            this.clearCaminos();
+            this.recargarGrafo();
+            if (this.abortarFlujoMaximo) {
+                this.abortarFlujoMaximo.abort();
+                this.abortarFlujoMaximo = null;
+            }
+            this.recargarRedResidual();
+        }
+        generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros) {
+            const grafo = generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros, this.width, this.height, this.recargarGrafo, this);
+            this.matrizAdyacencia = grafo.matrizAdyacencia;
+            this.fuentes = grafo.fuentes;
+            this.sumideros = grafo.sumideros;
+            this.vertices = grafo.vertices;
+            this.aristas = grafo.aristas;
+            this.ejecutandoFlujoMaximo = false;
+            this.recargarGrafo();
+        }
+        crearNuevoVertice(fuente, sumidero, posicion, nombre, radio) {
+            const nuevoVertice = new Vertice$1(this.vertices.length, fuente, sumidero, posicion, nombre, radio, this);
+            this.vertices.push(nuevoVertice);
+            this.fuentes.push(fuente);
+            this.sumideros.push(sumidero);
+            //generamos una nueva fila y columna en la matriz de adyacencia
+            this.matrizAdyacencia.push(Array(this.vertices.length).fill(0));
+            for (let i = 0; i < this.matrizAdyacencia.length; i++) {
+                this.matrizAdyacencia[i].push(0);
+            }
+            //generamos una nueva fila y columna en la matriz de aristas
+            this.aristas.push(Array(this.vertices.length).fill(null));
+            for (let i = 0; i < this.aristas.length; i++) {
+                this.aristas[i].push(null);
+            }
+            this.recargarGrafo();
+            return nuevoVertice;
+        }
+        crearNuevaArista(verticeOrigen, verticeDestino, peso) {
+            //console.log({verticeOrigen, verticeDestino, peso});
+            //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
+            if (this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
+                alert("Ya existe esta arista");
+                this.finalizarCreacionArista();
+                return;
+            }
+            //Creamos la arista
+            const nuevaArista = new Arista$1(verticeOrigen, verticeDestino, false, false, peso, 0, this);
+            this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
+            this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+            this.finalizarCreacionArista();
+        }
+        DFSRecursivo(verticeActual, destino, visitados, camino) {
+            visitados[verticeActual.id] = true;
+            if (verticeActual === destino) {
+                return [...camino, destino];
+            }
+            for (let i = 0; i < this.vertices.length; i++) {
+                if (this.redResidual[verticeActual.id][i] !== 0 && !visitados[i]) {
+                    const caminoRecursivo = this.DFSRecursivo(this.vertices[i], destino, visitados, [...camino, verticeActual]);
+                    if (caminoRecursivo) { // si existe un camino
+                        return caminoRecursivo;
+                    }
+                }
+            }
+            return null;
+        }
+        buscarCamino(origen, destino) {
+            //DFS
+            let visitados = new Array(this.vertices.length).fill(false);
+            //console.log({redResidual: this.redResidual, visitados});
+            let camino = [];
+            camino = this.DFSRecursivo(origen, destino, visitados, camino);
+            return camino;
+        }
+        clearCaminos() {
+            for (let i = 0; i < this.aristas.length; i++) {
+                for (let j = 0; j < this.aristas.length; j++) {
+                    if (this.aristas[i][j]) {
+                        this.aristas[i][j].esCamino = false;
+                        this.aristas[i][j].fueCamino = false;
+                        this.aristas[i][j].flujo = 0;
+                    }
+                }
+            }
+        }
+        dibujarCamino(camino, flujo) {
+            //los caminos anteriores se guardan y se dibujan de otra forma
+            for (let i = 0; i < this.aristas.length; i++) {
+                for (let j = 0; j < this.aristas.length; j++) {
+                    if (this.aristas[i][j] && this.aristas[i][j].esCamino) {
+                        this.aristas[i][j].esCamino = false;
+                        this.aristas[i][j].fueCamino = true;
+                    }
+                }
+            }
+            for (let i = 0; i < camino.length - 1; i++) {
+                const vertice = camino[i];
+                const verticeSiguiente = camino[i + 1];
+                //console.log({vertice, verticeSiguiente});
+                //console.log({arregloAristas});
+                const arista = this.aristas[vertice.id][verticeSiguiente.id];
+                if (arista) {
+                    console.log({ arista });
+                    arista.esCamino = true;
+                    arista.fueCamino = false;
+                    //arista.flujo = flujo;
+                    arista.flujo = arista.flujo + flujo;
+                }
+            }
+            this.recargarGrafo();
+        }
+        recargarRedResidual() {
+            const nuevaRedResidual = [];
+            for (let i = 0; i < this.matrizAdyacencia.length; i++) {
+                nuevaRedResidual.push([]);
+                for (let j = 0; j < this.matrizAdyacencia.length; j++) {
+                    nuevaRedResidual[i].push(structuredClone(this.matrizAdyacencia[i][j]));
+                }
+            }
+            this.redResidual = nuevaRedResidual;
+        }
+        async esperarProximaIteracion() {
+            while (!this.avanzarIteracionFlujoMaximo && (this.abortarFlujoMaximo && !this.abortarFlujoMaximo.signal.aborted)) {
+                await new Promise(res => setTimeout(res, 100));
+            }
+            return new Promise((resolve, reject) => {
+                if (!this.abortarFlujoMaximo || this.abortarFlujoMaximo.signal.aborted) {
+                    const error = new Error("El flujo maximo fue abortado");
+                    reject(error);
+                }
+                this.recargarGrafo();
+                console.log("Esperando siguiente iteracion");
+                this.avanzarIteracionFlujoMaximo = false;
+                this.recargarGrafo();
+                resolve();
+            });
+        }
+        async calcularFlujoMaximo(fuente, sumidero) {
+            if (!this.consola.abierta) {
+                this.consola.abrir();
+            }
+            try {
+                this.abortarFlujoMaximo = new AbortController();
+                this.recargarRedResidual(); // <-- Hacemos esto aca para evitar problemas al mostrar la variable en consola
+                this.consola.printTextoExplicativo("✨ Iniciamos la variable de flujo maximo en 0");
+                this.consola.setUbicacionPseudoCodigo("DEFINIR FLUJO_MAXIMO = 0");
+                let flujoMaximo = 0;
+                await this.esperarProximaIteracion();
+                this.consola.printTextoExplicativo("🕸️ Creamos la red residual como una copia de la matriz de adyacencia");
+                this.consola.setUbicacionPseudoCodigo("DEFINIR RED_RESIDUAL = MATRIZ_ADYACENCIA");
+                //this.recargarRedResidual();
+                await this.esperarProximaIteracion();
+                this.consola.printTextoExplicativo("🔍️ Buscamos un camino desde la fuente al sumidero, utilizando la red residual");
+                this.consola.setUbicacionPseudoCodigo("CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)");
+                let camino = this.buscarCamino(fuente, sumidero);
+                await this.esperarProximaIteracion();
+                while (true) {
+                    if (!camino) {
+                        this.consola.printTextoExplicativo("🚫 No existe otro camino desde la fuente al sumidero, por lo tanto finalizamos el algoritmo");
+                        this.consola.setUbicacionPseudoCodigo("FIN_MIENTRAS");
+                        await this.esperarProximaIteracion();
+                        this.consola.printTextoExplicativo("🎉 El flujo maximo es: " + flujoMaximo);
+                        this.consola.setUbicacionPseudoCodigo("RETORNAR FLUJO_MAXIMO");
+                        await this.esperarProximaIteracion();
+                        this.finalizarFlujoMaximo();
+                        return;
+                    }
+                    this.consola.printTextoExplicativo("🗺️ Existe un camino desde la fuente al sumidero, pasando por los vertices: " + camino.map(vertice => vertice.id).join(", "));
+                    this.consola.setUbicacionPseudoCodigo("MIENTRAS EXISTA CAMINO:");
+                    this.dibujarCamino(camino, 0);
+                    await this.esperarProximaIteracion();
+                    this.consola.printTextoExplicativo("📈 Calculamos el flujo que puede pasar por el camino");
+                    this.consola.printTextoExplicativo("📈 El flujo que puede pasar por el camino es el minimo entre las aristas que lo componen");
+                    this.consola.setUbicacionPseudoCodigo("    FLUJO_MINIMO = MINIMO(CAPACIDADES(CAMINO))");
+                    let cuelloBotella = Number.MAX_SAFE_INTEGER;
+                    for (let i = 0; i < camino.length - 1; i++) {
+                        const vertice = camino[i];
+                        const verticeSiguiente = camino[i + 1];
+                        const peso = this.redResidual[vertice.id][verticeSiguiente.id];
+                        if (peso < cuelloBotella) {
+                            cuelloBotella = peso;
+                        }
+                    }
+                    this.consola.printTextoExplicativo("🚰 El flujo minimo del camino es: " + cuelloBotella);
+                    await this.esperarProximaIteracion();
+                    this.consola.printTextoExplicativo("➕ Sumamos el flujo minimo al flujo maximo");
+                    this.consola.setUbicacionPseudoCodigo("    FLUJO_MAXIMO = FLUJO_MAXIMO + FLUJO_MINIMO");
+                    flujoMaximo += cuelloBotella;
+                    this.dibujarCamino(camino, cuelloBotella);
+                    this.consola.printTextoExplicativo("🚰 El flujo maximo actualmente es: " + flujoMaximo);
+                    await this.esperarProximaIteracion();
+                    this.consola.printTextoExplicativo("🕸️ Actualizamos la red residual");
+                    this.consola.printTextoExplicativo("🕸️ Restamos el flujo minimo a las aristas que componen el camino");
+                    this.consola.printTextoExplicativo("🤔 ¿Por que restamos el flujo minimo a las aristas que componen el camino?");
+                    this.consola.printTextoExplicativo("🤔 Porque de esta forma estamos indicando que el flujo minimo ya pasó por esas aristas");
+                    this.consola.setUbicacionPseudoCodigo("    ACTUALIZAR_CAPACIDADES(RED_RESIDUAL ,CAMINO, FLUJO_MINIMO)");
+                    for (let i = 0; i < camino.length - 1; i++) {
+                        const vertice = camino[i];
+                        const verticeSiguiente = camino[i + 1];
+                        this.redResidual[vertice.id][verticeSiguiente.id] -= cuelloBotella;
+                    }
+                    //this.clearCaminos();
+                    await this.esperarProximaIteracion();
+                    this.consola.printTextoExplicativo("🔍️ Buscamos un nuevo camino desde la fuente al sumidero, utilizando la red residual");
+                    this.consola.setUbicacionPseudoCodigo("    CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)");
+                    camino = this.buscarCamino(fuente, sumidero);
+                    await this.esperarProximaIteracion();
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        cambiarTamanio(width, height) {
+            this.width = width;
+            this.height = height;
+            for (let i = 0; i < this.vertices.length; i++) {
+                this.vertices[i].reposicionarLimites(width, height);
+            }
+        }
+        actualizarComponentes(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarGrafo) {
+            if (matrizAdyacencia) {
+                this.matrizAdyacencia = matrizAdyacencia;
+            }
+            if (fuentes) {
+                this.fuentes = fuentes;
+            }
+            if (sumideros) {
+                this.sumideros = sumideros;
+            }
+            if (vertices) {
+                this.vertices = vertices;
+            }
+            if (aristas) {
+                this.aristas = aristas;
+            }
+            if (width) {
+                this.width = width;
+            }
+            if (height) {
+                this.height = height;
+            }
+            if (recargarGrafo) {
+                this.recargarGrafo = recargarGrafo;
+            }
+        }
+    }
+
+    class Consola$1 {
+        constructor(grafo) {
+            this.abierta = false;
+            this.categorias = [
+                "EXPLICACION",
+                "PSEUDOCODIGO",
+                "RED_RESIDUAL",
+            ];
+            this.categoria = this.categorias[0];
+            this.pseudoCodigo = [
+                "DEFINIR FLUJO_MAXIMO = 0",
+                "DEFINIR RED_RESIDUAL = MATRIZ_ADYACENCIA",
+                "CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)",
+                "MIENTRAS EXISTA CAMINO:",
+                "    FLUJO_MINIMO = MINIMO(CAPACIDADES(CAMINO))",
+                "    FLUJO_MAXIMO = FLUJO_MAXIMO + FLUJO_MINIMO",
+                "    ACTUALIZAR_CAPACIDADES(RED_RESIDUAL ,CAMINO, FLUJO_MINIMO)",
+                "    CAMINO = ENCONTRAR_CAMINO_AUMENTANTE(RED_RESIDUAL, FUENTE, SUMIDERO)",
+                "FIN_MIENTRAS",
+                "RETORNAR FLUJO_MAXIMO"
+            ];
+            this.ubicacionPseudoCodigo = -1;
+            this.textoExplicativo = [];
+            this.grafo = grafo || null;
+        }
+        abrir() {
+            this.abierta = true;
+            this.grafo.recargarGrafo();
+        }
+        cerrar() {
+            this.abierta = false;
+            this.grafo.recargarGrafo();
+        }
+        cambiarCategoria(categoria) {
+            if (this.categorias.indexOf(categoria) === -1) {
+                console.log("Categoría no valida: " + categoria);
+                return;
+            }
+            this.categoria = categoria;
+            this.grafo.recargarGrafo();
+        }
+        setUbicacionPseudoCodigo(pseudocidigo) {
+            const posicion = this.pseudoCodigo.indexOf(pseudocidigo);
+            if (posicion === -1) {
+                console.log("Pseudocódigo no valido: " + pseudocidigo);
+                return;
+            }
+            this.ubicacionPseudoCodigo = posicion;
+            this.grafo.recargarGrafo();
+        }
+        printTextoExplicativo(texto) {
+            const maxTextoExplicativo = 1000;
+            this.textoExplicativo.push(texto);
+            if (this.textoExplicativo.length > maxTextoExplicativo) {
+                this.textoExplicativo.shift();
+            }
+            this.grafo.recargarGrafo();
+        }
+        asignarGrafo(grafo) {
+            this.grafo = grafo;
+        }
+    }
+
+    const verticeRadio = 35;
+    function generarMatrizAlAzar(cantVertices) {
+        const matrizAdyacencia = [];
+        for (let i = 0; i < cantVertices; i++) {
+            const arreglo = [];
+            for (let j = 0; j < cantVertices; j++) {
+                if (i === j) {
+                    arreglo.push(0);
+                }
+                else {
+                    if (Math.random() > 0.5) {
+                        arreglo.push(Math.floor(Math.random() * 100));
+                    }
+                    else {
+                        arreglo.push(0);
+                    }
+                }
+            }
+            matrizAdyacencia.push(arreglo);
+        }
+        //console.log({matrizAdyacencia});
+        return matrizAdyacencia;
+    }
+    function generarPosicionesVertices(cantVertices, width, height) {
+        const centro = {
+            x: width / 2,
+            y: height / 2
+        };
+        if (cantVertices === 1) {
+            return [centro];
+        }
+        const distancia = Math.min(width, height) / 2 - verticeRadio * 2;
+        const angulo = 2 * Math.PI / cantVertices;
+        const posiciones = [];
+        for (let i = 0; i < cantVertices; i++) {
+            const x = centro.x + distancia * Math.cos(i * angulo);
+            const y = centro.y + distancia * Math.sin(i * angulo);
+            posiciones.push({ x, y });
+        }
+        return posiciones;
+    }
+    function generarVertices(matrizAdyacencia, fuentes, sumideros, posiciones) {
+        const vertices = [];
+        for (let i = 0; i < matrizAdyacencia.length; i++) {
+            const nuevoVertice = new Vertice$1(i, fuentes[i], sumideros[i], posiciones[i]);
+            vertices.push(nuevoVertice);
+        }
+        return vertices;
+    }
+    function asignarGrafoAVertices(vertices, grafo) {
+        for (const vertice of vertices) {
+            vertice.asignarGrafo(grafo);
+        }
+    }
+    function generarAristas(matrizAdyacencia, vertices) {
+        const arregloAristas = [];
+        matrizAdyacencia.forEach((arreglo) => {
+            arregloAristas.push(new Array(arreglo.length).fill(null));
+        });
+        for (let i = 0; i < matrizAdyacencia.length; i++) {
+            //arregloAristas.push([]);
+            for (let j = 0; j < matrizAdyacencia.length; j++) {
+                if (j === i)
+                    continue;
+                if (matrizAdyacencia[i][j] === 0)
+                    continue;
+                const origen = vertices[i];
+                const destino = vertices[j];
+                const esCamino = false;
+                const fueCamino = false;
+                const peso = matrizAdyacencia[i][j];
+                const flujo = 0;
+                const nuevaArista = new Arista$1(origen, destino, esCamino, fueCamino, peso, flujo, null);
+                //arregloAristas[i].push(nuevaArista);
+                arregloAristas[i][j] = nuevaArista;
+                //arregloAristas[j][i] = nuevaArista;
+            }
+        }
+        return arregloAristas;
+    }
+    function asignarGrafoAAristas(aristas, grafo) {
+        for (const arreglo of aristas) {
+            for (const arista of arreglo) {
+                if (arista) {
+                    arista.asignarGrafo(grafo);
+                }
+            }
+        }
+    }
+    function generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros, width, height, recargarGrafo, grafo) {
+        const vertices = generarVertices(matrizAdyacencia, fuentes, sumideros, posicionesVertices);
+        const aristas = generarAristas(matrizAdyacencia, vertices);
+        const consola = new Consola$1();
+        if (!grafo) {
+            grafo = new Grafo$2(matrizAdyacencia, fuentes, sumideros, vertices, aristas, consola, width, height, recargarGrafo);
+        }
+        else {
+            grafo.actualizarComponentes(matrizAdyacencia, fuentes, sumideros, vertices, aristas, width, height, recargarGrafo);
+        }
+        consola.asignarGrafo(grafo);
+        asignarGrafoAVertices(vertices, grafo);
+        asignarGrafoAAristas(aristas, grafo);
+        console.log({ grafo });
+        return grafo;
+    }
+    function generarGrafoAlAzar(cantVertices, width, height, recargarGrafo, grafo) {
+        const matrizAdyacencia = generarMatrizAlAzar(cantVertices);
+        //tomamos el primer vertice como fuente y el ultimo como sumidero
+        const fuentes = [];
+        const sumideros = [];
+        for (let i = 0; i < cantVertices; i++) {
+            fuentes.push(false);
+            sumideros.push(false);
+        }
+        fuentes[0] = true;
+        sumideros[cantVertices - 1] = true;
+        const posiciones = generarPosicionesVertices(cantVertices, width, height);
+        return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros, width, height, recargarGrafo, grafo);
+    }
+
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function getAugmentedNamespace(n) {
+    	if (n.__esModule) return n;
+    	var a = Object.defineProperty({}, '__esModule', {value: true});
+    	Object.keys(n).forEach(function (k) {
+    		var d = Object.getOwnPropertyDescriptor(n, k);
+    		Object.defineProperty(a, k, d.get ? d : {
+    			enumerable: true,
+    			get: function () {
+    				return n[k];
+    			}
+    		});
+    	});
+    	return a;
+    }
+
+    var lib = {};
+
+    /*! Copyright Twitter Inc. and other contributors. Licensed under MIT */
+    var twemoji$1=function(){var twemoji={base:"https://twemoji.maxcdn.com/v/14.0.2/",ext:".png",size:"72x72",className:"emoji",convert:{fromCodePoint:fromCodePoint,toCodePoint:toCodePoint},onerror:function onerror(){if(this.parentNode){this.parentNode.replaceChild(createText(this.alt,false),this);}},parse:parse,replace:replace,test:test},escaper={"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"},re=/(?:\ud83d\udc68\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83e\uddd1\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83e\uddd1\ud83c[\udffc-\udfff]|\ud83e\uddd1\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83e\uddd1\ud83c[\udffb\udffd-\udfff]|\ud83e\uddd1\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83e\uddd1\ud83c[\udffb\udffc\udffe\udfff]|\ud83e\uddd1\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83e\uddd1\ud83c[\udffb-\udffd\udfff]|\ud83e\uddd1\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83e\uddd1\ud83c[\udffb-\udffe]|\ud83d\udc68\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffb\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffc-\udfff]|\ud83d\udc68\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffc\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb\udffd-\udfff]|\ud83d\udc68\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffd\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb\udffc\udffe\udfff]|\ud83d\udc68\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udffe\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb-\udffd\udfff]|\ud83d\udc68\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc68\ud83c\udfff\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb-\udffe]|\ud83d\udc69\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffb\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffc-\udfff]|\ud83d\udc69\ud83c\udffb\u200d\ud83e\udd1d\u200d\ud83d\udc69\ud83c[\udffc-\udfff]|\ud83d\udc69\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffc\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb\udffd-\udfff]|\ud83d\udc69\ud83c\udffc\u200d\ud83e\udd1d\u200d\ud83d\udc69\ud83c[\udffb\udffd-\udfff]|\ud83d\udc69\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffd\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb\udffc\udffe\udfff]|\ud83d\udc69\ud83c\udffd\u200d\ud83e\udd1d\u200d\ud83d\udc69\ud83c[\udffb\udffc\udffe\udfff]|\ud83d\udc69\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udffe\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb-\udffd\udfff]|\ud83d\udc69\ud83c\udffe\u200d\ud83e\udd1d\u200d\ud83d\udc69\ud83c[\udffb-\udffd\udfff]|\ud83d\udc69\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc68\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83d\udc69\ud83c[\udffb-\udfff]|\ud83d\udc69\ud83c\udfff\u200d\ud83e\udd1d\u200d\ud83d\udc68\ud83c[\udffb-\udffe]|\ud83d\udc69\ud83c\udfff\u200d\ud83e\udd1d\u200d\ud83d\udc69\ud83c[\udffb-\udffe]|\ud83e\uddd1\ud83c\udffb\u200d\u2764\ufe0f\u200d\ud83e\uddd1\ud83c[\udffc-\udfff]|\ud83e\uddd1\ud83c\udffb\u200d\ud83e\udd1d\u200d\ud83e\uddd1\ud83c[\udffb-\udfff]|\ud83e\uddd1\ud83c\udffc\u200d\u2764\ufe0f\u200d\ud83e\uddd1\ud83c[\udffb\udffd-\udfff]|\ud83e\uddd1\ud83c\udffc\u200d\ud83e\udd1d\u200d\ud83e\uddd1\ud83c[\udffb-\udfff]|\ud83e\uddd1\ud83c\udffd\u200d\u2764\ufe0f\u200d\ud83e\uddd1\ud83c[\udffb\udffc\udffe\udfff]|\ud83e\uddd1\ud83c\udffd\u200d\ud83e\udd1d\u200d\ud83e\uddd1\ud83c[\udffb-\udfff]|\ud83e\uddd1\ud83c\udffe\u200d\u2764\ufe0f\u200d\ud83e\uddd1\ud83c[\udffb-\udffd\udfff]|\ud83e\uddd1\ud83c\udffe\u200d\ud83e\udd1d\u200d\ud83e\uddd1\ud83c[\udffb-\udfff]|\ud83e\uddd1\ud83c\udfff\u200d\u2764\ufe0f\u200d\ud83e\uddd1\ud83c[\udffb-\udffe]|\ud83e\uddd1\ud83c\udfff\u200d\ud83e\udd1d\u200d\ud83e\uddd1\ud83c[\udffb-\udfff]|\ud83d\udc68\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d\udc68|\ud83d\udc69\u200d\u2764\ufe0f\u200d\ud83d\udc8b\u200d\ud83d[\udc68\udc69]|\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c[\udffc-\udfff]|\ud83e\udef1\ud83c\udffc\u200d\ud83e\udef2\ud83c[\udffb\udffd-\udfff]|\ud83e\udef1\ud83c\udffd\u200d\ud83e\udef2\ud83c[\udffb\udffc\udffe\udfff]|\ud83e\udef1\ud83c\udffe\u200d\ud83e\udef2\ud83c[\udffb-\udffd\udfff]|\ud83e\udef1\ud83c\udfff\u200d\ud83e\udef2\ud83c[\udffb-\udffe]|\ud83d\udc68\u200d\u2764\ufe0f\u200d\ud83d\udc68|\ud83d\udc69\u200d\u2764\ufe0f\u200d\ud83d[\udc68\udc69]|\ud83e\uddd1\u200d\ud83e\udd1d\u200d\ud83e\uddd1|\ud83d\udc6b\ud83c[\udffb-\udfff]|\ud83d\udc6c\ud83c[\udffb-\udfff]|\ud83d\udc6d\ud83c[\udffb-\udfff]|\ud83d\udc8f\ud83c[\udffb-\udfff]|\ud83d\udc91\ud83c[\udffb-\udfff]|\ud83e\udd1d\ud83c[\udffb-\udfff]|\ud83d[\udc6b-\udc6d\udc8f\udc91]|\ud83e\udd1d)|(?:\ud83d[\udc68\udc69]|\ud83e\uddd1)(?:\ud83c[\udffb-\udfff])?\u200d(?:\u2695\ufe0f|\u2696\ufe0f|\u2708\ufe0f|\ud83c[\udf3e\udf73\udf7c\udf84\udf93\udfa4\udfa8\udfeb\udfed]|\ud83d[\udcbb\udcbc\udd27\udd2c\ude80\ude92]|\ud83e[\uddaf-\uddb3\uddbc\uddbd])|(?:\ud83c[\udfcb\udfcc]|\ud83d[\udd74\udd75]|\u26f9)((?:\ud83c[\udffb-\udfff]|\ufe0f)\u200d[\u2640\u2642]\ufe0f)|(?:\ud83c[\udfc3\udfc4\udfca]|\ud83d[\udc6e\udc70\udc71\udc73\udc77\udc81\udc82\udc86\udc87\ude45-\ude47\ude4b\ude4d\ude4e\udea3\udeb4-\udeb6]|\ud83e[\udd26\udd35\udd37-\udd39\udd3d\udd3e\uddb8\uddb9\uddcd-\uddcf\uddd4\uddd6-\udddd])(?:\ud83c[\udffb-\udfff])?\u200d[\u2640\u2642]\ufe0f|(?:\ud83d\udc68\u200d\ud83d\udc68\u200d\ud83d\udc66\u200d\ud83d\udc66|\ud83d\udc68\u200d\ud83d\udc68\u200d\ud83d\udc67\u200d\ud83d[\udc66\udc67]|\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc66\u200d\ud83d\udc66|\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d[\udc66\udc67]|\ud83d\udc69\u200d\ud83d\udc69\u200d\ud83d\udc66\u200d\ud83d\udc66|\ud83d\udc69\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d[\udc66\udc67]|\ud83d\udc68\u200d\ud83d\udc66\u200d\ud83d\udc66|\ud83d\udc68\u200d\ud83d\udc67\u200d\ud83d[\udc66\udc67]|\ud83d\udc68\u200d\ud83d\udc68\u200d\ud83d[\udc66\udc67]|\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d[\udc66\udc67]|\ud83d\udc69\u200d\ud83d\udc66\u200d\ud83d\udc66|\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d[\udc66\udc67]|\ud83d\udc69\u200d\ud83d\udc69\u200d\ud83d[\udc66\udc67]|\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f|\ud83c\udff3\ufe0f\u200d\ud83c\udf08|\ud83d\ude36\u200d\ud83c\udf2b\ufe0f|\u2764\ufe0f\u200d\ud83d\udd25|\u2764\ufe0f\u200d\ud83e\ude79|\ud83c\udff4\u200d\u2620\ufe0f|\ud83d\udc15\u200d\ud83e\uddba|\ud83d\udc3b\u200d\u2744\ufe0f|\ud83d\udc41\u200d\ud83d\udde8|\ud83d\udc68\u200d\ud83d[\udc66\udc67]|\ud83d\udc69\u200d\ud83d[\udc66\udc67]|\ud83d\udc6f\u200d\u2640\ufe0f|\ud83d\udc6f\u200d\u2642\ufe0f|\ud83d\ude2e\u200d\ud83d\udca8|\ud83d\ude35\u200d\ud83d\udcab|\ud83e\udd3c\u200d\u2640\ufe0f|\ud83e\udd3c\u200d\u2642\ufe0f|\ud83e\uddde\u200d\u2640\ufe0f|\ud83e\uddde\u200d\u2642\ufe0f|\ud83e\udddf\u200d\u2640\ufe0f|\ud83e\udddf\u200d\u2642\ufe0f|\ud83d\udc08\u200d\u2b1b)|[#*0-9]\ufe0f?\u20e3|(?:[©®\u2122\u265f]\ufe0f)|(?:\ud83c[\udc04\udd70\udd71\udd7e\udd7f\ude02\ude1a\ude2f\ude37\udf21\udf24-\udf2c\udf36\udf7d\udf96\udf97\udf99-\udf9b\udf9e\udf9f\udfcd\udfce\udfd4-\udfdf\udff3\udff5\udff7]|\ud83d[\udc3f\udc41\udcfd\udd49\udd4a\udd6f\udd70\udd73\udd76-\udd79\udd87\udd8a-\udd8d\udda5\udda8\uddb1\uddb2\uddbc\uddc2-\uddc4\uddd1-\uddd3\udddc-\uddde\udde1\udde3\udde8\uddef\uddf3\uddfa\udecb\udecd-\udecf\udee0-\udee5\udee9\udef0\udef3]|[\u203c\u2049\u2139\u2194-\u2199\u21a9\u21aa\u231a\u231b\u2328\u23cf\u23ed-\u23ef\u23f1\u23f2\u23f8-\u23fa\u24c2\u25aa\u25ab\u25b6\u25c0\u25fb-\u25fe\u2600-\u2604\u260e\u2611\u2614\u2615\u2618\u2620\u2622\u2623\u2626\u262a\u262e\u262f\u2638-\u263a\u2640\u2642\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267b\u267f\u2692-\u2697\u2699\u269b\u269c\u26a0\u26a1\u26a7\u26aa\u26ab\u26b0\u26b1\u26bd\u26be\u26c4\u26c5\u26c8\u26cf\u26d1\u26d3\u26d4\u26e9\u26ea\u26f0-\u26f5\u26f8\u26fa\u26fd\u2702\u2708\u2709\u270f\u2712\u2714\u2716\u271d\u2721\u2733\u2734\u2744\u2747\u2757\u2763\u2764\u27a1\u2934\u2935\u2b05-\u2b07\u2b1b\u2b1c\u2b50\u2b55\u3030\u303d\u3297\u3299])(?:\ufe0f|(?!\ufe0e))|(?:(?:\ud83c[\udfcb\udfcc]|\ud83d[\udd74\udd75\udd90]|[\u261d\u26f7\u26f9\u270c\u270d])(?:\ufe0f|(?!\ufe0e))|(?:\ud83c[\udf85\udfc2-\udfc4\udfc7\udfca]|\ud83d[\udc42\udc43\udc46-\udc50\udc66-\udc69\udc6e\udc70-\udc78\udc7c\udc81-\udc83\udc85-\udc87\udcaa\udd7a\udd95\udd96\ude45-\ude47\ude4b-\ude4f\udea3\udeb4-\udeb6\udec0\udecc]|\ud83e[\udd0c\udd0f\udd18-\udd1c\udd1e\udd1f\udd26\udd30-\udd39\udd3d\udd3e\udd77\uddb5\uddb6\uddb8\uddb9\uddbb\uddcd-\uddcf\uddd1-\udddd\udec3-\udec5\udef0-\udef6]|[\u270a\u270b]))(?:\ud83c[\udffb-\udfff])?|(?:\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f|\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f|\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc77\udb40\udc6c\udb40\udc73\udb40\udc7f|\ud83c\udde6\ud83c[\udde8-\uddec\uddee\uddf1\uddf2\uddf4\uddf6-\uddfa\uddfc\uddfd\uddff]|\ud83c\udde7\ud83c[\udde6\udde7\udde9-\uddef\uddf1-\uddf4\uddf6-\uddf9\uddfb\uddfc\uddfe\uddff]|\ud83c\udde8\ud83c[\udde6\udde8\udde9\uddeb-\uddee\uddf0-\uddf5\uddf7\uddfa-\uddff]|\ud83c\udde9\ud83c[\uddea\uddec\uddef\uddf0\uddf2\uddf4\uddff]|\ud83c\uddea\ud83c[\udde6\udde8\uddea\uddec\udded\uddf7-\uddfa]|\ud83c\uddeb\ud83c[\uddee-\uddf0\uddf2\uddf4\uddf7]|\ud83c\uddec\ud83c[\udde6\udde7\udde9-\uddee\uddf1-\uddf3\uddf5-\uddfa\uddfc\uddfe]|\ud83c\udded\ud83c[\uddf0\uddf2\uddf3\uddf7\uddf9\uddfa]|\ud83c\uddee\ud83c[\udde8-\uddea\uddf1-\uddf4\uddf6-\uddf9]|\ud83c\uddef\ud83c[\uddea\uddf2\uddf4\uddf5]|\ud83c\uddf0\ud83c[\uddea\uddec-\uddee\uddf2\uddf3\uddf5\uddf7\uddfc\uddfe\uddff]|\ud83c\uddf1\ud83c[\udde6-\udde8\uddee\uddf0\uddf7-\uddfb\uddfe]|\ud83c\uddf2\ud83c[\udde6\udde8-\udded\uddf0-\uddff]|\ud83c\uddf3\ud83c[\udde6\udde8\uddea-\uddec\uddee\uddf1\uddf4\uddf5\uddf7\uddfa\uddff]|\ud83c\uddf4\ud83c\uddf2|\ud83c\uddf5\ud83c[\udde6\uddea-\udded\uddf0-\uddf3\uddf7-\uddf9\uddfc\uddfe]|\ud83c\uddf6\ud83c\udde6|\ud83c\uddf7\ud83c[\uddea\uddf4\uddf8\uddfa\uddfc]|\ud83c\uddf8\ud83c[\udde6-\uddea\uddec-\uddf4\uddf7-\uddf9\uddfb\uddfd-\uddff]|\ud83c\uddf9\ud83c[\udde6\udde8\udde9\uddeb-\udded\uddef-\uddf4\uddf7\uddf9\uddfb\uddfc\uddff]|\ud83c\uddfa\ud83c[\udde6\uddec\uddf2\uddf3\uddf8\uddfe\uddff]|\ud83c\uddfb\ud83c[\udde6\udde8\uddea\uddec\uddee\uddf3\uddfa]|\ud83c\uddfc\ud83c[\uddeb\uddf8]|\ud83c\uddfd\ud83c\uddf0|\ud83c\uddfe\ud83c[\uddea\uddf9]|\ud83c\uddff\ud83c[\udde6\uddf2\uddfc]|\ud83c[\udccf\udd8e\udd91-\udd9a\udde6-\uddff\ude01\ude32-\ude36\ude38-\ude3a\ude50\ude51\udf00-\udf20\udf2d-\udf35\udf37-\udf7c\udf7e-\udf84\udf86-\udf93\udfa0-\udfc1\udfc5\udfc6\udfc8\udfc9\udfcf-\udfd3\udfe0-\udff0\udff4\udff8-\udfff]|\ud83d[\udc00-\udc3e\udc40\udc44\udc45\udc51-\udc65\udc6a\udc6f\udc79-\udc7b\udc7d-\udc80\udc84\udc88-\udc8e\udc90\udc92-\udca9\udcab-\udcfc\udcff-\udd3d\udd4b-\udd4e\udd50-\udd67\udda4\uddfb-\ude44\ude48-\ude4a\ude80-\udea2\udea4-\udeb3\udeb7-\udebf\udec1-\udec5\uded0-\uded2\uded5-\uded7\udedd-\udedf\udeeb\udeec\udef4-\udefc\udfe0-\udfeb\udff0]|\ud83e[\udd0d\udd0e\udd10-\udd17\udd20-\udd25\udd27-\udd2f\udd3a\udd3c\udd3f-\udd45\udd47-\udd76\udd78-\uddb4\uddb7\uddba\uddbc-\uddcc\uddd0\uddde-\uddff\ude70-\ude74\ude78-\ude7c\ude80-\ude86\ude90-\udeac\udeb0-\udeba\udec0-\udec2\uded0-\uded9\udee0-\udee7]|[\u23e9-\u23ec\u23f0\u23f3\u267e\u26ce\u2705\u2728\u274c\u274e\u2753-\u2755\u2795-\u2797\u27b0\u27bf\ue50a])|\ufe0f/g,UFE0Fg=/\uFE0F/g,U200D=String.fromCharCode(8205),rescaper=/[&<>'"]/g,shouldntBeParsed=/^(?:iframe|noframes|noscript|script|select|style|textarea)$/,fromCharCode=String.fromCharCode;return twemoji;function createText(text,clean){return document.createTextNode(clean?text.replace(UFE0Fg,""):text)}function escapeHTML(s){return s.replace(rescaper,replacer)}function defaultImageSrcGenerator(icon,options){return "".concat(options.base,options.size,"/",icon,options.ext)}function grabAllTextNodes(node,allText){var childNodes=node.childNodes,length=childNodes.length,subnode,nodeType;while(length--){subnode=childNodes[length];nodeType=subnode.nodeType;if(nodeType===3){allText.push(subnode);}else if(nodeType===1&&!("ownerSVGElement"in subnode)&&!shouldntBeParsed.test(subnode.nodeName.toLowerCase())){grabAllTextNodes(subnode,allText);}}return allText}function grabTheRightIcon(rawText){return toCodePoint(rawText.indexOf(U200D)<0?rawText.replace(UFE0Fg,""):rawText)}function parseNode(node,options){var allText=grabAllTextNodes(node,[]),length=allText.length,attrib,attrname,modified,fragment,subnode,text,match,i,index,img,rawText,iconId,src;while(length--){modified=false;fragment=document.createDocumentFragment();subnode=allText[length];text=subnode.nodeValue;i=0;while(match=re.exec(text)){index=match.index;if(index!==i){fragment.appendChild(createText(text.slice(i,index),true));}rawText=match[0];iconId=grabTheRightIcon(rawText);i=index+rawText.length;src=options.callback(iconId,options);if(iconId&&src){img=new Image;img.onerror=options.onerror;img.setAttribute("draggable","false");attrib=options.attributes(rawText,iconId);for(attrname in attrib){if(attrib.hasOwnProperty(attrname)&&attrname.indexOf("on")!==0&&!img.hasAttribute(attrname)){img.setAttribute(attrname,attrib[attrname]);}}img.className=options.className;img.alt=rawText;img.src=src;modified=true;fragment.appendChild(img);}if(!img)fragment.appendChild(createText(rawText,false));img=null;}if(modified){if(i<text.length){fragment.appendChild(createText(text.slice(i),true));}subnode.parentNode.replaceChild(fragment,subnode);}}return node}function parseString(str,options){return replace(str,function(rawText){var ret=rawText,iconId=grabTheRightIcon(rawText),src=options.callback(iconId,options),attrib,attrname;if(iconId&&src){ret="<img ".concat('class="',options.className,'" ','draggable="false" ','alt="',rawText,'"',' src="',src,'"');attrib=options.attributes(rawText,iconId);for(attrname in attrib){if(attrib.hasOwnProperty(attrname)&&attrname.indexOf("on")!==0&&ret.indexOf(" "+attrname+"=")===-1){ret=ret.concat(" ",attrname,'="',escapeHTML(attrib[attrname]),'"');}}ret=ret.concat("/>");}return ret})}function replacer(m){return escaper[m]}function returnNull(){return null}function toSizeSquaredAsset(value){return typeof value==="number"?value+"x"+value:value}function fromCodePoint(codepoint){var code=typeof codepoint==="string"?parseInt(codepoint,16):codepoint;if(code<65536){return fromCharCode(code)}code-=65536;return fromCharCode(55296+(code>>10),56320+(code&1023))}function parse(what,how){if(!how||typeof how==="function"){how={callback:how};}return (typeof what==="string"?parseString:parseNode)(what,{callback:how.callback||defaultImageSrcGenerator,attributes:typeof how.attributes==="function"?how.attributes:returnNull,base:typeof how.base==="string"?how.base:twemoji.base,ext:how.ext||twemoji.ext,size:how.folder||toSizeSquaredAsset(how.size||twemoji.size),className:how.className||twemoji.className,onerror:how.onerror||twemoji.onerror})}function replace(text,callback){return String(text).replace(re,callback)}function test(text){re.lastIndex=0;var result=re.test(text);re.lastIndex=0;return result}function toCodePoint(unicodeSurrogates,sep){var r=[],c=0,p=0,i=0;while(i<unicodeSurrogates.length){c=unicodeSurrogates.charCodeAt(i++);if(p){r.push((65536+(p-55296<<10)+(c-56320)).toString(16));p=0;}else if(55296<=c&&c<=56319){p=c;}else {r.push(c.toString(16));}}return r.join(sep||"-")}}();
+
+    var twemoji_esm = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        'default': twemoji$1
+    });
+
+    var require$$0 = /*@__PURE__*/getAugmentedNamespace(twemoji_esm);
+
+    var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
+        return (mod && mod.__esModule) ? mod : { "default": mod };
+    };
+    Object.defineProperty(lib, "__esModule", { value: true });
+    var twemoji_2 = lib.twemoji = void 0;
+    var twemoji_1 = __importDefault(require$$0);
+    function twemoji(node, options) {
+        if (options === void 0) { options = {}; }
+        twemoji_1.default.parse(node, options);
+    }
+    twemoji_2 = lib.twemoji = twemoji;
+
+    /* src/components/Ayuda/Items/App/Interfaz.md generated by Svelte v3.48.0 */
+
+    const file$n = "src/components/Ayuda/Items/App/Interfaz.md";
+
+    function create_fragment$n(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t5;
+    	let h20;
+    	let t7;
+    	let p2;
+    	let t9;
+    	let p3;
+    	let img0;
+    	let img0_src_value;
+    	let t10;
+    	let p4;
+    	let t12;
+    	let p5;
+    	let t14;
+    	let h21;
+    	let t16;
+    	let p6;
+    	let t18;
+    	let p7;
+    	let img1;
+    	let img1_src_value;
+    	let t19;
+    	let p8;
+    	let t21;
+    	let p9;
+    	let t23;
+    	let p10;
+    	let t25;
+    	let h22;
+    	let t27;
+    	let p11;
+    	let t29;
+    	let p12;
+    	let img2;
+    	let img2_src_value;
+    	let t30;
+    	let p13;
+    	let t32;
+    	let p14;
+    	let img3;
+    	let img3_src_value;
+    	let t33;
+    	let p15;
+    	let t35;
+    	let p16;
+    	let t36;
+    	let em;
+    	let t38;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Interfaz";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = "La interfaz de la aplicación web se divide en tres partes principales:";
+    			t5 = space();
+    			h20 = element("h2");
+    			h20.textContent = "Menú superior";
+    			t7 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t9 = space();
+    			p3 = element("p");
+    			img0 = element("img");
+    			t10 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t12 = space();
+    			p5 = element("p");
+    			p5.textContent = "En el menú superior se encuentran los elementos para ejecutar el algoritmo y realizar modificaciones al grafo.";
+    			t14 = space();
+    			h21 = element("h2");
+    			h21.textContent = "Grafo";
+    			t16 = space();
+    			p6 = element("p");
+    			p6.textContent = " ";
+    			t18 = space();
+    			p7 = element("p");
+    			img1 = element("img");
+    			t19 = space();
+    			p8 = element("p");
+    			p8.textContent = " ";
+    			t21 = space();
+    			p9 = element("p");
+    			p9.textContent = "En la parte central de la interfaz se encuentra el grafo, cada vértice se representa por un círculo y cada arista por una línea con su respectivo peso. Los vértices se pueden arrastrar para modificar la posición del grafo. Además, se pueden agregar y eliminar vértices y aristas.";
+    			t23 = space();
+    			p10 = element("p");
+    			p10.textContent = " ";
+    			t25 = space();
+    			h22 = element("h2");
+    			h22.textContent = "Información del algoritmo";
+    			t27 = space();
+    			p11 = element("p");
+    			p11.textContent = " ";
+    			t29 = space();
+    			p12 = element("p");
+    			img2 = element("img");
+    			t30 = space();
+    			p13 = element("p");
+    			p13.textContent = " ";
+    			t32 = space();
+    			p14 = element("p");
+    			img3 = element("img");
+    			t33 = space();
+    			p15 = element("p");
+    			p15.textContent = " ";
+    			t35 = space();
+    			p16 = element("p");
+    			t36 = text("En la parte inferior de la interfaz se encuentra la información del algoritmo, donde se explica paso a paso la ejecución de este junto con su pseudocódigo y los valores de la red residual ");
+    			em = element("em");
+    			em.textContent = "Gf";
+    			t38 = text(".");
+    			add_location(h1, file$n, 0, 0, 0);
+    			add_location(p0, file$n, 1, 0, 18);
+    			add_location(p1, file$n, 2, 0, 32);
+    			add_location(h20, file$n, 3, 0, 110);
+    			add_location(p2, file$n, 4, 0, 133);
+    			if (!src_url_equal(img0.src, img0_src_value = "./img/Ayuda/App/Interfaz/MenuSuperior.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "Menú Superior");
+    			add_location(img0, file$n, 5, 3, 150);
+    			add_location(p3, file$n, 5, 0, 147);
+    			add_location(p4, file$n, 6, 0, 228);
+    			add_location(p5, file$n, 7, 0, 242);
+    			add_location(h21, file$n, 8, 0, 360);
+    			add_location(p6, file$n, 9, 0, 375);
+    			if (!src_url_equal(img1.src, img1_src_value = "./img/Ayuda/App/Interfaz/Grafo.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "Grafo");
+    			add_location(img1, file$n, 10, 3, 392);
+    			add_location(p7, file$n, 10, 0, 389);
+    			add_location(p8, file$n, 11, 0, 455);
+    			add_location(p9, file$n, 12, 0, 469);
+    			add_location(p10, file$n, 13, 0, 756);
+    			add_location(h22, file$n, 14, 0, 770);
+    			add_location(p11, file$n, 15, 0, 805);
+    			if (!src_url_equal(img2.src, img2_src_value = "./img/Ayuda/App/Interfaz/AbrirExplicacion.png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", "Abrir Explicación");
+    			add_location(img2, file$n, 16, 3, 822);
+    			add_location(p12, file$n, 16, 0, 819);
+    			add_location(p13, file$n, 17, 0, 908);
+    			if (!src_url_equal(img3.src, img3_src_value = "./img/Ayuda/App/Interfaz/Explicacion.png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", "Explicación");
+    			add_location(img3, file$n, 18, 3, 925);
+    			add_location(p14, file$n, 18, 0, 922);
+    			add_location(p15, file$n, 19, 0, 1000);
+    			add_location(em, file$n, 20, 191, 1205);
+    			add_location(p16, file$n, 20, 0, 1014);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, h20, anchor);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, p3, anchor);
+    			append_dev(p3, img0);
+    			insert_dev(target, t10, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t12, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t14, anchor);
+    			insert_dev(target, h21, anchor);
+    			insert_dev(target, t16, anchor);
+    			insert_dev(target, p6, anchor);
+    			insert_dev(target, t18, anchor);
+    			insert_dev(target, p7, anchor);
+    			append_dev(p7, img1);
+    			insert_dev(target, t19, anchor);
+    			insert_dev(target, p8, anchor);
+    			insert_dev(target, t21, anchor);
+    			insert_dev(target, p9, anchor);
+    			insert_dev(target, t23, anchor);
+    			insert_dev(target, p10, anchor);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, h22, anchor);
+    			insert_dev(target, t27, anchor);
+    			insert_dev(target, p11, anchor);
+    			insert_dev(target, t29, anchor);
+    			insert_dev(target, p12, anchor);
+    			append_dev(p12, img2);
+    			insert_dev(target, t30, anchor);
+    			insert_dev(target, p13, anchor);
+    			insert_dev(target, t32, anchor);
+    			insert_dev(target, p14, anchor);
+    			append_dev(p14, img3);
+    			insert_dev(target, t33, anchor);
+    			insert_dev(target, p15, anchor);
+    			insert_dev(target, t35, anchor);
+    			insert_dev(target, p16, anchor);
+    			append_dev(p16, t36);
+    			append_dev(p16, em);
+    			append_dev(p16, t38);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(h20);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t12);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(h21);
+    			if (detaching) detach_dev(t16);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t18);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t21);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t23);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(h22);
+    			if (detaching) detach_dev(t27);
+    			if (detaching) detach_dev(p11);
+    			if (detaching) detach_dev(t29);
+    			if (detaching) detach_dev(p12);
+    			if (detaching) detach_dev(t30);
+    			if (detaching) detach_dev(p13);
+    			if (detaching) detach_dev(t32);
+    			if (detaching) detach_dev(p14);
+    			if (detaching) detach_dev(t33);
+    			if (detaching) detach_dev(p15);
+    			if (detaching) detach_dev(t35);
+    			if (detaching) detach_dev(p16);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$n.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$a = {};
+
+    function instance$n($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Interfaz', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Interfaz> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$a });
+    	return [];
+    }
+
+    class Interfaz extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$n, create_fragment$n, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Interfaz",
+    			options,
+    			id: create_fragment$n.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/App/MenuSuperior.md generated by Svelte v3.48.0 */
+
+    const file$m = "src/components/Ayuda/Items/App/MenuSuperior.md";
+
+    function create_fragment$m(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t5;
+    	let p2;
+    	let t7;
+    	let p3;
+    	let img0;
+    	let img0_src_value;
+    	let t8;
+    	let p4;
+    	let t10;
+    	let h20;
+    	let t12;
+    	let p5;
+    	let t14;
+    	let p6;
+    	let img1;
+    	let img1_src_value;
+    	let t15;
+    	let p7;
+    	let t17;
+    	let p8;
+    	let t19;
+    	let p9;
+    	let t21;
+    	let h21;
+    	let t23;
+    	let p10;
+    	let t25;
+    	let p11;
+    	let img2;
+    	let img2_src_value;
+    	let t26;
+    	let p12;
+    	let t28;
+    	let p13;
+    	let t30;
+    	let p14;
+    	let t32;
+    	let p15;
+    	let t34;
+    	let h22;
+    	let t36;
+    	let p16;
+    	let t38;
+    	let p17;
+    	let img3;
+    	let img3_src_value;
+    	let t39;
+    	let p18;
+    	let t41;
+    	let p19;
+    	let t43;
+    	let p20;
+    	let t45;
+    	let h23;
+    	let t47;
+    	let p21;
+    	let t49;
+    	let p22;
+    	let img4;
+    	let img4_src_value;
+    	let t50;
+    	let p23;
+    	let t52;
+    	let p24;
+    	let t54;
+    	let p25;
+    	let t56;
+    	let h24;
+    	let t58;
+    	let p26;
+    	let t60;
+    	let p27;
+    	let img5;
+    	let img5_src_value;
+    	let t61;
+    	let p28;
+    	let t63;
+    	let p29;
+    	let t65;
+    	let p30;
+    	let t67;
+    	let h25;
+    	let t69;
+    	let p31;
+    	let t71;
+    	let p32;
+    	let img6;
+    	let img6_src_value;
+    	let t72;
+    	let p33;
+    	let t74;
+    	let p34;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Menú superior";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = "El menú superior se divide en seis secciones principales:";
+    			t5 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t7 = space();
+    			p3 = element("p");
+    			img0 = element("img");
+    			t8 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t10 = space();
+    			h20 = element("h2");
+    			h20.textContent = "Sección de ayuda";
+    			t12 = space();
+    			p5 = element("p");
+    			p5.textContent = " ";
+    			t14 = space();
+    			p6 = element("p");
+    			img1 = element("img");
+    			t15 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t17 = space();
+    			p8 = element("p");
+    			p8.textContent = "En la sección de ayuda, se encuentra solamente un ítem, el cual al ser seleccionado muestra una ventana emergente con la información de la aplicación y recursos relacionados al tema de flujo máximo.";
+    			t19 = space();
+    			p9 = element("p");
+    			p9.textContent = " ";
+    			t21 = space();
+    			h21 = element("h2");
+    			h21.textContent = "Sección de ejecución";
+    			t23 = space();
+    			p10 = element("p");
+    			p10.textContent = " ";
+    			t25 = space();
+    			p11 = element("p");
+    			img2 = element("img");
+    			t26 = space();
+    			p12 = element("p");
+    			p12.textContent = " ";
+    			t28 = space();
+    			p13 = element("p");
+    			p13.textContent = "La sección de ejecución contiene tres ítems, que permiten controlar la ejecución del algoritmo de flujo máximo con el grafo actual.";
+    			t30 = space();
+    			p14 = element("p");
+    			p14.textContent = "El primero inicia la ejecución del flujo máximo, el segundo permite avanzar una iteración del algoritmo y el tercero detiene la ejecución.";
+    			t32 = space();
+    			p15 = element("p");
+    			p15.textContent = " ";
+    			t34 = space();
+    			h22 = element("h2");
+    			h22.textContent = "Sección de generación y guardado";
+    			t36 = space();
+    			p16 = element("p");
+    			p16.textContent = " ";
+    			t38 = space();
+    			p17 = element("p");
+    			img3 = element("img");
+    			t39 = space();
+    			p18 = element("p");
+    			p18.textContent = " ";
+    			t41 = space();
+    			p19 = element("p");
+    			p19.textContent = "En la sección de generación y guardado, se encuentran tres ítems, los cuales permiten generan un grafo aleatorio, guardar el grafo actual en un archivo ó abrir un archivo con un grafo previamente guardado respectivamente.";
+    			t43 = space();
+    			p20 = element("p");
+    			p20.textContent = " ";
+    			t45 = space();
+    			h23 = element("h2");
+    			h23.textContent = "Sección de creación de componentes";
+    			t47 = space();
+    			p21 = element("p");
+    			p21.textContent = " ";
+    			t49 = space();
+    			p22 = element("p");
+    			img4 = element("img");
+    			t50 = space();
+    			p23 = element("p");
+    			p23.textContent = " ";
+    			t52 = space();
+    			p24 = element("p");
+    			p24.textContent = "La sección de creación de componentes incluye dos ítems, los cuales al ser seleccionados permiten agregar un vértice o una arista respectivamente.";
+    			t54 = space();
+    			p25 = element("p");
+    			p25.textContent = " ";
+    			t56 = space();
+    			h24 = element("h2");
+    			h24.textContent = "Sección de eliminación de componentes";
+    			t58 = space();
+    			p26 = element("p");
+    			p26.textContent = " ";
+    			t60 = space();
+    			p27 = element("p");
+    			img5 = element("img");
+    			t61 = space();
+    			p28 = element("p");
+    			p28.textContent = " ";
+    			t63 = space();
+    			p29 = element("p");
+    			p29.textContent = "En la sección de eliminación de componentes se encuentran dos ítems, los cuales permiten eliminar un vertice o una arista respectivamente.";
+    			t65 = space();
+    			p30 = element("p");
+    			p30.textContent = " ";
+    			t67 = space();
+    			h25 = element("h2");
+    			h25.textContent = "Sección de cambio de tema";
+    			t69 = space();
+    			p31 = element("p");
+    			p31.textContent = " ";
+    			t71 = space();
+    			p32 = element("p");
+    			img6 = element("img");
+    			t72 = space();
+    			p33 = element("p");
+    			p33.textContent = " ";
+    			t74 = space();
+    			p34 = element("p");
+    			p34.textContent = "La sección de cambio de tema contiene solo un ítem que permite al usuario alternar entre el tema oscuro y claro de la aplicación.";
+    			add_location(h1, file$m, 0, 0, 0);
+    			add_location(p0, file$m, 1, 0, 23);
+    			add_location(p1, file$m, 2, 0, 37);
+    			add_location(p2, file$m, 3, 0, 102);
+    			if (!src_url_equal(img0.src, img0_src_value = "/img/Ayuda/App/MenuSuperior/MenuSuperior.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "Menú superior");
+    			add_location(img0, file$m, 4, 3, 119);
+    			add_location(p3, file$m, 4, 0, 116);
+    			add_location(p4, file$m, 5, 0, 200);
+    			add_location(h20, file$m, 6, 0, 214);
+    			add_location(p5, file$m, 7, 0, 240);
+    			if (!src_url_equal(img1.src, img1_src_value = "/img/Ayuda/App/MenuSuperior/SeccionAyuda.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "Sección de Ayuda");
+    			add_location(img1, file$m, 8, 3, 257);
+    			add_location(p6, file$m, 8, 0, 254);
+    			add_location(p7, file$m, 9, 0, 341);
+    			add_location(p8, file$m, 10, 0, 355);
+    			add_location(p9, file$m, 11, 0, 561);
+    			add_location(h21, file$m, 12, 0, 575);
+    			add_location(p10, file$m, 13, 0, 605);
+    			if (!src_url_equal(img2.src, img2_src_value = "/img/Ayuda/App/MenuSuperior/SeccionEjecucion.png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", "Sección de Ejecución");
+    			add_location(img2, file$m, 14, 3, 622);
+    			add_location(p11, file$m, 14, 0, 619);
+    			add_location(p12, file$m, 15, 0, 714);
+    			add_location(p13, file$m, 16, 0, 728);
+    			add_location(p14, file$m, 17, 0, 867);
+    			add_location(p15, file$m, 18, 0, 1013);
+    			add_location(h22, file$m, 19, 0, 1027);
+    			add_location(p16, file$m, 20, 0, 1069);
+    			if (!src_url_equal(img3.src, img3_src_value = "/img/Ayuda/App/MenuSuperior/SeccionGeneracionyGuardado.png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", "Sección de Generación y Guardado");
+    			add_location(img3, file$m, 21, 3, 1086);
+    			add_location(p17, file$m, 21, 0, 1083);
+    			add_location(p18, file$m, 22, 0, 1200);
+    			add_location(p19, file$m, 23, 0, 1214);
+    			add_location(p20, file$m, 24, 0, 1443);
+    			add_location(h23, file$m, 25, 0, 1457);
+    			add_location(p21, file$m, 26, 0, 1501);
+    			if (!src_url_equal(img4.src, img4_src_value = "/img/Ayuda/App/MenuSuperior/SeccionCreacionComponentes.png")) attr_dev(img4, "src", img4_src_value);
+    			attr_dev(img4, "alt", "Sección de Creación de Componentes");
+    			add_location(img4, file$m, 27, 3, 1518);
+    			add_location(p22, file$m, 27, 0, 1515);
+    			add_location(p23, file$m, 28, 0, 1634);
+    			add_location(p24, file$m, 29, 0, 1648);
+    			add_location(p25, file$m, 30, 0, 1802);
+    			add_location(h24, file$m, 31, 0, 1816);
+    			add_location(p26, file$m, 32, 0, 1863);
+    			if (!src_url_equal(img5.src, img5_src_value = "/img/Ayuda/App/MenuSuperior/SeccionEliminacionComponentes.png")) attr_dev(img5, "src", img5_src_value);
+    			attr_dev(img5, "alt", "Sección de Eliminación de Componentes");
+    			add_location(img5, file$m, 33, 3, 1880);
+    			add_location(p27, file$m, 33, 0, 1877);
+    			add_location(p28, file$m, 34, 0, 2002);
+    			add_location(p29, file$m, 35, 0, 2016);
+    			add_location(p30, file$m, 36, 0, 2162);
+    			add_location(h25, file$m, 37, 0, 2176);
+    			add_location(p31, file$m, 38, 0, 2211);
+    			if (!src_url_equal(img6.src, img6_src_value = "/img/Ayuda/App/MenuSuperior/SeccionCambioTema.png")) attr_dev(img6, "src", img6_src_value);
+    			attr_dev(img6, "alt", "Sección de Cambio de Tema");
+    			add_location(img6, file$m, 39, 3, 2228);
+    			add_location(p32, file$m, 39, 0, 2225);
+    			add_location(p33, file$m, 40, 0, 2326);
+    			add_location(p34, file$m, 41, 0, 2340);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, p3, anchor);
+    			append_dev(p3, img0);
+    			insert_dev(target, t8, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t10, anchor);
+    			insert_dev(target, h20, anchor);
+    			insert_dev(target, t12, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t14, anchor);
+    			insert_dev(target, p6, anchor);
+    			append_dev(p6, img1);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t17, anchor);
+    			insert_dev(target, p8, anchor);
+    			insert_dev(target, t19, anchor);
+    			insert_dev(target, p9, anchor);
+    			insert_dev(target, t21, anchor);
+    			insert_dev(target, h21, anchor);
+    			insert_dev(target, t23, anchor);
+    			insert_dev(target, p10, anchor);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, p11, anchor);
+    			append_dev(p11, img2);
+    			insert_dev(target, t26, anchor);
+    			insert_dev(target, p12, anchor);
+    			insert_dev(target, t28, anchor);
+    			insert_dev(target, p13, anchor);
+    			insert_dev(target, t30, anchor);
+    			insert_dev(target, p14, anchor);
+    			insert_dev(target, t32, anchor);
+    			insert_dev(target, p15, anchor);
+    			insert_dev(target, t34, anchor);
+    			insert_dev(target, h22, anchor);
+    			insert_dev(target, t36, anchor);
+    			insert_dev(target, p16, anchor);
+    			insert_dev(target, t38, anchor);
+    			insert_dev(target, p17, anchor);
+    			append_dev(p17, img3);
+    			insert_dev(target, t39, anchor);
+    			insert_dev(target, p18, anchor);
+    			insert_dev(target, t41, anchor);
+    			insert_dev(target, p19, anchor);
+    			insert_dev(target, t43, anchor);
+    			insert_dev(target, p20, anchor);
+    			insert_dev(target, t45, anchor);
+    			insert_dev(target, h23, anchor);
+    			insert_dev(target, t47, anchor);
+    			insert_dev(target, p21, anchor);
+    			insert_dev(target, t49, anchor);
+    			insert_dev(target, p22, anchor);
+    			append_dev(p22, img4);
+    			insert_dev(target, t50, anchor);
+    			insert_dev(target, p23, anchor);
+    			insert_dev(target, t52, anchor);
+    			insert_dev(target, p24, anchor);
+    			insert_dev(target, t54, anchor);
+    			insert_dev(target, p25, anchor);
+    			insert_dev(target, t56, anchor);
+    			insert_dev(target, h24, anchor);
+    			insert_dev(target, t58, anchor);
+    			insert_dev(target, p26, anchor);
+    			insert_dev(target, t60, anchor);
+    			insert_dev(target, p27, anchor);
+    			append_dev(p27, img5);
+    			insert_dev(target, t61, anchor);
+    			insert_dev(target, p28, anchor);
+    			insert_dev(target, t63, anchor);
+    			insert_dev(target, p29, anchor);
+    			insert_dev(target, t65, anchor);
+    			insert_dev(target, p30, anchor);
+    			insert_dev(target, t67, anchor);
+    			insert_dev(target, h25, anchor);
+    			insert_dev(target, t69, anchor);
+    			insert_dev(target, p31, anchor);
+    			insert_dev(target, t71, anchor);
+    			insert_dev(target, p32, anchor);
+    			append_dev(p32, img6);
+    			insert_dev(target, t72, anchor);
+    			insert_dev(target, p33, anchor);
+    			insert_dev(target, t74, anchor);
+    			insert_dev(target, p34, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t8);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(h20);
+    			if (detaching) detach_dev(t12);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t21);
+    			if (detaching) detach_dev(h21);
+    			if (detaching) detach_dev(t23);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(p11);
+    			if (detaching) detach_dev(t26);
+    			if (detaching) detach_dev(p12);
+    			if (detaching) detach_dev(t28);
+    			if (detaching) detach_dev(p13);
+    			if (detaching) detach_dev(t30);
+    			if (detaching) detach_dev(p14);
+    			if (detaching) detach_dev(t32);
+    			if (detaching) detach_dev(p15);
+    			if (detaching) detach_dev(t34);
+    			if (detaching) detach_dev(h22);
+    			if (detaching) detach_dev(t36);
+    			if (detaching) detach_dev(p16);
+    			if (detaching) detach_dev(t38);
+    			if (detaching) detach_dev(p17);
+    			if (detaching) detach_dev(t39);
+    			if (detaching) detach_dev(p18);
+    			if (detaching) detach_dev(t41);
+    			if (detaching) detach_dev(p19);
+    			if (detaching) detach_dev(t43);
+    			if (detaching) detach_dev(p20);
+    			if (detaching) detach_dev(t45);
+    			if (detaching) detach_dev(h23);
+    			if (detaching) detach_dev(t47);
+    			if (detaching) detach_dev(p21);
+    			if (detaching) detach_dev(t49);
+    			if (detaching) detach_dev(p22);
+    			if (detaching) detach_dev(t50);
+    			if (detaching) detach_dev(p23);
+    			if (detaching) detach_dev(t52);
+    			if (detaching) detach_dev(p24);
+    			if (detaching) detach_dev(t54);
+    			if (detaching) detach_dev(p25);
+    			if (detaching) detach_dev(t56);
+    			if (detaching) detach_dev(h24);
+    			if (detaching) detach_dev(t58);
+    			if (detaching) detach_dev(p26);
+    			if (detaching) detach_dev(t60);
+    			if (detaching) detach_dev(p27);
+    			if (detaching) detach_dev(t61);
+    			if (detaching) detach_dev(p28);
+    			if (detaching) detach_dev(t63);
+    			if (detaching) detach_dev(p29);
+    			if (detaching) detach_dev(t65);
+    			if (detaching) detach_dev(p30);
+    			if (detaching) detach_dev(t67);
+    			if (detaching) detach_dev(h25);
+    			if (detaching) detach_dev(t69);
+    			if (detaching) detach_dev(p31);
+    			if (detaching) detach_dev(t71);
+    			if (detaching) detach_dev(p32);
+    			if (detaching) detach_dev(t72);
+    			if (detaching) detach_dev(p33);
+    			if (detaching) detach_dev(t74);
+    			if (detaching) detach_dev(p34);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$m.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$9 = {};
+
+    function instance$m($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('MenuSuperior', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<MenuSuperior> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$9 });
+    	return [];
+    }
+
+    class MenuSuperior extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$m, create_fragment$m, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "MenuSuperior",
+    			options,
+    			id: create_fragment$m.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/App/SeccionGrafo.md generated by Svelte v3.48.0 */
+
+    const file$l = "src/components/Ayuda/Items/App/SeccionGrafo.md";
+
+    function create_fragment$l(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let img0;
+    	let img0_src_value;
+    	let t4;
+    	let p2;
+    	let t6;
+    	let p3;
+    	let t8;
+    	let p4;
+    	let t10;
+    	let h20;
+    	let t12;
+    	let p5;
+    	let t14;
+    	let p6;
+    	let img1;
+    	let img1_src_value;
+    	let t15;
+    	let p7;
+    	let t17;
+    	let p8;
+    	let t19;
+    	let p9;
+    	let t21;
+    	let ul;
+    	let li0;
+    	let strong0;
+    	let t23;
+    	let t24;
+    	let li1;
+    	let strong1;
+    	let t26;
+    	let t27;
+    	let li2;
+    	let strong2;
+    	let t29;
+    	let t30;
+    	let p10;
+    	let t32;
+    	let p11;
+    	let t34;
+    	let p12;
+    	let t36;
+    	let p13;
+    	let img2;
+    	let img2_src_value;
+    	let t37;
+    	let p14;
+    	let t39;
+    	let h21;
+    	let t41;
+    	let p15;
+    	let t43;
+    	let p16;
+    	let img3;
+    	let img3_src_value;
+    	let t44;
+    	let p17;
+    	let t46;
+    	let p18;
+    	let t48;
+    	let p19;
+    	let t50;
+    	let p20;
+    	let t52;
+    	let p21;
+    	let t54;
+    	let p22;
+    	let img4;
+    	let img4_src_value;
+    	let t55;
+    	let p23;
+    	let t57;
+    	let p24;
+    	let t59;
+    	let p25;
+    	let t61;
+    	let p26;
+    	let img5;
+    	let img5_src_value;
+    	let t62;
+    	let p27;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Grafo";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			img0 = element("img");
+    			t4 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t6 = space();
+    			p3 = element("p");
+    			p3.textContent = "En la parte central de la interfaz se encuentra el grafo, que contiene los vértices y las aristas.";
+    			t8 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t10 = space();
+    			h20 = element("h2");
+    			h20.textContent = "Vértices";
+    			t12 = space();
+    			p5 = element("p");
+    			p5.textContent = " ";
+    			t14 = space();
+    			p6 = element("p");
+    			img1 = element("img");
+    			t15 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t17 = space();
+    			p8 = element("p");
+    			p8.textContent = "Cada vértice se representa por un círculo, el cual puede ser arrastrado para modificar la posición del grafo.\nEl color denota el tipo de vértice, siendo:";
+    			t19 = space();
+    			p9 = element("p");
+    			p9.textContent = " ";
+    			t21 = space();
+    			ul = element("ul");
+    			li0 = element("li");
+    			strong0 = element("strong");
+    			strong0.textContent = "Verde";
+    			t23 = text(": Fuente");
+    			t24 = space();
+    			li1 = element("li");
+    			strong1 = element("strong");
+    			strong1.textContent = "Rojo";
+    			t26 = text(": Sumidero");
+    			t27 = space();
+    			li2 = element("li");
+    			strong2 = element("strong");
+    			strong2.textContent = "Morado";
+    			t29 = text(": Vértice intermedio");
+    			t30 = space();
+    			p10 = element("p");
+    			p10.textContent = " ";
+    			t32 = space();
+    			p11 = element("p");
+    			p11.textContent = "Es posible cambiar el tipo de vértice haciendo click sobre el botón correspondiente.";
+    			t34 = space();
+    			p12 = element("p");
+    			p12.textContent = " ";
+    			t36 = space();
+    			p13 = element("p");
+    			img2 = element("img");
+    			t37 = space();
+    			p14 = element("p");
+    			p14.textContent = " ";
+    			t39 = space();
+    			h21 = element("h2");
+    			h21.textContent = "Aristas";
+    			t41 = space();
+    			p15 = element("p");
+    			p15.textContent = " ";
+    			t43 = space();
+    			p16 = element("p");
+    			img3 = element("img");
+    			t44 = space();
+    			p17 = element("p");
+    			p17.textContent = " ";
+    			t46 = space();
+    			p18 = element("p");
+    			p18.textContent = "Cada arista se representa por una línea con su respectivo peso, indicado en el centro de la misma.";
+    			t48 = space();
+    			p19 = element("p");
+    			p19.textContent = " ";
+    			t50 = space();
+    			p20 = element("p");
+    			p20.textContent = "Algunas aristas son bidireccionales, lo que significa que el flujo puede pasar en ambas direcciones. Para indicar esto, se dibuja una flecha en cada extremo de la arista, con colores distintos y se señala el flujo máximo que puede pasar por cada dirección.";
+    			t52 = space();
+    			p21 = element("p");
+    			p21.textContent = " ";
+    			t54 = space();
+    			p22 = element("p");
+    			img4 = element("img");
+    			t55 = space();
+    			p23 = element("p");
+    			p23.textContent = " ";
+    			t57 = space();
+    			p24 = element("p");
+    			p24.textContent = "Es posible modificar el peso de una arista seleccionando la misma y escribiendo el nuevo valor en el cuadro de texto.";
+    			t59 = space();
+    			p25 = element("p");
+    			p25.textContent = " ";
+    			t61 = space();
+    			p26 = element("p");
+    			img5 = element("img");
+    			t62 = space();
+    			p27 = element("p");
+    			p27.textContent = " ";
+    			add_location(h1, file$l, 0, 0, 0);
+    			add_location(p0, file$l, 1, 0, 15);
+    			if (!src_url_equal(img0.src, img0_src_value = "/img/Ayuda/App/Grafo/Grafo.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "Grafo");
+    			add_location(img0, file$l, 2, 3, 32);
+    			add_location(p1, file$l, 2, 0, 29);
+    			add_location(p2, file$l, 3, 0, 91);
+    			add_location(p3, file$l, 4, 0, 105);
+    			add_location(p4, file$l, 5, 0, 211);
+    			add_location(h20, file$l, 6, 0, 225);
+    			add_location(p5, file$l, 7, 0, 243);
+    			if (!src_url_equal(img1.src, img1_src_value = "/img/Ayuda/App/Grafo/Vertices.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "Vértices");
+    			add_location(img1, file$l, 8, 3, 260);
+    			add_location(p6, file$l, 8, 0, 257);
+    			add_location(p7, file$l, 9, 0, 325);
+    			add_location(p8, file$l, 10, 0, 339);
+    			add_location(p9, file$l, 12, 0, 500);
+    			add_location(strong0, file$l, 14, 4, 523);
+    			add_location(li0, file$l, 14, 0, 519);
+    			add_location(strong1, file$l, 15, 4, 563);
+    			add_location(li1, file$l, 15, 0, 559);
+    			add_location(strong2, file$l, 16, 4, 604);
+    			add_location(li2, file$l, 16, 0, 600);
+    			add_location(ul, file$l, 13, 0, 514);
+    			add_location(p10, file$l, 18, 0, 659);
+    			add_location(p11, file$l, 19, 0, 673);
+    			add_location(p12, file$l, 20, 0, 765);
+    			if (!src_url_equal(img2.src, img2_src_value = "/img/Ayuda/App/Grafo/ModificarVertices.png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", "Cambiar tipo de vértice");
+    			add_location(img2, file$l, 21, 3, 782);
+    			add_location(p13, file$l, 21, 0, 779);
+    			add_location(p14, file$l, 22, 0, 871);
+    			add_location(h21, file$l, 23, 0, 885);
+    			add_location(p15, file$l, 24, 0, 902);
+    			if (!src_url_equal(img3.src, img3_src_value = "/img/Ayuda/App/Grafo/Aristas.png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", "Aristas");
+    			add_location(img3, file$l, 25, 3, 919);
+    			add_location(p16, file$l, 25, 0, 916);
+    			add_location(p17, file$l, 26, 0, 982);
+    			add_location(p18, file$l, 27, 0, 996);
+    			add_location(p19, file$l, 28, 0, 1102);
+    			add_location(p20, file$l, 29, 0, 1116);
+    			add_location(p21, file$l, 30, 0, 1380);
+    			if (!src_url_equal(img4.src, img4_src_value = "/img/Ayuda/App/Grafo/AristasBidireccionales.png")) attr_dev(img4, "src", img4_src_value);
+    			attr_dev(img4, "alt", "Aristas bidireccionales");
+    			add_location(img4, file$l, 31, 3, 1397);
+    			add_location(p22, file$l, 31, 0, 1394);
+    			add_location(p23, file$l, 32, 0, 1491);
+    			add_location(p24, file$l, 33, 0, 1505);
+    			add_location(p25, file$l, 34, 0, 1630);
+    			if (!src_url_equal(img5.src, img5_src_value = "/img/Ayuda/App/Grafo/CambiarPeso.png")) attr_dev(img5, "src", img5_src_value);
+    			attr_dev(img5, "alt", "Modificar peso de arista");
+    			add_location(img5, file$l, 35, 3, 1647);
+    			add_location(p26, file$l, 35, 0, 1644);
+    			add_location(p27, file$l, 36, 0, 1731);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			append_dev(p1, img0);
+    			insert_dev(target, t4, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t6, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t8, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t10, anchor);
+    			insert_dev(target, h20, anchor);
+    			insert_dev(target, t12, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t14, anchor);
+    			insert_dev(target, p6, anchor);
+    			append_dev(p6, img1);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t17, anchor);
+    			insert_dev(target, p8, anchor);
+    			insert_dev(target, t19, anchor);
+    			insert_dev(target, p9, anchor);
+    			insert_dev(target, t21, anchor);
+    			insert_dev(target, ul, anchor);
+    			append_dev(ul, li0);
+    			append_dev(li0, strong0);
+    			append_dev(li0, t23);
+    			append_dev(ul, t24);
+    			append_dev(ul, li1);
+    			append_dev(li1, strong1);
+    			append_dev(li1, t26);
+    			append_dev(ul, t27);
+    			append_dev(ul, li2);
+    			append_dev(li2, strong2);
+    			append_dev(li2, t29);
+    			insert_dev(target, t30, anchor);
+    			insert_dev(target, p10, anchor);
+    			insert_dev(target, t32, anchor);
+    			insert_dev(target, p11, anchor);
+    			insert_dev(target, t34, anchor);
+    			insert_dev(target, p12, anchor);
+    			insert_dev(target, t36, anchor);
+    			insert_dev(target, p13, anchor);
+    			append_dev(p13, img2);
+    			insert_dev(target, t37, anchor);
+    			insert_dev(target, p14, anchor);
+    			insert_dev(target, t39, anchor);
+    			insert_dev(target, h21, anchor);
+    			insert_dev(target, t41, anchor);
+    			insert_dev(target, p15, anchor);
+    			insert_dev(target, t43, anchor);
+    			insert_dev(target, p16, anchor);
+    			append_dev(p16, img3);
+    			insert_dev(target, t44, anchor);
+    			insert_dev(target, p17, anchor);
+    			insert_dev(target, t46, anchor);
+    			insert_dev(target, p18, anchor);
+    			insert_dev(target, t48, anchor);
+    			insert_dev(target, p19, anchor);
+    			insert_dev(target, t50, anchor);
+    			insert_dev(target, p20, anchor);
+    			insert_dev(target, t52, anchor);
+    			insert_dev(target, p21, anchor);
+    			insert_dev(target, t54, anchor);
+    			insert_dev(target, p22, anchor);
+    			append_dev(p22, img4);
+    			insert_dev(target, t55, anchor);
+    			insert_dev(target, p23, anchor);
+    			insert_dev(target, t57, anchor);
+    			insert_dev(target, p24, anchor);
+    			insert_dev(target, t59, anchor);
+    			insert_dev(target, p25, anchor);
+    			insert_dev(target, t61, anchor);
+    			insert_dev(target, p26, anchor);
+    			append_dev(p26, img5);
+    			insert_dev(target, t62, anchor);
+    			insert_dev(target, p27, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t8);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(h20);
+    			if (detaching) detach_dev(t12);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t21);
+    			if (detaching) detach_dev(ul);
+    			if (detaching) detach_dev(t30);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t32);
+    			if (detaching) detach_dev(p11);
+    			if (detaching) detach_dev(t34);
+    			if (detaching) detach_dev(p12);
+    			if (detaching) detach_dev(t36);
+    			if (detaching) detach_dev(p13);
+    			if (detaching) detach_dev(t37);
+    			if (detaching) detach_dev(p14);
+    			if (detaching) detach_dev(t39);
+    			if (detaching) detach_dev(h21);
+    			if (detaching) detach_dev(t41);
+    			if (detaching) detach_dev(p15);
+    			if (detaching) detach_dev(t43);
+    			if (detaching) detach_dev(p16);
+    			if (detaching) detach_dev(t44);
+    			if (detaching) detach_dev(p17);
+    			if (detaching) detach_dev(t46);
+    			if (detaching) detach_dev(p18);
+    			if (detaching) detach_dev(t48);
+    			if (detaching) detach_dev(p19);
+    			if (detaching) detach_dev(t50);
+    			if (detaching) detach_dev(p20);
+    			if (detaching) detach_dev(t52);
+    			if (detaching) detach_dev(p21);
+    			if (detaching) detach_dev(t54);
+    			if (detaching) detach_dev(p22);
+    			if (detaching) detach_dev(t55);
+    			if (detaching) detach_dev(p23);
+    			if (detaching) detach_dev(t57);
+    			if (detaching) detach_dev(p24);
+    			if (detaching) detach_dev(t59);
+    			if (detaching) detach_dev(p25);
+    			if (detaching) detach_dev(t61);
+    			if (detaching) detach_dev(p26);
+    			if (detaching) detach_dev(t62);
+    			if (detaching) detach_dev(p27);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$l.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$8 = {};
+
+    function instance$l($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('SeccionGrafo', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<SeccionGrafo> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$8 });
+    	return [];
+    }
+
+    class SeccionGrafo extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$l, create_fragment$l, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "SeccionGrafo",
+    			options,
+    			id: create_fragment$l.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/App/SeccionInferior.md generated by Svelte v3.48.0 */
+
+    const file$k = "src/components/Ayuda/Items/App/SeccionInferior.md";
+
+    function create_fragment$k(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t4;
+    	let em0;
+    	let t6;
+    	let t7;
+    	let p2;
+    	let t9;
+    	let h20;
+    	let t11;
+    	let p3;
+    	let t13;
+    	let p4;
+    	let img0;
+    	let img0_src_value;
+    	let t14;
+    	let p5;
+    	let t16;
+    	let p6;
+    	let t18;
+    	let p7;
+    	let t20;
+    	let h21;
+    	let t22;
+    	let p8;
+    	let t24;
+    	let p9;
+    	let img1;
+    	let img1_src_value;
+    	let t25;
+    	let p10;
+    	let t27;
+    	let p11;
+    	let t29;
+    	let p12;
+    	let t31;
+    	let h22;
+    	let t33;
+    	let p13;
+    	let t35;
+    	let p14;
+    	let img2;
+    	let img2_src_value;
+    	let t36;
+    	let p15;
+    	let t38;
+    	let p16;
+    	let t39;
+    	let em1;
+    	let t41;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Sección Inferior";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("En la parte inferior de la interfaz se encuentra la información del algoritmo, donde se explica paso a paso la ejecución de este junto con su pseudocódigo y los valores de la red residual ");
+    			em0 = element("em");
+    			em0.textContent = "Gf";
+    			t6 = text(".");
+    			t7 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t9 = space();
+    			h20 = element("h2");
+    			h20.textContent = "Explicación";
+    			t11 = space();
+    			p3 = element("p");
+    			p3.textContent = " ";
+    			t13 = space();
+    			p4 = element("p");
+    			img0 = element("img");
+    			t14 = space();
+    			p5 = element("p");
+    			p5.textContent = " ";
+    			t16 = space();
+    			p6 = element("p");
+    			p6.textContent = "Se incluye la explicación paso a paso de cada parte del algoritmo.";
+    			t18 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t20 = space();
+    			h21 = element("h2");
+    			h21.textContent = "Pseudocódigo";
+    			t22 = space();
+    			p8 = element("p");
+    			p8.textContent = " ";
+    			t24 = space();
+    			p9 = element("p");
+    			img1 = element("img");
+    			t25 = space();
+    			p10 = element("p");
+    			p10.textContent = " ";
+    			t27 = space();
+    			p11 = element("p");
+    			p11.textContent = "Se incluye el pseudocódigo del algoritmo, en el cual se resalta la línea que se está ejecutando en cada momento.";
+    			t29 = space();
+    			p12 = element("p");
+    			p12.textContent = " ";
+    			t31 = space();
+    			h22 = element("h2");
+    			h22.textContent = "Red residual";
+    			t33 = space();
+    			p13 = element("p");
+    			p13.textContent = " ";
+    			t35 = space();
+    			p14 = element("p");
+    			img2 = element("img");
+    			t36 = space();
+    			p15 = element("p");
+    			p15.textContent = " ";
+    			t38 = space();
+    			p16 = element("p");
+    			t39 = text("Se incluye la red residual ");
+    			em1 = element("em");
+    			em1.textContent = "Gf";
+    			t41 = text(" en formato de matriz de adyacencia en cada momento de la ejecución del algoritmo.");
+    			add_location(h1, file$k, 0, 0, 0);
+    			add_location(p0, file$k, 1, 0, 26);
+    			add_location(em0, file$k, 2, 191, 231);
+    			add_location(p1, file$k, 2, 0, 40);
+    			add_location(p2, file$k, 3, 0, 248);
+    			add_location(h20, file$k, 4, 0, 262);
+    			add_location(p3, file$k, 5, 0, 283);
+    			if (!src_url_equal(img0.src, img0_src_value = "/img/Ayuda/App/SeccionInferior/Explicacion.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "Explicación");
+    			add_location(img0, file$k, 6, 3, 300);
+    			add_location(p4, file$k, 6, 0, 297);
+    			add_location(p5, file$k, 7, 0, 381);
+    			add_location(p6, file$k, 8, 0, 395);
+    			add_location(p7, file$k, 9, 0, 469);
+    			add_location(h21, file$k, 10, 0, 483);
+    			add_location(p8, file$k, 11, 0, 505);
+    			if (!src_url_equal(img1.src, img1_src_value = "/img/Ayuda/App/SeccionInferior/Pseudocodigo.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "Pseudocódigo");
+    			add_location(img1, file$k, 12, 3, 522);
+    			add_location(p9, file$k, 12, 0, 519);
+    			add_location(p10, file$k, 13, 0, 605);
+    			add_location(p11, file$k, 14, 0, 619);
+    			add_location(p12, file$k, 15, 0, 739);
+    			add_location(h22, file$k, 16, 0, 753);
+    			add_location(p13, file$k, 17, 0, 775);
+    			if (!src_url_equal(img2.src, img2_src_value = "/img/Ayuda/App/SeccionInferior/RedResidual.png")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", "Red residual");
+    			add_location(img2, file$k, 18, 3, 792);
+    			add_location(p14, file$k, 18, 0, 789);
+    			add_location(p15, file$k, 19, 0, 874);
+    			add_location(em1, file$k, 20, 30, 918);
+    			add_location(p16, file$k, 20, 0, 888);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			append_dev(p1, t4);
+    			append_dev(p1, em0);
+    			append_dev(p1, t6);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, h20, anchor);
+    			insert_dev(target, t11, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t13, anchor);
+    			insert_dev(target, p4, anchor);
+    			append_dev(p4, img0);
+    			insert_dev(target, t14, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t16, anchor);
+    			insert_dev(target, p6, anchor);
+    			insert_dev(target, t18, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t20, anchor);
+    			insert_dev(target, h21, anchor);
+    			insert_dev(target, t22, anchor);
+    			insert_dev(target, p8, anchor);
+    			insert_dev(target, t24, anchor);
+    			insert_dev(target, p9, anchor);
+    			append_dev(p9, img1);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, p10, anchor);
+    			insert_dev(target, t27, anchor);
+    			insert_dev(target, p11, anchor);
+    			insert_dev(target, t29, anchor);
+    			insert_dev(target, p12, anchor);
+    			insert_dev(target, t31, anchor);
+    			insert_dev(target, h22, anchor);
+    			insert_dev(target, t33, anchor);
+    			insert_dev(target, p13, anchor);
+    			insert_dev(target, t35, anchor);
+    			insert_dev(target, p14, anchor);
+    			append_dev(p14, img2);
+    			insert_dev(target, t36, anchor);
+    			insert_dev(target, p15, anchor);
+    			insert_dev(target, t38, anchor);
+    			insert_dev(target, p16, anchor);
+    			append_dev(p16, t39);
+    			append_dev(p16, em1);
+    			append_dev(p16, t41);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(h20);
+    			if (detaching) detach_dev(t11);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t16);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t18);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t20);
+    			if (detaching) detach_dev(h21);
+    			if (detaching) detach_dev(t22);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t24);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t27);
+    			if (detaching) detach_dev(p11);
+    			if (detaching) detach_dev(t29);
+    			if (detaching) detach_dev(p12);
+    			if (detaching) detach_dev(t31);
+    			if (detaching) detach_dev(h22);
+    			if (detaching) detach_dev(t33);
+    			if (detaching) detach_dev(p13);
+    			if (detaching) detach_dev(t35);
+    			if (detaching) detach_dev(p14);
+    			if (detaching) detach_dev(t36);
+    			if (detaching) detach_dev(p15);
+    			if (detaching) detach_dev(t38);
+    			if (detaching) detach_dev(p16);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$k.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$7 = {};
+
+    function instance$k($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('SeccionInferior', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<SeccionInferior> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$7 });
+    	return [];
+    }
+
+    class SeccionInferior extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$k, create_fragment$k, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "SeccionInferior",
+    			options,
+    			id: create_fragment$k.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/Grafo/Grafo.md generated by Svelte v3.48.0 */
+
+    const file$j = "src/components/Ayuda/Items/Grafo/Grafo.md";
+
+    function create_fragment$j(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t4;
+    	let strong0;
+    	let t6;
+    	let strong1;
+    	let t8;
+    	let t9;
+    	let p2;
+    	let t11;
+    	let p3;
+    	let t13;
+    	let p4;
+    	let t15;
+    	let p5;
+    	let img;
+    	let img_src_value;
+    	let t16;
+    	let p6;
+    	let t18;
+    	let h5;
+    	let t19;
+    	let a;
+    	let t21;
+    	let p7;
+    	let t23;
+    	let p8;
+    	let t25;
+    	let p9;
+    	let t27;
+    	let p10;
+    	let t29;
+    	let p11;
+    	let t31;
+    	let p12;
+    	let strong2;
+    	let t33;
+    	let p13;
+    	let t35;
+    	let p14;
+    	let t36;
+    	let strong3;
+    	let t38;
+    	let strong4;
+    	let t40;
+    	let t41;
+    	let p15;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Grafo";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("Un grafo es una estructura de datos que consiste en un conjunto de ");
+    			strong0 = element("strong");
+    			strong0.textContent = "vértices";
+    			t6 = text(" y ");
+    			strong1 = element("strong");
+    			strong1.textContent = "aristas";
+    			t8 = text(".");
+    			t9 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t11 = space();
+    			p3 = element("p");
+    			p3.textContent = "Las aristas son las conexiones entre los vértices. Los grafos pueden ser dirigidos o no dirigidos. En un grafo dirigido, las aristas tienen una dirección, mientras que en un grafo no dirigido, las aristas no tienen una dirección.";
+    			t13 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t15 = space();
+    			p5 = element("p");
+    			img = element("img");
+    			t16 = space();
+    			p6 = element("p");
+    			p6.textContent = " ";
+    			t18 = space();
+    			h5 = element("h5");
+    			t19 = text("Fuente: ");
+    			a = element("a");
+    			a.textContent = "Wikimedia";
+    			t21 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t23 = space();
+    			p8 = element("p");
+    			p8.textContent = "En la imagen anterior, el grafo tiene 6 vértices y 7 aristas.";
+    			t25 = space();
+    			p9 = element("p");
+    			p9.textContent = " ";
+    			t27 = space();
+    			p10 = element("p");
+    			p10.textContent = "Es posible representar matemáticamente un grafo con la ecuación:";
+    			t29 = space();
+    			p11 = element("p");
+    			p11.textContent = " ";
+    			t31 = space();
+    			p12 = element("p");
+    			strong2 = element("strong");
+    			strong2.textContent = "G = (V, E)";
+    			t33 = space();
+    			p13 = element("p");
+    			p13.textContent = " ";
+    			t35 = space();
+    			p14 = element("p");
+    			t36 = text("Donde ");
+    			strong3 = element("strong");
+    			strong3.textContent = "V";
+    			t38 = text(" es el conjunto de vértices y ");
+    			strong4 = element("strong");
+    			strong4.textContent = "E";
+    			t40 = text(" es el conjunto de aristas.");
+    			t41 = space();
+    			p15 = element("p");
+    			p15.textContent = " ";
+    			add_location(h1, file$j, 0, 0, 0);
+    			add_location(p0, file$j, 1, 0, 15);
+    			add_location(strong0, file$j, 2, 70, 99);
+    			add_location(strong1, file$j, 2, 98, 127);
+    			add_location(p1, file$j, 2, 0, 29);
+    			add_location(p2, file$j, 3, 0, 158);
+    			add_location(p3, file$j, 4, 0, 172);
+    			add_location(p4, file$j, 5, 0, 409);
+    			if (!src_url_equal(img.src, img_src_value = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/400px-6n-graf.svg.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Grafo con 6 vértices y 7 aristas");
+    			add_location(img, file$j, 6, 3, 426);
+    			add_location(p5, file$j, 6, 0, 423);
+    			add_location(p6, file$j, 7, 0, 575);
+    			attr_dev(a, "href", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/1920px-6n-graf.svg.png");
+    			add_location(a, file$j, 8, 12, 601);
+    			add_location(h5, file$j, 8, 0, 589);
+    			add_location(p7, file$j, 9, 0, 723);
+    			add_location(p8, file$j, 10, 0, 737);
+    			add_location(p9, file$j, 11, 0, 806);
+    			add_location(p10, file$j, 12, 0, 820);
+    			add_location(p11, file$j, 13, 0, 892);
+    			add_location(strong2, file$j, 14, 3, 909);
+    			add_location(p12, file$j, 14, 0, 906);
+    			add_location(p13, file$j, 15, 0, 941);
+    			add_location(strong3, file$j, 16, 9, 964);
+    			add_location(strong4, file$j, 16, 57, 1012);
+    			add_location(p14, file$j, 16, 0, 955);
+    			add_location(p15, file$j, 17, 0, 1062);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			append_dev(p1, t4);
+    			append_dev(p1, strong0);
+    			append_dev(p1, t6);
+    			append_dev(p1, strong1);
+    			append_dev(p1, t8);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t11, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t13, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, p5, anchor);
+    			append_dev(p5, img);
+    			insert_dev(target, t16, anchor);
+    			insert_dev(target, p6, anchor);
+    			insert_dev(target, t18, anchor);
+    			insert_dev(target, h5, anchor);
+    			append_dev(h5, t19);
+    			append_dev(h5, a);
+    			insert_dev(target, t21, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t23, anchor);
+    			insert_dev(target, p8, anchor);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, p9, anchor);
+    			insert_dev(target, t27, anchor);
+    			insert_dev(target, p10, anchor);
+    			insert_dev(target, t29, anchor);
+    			insert_dev(target, p11, anchor);
+    			insert_dev(target, t31, anchor);
+    			insert_dev(target, p12, anchor);
+    			append_dev(p12, strong2);
+    			insert_dev(target, t33, anchor);
+    			insert_dev(target, p13, anchor);
+    			insert_dev(target, t35, anchor);
+    			insert_dev(target, p14, anchor);
+    			append_dev(p14, t36);
+    			append_dev(p14, strong3);
+    			append_dev(p14, t38);
+    			append_dev(p14, strong4);
+    			append_dev(p14, t40);
+    			insert_dev(target, t41, anchor);
+    			insert_dev(target, p15, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t11);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t16);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t18);
+    			if (detaching) detach_dev(h5);
+    			if (detaching) detach_dev(t21);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t23);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t27);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t29);
+    			if (detaching) detach_dev(p11);
+    			if (detaching) detach_dev(t31);
+    			if (detaching) detach_dev(p12);
+    			if (detaching) detach_dev(t33);
+    			if (detaching) detach_dev(p13);
+    			if (detaching) detach_dev(t35);
+    			if (detaching) detach_dev(p14);
+    			if (detaching) detach_dev(t41);
+    			if (detaching) detach_dev(p15);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$j.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$6 = {};
+
+    function instance$j($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Grafo', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Grafo> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$6 });
+    	return [];
+    }
+
+    class Grafo$1 extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$j, create_fragment$j, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Grafo",
+    			options,
+    			id: create_fragment$j.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/Grafo/MatrizAdyacencia.md generated by Svelte v3.48.0 */
+
+    const file$i = "src/components/Ayuda/Items/Grafo/MatrizAdyacencia.md";
+
+    function create_fragment$i(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t5;
+    	let p2;
+    	let t7;
+    	let img0;
+    	let img0_src_value;
+    	let t8;
+    	let p3;
+    	let t10;
+    	let h50;
+    	let t11;
+    	let a0;
+    	let t13;
+    	let p4;
+    	let t15;
+    	let p5;
+    	let t17;
+    	let p6;
+    	let t19;
+    	let img1;
+    	let img1_src_value;
+    	let t20;
+    	let p7;
+    	let t22;
+    	let h51;
+    	let t23;
+    	let a1;
+    	let t25;
+    	let p8;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Matriz de Adyacencia";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = "Una matriz de adyacencia es una matriz cuadrada que representa un grafo. Cada entrada de la matriz representa una arista entre dos vértices. Si la entrada es 1, significa que existe una arista entre los vértices. Si la entrada es 0, significa que no existe una arista entre los vértices.";
+    			t5 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t7 = space();
+    			img0 = element("img");
+    			t8 = space();
+    			p3 = element("p");
+    			p3.textContent = " ";
+    			t10 = space();
+    			h50 = element("h5");
+    			t11 = text("Fuente: ");
+    			a0 = element("a");
+    			a0.textContent = "Programiz";
+    			t13 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t15 = space();
+    			p5 = element("p");
+    			p5.textContent = "Para el grafo de la imagen anterior, la matriz de adyacencia es:";
+    			t17 = space();
+    			p6 = element("p");
+    			p6.textContent = " ";
+    			t19 = space();
+    			img1 = element("img");
+    			t20 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t22 = space();
+    			h51 = element("h5");
+    			t23 = text("Fuente: ");
+    			a1 = element("a");
+    			a1.textContent = "Programiz";
+    			t25 = space();
+    			p8 = element("p");
+    			p8.textContent = " ";
+    			add_location(h1, file$i, 0, 0, 0);
+    			add_location(p0, file$i, 1, 0, 30);
+    			add_location(p1, file$i, 2, 0, 44);
+    			add_location(p2, file$i, 3, 0, 339);
+    			if (!src_url_equal(img0.src, img0_src_value = "https://www.programiz.com/sites/tutorial2program/files/adjacency-matrix-graph.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "width", "300");
+    			attr_dev(img0, "height", "300");
+    			attr_dev(img0, "alt", "Grafo con 4 vértices y 4 aristas");
+    			add_location(img0, file$i, 4, 0, 353);
+    			add_location(p3, file$i, 6, 0, 512);
+    			attr_dev(a0, "href", "https://www.programiz.com/dsa/graph-adjacency-matrix");
+    			add_location(a0, file$i, 7, 12, 538);
+    			add_location(h50, file$i, 7, 0, 526);
+    			add_location(p4, file$i, 8, 0, 620);
+    			add_location(p5, file$i, 9, 0, 634);
+    			add_location(p6, file$i, 10, 0, 706);
+    			if (!src_url_equal(img1.src, img1_src_value = "https://www.programiz.com/sites/tutorial2program/files/adjacency-matrix-representation_1.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "width", "300");
+    			attr_dev(img1, "height", "300");
+    			attr_dev(img1, "alt", "Matriz de adyacencia del grafo de la imagen anterior");
+    			add_location(img1, file$i, 11, 0, 720);
+    			add_location(p7, file$i, 13, 0, 910);
+    			attr_dev(a1, "href", "https://www.programiz.com/dsa/graph-adjacency-matrix");
+    			add_location(a1, file$i, 14, 12, 936);
+    			add_location(h51, file$i, 14, 0, 924);
+    			add_location(p8, file$i, 15, 0, 1018);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, img0, anchor);
+    			insert_dev(target, t8, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t10, anchor);
+    			insert_dev(target, h50, anchor);
+    			append_dev(h50, t11);
+    			append_dev(h50, a0);
+    			insert_dev(target, t13, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t17, anchor);
+    			insert_dev(target, p6, anchor);
+    			insert_dev(target, t19, anchor);
+    			insert_dev(target, img1, anchor);
+    			insert_dev(target, t20, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t22, anchor);
+    			insert_dev(target, h51, anchor);
+    			append_dev(h51, t23);
+    			append_dev(h51, a1);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, p8, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(img0);
+    			if (detaching) detach_dev(t8);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(h50);
+    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(img1);
+    			if (detaching) detach_dev(t20);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t22);
+    			if (detaching) detach_dev(h51);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(p8);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$i.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$5 = {};
+
+    function instance$i($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('MatrizAdyacencia', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<MatrizAdyacencia> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$5 });
+    	return [];
+    }
+
+    class MatrizAdyacencia extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$i, create_fragment$i, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "MatrizAdyacencia",
+    			options,
+    			id: create_fragment$i.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/Grafo/GrafoDirigido.md generated by Svelte v3.48.0 */
+
+    const file$h = "src/components/Ayuda/Items/Grafo/GrafoDirigido.md";
+
+    function create_fragment$h(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t4;
+    	let strong0;
+    	let t6;
+    	let strong1;
+    	let t8;
+    	let strong2;
+    	let t10;
+    	let strong3;
+    	let t12;
+    	let t13;
+    	let p2;
+    	let t15;
+    	let p3;
+    	let t17;
+    	let p4;
+    	let t19;
+    	let img0;
+    	let img0_src_value;
+    	let t20;
+    	let h5;
+    	let t21;
+    	let a;
+    	let t23;
+    	let p5;
+    	let t25;
+    	let p6;
+    	let t27;
+    	let p7;
+    	let t29;
+    	let p8;
+    	let t30;
+    	let strong4;
+    	let t32;
+    	let strong5;
+    	let t34;
+    	let strong6;
+    	let t36;
+    	let t37;
+    	let p9;
+    	let t39;
+    	let p10;
+    	let t41;
+    	let p11;
+    	let img1;
+    	let img1_src_value;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Grafo Dirigido";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("Un grafo dirigido corresponde a un grafo en el que las aristas tienen una dirección. El conjunto de aristas ");
+    			strong0 = element("strong");
+    			strong0.textContent = "E";
+    			t6 = text(" contempla arcos ");
+    			strong1 = element("strong");
+    			strong1.textContent = "e = (x,y)";
+    			t8 = text(" tales que ");
+    			strong2 = element("strong");
+    			strong2.textContent = "x";
+    			t10 = text(" es un vértice emisor o de partida mientras que ");
+    			strong3 = element("strong");
+    			strong3.textContent = "y";
+    			t12 = text(" es un vértice receptor o de llegada.");
+    			t13 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t15 = space();
+    			p3 = element("p");
+    			p3.textContent = "Generalmente se representa un grafo dirigido con una flecha que indica la dirección de la arista.";
+    			t17 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t19 = space();
+    			img0 = element("img");
+    			t20 = space();
+    			h5 = element("h5");
+    			t21 = text("Fuente: ");
+    			a = element("a");
+    			a.textContent = "Techie Delight";
+    			t23 = space();
+    			p5 = element("p");
+    			p5.textContent = " ";
+    			t25 = space();
+    			p6 = element("p");
+    			p6.textContent = "En la imagen anterior, se presenta un grafo dirigido, en el que cada arista tiene una dirección representada por una flecha.";
+    			t27 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t29 = space();
+    			p8 = element("p");
+    			t30 = text("Cabe destacar que la ");
+    			strong4 = element("strong");
+    			strong4.textContent = "matriz de adyacencia";
+    			t32 = text(" para un grafo dirigido no es simétrica y el valor de cada entrada es 1 si existe una arista desde el vértice ");
+    			strong5 = element("strong");
+    			strong5.textContent = "i";
+    			t34 = text(" al vértice ");
+    			strong6 = element("strong");
+    			strong6.textContent = "j";
+    			t36 = text(" y 0 en caso contrario.");
+    			t37 = space();
+    			p9 = element("p");
+    			p9.textContent = "Para el grafo dirigido de la imagen anterior, la matriz de adyacencia es:";
+    			t39 = space();
+    			p10 = element("p");
+    			p10.textContent = " ";
+    			t41 = space();
+    			p11 = element("p");
+    			img1 = element("img");
+    			add_location(h1, file$h, 0, 0, 0);
+    			add_location(p0, file$h, 1, 0, 24);
+    			add_location(strong0, file$h, 2, 111, 149);
+    			add_location(strong1, file$h, 2, 146, 184);
+    			add_location(strong2, file$h, 2, 183, 221);
+    			add_location(strong3, file$h, 2, 249, 287);
+    			add_location(p1, file$h, 2, 0, 38);
+    			add_location(p2, file$h, 3, 0, 347);
+    			add_location(p3, file$h, 4, 0, 361);
+    			add_location(p4, file$h, 5, 0, 466);
+    			if (!src_url_equal(img0.src, img0_src_value = "https://www.techiedelight.com/wp-content/uploads/Eulerian-path-for-directed-graphs.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "width", "300");
+    			attr_dev(img0, "height", "300");
+    			attr_dev(img0, "alt", "Grafo dirigido");
+    			add_location(img0, file$h, 6, 0, 480);
+    			attr_dev(a, "href", "https://www.techiedelight.com/eulerian-path-directed-graph/");
+    			add_location(a, file$h, 7, 12, 639);
+    			add_location(h5, file$h, 7, 0, 627);
+    			add_location(p5, file$h, 8, 0, 733);
+    			add_location(p6, file$h, 9, 0, 747);
+    			add_location(p7, file$h, 10, 0, 879);
+    			add_location(strong4, file$h, 11, 24, 917);
+    			add_location(strong5, file$h, 11, 171, 1064);
+    			add_location(strong6, file$h, 11, 201, 1094);
+    			add_location(p8, file$h, 11, 0, 893);
+    			add_location(p9, file$h, 12, 0, 1140);
+    			add_location(p10, file$h, 13, 0, 1221);
+    			if (!src_url_equal(img1.src, img1_src_value = "/img/Ayuda/Grafo/GrafoDirigido/MatrizAdyacencia.png")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "Matriz de adyacencia");
+    			add_location(img1, file$h, 14, 3, 1238);
+    			add_location(p11, file$h, 14, 0, 1235);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			append_dev(p1, t4);
+    			append_dev(p1, strong0);
+    			append_dev(p1, t6);
+    			append_dev(p1, strong1);
+    			append_dev(p1, t8);
+    			append_dev(p1, strong2);
+    			append_dev(p1, t10);
+    			append_dev(p1, strong3);
+    			append_dev(p1, t12);
+    			insert_dev(target, t13, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t17, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t19, anchor);
+    			insert_dev(target, img0, anchor);
+    			insert_dev(target, t20, anchor);
+    			insert_dev(target, h5, anchor);
+    			append_dev(h5, t21);
+    			append_dev(h5, a);
+    			insert_dev(target, t23, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, p6, anchor);
+    			insert_dev(target, t27, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t29, anchor);
+    			insert_dev(target, p8, anchor);
+    			append_dev(p8, t30);
+    			append_dev(p8, strong4);
+    			append_dev(p8, t32);
+    			append_dev(p8, strong5);
+    			append_dev(p8, t34);
+    			append_dev(p8, strong6);
+    			append_dev(p8, t36);
+    			insert_dev(target, t37, anchor);
+    			insert_dev(target, p9, anchor);
+    			insert_dev(target, t39, anchor);
+    			insert_dev(target, p10, anchor);
+    			insert_dev(target, t41, anchor);
+    			insert_dev(target, p11, anchor);
+    			append_dev(p11, img1);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(img0);
+    			if (detaching) detach_dev(t20);
+    			if (detaching) detach_dev(h5);
+    			if (detaching) detach_dev(t23);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t27);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t29);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t37);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t39);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t41);
+    			if (detaching) detach_dev(p11);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$h.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$4 = {};
+
+    function instance$h($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('GrafoDirigido', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<GrafoDirigido> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$4 });
+    	return [];
+    }
+
+    class GrafoDirigido extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$h, create_fragment$h, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "GrafoDirigido",
+    			options,
+    			id: create_fragment$h.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/FlujoMaximo/RedDeFlujo.md generated by Svelte v3.48.0 */
+
+    const file$g = "src/components/Ayuda/Items/FlujoMaximo/RedDeFlujo.md";
+
+    function create_fragment$g(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t2;
+    	let strong0;
+    	let t4;
+    	let strong1;
+    	let t6;
+    	let t7;
+    	let p1;
+    	let t9;
+    	let p2;
+    	let img;
+    	let img_src_value;
+    	let t10;
+    	let p3;
+    	let t12;
+    	let p4;
+    	let t14;
+    	let p5;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Red de flujo";
+    			t1 = space();
+    			p0 = element("p");
+    			t2 = text("Una red de flujo consiste en un grafo dirigido, en el cual cada arista posee una capacidad y un flujo. Contiene dos o más vértices llamados fuente y sumidero, los cuales se representan como ");
+    			strong0 = element("strong");
+    			strong0.textContent = "s";
+    			t4 = text(" y ");
+    			strong1 = element("strong");
+    			strong1.textContent = "t";
+    			t6 = text(" respectivamente, el flujo de la red va desde el vértice fuente hasta el vértice sumidero.");
+    			t7 = space();
+    			p1 = element("p");
+    			p1.textContent = " ";
+    			t9 = space();
+    			p2 = element("p");
+    			img = element("img");
+    			t10 = space();
+    			p3 = element("p");
+    			p3.textContent = " ";
+    			t12 = space();
+    			p4 = element("p");
+    			p4.textContent = "En la figura anterior se presenta una red de flujo, donde el vértice 1 corresponde a la fuente y el vértice 5 al sumidero.";
+    			t14 = space();
+    			p5 = element("p");
+    			p5.textContent = " ";
+    			add_location(h1, file$g, 0, 0, 0);
+    			add_location(strong0, file$g, 1, 193, 215);
+    			add_location(strong1, file$g, 1, 214, 236);
+    			add_location(p0, file$g, 1, 0, 22);
+    			add_location(p1, file$g, 2, 0, 350);
+    			if (!src_url_equal(img.src, img_src_value = "/img/Ayuda/FlujoMaximo/RedDeFlujo/RedDeFlujo.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Red de flujo");
+    			add_location(img, file$g, 3, 3, 367);
+    			add_location(p2, file$g, 3, 0, 364);
+    			add_location(p3, file$g, 4, 0, 451);
+    			add_location(p4, file$g, 5, 0, 465);
+    			add_location(p5, file$g, 6, 0, 596);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			append_dev(p0, t2);
+    			append_dev(p0, strong0);
+    			append_dev(p0, t4);
+    			append_dev(p0, strong1);
+    			append_dev(p0, t6);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, p2, anchor);
+    			append_dev(p2, img);
+    			insert_dev(target, t10, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t12, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t14, anchor);
+    			insert_dev(target, p5, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t10);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t12);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(p5);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$g.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$3 = {};
+
+    function instance$g($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('RedDeFlujo', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<RedDeFlujo> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$3 });
+    	return [];
+    }
+
+    class RedDeFlujo extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$g, create_fragment$g, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "RedDeFlujo",
+    			options,
+    			id: create_fragment$g.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/FlujoMaximo/ProblemaFlujoMaximo.md generated by Svelte v3.48.0 */
+
+    const file$f = "src/components/Ayuda/Items/FlujoMaximo/ProblemaFlujoMaximo.md";
+
+    function create_fragment$f(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t5;
+    	let p2;
+    	let img;
+    	let img_src_value;
+    	let t6;
+    	let p3;
+    	let t8;
+    	let p4;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Problema de flujo máximo";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = "El problema del flujo máximo consiste en encontrar el flujo máximo que puede pasar por una red de flujo, desde la fuente al sumidero o destino.";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = " ";
+    			t5 = space();
+    			p2 = element("p");
+    			img = element("img");
+    			t6 = space();
+    			p3 = element("p");
+    			p3.textContent = " ";
+    			t8 = space();
+    			p4 = element("p");
+    			p4.textContent = "En la figura anterior se presenta una red de flujo, donde el vértice 1 corresponde a la fuente y el vértice 5 al sumidero. Y el flujo máximo que puede pasar por la red es de 53.";
+    			add_location(h1, file$f, 0, 0, 0);
+    			add_location(p0, file$f, 1, 0, 34);
+    			add_location(p1, file$f, 2, 0, 185);
+    			if (!src_url_equal(img.src, img_src_value = "/img/Ayuda/FlujoMaximo/FlujoMaximo/FlujoMaximo.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "Problema de flujo máximo");
+    			add_location(img, file$f, 3, 3, 202);
+    			add_location(p2, file$f, 3, 0, 199);
+    			add_location(p3, file$f, 4, 0, 300);
+    			add_location(p4, file$f, 5, 0, 314);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, p2, anchor);
+    			append_dev(p2, img);
+    			insert_dev(target, t6, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t8, anchor);
+    			insert_dev(target, p4, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t8);
+    			if (detaching) detach_dev(p4);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$f.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$2 = {};
+
+    function instance$f($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('ProblemaFlujoMaximo', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ProblemaFlujoMaximo> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$2 });
+    	return [];
+    }
+
+    class ProblemaFlujoMaximo extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$f, create_fragment$f, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ProblemaFlujoMaximo",
+    			options,
+    			id: create_fragment$f.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/FlujoMaximo/TeoremaFMCM.md generated by Svelte v3.48.0 */
+
+    const file$e = "src/components/Ayuda/Items/FlujoMaximo/TeoremaFMCM.md";
+
+    function create_fragment$e(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t5;
+    	let p2;
+    	let t6;
+    	let strong0;
+    	let t8;
+    	let strong1;
+    	let t10;
+    	let strong2;
+    	let t12;
+    	let t13;
+    	let p3;
+    	let t15;
+    	let h20;
+    	let t17;
+    	let p4;
+    	let t18;
+    	let em0;
+    	let t20;
+    	let em1;
+    	let t22;
+    	let em2;
+    	let t24;
+    	let em3;
+    	let t26;
+    	let em4;
+    	let t28;
+    	let em5;
+    	let t30;
+    	let em6;
+    	let t32;
+    	let em7;
+    	let t34;
+    	let t35;
+    	let p5;
+    	let t37;
+    	let h21;
+    	let t39;
+    	let p6;
+    	let t40;
+    	let em8;
+    	let t42;
+    	let em9;
+    	let t44;
+    	let em10;
+    	let t46;
+    	let em11;
+    	let t48;
+    	let em12;
+    	let t50;
+    	let em13;
+    	let t52;
+    	let em14;
+    	let t54;
+    	let em15;
+    	let t56;
+    	let t57;
+    	let p7;
+    	let t59;
+    	let h22;
+    	let t61;
+    	let p8;
+    	let t62;
+    	let em16;
+    	let t64;
+    	let em17;
+    	let t66;
+    	let em18;
+    	let t68;
+    	let em19;
+    	let t70;
+    	let em20;
+    	let t72;
+    	let em21;
+    	let t74;
+    	let em22;
+    	let t76;
+    	let em23;
+    	let t78;
+    	let em24;
+    	let t80;
+    	let em25;
+    	let t82;
+    	let t83;
+    	let p9;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Teorema de flujo máximo y corte mínimo";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = "Este teorema fue propuesto inicialmente en 1956 por L. R. Ford y D. R. Fulkerson, el cual establece que el flujo máximo de una red de flujo es igual a la suma de las capacidades de las aristas, tales que si estas son eliminadas de la red, la fuente y el sumidero dejan de estar conectados.";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = " ";
+    			t5 = space();
+    			p2 = element("p");
+    			t6 = text("Para este algoritmo se utilizan los conceptos de ");
+    			strong0 = element("strong");
+    			strong0.textContent = "redes residuales";
+    			t8 = text(", ");
+    			strong1 = element("strong");
+    			strong1.textContent = "trayectorias de aumento";
+    			t10 = text(", y los ");
+    			strong2 = element("strong");
+    			strong2.textContent = "cortes";
+    			t12 = text(".");
+    			t13 = space();
+    			p3 = element("p");
+    			p3.textContent = " ";
+    			t15 = space();
+    			h20 = element("h2");
+    			h20.textContent = "Redes residuales";
+    			t17 = space();
+    			p4 = element("p");
+    			t18 = text("Dada una red ");
+    			em0 = element("em");
+    			em0.textContent = "G";
+    			t20 = text(" y un flujo ");
+    			em1 = element("em");
+    			em1.textContent = "f";
+    			t22 = text(", se puede construir una red residual ");
+    			em2 = element("em");
+    			em2.textContent = "Gf";
+    			t24 = text(" que contiene las aristas con la capacidad restante de ");
+    			em3 = element("em");
+    			em3.textContent = "G";
+    			t26 = text(". Cada arista residual representada como ");
+    			em4 = element("em");
+    			em4.textContent = "cf";
+    			t28 = text(" se construye restando el flujo ");
+    			em5 = element("em");
+    			em5.textContent = "f";
+    			t30 = text(" a la capacidad de cada arista original, es decir, ");
+    			em6 = element("em");
+    			em6.textContent = "cf(u,v) = c(u,v) - f(u,v)";
+    			t32 = text(". Solamente se consideran las aristas que puedan soportar mas flujo, es decir, aquellas que posean una capacidad residual ");
+    			em7 = element("em");
+    			em7.textContent = "cf(u,v) > 0";
+    			t34 = text(".");
+    			t35 = space();
+    			p5 = element("p");
+    			p5.textContent = " ";
+    			t37 = space();
+    			h21 = element("h2");
+    			h21.textContent = "Trayectorias de aumento";
+    			t39 = space();
+    			p6 = element("p");
+    			t40 = text("Dada una red de flujo ");
+    			em8 = element("em");
+    			em8.textContent = "G = (V,E)";
+    			t42 = text(" y un flujo ");
+    			em9 = element("em");
+    			em9.textContent = "f";
+    			t44 = text(", una trayectoria o camino de aumento ");
+    			em10 = element("em");
+    			em10.textContent = "p";
+    			t46 = text(" es un camino simple desde la fuente ");
+    			em11 = element("em");
+    			em11.textContent = "s";
+    			t48 = text(" hasta el sumidero ");
+    			em12 = element("em");
+    			em12.textContent = "t";
+    			t50 = text(". Es posible aumentar el flujo en una arista ");
+    			em13 = element("em");
+    			em13.textContent = "(u,v)";
+    			t52 = text(" de una trayectoria de aumento ");
+    			em14 = element("em");
+    			em14.textContent = "p";
+    			t54 = text(" por una cantidad de ");
+    			em15 = element("em");
+    			em15.textContent = "cf(u,v)";
+    			t56 = text(".");
+    			t57 = space();
+    			p7 = element("p");
+    			p7.textContent = " ";
+    			t59 = space();
+    			h22 = element("h2");
+    			h22.textContent = "Cortes";
+    			t61 = space();
+    			p8 = element("p");
+    			t62 = text("Un corte ");
+    			em16 = element("em");
+    			em16.textContent = "s-t";
+    			t64 = space();
+    			em17 = element("em");
+    			em17.textContent = "C = (S,T)";
+    			t66 = text(" es una partición de los vértices ");
+    			em18 = element("em");
+    			em18.textContent = "V";
+    			t68 = text(" tal que ");
+    			em19 = element("em");
+    			em19.textContent = "s ∈ S";
+    			t70 = text(" y ");
+    			em20 = element("em");
+    			em20.textContent = "t ∈ T";
+    			t72 = text(", donde ");
+    			em21 = element("em");
+    			em21.textContent = "s";
+    			t74 = text(" y ");
+    			em22 = element("em");
+    			em22.textContent = "t";
+    			t76 = text(" corresponden a los vértices fuente y destino respectivamente, es decir ");
+    			em23 = element("em");
+    			em23.textContent = "s-t";
+    			t78 = text(" es una división de los vértices de la red de flujo en dos partes, una incluye a la fuente y la otra al destino. El grupo de cortes ");
+    			em24 = element("em");
+    			em24.textContent = "Xc";
+    			t80 = text(" de un corte ");
+    			em25 = element("em");
+    			em25.textContent = "C";
+    			t82 = text(" es un grupo de vértices que conectan la fuente con el destino.");
+    			t83 = space();
+    			p9 = element("p");
+    			p9.textContent = " ";
+    			add_location(h1, file$e, 0, 0, 0);
+    			add_location(p0, file$e, 1, 0, 48);
+    			add_location(p1, file$e, 2, 0, 345);
+    			add_location(strong0, file$e, 3, 52, 411);
+    			add_location(strong1, file$e, 3, 87, 446);
+    			add_location(strong2, file$e, 3, 135, 494);
+    			add_location(p2, file$e, 3, 0, 359);
+    			add_location(p3, file$e, 4, 0, 523);
+    			add_location(h20, file$e, 5, 0, 537);
+    			add_location(em0, file$e, 6, 16, 579);
+    			add_location(em1, file$e, 6, 38, 601);
+    			add_location(em2, file$e, 6, 86, 649);
+    			add_location(em3, file$e, 6, 152, 715);
+    			add_location(em4, file$e, 6, 203, 766);
+    			add_location(em5, file$e, 6, 246, 809);
+    			add_location(em6, file$e, 6, 307, 870);
+    			add_location(em7, file$e, 6, 463, 1026);
+    			add_location(p4, file$e, 6, 0, 563);
+    			add_location(p5, file$e, 7, 0, 1055);
+    			add_location(h21, file$e, 8, 0, 1069);
+    			add_location(em8, file$e, 9, 25, 1127);
+    			add_location(em9, file$e, 9, 55, 1157);
+    			add_location(em10, file$e, 9, 103, 1205);
+    			add_location(em11, file$e, 9, 150, 1252);
+    			add_location(em12, file$e, 9, 179, 1281);
+    			add_location(em13, file$e, 9, 234, 1336);
+    			add_location(em14, file$e, 9, 279, 1381);
+    			add_location(em15, file$e, 9, 310, 1412);
+    			add_location(p6, file$e, 9, 0, 1102);
+    			add_location(p7, file$e, 10, 0, 1434);
+    			add_location(h22, file$e, 11, 0, 1448);
+    			add_location(em16, file$e, 12, 12, 1476);
+    			add_location(em17, file$e, 12, 25, 1489);
+    			add_location(em18, file$e, 12, 77, 1541);
+    			add_location(em19, file$e, 12, 96, 1560);
+    			add_location(em20, file$e, 12, 113, 1577);
+    			add_location(em21, file$e, 12, 135, 1599);
+    			add_location(em22, file$e, 12, 148, 1612);
+    			add_location(em23, file$e, 12, 230, 1694);
+    			add_location(em24, file$e, 12, 374, 1838);
+    			add_location(em25, file$e, 12, 398, 1862);
+    			add_location(p8, file$e, 12, 0, 1464);
+    			add_location(p9, file$e, 13, 0, 1940);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, p2, anchor);
+    			append_dev(p2, t6);
+    			append_dev(p2, strong0);
+    			append_dev(p2, t8);
+    			append_dev(p2, strong1);
+    			append_dev(p2, t10);
+    			append_dev(p2, strong2);
+    			append_dev(p2, t12);
+    			insert_dev(target, t13, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t15, anchor);
+    			insert_dev(target, h20, anchor);
+    			insert_dev(target, t17, anchor);
+    			insert_dev(target, p4, anchor);
+    			append_dev(p4, t18);
+    			append_dev(p4, em0);
+    			append_dev(p4, t20);
+    			append_dev(p4, em1);
+    			append_dev(p4, t22);
+    			append_dev(p4, em2);
+    			append_dev(p4, t24);
+    			append_dev(p4, em3);
+    			append_dev(p4, t26);
+    			append_dev(p4, em4);
+    			append_dev(p4, t28);
+    			append_dev(p4, em5);
+    			append_dev(p4, t30);
+    			append_dev(p4, em6);
+    			append_dev(p4, t32);
+    			append_dev(p4, em7);
+    			append_dev(p4, t34);
+    			insert_dev(target, t35, anchor);
+    			insert_dev(target, p5, anchor);
+    			insert_dev(target, t37, anchor);
+    			insert_dev(target, h21, anchor);
+    			insert_dev(target, t39, anchor);
+    			insert_dev(target, p6, anchor);
+    			append_dev(p6, t40);
+    			append_dev(p6, em8);
+    			append_dev(p6, t42);
+    			append_dev(p6, em9);
+    			append_dev(p6, t44);
+    			append_dev(p6, em10);
+    			append_dev(p6, t46);
+    			append_dev(p6, em11);
+    			append_dev(p6, t48);
+    			append_dev(p6, em12);
+    			append_dev(p6, t50);
+    			append_dev(p6, em13);
+    			append_dev(p6, t52);
+    			append_dev(p6, em14);
+    			append_dev(p6, t54);
+    			append_dev(p6, em15);
+    			append_dev(p6, t56);
+    			insert_dev(target, t57, anchor);
+    			insert_dev(target, p7, anchor);
+    			insert_dev(target, t59, anchor);
+    			insert_dev(target, h22, anchor);
+    			insert_dev(target, t61, anchor);
+    			insert_dev(target, p8, anchor);
+    			append_dev(p8, t62);
+    			append_dev(p8, em16);
+    			append_dev(p8, t64);
+    			append_dev(p8, em17);
+    			append_dev(p8, t66);
+    			append_dev(p8, em18);
+    			append_dev(p8, t68);
+    			append_dev(p8, em19);
+    			append_dev(p8, t70);
+    			append_dev(p8, em20);
+    			append_dev(p8, t72);
+    			append_dev(p8, em21);
+    			append_dev(p8, t74);
+    			append_dev(p8, em22);
+    			append_dev(p8, t76);
+    			append_dev(p8, em23);
+    			append_dev(p8, t78);
+    			append_dev(p8, em24);
+    			append_dev(p8, t80);
+    			append_dev(p8, em25);
+    			append_dev(p8, t82);
+    			insert_dev(target, t83, anchor);
+    			insert_dev(target, p9, anchor);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t13);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t15);
+    			if (detaching) detach_dev(h20);
+    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t35);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t37);
+    			if (detaching) detach_dev(h21);
+    			if (detaching) detach_dev(t39);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t57);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t59);
+    			if (detaching) detach_dev(h22);
+    			if (detaching) detach_dev(t61);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t83);
+    			if (detaching) detach_dev(p9);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$e.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META$1 = {};
+
+    function instance$e($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('TeoremaFMCM', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<TeoremaFMCM> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META: META$1 });
+    	return [];
+    }
+
+    class TeoremaFMCM extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$e, create_fragment$e, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "TeoremaFMCM",
+    			options,
+    			id: create_fragment$e.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Items/FlujoMaximo/AlgoritmoFordFulkerson.md generated by Svelte v3.48.0 */
+
+    const file$d = "src/components/Ayuda/Items/FlujoMaximo/AlgoritmoFordFulkerson.md";
+
+    function create_fragment$d(ctx) {
+    	let h1;
+    	let t1;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t5;
+    	let p2;
+    	let t7;
+    	let p3;
+    	let t9;
+    	let ol;
+    	let li0;
+    	let t10;
+    	let em0;
+    	let t12;
+    	let t13;
+    	let li1;
+    	let t14;
+    	let em1;
+    	let t16;
+    	let em2;
+    	let t18;
+    	let t19;
+    	let li2;
+    	let t20;
+    	let em3;
+    	let t22;
+    	let t23;
+    	let p4;
+    	let t25;
+    	let p5;
+    	let t26;
+    	let em4;
+    	let t28;
+    	let em5;
+    	let t30;
+    	let em6;
+    	let t32;
+    	let t33;
+    	let p6;
+    	let t35;
+    	let p7;
+    	let t36;
+    	let em7;
+    	let t38;
+    	let em10;
+    	let t39;
+    	let em8;
+    	let t41;
+    	let em9;
+    	let t43;
+    	let t44;
+    	let p8;
+    	let t46;
+    	let h2;
+    	let t48;
+    	let p9;
+    	let t50;
+    	let p10;
+    	let t51;
+    	let strong0;
+    	let t53;
+    	let strong1;
+    	let t55;
+    	let t56;
+    	let p11;
+    	let t58;
+    	let p12;
+    	let t59;
+    	let em11;
+    	let t61;
+    	let em12;
+    	let t63;
+    	let em13;
+    	let t65;
+    	let t66;
+    	let p13;
+    	let t68;
+    	let p14;
+    	let t69;
+    	let a;
+    	let strong2;
+    	let t71;
+    	let t72;
+    	let p15;
+    	let t74;
+    	let p16;
+    	let t75;
+    	let em14;
+    	let t77;
+    	let strong3;
+    	let t79;
+
+    	const block = {
+    		c: function create() {
+    			h1 = element("h1");
+    			h1.textContent = "Algoritmo de Ford-Fulkerson";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = " ";
+    			t3 = space();
+    			p1 = element("p");
+    			p1.textContent = "Utilizando el teorema de flujo máximo y corte mínimo, se puede construir un algoritmo para encontrar el flujo máximo en una red de flujo. Este algoritmo se conoce como el algoritmo de Ford-Fulkerson.";
+    			t5 = space();
+    			p2 = element("p");
+    			p2.textContent = " ";
+    			t7 = space();
+    			p3 = element("p");
+    			p3.textContent = "El algoritmo se basa en repetir el siguiente proceso:";
+    			t9 = space();
+    			ol = element("ol");
+    			li0 = element("li");
+    			t10 = text("Construir una red residual ");
+    			em0 = element("em");
+    			em0.textContent = "Gf";
+    			t12 = text(".");
+    			t13 = space();
+    			li1 = element("li");
+    			t14 = text("Encontrar una trayectoria de aumento ");
+    			em1 = element("em");
+    			em1.textContent = "p";
+    			t16 = text(" en ");
+    			em2 = element("em");
+    			em2.textContent = "Gf";
+    			t18 = text(".");
+    			t19 = space();
+    			li2 = element("li");
+    			t20 = text("Aumentar el flujo en ");
+    			em3 = element("em");
+    			em3.textContent = "p";
+    			t22 = text(".");
+    			t23 = space();
+    			p4 = element("p");
+    			p4.textContent = " ";
+    			t25 = space();
+    			p5 = element("p");
+    			t26 = text("El algoritmo termina cuando no exista una trayectoria de aumento en ");
+    			em4 = element("em");
+    			em4.textContent = "Gf";
+    			t28 = text(". El flujo máximo en ");
+    			em5 = element("em");
+    			em5.textContent = "G";
+    			t30 = text(" es igual a la suma de los flujos en las aristas de la red residual ");
+    			em6 = element("em");
+    			em6.textContent = "Gf";
+    			t32 = text(".");
+    			t33 = space();
+    			p6 = element("p");
+    			p6.textContent = " ";
+    			t35 = space();
+    			p7 = element("p");
+    			t36 = text("La complejidad del algoritmo de Ford-Fulkerson es de ");
+    			em7 = element("em");
+    			em7.textContent = "O(|E| ⋅ f\\";
+    			t38 = text(")");
+    			em10 = element("em");
+    			t39 = text(", donde ");
+    			em8 = element("em");
+    			em8.textContent = "|E|";
+    			t41 = text(" es el número de aristas y ");
+    			em9 = element("em");
+    			em9.textContent = "f\\";
+    			t43 = text(" es el flujo máximo.");
+    			t44 = space();
+    			p8 = element("p");
+    			p8.textContent = " ";
+    			t46 = space();
+    			h2 = element("h2");
+    			h2.textContent = "Algoritmo de Edmonds-Karp";
+    			t48 = space();
+    			p9 = element("p");
+    			p9.textContent = " ";
+    			t50 = space();
+    			p10 = element("p");
+    			t51 = text("Originalmente el algoritmo de Ford-Fulkerson utiliza una búsqueda en profundidad para encontrar una trayectoria de aumento en la red residual ");
+    			strong0 = element("strong");
+    			strong0.textContent = "(DFS)";
+    			t53 = text(". Sin embargo, este algoritmo puede ser mejorado utilizando una búsqueda en amplitud ");
+    			strong1 = element("strong");
+    			strong1.textContent = "(BFS)";
+    			t55 = text(", el cual se conoce como el algoritmo de Edmonds-Karp.");
+    			t56 = space();
+    			p11 = element("p");
+    			p11.textContent = " ";
+    			t58 = space();
+    			p12 = element("p");
+    			t59 = text("Al realizar esta modificación, la complejidad del algoritmo de Edmonds-Karp es de ");
+    			em11 = element("em");
+    			em11.textContent = "O(|V| ⋅ |E|^2)";
+    			t61 = text(", donde ");
+    			em12 = element("em");
+    			em12.textContent = "|V|";
+    			t63 = text(" es el número de vértices y ");
+    			em13 = element("em");
+    			em13.textContent = "|E|";
+    			t65 = text(" es el número de aristas.");
+    			t66 = space();
+    			p13 = element("p");
+    			p13.textContent = " ";
+    			t68 = space();
+    			p14 = element("p");
+    			t69 = text("Cabe destacar que en este algoritmo, la complejidad no depende de la variable de flujo maximo y por lo tanto es un algoritmo ");
+    			a = element("a");
+    			strong2 = element("strong");
+    			strong2.textContent = "fuertemente polinomial";
+    			t71 = text(".");
+    			t72 = space();
+    			p15 = element("p");
+    			p15.textContent = " ";
+    			t74 = space();
+    			p16 = element("p");
+    			t75 = text("De forma paralela el científico soviético Yefim Dinitz en 1970 de forma independiente, logró desarrollar un algoritmo ");
+    			em14 = element("em");
+    			em14.textContent = "O(|V| ⋅ |E|^2)";
+    			t77 = text(" para encontrar el flujo máximo en una red de flujo, el cual se conoce como el algoritmo de Dinitz. Al igual que el algoritmo de Edmonds-Karp, este algoritmo utiliza una búsqueda en amplitud ");
+    			strong3 = element("strong");
+    			strong3.textContent = "(BFS)";
+    			t79 = text(" para encontrar una trayectoria de aumento en la red residual.");
+    			add_location(h1, file$d, 0, 0, 0);
+    			add_location(p0, file$d, 1, 0, 37);
+    			add_location(p1, file$d, 2, 0, 51);
+    			add_location(p2, file$d, 3, 0, 258);
+    			add_location(p3, file$d, 4, 0, 272);
+    			add_location(em0, file$d, 6, 31, 369);
+    			add_location(li0, file$d, 6, 0, 338);
+    			add_location(em1, file$d, 7, 41, 428);
+    			add_location(em2, file$d, 7, 55, 442);
+    			add_location(li1, file$d, 7, 0, 387);
+    			add_location(em3, file$d, 8, 25, 485);
+    			add_location(li2, file$d, 8, 0, 460);
+    			add_location(ol, file$d, 5, 0, 333);
+    			add_location(p4, file$d, 10, 0, 508);
+    			add_location(em4, file$d, 11, 71, 593);
+    			add_location(em5, file$d, 11, 103, 625);
+    			add_location(em6, file$d, 11, 181, 703);
+    			add_location(p5, file$d, 11, 0, 522);
+    			add_location(p6, file$d, 12, 0, 720);
+    			add_location(em7, file$d, 13, 56, 790);
+    			add_location(em8, file$d, 13, 88, 822);
+    			add_location(em9, file$d, 13, 127, 861);
+    			add_location(em10, file$d, 13, 76, 810);
+    			add_location(p7, file$d, 13, 0, 734);
+    			add_location(p8, file$d, 14, 0, 902);
+    			add_location(h2, file$d, 15, 0, 916);
+    			add_location(p9, file$d, 16, 0, 951);
+    			add_location(strong0, file$d, 17, 145, 1110);
+    			add_location(strong1, file$d, 17, 252, 1217);
+    			add_location(p10, file$d, 17, 0, 965);
+    			add_location(p11, file$d, 18, 0, 1298);
+    			add_location(em11, file$d, 19, 85, 1397);
+    			add_location(em12, file$d, 19, 116, 1428);
+    			add_location(em13, file$d, 19, 156, 1468);
+    			add_location(p12, file$d, 19, 0, 1312);
+    			add_location(p13, file$d, 20, 0, 1510);
+    			add_location(strong2, file$d, 21, 227, 1751);
+    			attr_dev(a, "href", "https://es.wikipedia.org/wiki/Complejidad_temporal#Tiempo_polinomial_fuerte_y_d%C3%A9bil");
+    			add_location(a, file$d, 21, 128, 1652);
+    			add_location(p14, file$d, 21, 0, 1524);
+    			add_location(p15, file$d, 22, 0, 1800);
+    			add_location(em14, file$d, 23, 121, 1935);
+    			add_location(strong3, file$d, 23, 335, 2149);
+    			add_location(p16, file$d, 23, 0, 1814);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, p1, anchor);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, p2, anchor);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, ol, anchor);
+    			append_dev(ol, li0);
+    			append_dev(li0, t10);
+    			append_dev(li0, em0);
+    			append_dev(li0, t12);
+    			append_dev(ol, t13);
+    			append_dev(ol, li1);
+    			append_dev(li1, t14);
+    			append_dev(li1, em1);
+    			append_dev(li1, t16);
+    			append_dev(li1, em2);
+    			append_dev(li1, t18);
+    			append_dev(ol, t19);
+    			append_dev(ol, li2);
+    			append_dev(li2, t20);
+    			append_dev(li2, em3);
+    			append_dev(li2, t22);
+    			insert_dev(target, t23, anchor);
+    			insert_dev(target, p4, anchor);
+    			insert_dev(target, t25, anchor);
+    			insert_dev(target, p5, anchor);
+    			append_dev(p5, t26);
+    			append_dev(p5, em4);
+    			append_dev(p5, t28);
+    			append_dev(p5, em5);
+    			append_dev(p5, t30);
+    			append_dev(p5, em6);
+    			append_dev(p5, t32);
+    			insert_dev(target, t33, anchor);
+    			insert_dev(target, p6, anchor);
+    			insert_dev(target, t35, anchor);
+    			insert_dev(target, p7, anchor);
+    			append_dev(p7, t36);
+    			append_dev(p7, em7);
+    			append_dev(p7, t38);
+    			append_dev(p7, em10);
+    			append_dev(em10, t39);
+    			append_dev(em10, em8);
+    			append_dev(em10, t41);
+    			append_dev(em10, em9);
+    			append_dev(p7, t43);
+    			insert_dev(target, t44, anchor);
+    			insert_dev(target, p8, anchor);
+    			insert_dev(target, t46, anchor);
+    			insert_dev(target, h2, anchor);
+    			insert_dev(target, t48, anchor);
+    			insert_dev(target, p9, anchor);
+    			insert_dev(target, t50, anchor);
+    			insert_dev(target, p10, anchor);
+    			append_dev(p10, t51);
+    			append_dev(p10, strong0);
+    			append_dev(p10, t53);
+    			append_dev(p10, strong1);
+    			append_dev(p10, t55);
+    			insert_dev(target, t56, anchor);
+    			insert_dev(target, p11, anchor);
+    			insert_dev(target, t58, anchor);
+    			insert_dev(target, p12, anchor);
+    			append_dev(p12, t59);
+    			append_dev(p12, em11);
+    			append_dev(p12, t61);
+    			append_dev(p12, em12);
+    			append_dev(p12, t63);
+    			append_dev(p12, em13);
+    			append_dev(p12, t65);
+    			insert_dev(target, t66, anchor);
+    			insert_dev(target, p13, anchor);
+    			insert_dev(target, t68, anchor);
+    			insert_dev(target, p14, anchor);
+    			append_dev(p14, t69);
+    			append_dev(p14, a);
+    			append_dev(a, strong2);
+    			append_dev(p14, t71);
+    			insert_dev(target, t72, anchor);
+    			insert_dev(target, p15, anchor);
+    			insert_dev(target, t74, anchor);
+    			insert_dev(target, p16, anchor);
+    			append_dev(p16, t75);
+    			append_dev(p16, em14);
+    			append_dev(p16, t77);
+    			append_dev(p16, strong3);
+    			append_dev(p16, t79);
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(p2);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(ol);
+    			if (detaching) detach_dev(t23);
+    			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t25);
+    			if (detaching) detach_dev(p5);
+    			if (detaching) detach_dev(t33);
+    			if (detaching) detach_dev(p6);
+    			if (detaching) detach_dev(t35);
+    			if (detaching) detach_dev(p7);
+    			if (detaching) detach_dev(t44);
+    			if (detaching) detach_dev(p8);
+    			if (detaching) detach_dev(t46);
+    			if (detaching) detach_dev(h2);
+    			if (detaching) detach_dev(t48);
+    			if (detaching) detach_dev(p9);
+    			if (detaching) detach_dev(t50);
+    			if (detaching) detach_dev(p10);
+    			if (detaching) detach_dev(t56);
+    			if (detaching) detach_dev(p11);
+    			if (detaching) detach_dev(t58);
+    			if (detaching) detach_dev(p12);
+    			if (detaching) detach_dev(t66);
+    			if (detaching) detach_dev(p13);
+    			if (detaching) detach_dev(t68);
+    			if (detaching) detach_dev(p14);
+    			if (detaching) detach_dev(t72);
+    			if (detaching) detach_dev(p15);
+    			if (detaching) detach_dev(t74);
+    			if (detaching) detach_dev(p16);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$d.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const META = {};
+
+    function instance$d($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('AlgoritmoFordFulkerson', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<AlgoritmoFordFulkerson> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ META });
+    	return [];
+    }
+
+    class AlgoritmoFordFulkerson extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$d, create_fragment$d, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "AlgoritmoFordFulkerson",
+    			options,
+    			id: create_fragment$d.name
+    		});
+    	}
+    }
+
+    /* src/components/Ayuda/Ayuda.svelte generated by Svelte v3.48.0 */
+
+    const file$c = "src/components/Ayuda/Ayuda.svelte";
+
+    function get_each_context$4(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[6] = list[i];
+    	child_ctx[8] = i;
+    	return child_ctx;
+    }
+
+    function get_each_context_1$2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[9] = list[i];
+    	child_ctx[11] = i;
+    	return child_ctx;
+    }
+
+    // (107:20) {#each categoria.items as item, indexItem}
+    function create_each_block_1$2(ctx) {
+    	let button;
+    	let p;
+    	let t0_value = /*indexCategoria*/ ctx[8] + 1 + "";
+    	let t0;
+    	let t1;
+    	let t2_value = /*indexItem*/ ctx[11] + 1 + "";
+    	let t2;
+    	let t3;
+    	let t4_value = /*item*/ ctx[9].titulo + "";
+    	let t4;
+    	let t5;
+    	let mounted;
+    	let dispose;
+
+    	function click_handler() {
+    		return /*click_handler*/ ctx[3](/*indexCategoria*/ ctx[8], /*indexItem*/ ctx[11]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = text("-");
+    			t2 = text(t2_value);
+    			t3 = text(".- ");
+    			t4 = text(t4_value);
+    			t5 = space();
+    			attr_dev(p, "class", "text-base font-medium text-left");
+    			add_location(p, file$c, 108, 28, 3907);
+    			attr_dev(button, "class", "h-12 w-full p-2");
+    			add_location(button, file$c, 107, 24, 3788);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+    			append_dev(button, p);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    			append_dev(p, t2);
+    			append_dev(p, t3);
+    			append_dev(p, t4);
+    			append_dev(button, t5);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", click_handler, false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1$2.name,
+    		type: "each",
+    		source: "(107:20) {#each categoria.items as item, indexItem}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (98:8) {#each itemsAyuda.categorias as categoria, indexCategoria}
+    function create_each_block$4(ctx) {
+    	let div2;
+    	let div0;
+    	let p;
+    	let t0_value = /*indexCategoria*/ ctx[8] + 1 + "";
+    	let t0;
+    	let t1;
+    	let t2_value = /*categoria*/ ctx[6].titulo + "";
+    	let t2;
+    	let t3;
+    	let hr;
+    	let t4;
+    	let div1;
+    	let t5;
+    	let each_value_1 = /*categoria*/ ctx[6].items;
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = text(" .- ");
+    			t2 = text(t2_value);
+    			t3 = space();
+    			hr = element("hr");
+    			t4 = space();
+    			div1 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t5 = space();
+    			attr_dev(p, "class", "text-lg font-semibold text-left");
+    			add_location(p, file$c, 100, 20, 3435);
+    			attr_dev(div0, "class", "w-full h-12 p-2");
+    			add_location(div0, file$c, 99, 16, 3385);
+    			attr_dev(hr, "class", "w-full bg-black");
+    			add_location(hr, file$c, 104, 16, 3610);
+    			attr_dev(div1, "class", "flex flex-col w-full divide-y");
+    			add_location(div1, file$c, 105, 16, 3657);
+    			attr_dev(div2, "class", "w-full");
+    			add_location(div2, file$c, 98, 12, 3348);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			append_dev(div0, p);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    			append_dev(p, t2);
+    			append_dev(div2, t3);
+    			append_dev(div2, hr);
+    			append_dev(div2, t4);
+    			append_dev(div2, div1);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div1, null);
+    			}
+
+    			append_dev(div2, t5);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*onClickItem, itemsAyuda*/ 6) {
+    				each_value_1 = /*categoria*/ ctx[6].items;
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_1$2(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div1, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_1.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$4.name,
+    		type: "each",
+    		source: "(98:8) {#each itemsAyuda.categorias as categoria, indexCategoria}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$c(ctx) {
+    	let div2;
+    	let div0;
+    	let t;
+    	let div1;
+    	let switch_instance;
+    	let current;
+    	let each_value = /*itemsAyuda*/ ctx[1].categorias;
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+    	}
+
+    	var switch_value = /*componenteSeleccionado*/ ctx[0];
+
+    	function switch_props(ctx) {
+    		return { $$inline: true };
+    	}
+
+    	if (switch_value) {
+    		switch_instance = new switch_value(switch_props());
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t = space();
+    			div1 = element("div");
+    			if (switch_instance) create_component(switch_instance.$$.fragment);
+    			attr_dev(div0, "class", "w-1/4 h-full flex flex-col divide-y overflow-x-hidden overflow-y-scroll whitespace-nowrap");
+    			add_location(div0, file$c, 96, 4, 3165);
+    			attr_dev(div1, "class", "w-3/4 h-full overflow-y-scroll p-6");
+    			add_location(div1, file$c, 117, 4, 4204);
+    			attr_dev(div2, "style", "height: 38rem");
+    			attr_dev(div2, "class", "w-full flex flex-row divide-x overflow-hidden");
+    			add_location(div2, file$c, 95, 0, 3077);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div0, null);
+    			}
+
+    			append_dev(div2, t);
+    			append_dev(div2, div1);
+
+    			if (switch_instance) {
+    				mount_component(switch_instance, div1, null);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*itemsAyuda, onClickItem*/ 6) {
+    				each_value = /*itemsAyuda*/ ctx[1].categorias;
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$4(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$4(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if (switch_value !== (switch_value = /*componenteSeleccionado*/ ctx[0])) {
+    				if (switch_instance) {
+    					group_outros();
+    					const old_component = switch_instance;
+
+    					transition_out(old_component.$$.fragment, 1, 0, () => {
+    						destroy_component(old_component, 1);
+    					});
+
+    					check_outros();
+    				}
+
+    				if (switch_value) {
+    					switch_instance = new switch_value(switch_props());
+    					create_component(switch_instance.$$.fragment);
+    					transition_in(switch_instance.$$.fragment, 1);
+    					mount_component(switch_instance, div1, null);
+    				} else {
+    					switch_instance = null;
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			if (switch_instance) transition_in(switch_instance.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (switch_instance) transition_out(switch_instance.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    			destroy_each(each_blocks, detaching);
+    			if (switch_instance) destroy_component(switch_instance);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$c.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$c($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Ayuda', slots, []);
+
+    	const itemsAyuda = {
+    		categorias: [
+    			{
+    				titulo: "Entendiendo la aplicación",
+    				items: [
+    					{ titulo: "Interfaz", componente: Interfaz },
+    					{
+    						titulo: "Menú superior",
+    						componente: MenuSuperior
+    					},
+    					{
+    						titulo: "Grafo",
+    						componente: SeccionGrafo
+    					},
+    					{
+    						titulo: "Sección inferior",
+    						componente: SeccionInferior
+    					}
+    				]
+    			},
+    			{
+    				titulo: "Conceptos básicos de un grafo",
+    				items: [
+    					{ titulo: "Grafo", componente: Grafo$1 },
+    					{
+    						titulo: "Matriz de adyacencia",
+    						componente: MatrizAdyacencia
+    					},
+    					{
+    						titulo: "Grafo dirigido",
+    						componente: GrafoDirigido
+    					}
+    				]
+    			},
+    			{
+    				titulo: "Concetos del flujo maximo",
+    				items: [
+    					{
+    						titulo: "Red de flujo",
+    						componente: RedDeFlujo
+    					},
+    					{
+    						titulo: "Problema de flujo maximo",
+    						componente: ProblemaFlujoMaximo
+    					},
+    					{
+    						titulo: "Teorema de flujo máximo y corte mínimo",
+    						componente: TeoremaFMCM
+    					},
+    					{
+    						titulo: "Algoritmo de Ford-Fulkerson",
+    						componente: AlgoritmoFordFulkerson
+    					}
+    				]
+    			}
+    		]
+    	};
+
+    	let categoriaSeleccionada = 0;
+    	let itemSeleccionado = 0;
+    	let componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
+
+    	function onClickItem(indexCategoria, indexItem) {
+    		categoriaSeleccionada = indexCategoria;
+    		itemSeleccionado = indexItem;
+    		$$invalidate(0, componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente);
+    	}
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Ayuda> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = (indexCategoria, indexItem) => {
+    		onClickItem(indexCategoria, indexItem);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		Interfaz,
+    		MenuSuperior,
+    		SeccionGrafo,
+    		SeccionInferior,
+    		Grafo: Grafo$1,
+    		MatrizAdyacencia,
+    		GrafoDirigido,
+    		RedDeFlujo,
+    		ProblemaFlujoMaximo,
+    		TeoremaFMCM,
+    		AlgoritmoFordFulkerson,
+    		itemsAyuda,
+    		categoriaSeleccionada,
+    		itemSeleccionado,
+    		componenteSeleccionado,
+    		onClickItem
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('categoriaSeleccionada' in $$props) categoriaSeleccionada = $$props.categoriaSeleccionada;
+    		if ('itemSeleccionado' in $$props) itemSeleccionado = $$props.itemSeleccionado;
+    		if ('componenteSeleccionado' in $$props) $$invalidate(0, componenteSeleccionado = $$props.componenteSeleccionado);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [componenteSeleccionado, itemsAyuda, onClickItem, click_handler];
+    }
+
+    class Ayuda extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$c, create_fragment$c, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Ayuda",
+    			options,
+    			id: create_fragment$c.name
+    		});
+    	}
+    }
+
+    /* src/components/Menu/ModeSwitcher.svelte generated by Svelte v3.48.0 */
+    const file$b = "src/components/Menu/ModeSwitcher.svelte";
+
+    // (25:2) {:else}
+    function create_else_block$5(ctx) {
+    	let svg;
+    	let path;
+
+    	const block = {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			path = svg_element("path");
+    			attr_dev(path, "d", "M256 144C194.1 144 144 194.1 144 256c0 61.86 50.14 112 112 112s112-50.14 112-112C368 194.1 317.9 144 256 144zM256 320c-35.29 0-64-28.71-64-64c0-35.29 28.71-64 64-64s64 28.71 64 64C320 291.3 291.3 320 256 320zM256 112c13.25 0 24-10.75 24-24v-64C280 10.75 269.3 0 256 0S232 10.75 232 24v64C232 101.3 242.8 112 256 112zM256 400c-13.25 0-24 10.75-24 24v64C232 501.3 242.8 512 256 512s24-10.75 24-24v-64C280 410.8 269.3 400 256 400zM488 232h-64c-13.25 0-24 10.75-24 24s10.75 24 24 24h64C501.3 280 512 269.3 512 256S501.3 232 488 232zM112 256c0-13.25-10.75-24-24-24h-64C10.75 232 0 242.8 0 256s10.75 24 24 24h64C101.3 280 112 269.3 112 256zM391.8 357.8c-9.344-9.375-24.56-9.372-33.94 .0031s-9.375 24.56 0 33.93l45.25 45.28c4.672 4.688 10.83 7.031 16.97 7.031s12.28-2.344 16.97-7.031c9.375-9.375 9.375-24.56 0-33.94L391.8 357.8zM120.2 154.2c4.672 4.688 10.83 7.031 16.97 7.031S149.5 158.9 154.2 154.2c9.375-9.375 9.375-24.56 0-33.93L108.9 74.97c-9.344-9.375-24.56-9.375-33.94 0s-9.375 24.56 0 33.94L120.2 154.2zM374.8 161.2c6.141 0 12.3-2.344 16.97-7.031l45.25-45.28c9.375-9.375 9.375-24.56 0-33.94s-24.59-9.375-33.94 0l-45.25 45.28c-9.375 9.375-9.375 24.56 0 33.93C362.5 158.9 368.7 161.2 374.8 161.2zM120.2 357.8l-45.25 45.28c-9.375 9.375-9.375 24.56 0 33.94c4.688 4.688 10.83 7.031 16.97 7.031s12.3-2.344 16.97-7.031l45.25-45.28c9.375-9.375 9.375-24.56 0-33.93S129.6 348.4 120.2 357.8z");
+    			add_location(path, file$b, 25, 198, 1643);
+    			attr_dev(svg, "aria-hidden", "true");
+    			attr_dev(svg, "focusable", "false");
+    			attr_dev(svg, "data-prefix", "far");
+    			attr_dev(svg, "data-icon", "sun");
+    			attr_dev(svg, "class", "svg-inline--fa fa-sun fa-w-16 fill-gray-900");
+    			attr_dev(svg, "role", "img");
+    			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
+    			attr_dev(svg, "viewBox", "0 0 512 512");
+    			add_location(svg, file$b, 25, 2, 1447);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, svg, anchor);
+    			append_dev(svg, path);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(svg);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$5.name,
+    		type: "else",
+    		source: "(25:2) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (23:2) {#if darkMode}
+    function create_if_block$6(ctx) {
+    	let svg;
+    	let path;
+
+    	const block = {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			path = svg_element("path");
+    			attr_dev(path, "d", "M279.135 512c78.756 0 150.982-35.804 198.844-94.775 28.27-34.831-2.558-85.722-46.249-77.401-82.348 15.683-158.272-47.268-158.272-130.792 0-48.424 26.06-92.292 67.434-115.836 38.745-22.05 28.999-80.788-15.022-88.919A257.936 257.936 0 0 0 279.135 0c-141.36 0-256 114.575-256 256 0 141.36 114.576 256 256 256zm0-464c12.985 0 25.689 1.201 38.016 3.478-54.76 31.163-91.693 90.042-91.693 157.554 0 113.848 103.641 199.2 215.252 177.944C402.574 433.964 344.366 464 279.135 464c-114.875 0-208-93.125-208-208s93.125-208 208-208z");
+    			add_location(path, file$b, 23, 197, 891);
+    			attr_dev(svg, "aria-hidden", "true");
+    			attr_dev(svg, "focusable", "false");
+    			attr_dev(svg, "data-prefix", "far");
+    			attr_dev(svg, "data-icon", "moon");
+    			attr_dev(svg, "class", "svg-inline--fa fa-moon fa-w-16 fill-white");
+    			attr_dev(svg, "role", "img");
+    			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
+    			attr_dev(svg, "viewBox", "0 0 512 512");
+    			add_location(svg, file$b, 23, 2, 696);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, svg, anchor);
+    			append_dev(svg, path);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(svg);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$6.name,
+    		type: "if",
+    		source: "(23:2) {#if darkMode}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$b(ctx) {
+    	let div;
+    	let mounted;
+    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*darkMode*/ ctx[0]) return create_if_block$6;
+    		return create_else_block$5;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if_block.c();
+    			attr_dev(div, "class", "w-6 h-6 ");
+    			add_location(div, file$b, 21, 0, 632);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if_block.m(div, null);
+
+    			if (!mounted) {
+    				dispose = listen_dev(div, "click", /*toggleMode*/ ctx[1], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div, null);
+    				}
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if_block.d();
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$b.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const THEME_KEY = 'themePreference';
+
+    function instance$b($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('ModeSwitcher', slots, []);
+    	let darkMode = false;
+
+    	function setDarkTheme(dark) {
+    		$$invalidate(0, darkMode = dark);
+    		document.documentElement.classList.toggle('dark', darkMode);
+    	}
+
+    	function toggleMode() {
+    		setDarkTheme(!darkMode);
+    		window.localStorage.setItem(THEME_KEY, darkMode ? 'dark' : 'light');
+    	}
+
+    	onMount(() => {
+    		const theme = window.localStorage.getItem(THEME_KEY);
+
+    		if (theme === 'dark') {
+    			setDarkTheme(true);
+    		} else if (theme == null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    			setDarkTheme(true);
+    		}
+    	});
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ModeSwitcher> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		darkMode,
+    		THEME_KEY,
+    		setDarkTheme,
+    		toggleMode
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('darkMode' in $$props) $$invalidate(0, darkMode = $$props.darkMode);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [darkMode, toggleMode];
+    }
+
+    class ModeSwitcher extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$b, create_fragment$b, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ModeSwitcher",
+    			options,
+    			id: create_fragment$b.name
+    		});
+    	}
+    }
+
+    /* src/components/Menu/Menu.svelte generated by Svelte v3.48.0 */
+    const file$a = "src/components/Menu/Menu.svelte";
+
+    function create_fragment$a(ctx) {
+    	let div10;
+    	let div8;
+    	let button0;
+    	let t1;
+    	let div0;
+    	let button1;
+    	let t2;
+    	let button1_disabled_value;
+    	let t3;
+    	let button2;
+    	let t4;
+    	let button2_disabled_value;
+    	let t5;
+    	let button3;
+    	let t6;
+    	let button3_disabled_value;
+    	let t7;
+    	let div1;
+    	let button4;
+    	let t8;
+    	let button4_disabled_value;
+    	let t9;
+    	let button5;
+    	let t11;
+    	let button6;
+    	let t12;
+    	let button6_disabled_value;
+    	let t13;
+    	let div4;
+    	let button7;
+    	let t14;
+    	let div2;
+    	let button7_disabled_value;
+    	let t16;
+    	let button8;
+    	let t17;
+    	let div3;
+    	let button8_disabled_value;
+    	let t19;
+    	let div7;
+    	let button9;
+    	let t20;
+    	let div5;
+    	let button9_disabled_value;
+    	let t22;
+    	let button10;
+    	let t23;
+    	let div6;
+    	let button10_disabled_value;
+    	let t25;
+    	let div9;
+    	let modeswitcher;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	modeswitcher = new ModeSwitcher({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div10 = element("div");
+    			div8 = element("div");
+    			button0 = element("button");
+    			button0.textContent = "?";
+    			t1 = space();
+    			div0 = element("div");
+    			button1 = element("button");
+    			t2 = text("▶️");
+    			t3 = space();
+    			button2 = element("button");
+    			t4 = text("⏯️");
+    			t5 = space();
+    			button3 = element("button");
+    			t6 = text("⏹️");
+    			t7 = space();
+    			div1 = element("div");
+    			button4 = element("button");
+    			t8 = text("🎲");
+    			t9 = space();
+    			button5 = element("button");
+    			button5.textContent = "💾";
+    			t11 = space();
+    			button6 = element("button");
+    			t12 = text("📁");
+    			t13 = space();
+    			div4 = element("div");
+    			button7 = element("button");
+    			t14 = text("🔵\n                ");
+    			div2 = element("div");
+    			div2.textContent = "✨";
+    			t16 = space();
+    			button8 = element("button");
+    			t17 = text("🔗\n                ");
+    			div3 = element("div");
+    			div3.textContent = "✨";
+    			t19 = space();
+    			div7 = element("div");
+    			button9 = element("button");
+    			t20 = text("🔵\n                ");
+    			div5 = element("div");
+    			div5.textContent = "❌";
+    			t22 = space();
+    			button10 = element("button");
+    			t23 = text("🔗\n                ");
+    			div6 = element("div");
+    			div6.textContent = "❌";
+    			t25 = space();
+    			div9 = element("div");
+    			create_component(modeswitcher.$$.fragment);
+    			attr_dev(button0, "title", "Ayuda");
+    			attr_dev(button0, "class", "bg-indigo-600 w-8 h-8 rounded-lg ");
+    			add_location(button0, file$a, 103, 8, 3695);
+    			attr_dev(button1, "title", "Iniciar Algoritmo de Flujo Maximo");
+    			button1.disabled = button1_disabled_value = !/*puedeIniciarFlujoMaximo*/ ctx[3];
+    			attr_dev(button1, "class", "disabled:grayscale");
+    			add_location(button1, file$a, 107, 12, 3882);
+    			attr_dev(button2, "title", "Avanzar Algoritmo de Flujo Maximo");
+    			button2.disabled = button2_disabled_value = !/*puedeContinuarFlujoMaximo*/ ctx[2];
+    			attr_dev(button2, "class", "disabled:grayscale");
+    			add_location(button2, file$a, 110, 12, 4081);
+    			attr_dev(button3, "title", "Detener Algoritmo de Flujo Maximo");
+    			button3.disabled = button3_disabled_value = !/*puedeDetenerFlujoMaximo*/ ctx[1];
+    			attr_dev(button3, "class", "disabled:grayscale");
+    			add_location(button3, file$a, 113, 12, 4281);
+    			attr_dev(div0, "class", "flex my-auto text-2xl space-x-4");
+    			add_location(div0, file$a, 106, 8, 3824);
+    			attr_dev(button4, "title", "Generar Grafo Aleatorio");
+    			button4.disabled = button4_disabled_value = !/*puedeModificarGrafo*/ ctx[0];
+    			attr_dev(button4, "class", "disabled:grayscale");
+    			add_location(button4, file$a, 118, 12, 4548);
+    			attr_dev(button5, "title", "Guardar Grafo");
+    			attr_dev(button5, "class", "disabled:grayscale");
+    			add_location(button5, file$a, 121, 12, 4742);
+    			attr_dev(button6, "title", "Cargar Grafo");
+    			button6.disabled = button6_disabled_value = !/*puedeModificarGrafo*/ ctx[0];
+    			attr_dev(button6, "class", "disabled:grayscale");
+    			add_location(button6, file$a, 124, 12, 4884);
+    			attr_dev(div1, "class", "flex my-auto text-2xl space-x-4");
+    			add_location(div1, file$a, 117, 8, 4490);
+    			attr_dev(div2, "class", "absolute bottom-1 ml-3 text-base");
+    			add_location(div2, file$a, 131, 16, 5288);
+    			attr_dev(button7, "title", "Agregar Vertice");
+    			button7.disabled = button7_disabled_value = !/*puedeModificarGrafo*/ ctx[0];
+    			attr_dev(button7, "class", "disabled:grayscale");
+    			add_location(button7, file$a, 129, 12, 5125);
+    			attr_dev(div3, "class", "absolute bottom-1 ml-3 text-base");
+    			add_location(div3, file$a, 137, 16, 5576);
+    			attr_dev(button8, "title", "Agregar Arista");
+    			button8.disabled = button8_disabled_value = !/*puedeModificarGrafo*/ ctx[0];
+    			attr_dev(button8, "class", "disabled:grayscale");
+    			add_location(button8, file$a, 135, 12, 5415);
+    			attr_dev(div4, "class", "flex my-auto text-2xl space-x-4");
+    			add_location(div4, file$a, 128, 8, 5067);
+    			attr_dev(div5, "class", "absolute bottom-1 ml-3 text-base");
+    			add_location(div5, file$a, 145, 16, 5934);
+    			attr_dev(button9, "title", "Eliminar Vertice");
+    			button9.disabled = button9_disabled_value = !/*puedeModificarGrafo*/ ctx[0];
+    			attr_dev(button9, "class", "disabled:grayscale");
+    			add_location(button9, file$a, 143, 12, 5772);
+    			attr_dev(div6, "class", "absolute bottom-1 ml-3 text-base");
+    			add_location(div6, file$a, 151, 16, 6221);
+    			attr_dev(button10, "title", "Eliminar Arista");
+    			button10.disabled = button10_disabled_value = !/*puedeModificarGrafo*/ ctx[0];
+    			attr_dev(button10, "class", "disabled:grayscale");
+    			add_location(button10, file$a, 149, 12, 6061);
+    			attr_dev(div7, "class", "flex my-auto text-2xl space-x-4");
+    			add_location(div7, file$a, 142, 8, 5714);
+    			attr_dev(div8, "class", "flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white");
+    			add_location(div8, file$a, 102, 4, 3560);
+    			attr_dev(div9, "class", "my-auto ml-auto mr-4");
+    			add_location(div9, file$a, 157, 4, 6366);
+    			attr_dev(div10, "class", "w-full h-10 bg-slate-700 dark:bg-gray-900 flex");
+    			add_location(div10, file$a, 101, 0, 3495);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div10, anchor);
+    			append_dev(div10, div8);
+    			append_dev(div8, button0);
+    			append_dev(div8, t1);
+    			append_dev(div8, div0);
+    			append_dev(div0, button1);
+    			append_dev(button1, t2);
+    			append_dev(div0, t3);
+    			append_dev(div0, button2);
+    			append_dev(button2, t4);
+    			append_dev(div0, t5);
+    			append_dev(div0, button3);
+    			append_dev(button3, t6);
+    			append_dev(div8, t7);
+    			append_dev(div8, div1);
+    			append_dev(div1, button4);
+    			append_dev(button4, t8);
+    			append_dev(div1, t9);
+    			append_dev(div1, button5);
+    			append_dev(div1, t11);
+    			append_dev(div1, button6);
+    			append_dev(button6, t12);
+    			append_dev(div8, t13);
+    			append_dev(div8, div4);
+    			append_dev(div4, button7);
+    			append_dev(button7, t14);
+    			append_dev(button7, div2);
+    			append_dev(div4, t16);
+    			append_dev(div4, button8);
+    			append_dev(button8, t17);
+    			append_dev(button8, div3);
+    			append_dev(div8, t19);
+    			append_dev(div8, div7);
+    			append_dev(div7, button9);
+    			append_dev(button9, t20);
+    			append_dev(button9, div5);
+    			append_dev(div7, t22);
+    			append_dev(div7, button10);
+    			append_dev(button10, t23);
+    			append_dev(button10, div6);
+    			append_dev(div10, t25);
+    			append_dev(div10, div9);
+    			mount_component(modeswitcher, div9, null);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(button0, "click", /*onClickAyuda*/ ctx[4], false, false, false),
+    					listen_dev(button1, "click", /*onClickIniciarFlujo*/ ctx[5], false, false, false),
+    					listen_dev(button2, "click", /*onClickAvanzarFlujo*/ ctx[6], false, false, false),
+    					listen_dev(button3, "click", /*onClickDetenerFlujo*/ ctx[7], false, false, false),
+    					listen_dev(button4, "click", /*onClickGenerarGrafoAleatorio*/ ctx[8], false, false, false),
+    					listen_dev(button5, "click", /*onClickGuardarGrafo*/ ctx[9], false, false, false),
+    					listen_dev(button6, "click", /*onClickCargarGrafo*/ ctx[10], false, false, false),
+    					listen_dev(button7, "click", /*onClickCrearNuevoVertice*/ ctx[11], false, false, false),
+    					listen_dev(button8, "click", /*onClickCrearNuevaArista*/ ctx[12], false, false, false),
+    					listen_dev(button9, "click", /*onClickEliminarVertice*/ ctx[13], false, false, false),
+    					listen_dev(button10, "click", /*onClickEliminarArista*/ ctx[14], false, false, false),
+    					action_destroyer(twemoji_2.call(null, div8, { className: 'emoji-menu' }))
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (!current || dirty & /*puedeIniciarFlujoMaximo*/ 8 && button1_disabled_value !== (button1_disabled_value = !/*puedeIniciarFlujoMaximo*/ ctx[3])) {
+    				prop_dev(button1, "disabled", button1_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeContinuarFlujoMaximo*/ 4 && button2_disabled_value !== (button2_disabled_value = !/*puedeContinuarFlujoMaximo*/ ctx[2])) {
+    				prop_dev(button2, "disabled", button2_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeDetenerFlujoMaximo*/ 2 && button3_disabled_value !== (button3_disabled_value = !/*puedeDetenerFlujoMaximo*/ ctx[1])) {
+    				prop_dev(button3, "disabled", button3_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeModificarGrafo*/ 1 && button4_disabled_value !== (button4_disabled_value = !/*puedeModificarGrafo*/ ctx[0])) {
+    				prop_dev(button4, "disabled", button4_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeModificarGrafo*/ 1 && button6_disabled_value !== (button6_disabled_value = !/*puedeModificarGrafo*/ ctx[0])) {
+    				prop_dev(button6, "disabled", button6_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeModificarGrafo*/ 1 && button7_disabled_value !== (button7_disabled_value = !/*puedeModificarGrafo*/ ctx[0])) {
+    				prop_dev(button7, "disabled", button7_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeModificarGrafo*/ 1 && button8_disabled_value !== (button8_disabled_value = !/*puedeModificarGrafo*/ ctx[0])) {
+    				prop_dev(button8, "disabled", button8_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeModificarGrafo*/ 1 && button9_disabled_value !== (button9_disabled_value = !/*puedeModificarGrafo*/ ctx[0])) {
+    				prop_dev(button9, "disabled", button9_disabled_value);
+    			}
+
+    			if (!current || dirty & /*puedeModificarGrafo*/ 1 && button10_disabled_value !== (button10_disabled_value = !/*puedeModificarGrafo*/ ctx[0])) {
+    				prop_dev(button10, "disabled", button10_disabled_value);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(modeswitcher.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(modeswitcher.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div10);
+    			destroy_component(modeswitcher);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$a.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$a($$self, $$props, $$invalidate) {
+    	let estaEjecutandoFlujoMaximo;
+    	let estaModificandoGrafo;
+    	let puedeIniciarFlujoMaximo;
+    	let puedeContinuarFlujoMaximo;
+    	let puedeDetenerFlujoMaximo;
+    	let puedeModificarGrafo;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Menu', slots, []);
+    	const { open } = getContext('simple-modal');
+    	let { grafo } = $$props;
+
+    	function onClickAyuda() {
+    		open(Ayuda);
+    	}
+
+    	function onClickIniciarFlujo() {
+    		if (!puedeIniciarFlujoMaximo) return;
+    		grafo.inciarFlujoMaximo();
+    	}
+
+    	function onClickAvanzarFlujo() {
+    		if (!puedeContinuarFlujoMaximo) return;
+    		grafo.continuarFlujoMaximo();
+    	}
+
+    	function onClickDetenerFlujo() {
+    		if (!puedeDetenerFlujoMaximo) return;
+    		grafo.finalizarFlujoMaximo();
+    	}
+
+    	function onClickGenerarGrafoAleatorio() {
+    		if (!puedeModificarGrafo) return;
+    		const numeroVertices = prompt("Ingrese el número de vértices del grafo");
+
+    		if (numeroVertices === null || numeroVertices === "" || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
+    			alert("Ingrese un número válido");
+    			return;
+    		}
+
+    		const confirmar = confirm("Esto eliminará el grafo actual, ¿desea continuar?");
+    		if (!confirmar) return;
+    		const numeroVerticesInt = Number(numeroVertices);
+    		grafo.generarGrafoAlAzar(numeroVerticesInt);
+    	}
+
+    	function onClickGuardarGrafo() {
+    		grafo.guardarGrafo();
+    	}
+
+    	function onClickCargarGrafo() {
+    		if (!puedeModificarGrafo) return;
+
+    		//leemos un archivo json
+    		const input = document.createElement("input");
+
+    		input.type = "file";
+    		input.accept = "application/json";
+
+    		input.onchange = e => {
+    			const file = e.target.files[0];
+    			const reader = new FileReader();
+
+    			reader.onload = e => {
+    				const json = JSON.parse(reader.result);
+    				const matrizAdyacencia = json.matrizAdyacencia;
+
+    				//revisamos los valores -1 en la matriz de adyacencia que corresponden a Infinity
+    				for (let i = 0; i < matrizAdyacencia.length; i++) {
+    					for (let j = 0; j < matrizAdyacencia[i].length; j++) {
+    						if (matrizAdyacencia[i][j] === -1) {
+    							matrizAdyacencia[i][j] = Infinity;
+    						}
+    					}
+    				}
+
+    				const posicionesVertices = json.posicionesVertices;
+    				const fuentes = json.fuentes;
+    				const sumideros = json.sumideros;
+    				grafo.generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros);
+    				grafo.recargarGrafo();
+    			};
+
+    			reader.readAsText(file);
+    		};
+
+    		input.click();
+    	}
+
+    	function onClickCrearNuevoVertice() {
+    		if (!puedeModificarGrafo) return;
+    		grafo.iniciarCreacionVertice();
+    	}
+
+    	function onClickCrearNuevaArista() {
+    		if (!puedeModificarGrafo) return;
+    		grafo.iniciarCreacionArista();
+    	}
+
+    	function onClickEliminarVertice() {
+    		if (!puedeModificarGrafo) return;
+    		grafo.iniciarEliminacionVertice();
+    	}
+
+    	function onClickEliminarArista() {
+    		if (!puedeModificarGrafo) return;
+    		grafo.iniciarEliminacionArista();
+    	}
+
+    	const writable_props = ['grafo'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Menu> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('grafo' in $$props) $$invalidate(15, grafo = $$props.grafo);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		getContext,
+    		twemoji: twemoji_2,
+    		Ayuda,
+    		ModeSwitcher,
+    		open,
+    		grafo,
+    		onClickAyuda,
+    		onClickIniciarFlujo,
+    		onClickAvanzarFlujo,
+    		onClickDetenerFlujo,
+    		onClickGenerarGrafoAleatorio,
+    		onClickGuardarGrafo,
+    		onClickCargarGrafo,
+    		onClickCrearNuevoVertice,
+    		onClickCrearNuevaArista,
+    		onClickEliminarVertice,
+    		onClickEliminarArista,
+    		puedeModificarGrafo,
+    		puedeDetenerFlujoMaximo,
+    		puedeContinuarFlujoMaximo,
+    		puedeIniciarFlujoMaximo,
+    		estaModificandoGrafo,
+    		estaEjecutandoFlujoMaximo
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('grafo' in $$props) $$invalidate(15, grafo = $$props.grafo);
+    		if ('puedeModificarGrafo' in $$props) $$invalidate(0, puedeModificarGrafo = $$props.puedeModificarGrafo);
+    		if ('puedeDetenerFlujoMaximo' in $$props) $$invalidate(1, puedeDetenerFlujoMaximo = $$props.puedeDetenerFlujoMaximo);
+    		if ('puedeContinuarFlujoMaximo' in $$props) $$invalidate(2, puedeContinuarFlujoMaximo = $$props.puedeContinuarFlujoMaximo);
+    		if ('puedeIniciarFlujoMaximo' in $$props) $$invalidate(3, puedeIniciarFlujoMaximo = $$props.puedeIniciarFlujoMaximo);
+    		if ('estaModificandoGrafo' in $$props) $$invalidate(16, estaModificandoGrafo = $$props.estaModificandoGrafo);
+    		if ('estaEjecutandoFlujoMaximo' in $$props) $$invalidate(17, estaEjecutandoFlujoMaximo = $$props.estaEjecutandoFlujoMaximo);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*grafo*/ 32768) {
+    			$$invalidate(17, estaEjecutandoFlujoMaximo = grafo.ejecutandoFlujoMaximo);
+    		}
+
+    		if ($$self.$$.dirty & /*grafo*/ 32768) {
+    			$$invalidate(16, estaModificandoGrafo = grafo.creandoArista || grafo.creandoVertice || grafo.eliminandoArista || grafo.eliminandoVertice);
+    		}
+
+    		if ($$self.$$.dirty & /*estaEjecutandoFlujoMaximo, estaModificandoGrafo*/ 196608) {
+    			$$invalidate(3, puedeIniciarFlujoMaximo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo);
+    		}
+
+    		if ($$self.$$.dirty & /*estaEjecutandoFlujoMaximo*/ 131072) {
+    			$$invalidate(2, puedeContinuarFlujoMaximo = estaEjecutandoFlujoMaximo);
+    		}
+
+    		if ($$self.$$.dirty & /*estaEjecutandoFlujoMaximo*/ 131072) {
+    			$$invalidate(1, puedeDetenerFlujoMaximo = estaEjecutandoFlujoMaximo);
+    		}
+
+    		if ($$self.$$.dirty & /*estaEjecutandoFlujoMaximo, estaModificandoGrafo*/ 196608) {
+    			$$invalidate(0, puedeModificarGrafo = !estaEjecutandoFlujoMaximo && !estaModificandoGrafo);
+    		}
+    	};
+
+    	return [
+    		puedeModificarGrafo,
+    		puedeDetenerFlujoMaximo,
+    		puedeContinuarFlujoMaximo,
+    		puedeIniciarFlujoMaximo,
+    		onClickAyuda,
+    		onClickIniciarFlujo,
+    		onClickAvanzarFlujo,
+    		onClickDetenerFlujo,
+    		onClickGenerarGrafoAleatorio,
+    		onClickGuardarGrafo,
+    		onClickCargarGrafo,
+    		onClickCrearNuevoVertice,
+    		onClickCrearNuevaArista,
+    		onClickEliminarVertice,
+    		onClickEliminarArista,
+    		grafo,
+    		estaModificandoGrafo,
+    		estaEjecutandoFlujoMaximo
+    	];
+    }
+
+    class Menu extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$a, create_fragment$a, safe_not_equal, { grafo: 15 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Menu",
+    			options,
+    			id: create_fragment$a.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*grafo*/ ctx[15] === undefined && !('grafo' in props)) {
+    			console.warn("<Menu> was created without expected prop 'grafo'");
+    		}
+    	}
+
+    	get grafo() {
+    		throw new Error("<Menu>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set grafo(value) {
+    		throw new Error("<Menu>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Consola/Explicacion.svelte generated by Svelte v3.48.0 */
+    const file$9 = "src/components/Consola/Explicacion.svelte";
+
+    function get_each_context$3(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[5] = list[i];
+    	return child_ctx;
+    }
+
+    // (23:4) {#each textoExplicativo as linea}
+    function create_each_block$3(ctx) {
+    	let div;
+    	let p;
+    	let t0_value = /*linea*/ ctx[5] + "";
+    	let t0;
+    	let t1;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			attr_dev(p, "class", "flex flex-row text-slate-900 text-sm font-medium");
+    			add_location(p, file$9, 24, 16, 770);
+    			attr_dev(div, "class", "min-h-12 py-3 mx-4 flex items-center text-clip");
+    			add_location(div, file$9, 23, 12, 693);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p);
+    			append_dev(p, t0);
+    			append_dev(div, t1);
+
+    			if (!mounted) {
+    				dispose = action_destroyer(twemoji_2.call(null, p, { className: 'emoji-explicacion' }));
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*textoExplicativo*/ 1 && t0_value !== (t0_value = /*linea*/ ctx[5] + "")) set_data_dev(t0, t0_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$3.name,
+    		type: "each",
+    		source: "(23:4) {#each textoExplicativo as linea}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$9(ctx) {
+    	let div;
+    	let each_value = /*textoExplicativo*/ ctx[0];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(div, "class", "overflow-auto ");
+    			add_location(div, file$9, 21, 0, 592);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+
+    			/*div_binding*/ ctx[2](div);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*textoExplicativo*/ 1) {
+    				each_value = /*textoExplicativo*/ ctx[0];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$3(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$3(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    			/*div_binding*/ ctx[2](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$9.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$9($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Explicacion', slots, []);
+    	let { textoExplicativo } = $$props;
+    	let prevTextoExplicativo;
+    	let divScroll;
+
+    	function autoScroll() {
+    		if (divScroll) {
+    			//console.log("autoscroll");
+    			//console.log(divScroll.scrollHeight);
+    			$$invalidate(1, divScroll.scrollTop = divScroll.scrollHeight, divScroll);
+    		}
+    	}
+
+    	afterUpdate(() => {
+    		const ultimoTexto = textoExplicativo[textoExplicativo.length - 1];
+
+    		if (prevTextoExplicativo !== ultimoTexto) {
+    			prevTextoExplicativo = ultimoTexto;
+    			autoScroll();
+    		}
+    	});
+
+    	const writable_props = ['textoExplicativo'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Explicacion> was created with unknown prop '${key}'`);
+    	});
+
+    	function div_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			divScroll = $$value;
+    			$$invalidate(1, divScroll);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('textoExplicativo' in $$props) $$invalidate(0, textoExplicativo = $$props.textoExplicativo);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		afterUpdate,
+    		twemoji: twemoji_2,
+    		textoExplicativo,
+    		prevTextoExplicativo,
+    		divScroll,
+    		autoScroll
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('textoExplicativo' in $$props) $$invalidate(0, textoExplicativo = $$props.textoExplicativo);
+    		if ('prevTextoExplicativo' in $$props) prevTextoExplicativo = $$props.prevTextoExplicativo;
+    		if ('divScroll' in $$props) $$invalidate(1, divScroll = $$props.divScroll);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [textoExplicativo, divScroll, div_binding];
+    }
+
+    class Explicacion extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$9, create_fragment$9, safe_not_equal, { textoExplicativo: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Explicacion",
+    			options,
+    			id: create_fragment$9.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*textoExplicativo*/ ctx[0] === undefined && !('textoExplicativo' in props)) {
+    			console.warn("<Explicacion> was created without expected prop 'textoExplicativo'");
+    		}
+    	}
+
+    	get textoExplicativo() {
+    		throw new Error("<Explicacion>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set textoExplicativo(value) {
+    		throw new Error("<Explicacion>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Consola/Pseudocodigo.svelte generated by Svelte v3.48.0 */
+    const file$8 = "src/components/Consola/Pseudocodigo.svelte";
+
+    function get_each_context$2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[6] = list[i];
+    	child_ctx[8] = i;
+    	return child_ctx;
+    }
+
+    // (28:12) {:else}
+    function create_else_block$4(ctx) {
+    	let p;
+    	let t_value = /*linea*/ ctx[6] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t = text(t_value);
+    			attr_dev(p, "class", "text-slate-900 text-sm font-medium");
+    			add_location(p, file$8, 28, 16, 870);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*pseudoCodigo*/ 1 && t_value !== (t_value = /*linea*/ ctx[6] + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$4.name,
+    		type: "else",
+    		source: "(28:12) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (24:12) {#if lineaActual === index}
+    function create_if_block$5(ctx) {
+    	let p;
+    	let t_value = /*linea*/ ctx[6] + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t = text(t_value);
+    			attr_dev(p, "class", "text-slate-900 text-sm font-medium bg-yellow-300");
+    			add_location(p, file$8, 24, 16, 724);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*pseudoCodigo*/ 1 && t_value !== (t_value = /*linea*/ ctx[6] + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$5.name,
+    		type: "if",
+    		source: "(24:12) {#if lineaActual === index}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (22:4) {#each pseudoCodigo as linea, index}
+    function create_each_block$2(ctx) {
+    	let div;
+    	let t;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*lineaActual*/ ctx[1] === /*index*/ ctx[8]) return create_if_block$5;
+    		return create_else_block$4;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if_block.c();
+    			t = space();
+    			attr_dev(div, "class", "min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap");
+    			add_location(div, file$8, 22, 8, 597);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if_block.m(div, null);
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div, t);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$2.name,
+    		type: "each",
+    		source: "(22:4) {#each pseudoCodigo as linea, index}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$8(ctx) {
+    	let div;
+    	let each_value = /*pseudoCodigo*/ ctx[0];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(div, "class", "overflow-auto ");
+    			add_location(div, file$8, 20, 0, 497);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+
+    			/*div_binding*/ ctx[3](div);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*pseudoCodigo, lineaActual*/ 3) {
+    				each_value = /*pseudoCodigo*/ ctx[0];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$2(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$2(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    			/*div_binding*/ ctx[3](null);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$8.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$8($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Pseudocodigo', slots, []);
+    	let { pseudoCodigo } = $$props;
+    	let { lineaActual } = $$props;
+    	let prevLinea;
+    	let divScroll;
+
+    	function autoScroll() {
+    		if (divScroll) {
+    			//console.log("autoscroll");
+    			//console.log(divScroll.scrollHeight);
+    			$$invalidate(2, divScroll.scrollTop = divScroll.scrollHeight * (lineaActual / pseudoCodigo.length), divScroll);
+    		}
+    	}
+
+    	afterUpdate(() => {
+    		if (prevLinea !== lineaActual) {
+    			prevLinea = lineaActual;
+    			autoScroll();
+    		}
+    	});
+
+    	const writable_props = ['pseudoCodigo', 'lineaActual'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Pseudocodigo> was created with unknown prop '${key}'`);
+    	});
+
+    	function div_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			divScroll = $$value;
+    			$$invalidate(2, divScroll);
+    		});
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('pseudoCodigo' in $$props) $$invalidate(0, pseudoCodigo = $$props.pseudoCodigo);
+    		if ('lineaActual' in $$props) $$invalidate(1, lineaActual = $$props.lineaActual);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		afterUpdate,
+    		pseudoCodigo,
+    		lineaActual,
+    		prevLinea,
+    		divScroll,
+    		autoScroll
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('pseudoCodigo' in $$props) $$invalidate(0, pseudoCodigo = $$props.pseudoCodigo);
+    		if ('lineaActual' in $$props) $$invalidate(1, lineaActual = $$props.lineaActual);
+    		if ('prevLinea' in $$props) prevLinea = $$props.prevLinea;
+    		if ('divScroll' in $$props) $$invalidate(2, divScroll = $$props.divScroll);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [pseudoCodigo, lineaActual, divScroll, div_binding];
+    }
+
+    class Pseudocodigo extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { pseudoCodigo: 0, lineaActual: 1 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Pseudocodigo",
+    			options,
+    			id: create_fragment$8.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*pseudoCodigo*/ ctx[0] === undefined && !('pseudoCodigo' in props)) {
+    			console.warn("<Pseudocodigo> was created without expected prop 'pseudoCodigo'");
+    		}
+
+    		if (/*lineaActual*/ ctx[1] === undefined && !('lineaActual' in props)) {
+    			console.warn("<Pseudocodigo> was created without expected prop 'lineaActual'");
+    		}
+    	}
+
+    	get pseudoCodigo() {
+    		throw new Error("<Pseudocodigo>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set pseudoCodigo(value) {
+    		throw new Error("<Pseudocodigo>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get lineaActual() {
+    		throw new Error("<Pseudocodigo>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set lineaActual(value) {
+    		throw new Error("<Pseudocodigo>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Consola/RedResidual.svelte generated by Svelte v3.48.0 */
+
+    const file$7 = "src/components/Consola/RedResidual.svelte";
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[4] = list[i];
+    	child_ctx[6] = i;
+    	return child_ctx;
+    }
+
+    function get_each_context_1$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[4] = list[i];
+    	child_ctx[8] = i;
+    	return child_ctx;
+    }
+
+    // (39:16) {:else}
+    function create_else_block$3(ctx) {
+    	let div;
+    	let p;
+    	let t0_value = /*redResidual*/ ctx[0][/*i*/ ctx[6] - 1][/*j*/ ctx[8] - 1] + "";
+    	let t0;
+    	let t1;
+    	let div_class_value;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			add_location(p, file$7, 40, 24, 1516);
+    			attr_dev(div, "class", div_class_value = "p-2 rounded-lg shadow-lg text-slate-800 " + /*matrizColores*/ ctx[1][/*i*/ ctx[6] - 1][/*j*/ ctx[8] - 1]);
+    			add_location(div, file$7, 39, 20, 1412);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p);
+    			append_dev(p, t0);
+    			append_dev(div, t1);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*redResidual*/ 1 && t0_value !== (t0_value = /*redResidual*/ ctx[0][/*i*/ ctx[6] - 1][/*j*/ ctx[8] - 1] + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*matrizColores*/ 2 && div_class_value !== (div_class_value = "p-2 rounded-lg shadow-lg text-slate-800 " + /*matrizColores*/ ctx[1][/*i*/ ctx[6] - 1][/*j*/ ctx[8] - 1])) {
+    				attr_dev(div, "class", div_class_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$3.name,
+    		type: "else",
+    		source: "(39:16) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (33:34) 
+    function create_if_block_2$2(ctx) {
+    	let div;
+    	let p;
+    	let t0_value = /*i*/ ctx[6] - 1 + "";
+    	let t0;
+    	let t1;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			add_location(p, file$7, 34, 24, 1273);
+    			attr_dev(div, "class", "p-2 rounded-lg shadow-lg bg-slate-800");
+    			add_location(div, file$7, 33, 20, 1197);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p);
+    			append_dev(p, t0);
+    			append_dev(div, t1);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2$2.name,
+    		type: "if",
+    		source: "(33:34) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (27:34) 
+    function create_if_block_1$4(ctx) {
+    	let div;
+    	let p;
+    	let t0_value = /*j*/ ctx[8] - 1 + "";
+    	let t0;
+    	let t1;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			add_location(p, file$7, 28, 24, 1047);
+    			attr_dev(div, "class", "p-2 rounded-lg shadow-lg bg-slate-800");
+    			add_location(div, file$7, 27, 20, 971);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p);
+    			append_dev(p, t0);
+    			append_dev(div, t1);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$4.name,
+    		type: "if",
+    		source: "(27:34) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (21:16) {#if i === 0 && j === 0}
+    function create_if_block$4(ctx) {
+    	let div;
+    	let p;
+    	let t1;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			p.textContent = "Índice";
+    			t1 = space();
+    			add_location(p, file$7, 22, 24, 820);
+    			attr_dev(div, "class", "p-2 rounded-lg shadow-lg bg-slate-800");
+    			add_location(div, file$7, 21, 20, 744);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p);
+    			append_dev(div, t1);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$4.name,
+    		type: "if",
+    		source: "(21:16) {#if i === 0 && j === 0}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (20:12) {#each Array(dimension + 1) as _, j}
+    function create_each_block_1$1(ctx) {
+    	let if_block_anchor;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*i*/ ctx[6] === 0 && /*j*/ ctx[8] === 0) return create_if_block$4;
+    		if (/*i*/ ctx[6] === 0) return create_if_block_1$4;
+    		if (/*j*/ ctx[8] === 0) return create_if_block_2$2;
+    		return create_else_block$3;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if_block.p(ctx, dirty);
+    		},
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1$1.name,
+    		type: "each",
+    		source: "(20:12) {#each Array(dimension + 1) as _, j}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (19:8) {#each Array(dimension + 1) as _, i}
+    function create_each_block$1(ctx) {
+    	let each_1_anchor;
+    	let each_value_1 = Array(/*dimension*/ ctx[2] + 1);
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*matrizColores, redResidual, dimension*/ 7) {
+    				each_value_1 = Array(/*dimension*/ ctx[2] + 1);
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block_1$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value_1.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$1.name,
+    		type: "each",
+    		source: "(19:8) {#each Array(dimension + 1) as _, i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$7(ctx) {
+    	let div1;
+    	let div0;
+    	let each_value = Array(/*dimension*/ ctx[2] + 1);
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			set_style(div0, "grid-template-columns", "repeat(" + (/*dimension*/ ctx[2] + 1) + ", minmax(0, 1fr))");
+    			attr_dev(div0, "class", "grid gap-3");
+    			add_location(div0, file$7, 17, 4, 492);
+    			attr_dev(div1, "class", "overflow-auto text-white text-sm font-medium text-center p-4");
+    			add_location(div1, file$7, 16, 0, 413);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div0, null);
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*Array, dimension, matrizColores, redResidual*/ 7) {
+    				each_value = Array(/*dimension*/ ctx[2] + 1);
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if (dirty & /*dimension*/ 4) {
+    				set_style(div0, "grid-template-columns", "repeat(" + (/*dimension*/ ctx[2] + 1) + ", minmax(0, 1fr))");
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$7.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$7($$self, $$props, $$invalidate) {
+    	let dimension;
+    	let matrizColores;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('RedResidual', slots, []);
+    	let { matrizAdyacencia } = $$props;
+    	let { redResidual } = $$props;
+    	const writable_props = ['matrizAdyacencia', 'redResidual'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<RedResidual> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('matrizAdyacencia' in $$props) $$invalidate(3, matrizAdyacencia = $$props.matrizAdyacencia);
+    		if ('redResidual' in $$props) $$invalidate(0, redResidual = $$props.redResidual);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		matrizAdyacencia,
+    		redResidual,
+    		matrizColores,
+    		dimension
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('matrizAdyacencia' in $$props) $$invalidate(3, matrizAdyacencia = $$props.matrizAdyacencia);
+    		if ('redResidual' in $$props) $$invalidate(0, redResidual = $$props.redResidual);
+    		if ('matrizColores' in $$props) $$invalidate(1, matrizColores = $$props.matrizColores);
+    		if ('dimension' in $$props) $$invalidate(2, dimension = $$props.dimension);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*redResidual*/ 1) {
+    			$$invalidate(2, dimension = redResidual.length);
+    		}
+
+    		if ($$self.$$.dirty & /*matrizAdyacencia, redResidual*/ 9) {
+    			$$invalidate(1, matrizColores = matrizAdyacencia.map((fila, i) => fila.map((_, j) => {
+    				if (matrizAdyacencia[i][j] !== redResidual[i][j]) {
+    					return "bg-rose-400";
+    				} else if (redResidual[i][j] <= 0) {
+    					return "bg-gray-200";
+    				} else {
+    					return "bg-emerald-400";
+    				}
+    			})));
+    		}
+    	};
+
+    	return [redResidual, matrizColores, dimension, matrizAdyacencia];
+    }
+
+    class RedResidual extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, { matrizAdyacencia: 3, redResidual: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "RedResidual",
+    			options,
+    			id: create_fragment$7.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*matrizAdyacencia*/ ctx[3] === undefined && !('matrizAdyacencia' in props)) {
+    			console.warn("<RedResidual> was created without expected prop 'matrizAdyacencia'");
+    		}
+
+    		if (/*redResidual*/ ctx[0] === undefined && !('redResidual' in props)) {
+    			console.warn("<RedResidual> was created without expected prop 'redResidual'");
+    		}
+    	}
+
+    	get matrizAdyacencia() {
+    		throw new Error("<RedResidual>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set matrizAdyacencia(value) {
+    		throw new Error("<RedResidual>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get redResidual() {
+    		throw new Error("<RedResidual>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set redResidual(value) {
+    		throw new Error("<RedResidual>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Consola/Consola.svelte generated by Svelte v3.48.0 */
+    const file$6 = "src/components/Consola/Consola.svelte";
+
+    // (77:4) {:else}
+    function create_else_block$2(ctx) {
+    	let div1;
+    	let button;
+    	let div0;
+    	let p;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			button = element("button");
+    			div0 = element("div");
+    			p = element("p");
+    			p.textContent = "?";
+    			attr_dev(p, "class", "text-2xl text-white");
+    			add_location(p, file$6, 80, 20, 3485);
+    			attr_dev(div0, "class", "w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center");
+    			add_location(div0, file$6, 79, 16, 3381);
+    			attr_dev(button, "class", "w-full h-full flex items-center justify-center");
+    			add_location(button, file$6, 78, 12, 3277);
+    			attr_dev(div1, "class", "bg-white rounded-full w-16 h-16 mr-4 mb-4");
+    			add_location(div1, file$6, 77, 8, 3209);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, button);
+    			append_dev(button, div0);
+    			append_dev(div0, p);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", /*onClickAbrir*/ ctx[6], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$2.name,
+    		type: "else",
+    		source: "(77:4) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (37:4) {#if consola.abierta }
+    function create_if_block$3(ctx) {
+    	let div0;
+    	let button0;
+    	let p0;
+    	let t1;
+    	let p1;
+    	let t2_value = /*titulo*/ ctx[2]() + "";
+    	let t2;
+    	let t3;
+    	let div3;
+    	let div1;
+    	let button1;
+    	let t5;
+    	let button2;
+    	let t7;
+    	let button3;
+    	let t9;
+    	let div2;
+    	let current_block_type_index;
+    	let if_block;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	const if_block_creators = [create_if_block_1$3, create_if_block_2$1, create_if_block_3];
+    	const if_blocks = [];
+
+    	function select_block_type_1(ctx, dirty) {
+    		if (/*categoria*/ ctx[1] === "EXPLICACION") return 0;
+    		if (/*categoria*/ ctx[1] === "PSEUDOCODIGO") return 1;
+    		if (/*categoria*/ ctx[1] === "RED_RESIDUAL") return 2;
+    		return -1;
+    	}
+
+    	if (~(current_block_type_index = select_block_type_1(ctx))) {
+    		if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div0 = element("div");
+    			button0 = element("button");
+    			p0 = element("p");
+    			p0.textContent = "X";
+    			t1 = space();
+    			p1 = element("p");
+    			t2 = text(t2_value);
+    			t3 = space();
+    			div3 = element("div");
+    			div1 = element("div");
+    			button1 = element("button");
+    			button1.textContent = "🤔";
+    			t5 = space();
+    			button2 = element("button");
+    			button2.textContent = "🖥️";
+    			t7 = space();
+    			button3 = element("button");
+    			button3.textContent = "🕸️";
+    			t9 = space();
+    			div2 = element("div");
+    			if (if_block) if_block.c();
+    			add_location(p0, file$6, 39, 20, 1228);
+    			attr_dev(button0, "class", "text-base bg-rose-700 ml-0 h-full w-12");
+    			add_location(button0, file$6, 38, 16, 1127);
+    			attr_dev(p1, "class", "text-base m-auto");
+    			add_location(p1, file$6, 41, 16, 1279);
+    			attr_dev(div0, "class", "flex rounded-t-lg bg-indigo-700 overflow-hidden h-8");
+    			add_location(div0, file$6, 37, 12, 1045);
+    			attr_dev(button1, "class", "p-2 hover:bg-gray-700");
+    			toggle_class(button1, "bg-violet-800", /*categoria*/ ctx[1] === "EXPLICACION");
+    			add_location(button1, file$6, 48, 20, 1633);
+    			attr_dev(button2, "class", "p-2 hover:bg-gray-700");
+    			toggle_class(button2, "bg-violet-800", /*categoria*/ ctx[1] === "PSEUDOCODIGO");
+    			add_location(button2, file$6, 51, 20, 1836);
+    			attr_dev(button3, "class", "p-2 hover:bg-gray-700");
+    			toggle_class(button3, "bg-violet-800", /*categoria*/ ctx[1] === "RED_RESIDUAL");
+    			add_location(button3, file$6, 54, 20, 2041);
+    			attr_dev(div1, "class", "flex flex-col h-auto py-2 space-y-4 w-12 bg-slate-900 text-xl text-center ");
+    			add_location(div1, file$6, 46, 16, 1435);
+    			attr_dev(div2, "class", "bg-white overflow-auto h-72 w-[32rem] shadow-lg ring-1 flex flex-col divide-y ");
+    			add_location(div2, file$6, 58, 16, 2265);
+    			attr_dev(div3, "class", "flex flex-row");
+    			add_location(div3, file$6, 45, 12, 1391);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div0, anchor);
+    			append_dev(div0, button0);
+    			append_dev(button0, p0);
+    			append_dev(div0, t1);
+    			append_dev(div0, p1);
+    			append_dev(p1, t2);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, div3, anchor);
+    			append_dev(div3, div1);
+    			append_dev(div1, button1);
+    			append_dev(div1, t5);
+    			append_dev(div1, button2);
+    			append_dev(div1, t7);
+    			append_dev(div1, button3);
+    			append_dev(div3, t9);
+    			append_dev(div3, div2);
+
+    			if (~current_block_type_index) {
+    				if_blocks[current_block_type_index].m(div2, null);
+    			}
+
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(button0, "click", /*onClickCerrar*/ ctx[7], false, false, false),
+    					listen_dev(button1, "click", /*onClickButtonExplicacion*/ ctx[3], false, false, false),
+    					listen_dev(button2, "click", /*onClickButtonPseudocodigo*/ ctx[4], false, false, false),
+    					listen_dev(button3, "click", /*onClickButtonRedAumentada*/ ctx[5], false, false, false),
+    					action_destroyer(twemoji_2.call(null, div1, { className: 'emoji' }))
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if ((!current || dirty & /*titulo*/ 4) && t2_value !== (t2_value = /*titulo*/ ctx[2]() + "")) set_data_dev(t2, t2_value);
+
+    			if (dirty & /*categoria*/ 2) {
+    				toggle_class(button1, "bg-violet-800", /*categoria*/ ctx[1] === "EXPLICACION");
+    			}
+
+    			if (dirty & /*categoria*/ 2) {
+    				toggle_class(button2, "bg-violet-800", /*categoria*/ ctx[1] === "PSEUDOCODIGO");
+    			}
+
+    			if (dirty & /*categoria*/ 2) {
+    				toggle_class(button3, "bg-violet-800", /*categoria*/ ctx[1] === "RED_RESIDUAL");
+    			}
+
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type_1(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if (~current_block_type_index) {
+    					if_blocks[current_block_type_index].p(ctx, dirty);
+    				}
+    			} else {
+    				if (if_block) {
+    					group_outros();
+
+    					transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    						if_blocks[previous_block_index] = null;
+    					});
+
+    					check_outros();
+    				}
+
+    				if (~current_block_type_index) {
+    					if_block = if_blocks[current_block_type_index];
+
+    					if (!if_block) {
+    						if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    						if_block.c();
+    					} else {
+    						if_block.p(ctx, dirty);
+    					}
+
+    					transition_in(if_block, 1);
+    					if_block.m(div2, null);
+    				} else {
+    					if_block = null;
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(div3);
+
+    			if (~current_block_type_index) {
+    				if_blocks[current_block_type_index].d();
+    			}
+
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$3.name,
+    		type: "if",
+    		source: "(37:4) {#if consola.abierta }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (69:59) 
+    function create_if_block_3(ctx) {
+    	let redresidual;
+    	let current;
+
+    	redresidual = new RedResidual({
+    			props: {
+    				matrizAdyacencia: /*consola*/ ctx[0].grafo.matrizAdyacencia,
+    				redResidual: /*consola*/ ctx[0].grafo.redResidual
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(redresidual.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(redresidual, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const redresidual_changes = {};
+    			if (dirty & /*consola*/ 1) redresidual_changes.matrizAdyacencia = /*consola*/ ctx[0].grafo.matrizAdyacencia;
+    			if (dirty & /*consola*/ 1) redresidual_changes.redResidual = /*consola*/ ctx[0].grafo.redResidual;
+    			redresidual.$set(redresidual_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(redresidual.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(redresidual.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(redresidual, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3.name,
+    		type: "if",
+    		source: "(69:59) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (64:59) 
+    function create_if_block_2$1(ctx) {
+    	let pseudocodigo;
+    	let current;
+
+    	pseudocodigo = new Pseudocodigo({
+    			props: {
+    				pseudoCodigo: /*consola*/ ctx[0].pseudoCodigo,
+    				lineaActual: /*consola*/ ctx[0].ubicacionPseudoCodigo
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(pseudocodigo.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(pseudocodigo, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const pseudocodigo_changes = {};
+    			if (dirty & /*consola*/ 1) pseudocodigo_changes.pseudoCodigo = /*consola*/ ctx[0].pseudoCodigo;
+    			if (dirty & /*consola*/ 1) pseudocodigo_changes.lineaActual = /*consola*/ ctx[0].ubicacionPseudoCodigo;
+    			pseudocodigo.$set(pseudocodigo_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(pseudocodigo.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(pseudocodigo.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(pseudocodigo, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2$1.name,
+    		type: "if",
+    		source: "(64:59) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (60:20) {#if categoria === "EXPLICACION"}
+    function create_if_block_1$3(ctx) {
+    	let explicacion;
+    	let current;
+
+    	explicacion = new Explicacion({
+    			props: {
+    				textoExplicativo: /*consola*/ ctx[0].textoExplicativo
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(explicacion.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(explicacion, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const explicacion_changes = {};
+    			if (dirty & /*consola*/ 1) explicacion_changes.textoExplicativo = /*consola*/ ctx[0].textoExplicativo;
+    			explicacion.$set(explicacion_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(explicacion.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(explicacion.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(explicacion, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$3.name,
+    		type: "if",
+    		source: "(60:20) {#if categoria === \\\"EXPLICACION\\\"}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$6(ctx) {
+    	let div;
+    	let current_block_type_index;
+    	let if_block;
+    	let current;
+    	const if_block_creators = [create_if_block$3, create_else_block$2];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*consola*/ ctx[0].abierta) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if_block.c();
+    			attr_dev(div, "class", "absolute bottom-0 right-0 pointer-events-auto");
+    			add_location(div, file$6, 35, 0, 946);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if_blocks[current_block_type_index].m(div, null);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(div, null);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if_blocks[current_block_type_index].d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$6.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$6($$self, $$props, $$invalidate) {
+    	let categoria;
+    	let titulo;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Consola', slots, []);
+    	let { consola } = $$props;
+
+    	function onClickButtonExplicacion() {
+    		consola.cambiarCategoria("EXPLICACION");
+    	}
+
+    	function onClickButtonPseudocodigo() {
+    		consola.cambiarCategoria("PSEUDOCODIGO");
+    	}
+
+    	function onClickButtonRedAumentada() {
+    		consola.cambiarCategoria("RED_RESIDUAL");
+    	}
+
+    	function onClickAbrir() {
+    		consola.abrir();
+    	}
+
+    	function onClickCerrar() {
+    		consola.cerrar();
+    	}
+
+    	const writable_props = ['consola'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Consola> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('consola' in $$props) $$invalidate(0, consola = $$props.consola);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		twemoji: twemoji_2,
+    		Explicacion,
+    		Pseudocodigo,
+    		RedResidual,
+    		consola,
+    		onClickButtonExplicacion,
+    		onClickButtonPseudocodigo,
+    		onClickButtonRedAumentada,
+    		onClickAbrir,
+    		onClickCerrar,
+    		categoria,
+    		titulo
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('consola' in $$props) $$invalidate(0, consola = $$props.consola);
+    		if ('categoria' in $$props) $$invalidate(1, categoria = $$props.categoria);
+    		if ('titulo' in $$props) $$invalidate(2, titulo = $$props.titulo);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*consola*/ 1) {
+    			$$invalidate(1, categoria = consola.categoria);
+    		}
+
+    		if ($$self.$$.dirty & /*categoria*/ 2) {
+    			$$invalidate(2, titulo = () => {
+    				switch (categoria) {
+    					case "EXPLICACION":
+    						return "Explicación";
+    					case "PSEUDOCODIGO":
+    						return "Pseudocódigo";
+    					case "RED_RESIDUAL":
+    						return "Red Residual";
+    					default:
+    						return "Informacion del algoritmo";
+    				}
+    			});
+    		}
+    	};
+
+    	return [
+    		consola,
+    		categoria,
+    		titulo,
+    		onClickButtonExplicacion,
+    		onClickButtonPseudocodigo,
+    		onClickButtonRedAumentada,
+    		onClickAbrir,
+    		onClickCerrar
+    	];
+    }
+
+    class Consola extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { consola: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Consola",
+    			options,
+    			id: create_fragment$6.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*consola*/ ctx[0] === undefined && !('consola' in props)) {
+    			console.warn("<Consola> was created without expected prop 'consola'");
+    		}
+    	}
+
+    	get consola() {
+    		throw new Error("<Consola>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set consola(value) {
+    		throw new Error("<Consola>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Grafo/Vertice/Vertice.svelte generated by Svelte v3.48.0 */
+
+    const file$5 = "src/components/Grafo/Vertice/Vertice.svelte";
+
+    function create_fragment$5(ctx) {
+    	let foreignObject;
+    	let div2;
+    	let div0;
+    	let p;
+    	let t0;
+    	let div0_class_value;
+    	let t1;
+    	let div1;
+    	let button0;
+    	let t2;
+    	let button0_style_value;
+    	let t3;
+    	let button1;
+    	let t4;
+    	let button1_style_value;
+    	let div1_style_value;
+    	let foreignObject_x_value;
+    	let foreignObject_y_value;
+    	let foreignObject_width_value;
+    	let foreignObject_height_value;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			foreignObject = svg_element("foreignObject");
+    			div2 = element("div");
+    			div0 = element("div");
+    			p = element("p");
+    			t0 = text(/*nombre*/ ctx[3]);
+    			t1 = space();
+    			div1 = element("div");
+    			button0 = element("button");
+    			t2 = text("🔼");
+    			t3 = space();
+    			button1 = element("button");
+    			t4 = text("🔽");
+    			attr_dev(p, "class", "text-white text-center m-auto select-none");
+    			add_location(p, file$5, 73, 12, 2185);
+    			set_style(div0, "width", /*vertice*/ ctx[0].radio * 2 + "px ");
+    			set_style(div0, "height", /*vertice*/ ctx[0].radio * 2 + "px ");
+    			attr_dev(div0, "class", div0_class_value = "cursor-pointer flex " + /*color*/ ctx[1] + " rounded-full border border-white/20 overflow:hidden");
+    			add_location(div0, file$5, 72, 8, 1986);
+    			attr_dev(button0, "style", button0_style_value = /*vertice*/ ctx[0].fuente ? "" : "filter:grayscale(1);");
+    			attr_dev(button0, "title", "Convertir en fuente");
+    			add_location(button0, file$5, 78, 12, 2447);
+
+    			attr_dev(button1, "style", button1_style_value = /*vertice*/ ctx[0].sumidero
+    			? ""
+    			: "filter:grayscale(1);");
+
+    			attr_dev(button1, "title", "Convertir en sumidero");
+    			add_location(button1, file$5, 81, 12, 2630);
+
+    			attr_dev(div1, "style", div1_style_value = "width: " + /*vertice*/ ctx[0].radio + "px ;height: " + /*vertice*/ ctx[0].radio + "px ; " + (/*mostrarMenu*/ ctx[2]
+    			? "display:block"
+    			: "display:none"));
+
+    			attr_dev(div1, "class", "text-lg");
+    			add_location(div1, file$5, 77, 8, 2304);
+    			attr_dev(div2, "class", "flex h-full w-full");
+    			add_location(div2, file$5, 71, 4, 1945);
+    			attr_dev(foreignObject, "x", foreignObject_x_value = /*vertice*/ ctx[0].posicion.x - /*vertice*/ ctx[0].radio);
+    			attr_dev(foreignObject, "y", foreignObject_y_value = /*vertice*/ ctx[0].posicion.y - /*vertice*/ ctx[0].radio);
+    			attr_dev(foreignObject, "width", foreignObject_width_value = /*vertice*/ ctx[0].radio * 3);
+    			attr_dev(foreignObject, "height", foreignObject_height_value = /*vertice*/ ctx[0].radio * 3);
+    			add_location(foreignObject, file$5, 70, 0, 1736);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, foreignObject, anchor);
+    			append_dev(foreignObject, div2);
+    			append_dev(div2, div0);
+    			append_dev(div0, p);
+    			append_dev(p, t0);
+    			append_dev(div2, t1);
+    			append_dev(div2, div1);
+    			append_dev(div1, button0);
+    			append_dev(button0, t2);
+    			append_dev(div1, t3);
+    			append_dev(div1, button1);
+    			append_dev(button1, t4);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(window, "mousemove", /*onMouseMove*/ ctx[6], false, false, false),
+    					listen_dev(window, "mouseup", /*onMouseUp*/ ctx[5], false, false, false),
+    					listen_dev(div0, "mousedown", /*onMouseDown*/ ctx[4], false, false, false),
+    					listen_dev(button0, "click", /*click_handler*/ ctx[14], false, false, false),
+    					listen_dev(button1, "click", /*click_handler_1*/ ctx[15], false, false, false),
+    					listen_dev(foreignObject, "mouseenter", /*onMouseEnter*/ ctx[7], false, false, false),
+    					listen_dev(foreignObject, "mouseleave", /*onMouseLeave*/ ctx[8], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*nombre*/ 8) set_data_dev(t0, /*nombre*/ ctx[3]);
+
+    			if (dirty & /*vertice*/ 1) {
+    				set_style(div0, "width", /*vertice*/ ctx[0].radio * 2 + "px ");
+    			}
+
+    			if (dirty & /*vertice*/ 1) {
+    				set_style(div0, "height", /*vertice*/ ctx[0].radio * 2 + "px ");
+    			}
+
+    			if (dirty & /*color*/ 2 && div0_class_value !== (div0_class_value = "cursor-pointer flex " + /*color*/ ctx[1] + " rounded-full border border-white/20 overflow:hidden")) {
+    				attr_dev(div0, "class", div0_class_value);
+    			}
+
+    			if (dirty & /*vertice*/ 1 && button0_style_value !== (button0_style_value = /*vertice*/ ctx[0].fuente ? "" : "filter:grayscale(1);")) {
+    				attr_dev(button0, "style", button0_style_value);
+    			}
+
+    			if (dirty & /*vertice*/ 1 && button1_style_value !== (button1_style_value = /*vertice*/ ctx[0].sumidero
+    			? ""
+    			: "filter:grayscale(1);")) {
+    				attr_dev(button1, "style", button1_style_value);
+    			}
+
+    			if (dirty & /*vertice, mostrarMenu*/ 5 && div1_style_value !== (div1_style_value = "width: " + /*vertice*/ ctx[0].radio + "px ;height: " + /*vertice*/ ctx[0].radio + "px ; " + (/*mostrarMenu*/ ctx[2]
+    			? "display:block"
+    			: "display:none"))) {
+    				attr_dev(div1, "style", div1_style_value);
+    			}
+
+    			if (dirty & /*vertice*/ 1 && foreignObject_x_value !== (foreignObject_x_value = /*vertice*/ ctx[0].posicion.x - /*vertice*/ ctx[0].radio)) {
+    				attr_dev(foreignObject, "x", foreignObject_x_value);
+    			}
+
+    			if (dirty & /*vertice*/ 1 && foreignObject_y_value !== (foreignObject_y_value = /*vertice*/ ctx[0].posicion.y - /*vertice*/ ctx[0].radio)) {
+    				attr_dev(foreignObject, "y", foreignObject_y_value);
+    			}
+
+    			if (dirty & /*vertice*/ 1 && foreignObject_width_value !== (foreignObject_width_value = /*vertice*/ ctx[0].radio * 3)) {
+    				attr_dev(foreignObject, "width", foreignObject_width_value);
+    			}
+
+    			if (dirty & /*vertice*/ 1 && foreignObject_height_value !== (foreignObject_height_value = /*vertice*/ ctx[0].radio * 3)) {
+    				attr_dev(foreignObject, "height", foreignObject_height_value);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(foreignObject);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$5.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	let nombre;
+    	let grafo;
+    	let creandoArista;
+    	let eliminandoVertice;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Vertice', slots, []);
+    	let { vertice } = $$props;
+    	let color = 'bg-purple-800';
+    	let moviendo = false;
+    	let mostrarMenu = false;
+
+    	function onMouseDown() {
+    		if (eliminandoVertice) {
+    			vertice.eliminar();
+    			grafo.finalizarEliminacionVertice();
+    		} else if (creandoArista) {
+    			if (grafo.nuevaAristaVerticeOrigen == null) {
+    				grafo.seleccionarVerticeNuevaArista(vertice);
+    			} else {
+    				grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE EL PESO
+    			}
+    		} else {
+    			moviendo = true;
+    		}
+    	}
+
+    	function onMouseUp() {
+    		moviendo = false;
+    	}
+
+    	function onMouseMove(e) {
+    		if (moviendo) {
+    			const posX = vertice.posicion.x + e.movementX;
+    			const posY = vertice.posicion.y + e.movementY;
+    			vertice.mover({ x: posX, y: posY });
+    			$$invalidate(0, vertice);
+    		}
+    	}
+
+    	function onMouseEnter() {
+    		$$invalidate(2, mostrarMenu = true);
+    	}
+
+    	function onMouseLeave() {
+    		$$invalidate(2, mostrarMenu = false);
+    	}
+
+    	function toggleFuente() {
+    		vertice.toggleFuente();
+    		$$invalidate(0, vertice);
+    	}
+
+    	function toggleSumidero() {
+    		vertice.toggleSumidero();
+    		$$invalidate(0, vertice);
+    	}
+
+    	const writable_props = ['vertice'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Vertice> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = () => {
+    		toggleFuente();
+    	};
+
+    	const click_handler_1 = () => {
+    		toggleSumidero();
+    	};
+
+    	$$self.$$set = $$props => {
+    		if ('vertice' in $$props) $$invalidate(0, vertice = $$props.vertice);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		vertice,
+    		color,
+    		moviendo,
+    		mostrarMenu,
+    		onMouseDown,
+    		onMouseUp,
+    		onMouseMove,
+    		onMouseEnter,
+    		onMouseLeave,
+    		toggleFuente,
+    		toggleSumidero,
+    		grafo,
+    		creandoArista,
+    		eliminandoVertice,
+    		nombre
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('vertice' in $$props) $$invalidate(0, vertice = $$props.vertice);
+    		if ('color' in $$props) $$invalidate(1, color = $$props.color);
+    		if ('moviendo' in $$props) moviendo = $$props.moviendo;
+    		if ('mostrarMenu' in $$props) $$invalidate(2, mostrarMenu = $$props.mostrarMenu);
+    		if ('grafo' in $$props) $$invalidate(11, grafo = $$props.grafo);
+    		if ('creandoArista' in $$props) $$invalidate(12, creandoArista = $$props.creandoArista);
+    		if ('eliminandoVertice' in $$props) $$invalidate(13, eliminandoVertice = $$props.eliminandoVertice);
+    		if ('nombre' in $$props) $$invalidate(3, nombre = $$props.nombre);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*vertice*/ 1) {
+    			$$invalidate(3, nombre = vertice.nombre ? vertice.nombre : `Vert. ${vertice.id}`);
+    		}
+
+    		if ($$self.$$.dirty & /*vertice*/ 1) {
+    			$$invalidate(11, grafo = vertice.grafo);
+    		}
+
+    		if ($$self.$$.dirty & /*grafo*/ 2048) {
+    			$$invalidate(12, creandoArista = grafo.creandoArista);
+    		}
+
+    		if ($$self.$$.dirty & /*grafo*/ 2048) {
+    			$$invalidate(13, eliminandoVertice = grafo.eliminandoVertice);
+    		}
+
+    		if ($$self.$$.dirty & /*vertice, eliminandoVertice, creandoArista, color*/ 12291) {
+    			{
+    				let colorNuevo = 'bg-purple-800';
+
+    				if (vertice.fuente) {
+    					colorNuevo = 'bg-green-700';
+    				}
+
+    				if (vertice.sumidero) {
+    					colorNuevo = 'bg-red-800';
+    				}
+
+    				if (eliminandoVertice) {
+    					colorNuevo = 'bg-gray-700';
+    				}
+
+    				if (creandoArista) {
+    					colorNuevo = 'bg-yellow-700';
+    				}
+
+    				if (colorNuevo != color) {
+    					$$invalidate(1, color = colorNuevo);
+    				}
+    			}
+    		}
+    	};
+
+    	return [
+    		vertice,
+    		color,
+    		mostrarMenu,
+    		nombre,
+    		onMouseDown,
+    		onMouseUp,
+    		onMouseMove,
+    		onMouseEnter,
+    		onMouseLeave,
+    		toggleFuente,
+    		toggleSumidero,
+    		grafo,
+    		creandoArista,
+    		eliminandoVertice,
+    		click_handler,
+    		click_handler_1
+    	];
+    }
+
+    class Vertice extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, { vertice: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Vertice",
+    			options,
+    			id: create_fragment$5.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*vertice*/ ctx[0] === undefined && !('vertice' in props)) {
+    			console.warn("<Vertice> was created without expected prop 'vertice'");
+    		}
+    	}
+
+    	get vertice() {
+    		throw new Error("<Vertice>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set vertice(value) {
+    		throw new Error("<Vertice>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Grafo/Arista/Flecha.svelte generated by Svelte v3.48.0 */
+
+    const file$4 = "src/components/Grafo/Arista/Flecha.svelte";
+
+    function create_fragment$4(ctx) {
+    	let polygon;
+    	let polygon_class_value;
+    	let polygon_transform_value;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			polygon = svg_element("polygon");
+    			attr_dev(polygon, "class", polygon_class_value = `${/*fillColor*/ ctx[1]}`);
+    			attr_dev(polygon, "points", "-15,25 0,0 15,25, 0,15");
+    			attr_dev(polygon, "transform", polygon_transform_value = `translate( ${/*posicion*/ ctx[0].x}, ${/*posicion*/ ctx[0].y} ) rotate(${/*angulodeg*/ ctx[2]})`);
+    			add_location(polygon, file$4, 10, 0, 200);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, polygon, anchor);
+
+    			if (!mounted) {
+    				dispose = listen_dev(polygon, "click", /*onClick*/ ctx[3], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*fillColor*/ 2 && polygon_class_value !== (polygon_class_value = `${/*fillColor*/ ctx[1]}`)) {
+    				attr_dev(polygon, "class", polygon_class_value);
+    			}
+
+    			if (dirty & /*posicion, angulodeg*/ 5 && polygon_transform_value !== (polygon_transform_value = `translate( ${/*posicion*/ ctx[0].x}, ${/*posicion*/ ctx[0].y} ) rotate(${/*angulodeg*/ ctx[2]})`)) {
+    				attr_dev(polygon, "transform", polygon_transform_value);
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(polygon);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$4.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	let angulodeg;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Flecha', slots, []);
+    	let { posicion } = $$props;
+    	let { angulo } = $$props;
+    	let { fillColor } = $$props;
+    	let { onClickArista } = $$props;
+
+    	function onClick() {
+    		onClickArista();
+    	}
+
+    	const writable_props = ['posicion', 'angulo', 'fillColor', 'onClickArista'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Flecha> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('posicion' in $$props) $$invalidate(0, posicion = $$props.posicion);
+    		if ('angulo' in $$props) $$invalidate(4, angulo = $$props.angulo);
+    		if ('fillColor' in $$props) $$invalidate(1, fillColor = $$props.fillColor);
+    		if ('onClickArista' in $$props) $$invalidate(5, onClickArista = $$props.onClickArista);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		posicion,
+    		angulo,
+    		fillColor,
+    		onClickArista,
+    		onClick,
+    		angulodeg
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('posicion' in $$props) $$invalidate(0, posicion = $$props.posicion);
+    		if ('angulo' in $$props) $$invalidate(4, angulo = $$props.angulo);
+    		if ('fillColor' in $$props) $$invalidate(1, fillColor = $$props.fillColor);
+    		if ('onClickArista' in $$props) $$invalidate(5, onClickArista = $$props.onClickArista);
+    		if ('angulodeg' in $$props) $$invalidate(2, angulodeg = $$props.angulodeg);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*angulo*/ 16) {
+    			$$invalidate(2, angulodeg = angulo * 180 / Math.PI);
+    		}
+    	};
+
+    	return [posicion, fillColor, angulodeg, onClick, angulo, onClickArista];
+    }
+
+    class Flecha extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, {
+    			posicion: 0,
+    			angulo: 4,
+    			fillColor: 1,
+    			onClickArista: 5
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Flecha",
+    			options,
+    			id: create_fragment$4.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*posicion*/ ctx[0] === undefined && !('posicion' in props)) {
+    			console.warn("<Flecha> was created without expected prop 'posicion'");
+    		}
+
+    		if (/*angulo*/ ctx[4] === undefined && !('angulo' in props)) {
+    			console.warn("<Flecha> was created without expected prop 'angulo'");
+    		}
+
+    		if (/*fillColor*/ ctx[1] === undefined && !('fillColor' in props)) {
+    			console.warn("<Flecha> was created without expected prop 'fillColor'");
+    		}
+
+    		if (/*onClickArista*/ ctx[5] === undefined && !('onClickArista' in props)) {
+    			console.warn("<Flecha> was created without expected prop 'onClickArista'");
+    		}
+    	}
+
+    	get posicion() {
+    		throw new Error("<Flecha>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set posicion(value) {
+    		throw new Error("<Flecha>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get angulo() {
+    		throw new Error("<Flecha>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set angulo(value) {
+    		throw new Error("<Flecha>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get fillColor() {
+    		throw new Error("<Flecha>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set fillColor(value) {
+    		throw new Error("<Flecha>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get onClickArista() {
+    		throw new Error("<Flecha>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set onClickArista(value) {
+    		throw new Error("<Flecha>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Grafo/Arista/Peso.svelte generated by Svelte v3.48.0 */
+
+    const { console: console_1$1 } = globals;
+    const file$3 = "src/components/Grafo/Arista/Peso.svelte";
+
+    // (29:0) {#if (peso == "∞" || (!isNaN(Number(peso)) && peso > 0 )) && (dibujarCero || Number(peso) !== 0 ) }
+    function create_if_block$2(ctx) {
+    	let foreignObject;
+    	let div;
+    	let div_class_value;
+    	let foreignObject_x_value;
+    	let foreignObject_y_value;
+    	let mounted;
+    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*cambiarPeso*/ ctx[3]) return create_if_block_1$2;
+    		return create_else_block$1;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			foreignObject = svg_element("foreignObject");
+    			div = element("div");
+    			if_block.c();
+    			attr_dev(div, "class", div_class_value = "flex w-full h-full " + /*textColor*/ ctx[4] + " text-center " + /*bgColor*/ ctx[2] + " rounded-full border border-white/20");
+    			add_location(div, file$3, 30, 8, 959);
+    			attr_dev(foreignObject, "x", foreignObject_x_value = /*posicion*/ ctx[1].x - radiopeso);
+    			attr_dev(foreignObject, "y", foreignObject_y_value = /*posicion*/ ctx[1].y - radiopeso);
+    			attr_dev(foreignObject, "width", radiopeso * 2);
+    			attr_dev(foreignObject, "height", radiopeso * 2);
+    			add_location(foreignObject, file$3, 29, 4, 817);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, foreignObject, anchor);
+    			append_dev(foreignObject, div);
+    			if_block.m(div, null);
+
+    			if (!mounted) {
+    				dispose = listen_dev(foreignObject, "click", /*onClick*/ ctx[7], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div, null);
+    				}
+    			}
+
+    			if (dirty & /*textColor, bgColor*/ 20 && div_class_value !== (div_class_value = "flex w-full h-full " + /*textColor*/ ctx[4] + " text-center " + /*bgColor*/ ctx[2] + " rounded-full border border-white/20")) {
+    				attr_dev(div, "class", div_class_value);
+    			}
+
+    			if (dirty & /*posicion*/ 2 && foreignObject_x_value !== (foreignObject_x_value = /*posicion*/ ctx[1].x - radiopeso)) {
+    				attr_dev(foreignObject, "x", foreignObject_x_value);
+    			}
+
+    			if (dirty & /*posicion*/ 2 && foreignObject_y_value !== (foreignObject_y_value = /*posicion*/ ctx[1].y - radiopeso)) {
+    				attr_dev(foreignObject, "y", foreignObject_y_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(foreignObject);
+    			if_block.d();
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(29:0) {#if (peso == \\\"∞\\\" || (!isNaN(Number(peso)) && peso > 0 )) && (dibujarCero || Number(peso) !== 0 ) }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (35:12) {:else}
+    function create_else_block$1(ctx) {
+    	let div;
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = text(/*peso*/ ctx[0]);
+    			attr_dev(div, "class", "m-auto text-center ");
+    			add_location(div, file$3, 35, 16, 1306);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*peso*/ 1) set_data_dev(t, /*peso*/ ctx[0]);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(35:12) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (33:12) {#if cambiarPeso}
+    function create_if_block_1$2(ctx) {
+    	let input;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			input = element("input");
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "class", "w-full h-full text-center bg-transparent appearance-none border-none outline-none  svelte-2cx1yt");
+    			input.value = /*peso*/ ctx[0];
+    			add_location(input, file$3, 33, 16, 1121);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, input, anchor);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "change", /*cambioPeso*/ ctx[6], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*peso*/ 1 && input.value !== /*peso*/ ctx[0]) {
+    				prop_dev(input, "value", /*peso*/ ctx[0]);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(input);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$2.name,
+    		type: "if",
+    		source: "(33:12) {#if cambiarPeso}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$3(ctx) {
+    	let show_if = (/*peso*/ ctx[0] == "∞" || !isNaN(Number(/*peso*/ ctx[0])) && /*peso*/ ctx[0] > 0) && (/*dibujarCero*/ ctx[5] || Number(/*peso*/ ctx[0]) !== 0);
+    	let if_block_anchor;
+    	let if_block = show_if && create_if_block$2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*peso, dibujarCero*/ 33) show_if = (/*peso*/ ctx[0] == "∞" || !isNaN(Number(/*peso*/ ctx[0])) && /*peso*/ ctx[0] > 0) && (/*dibujarCero*/ ctx[5] || Number(/*peso*/ ctx[0]) !== 0);
+
+    			if (show_if) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block$2(ctx);
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$3.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const radiopeso = 20;
+
+    function instance$3($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Peso', slots, []);
+    	let { onClickArista } = $$props;
+    	let { posicion } = $$props;
+    	let { peso } = $$props;
+    	let { bgColor } = $$props;
+    	let { cambiarPeso = null } = $$props;
+    	let { textColor = "text-white" } = $$props;
+    	let { dibujarCero = true } = $$props;
+
+    	function cambioPeso() {
+    		const pesoActual = peso;
+    		const pesoNuevo = parseInt(this.value);
+
+    		//si el peso nuevo no es un numero no se cambia
+    		if (isNaN(pesoNuevo) || pesoNuevo < 0) {
+    			console.log("Nuevo peso no es un numero valido");
+    			alert("Nuevo peso no es un numero valido");
+    			this.value = pesoActual;
+    			return;
+    		}
+
+    		cambiarPeso(pesoNuevo);
+    	}
+
+    	function onClick() {
+    		onClickArista();
+    	}
+
+    	const writable_props = [
+    		'onClickArista',
+    		'posicion',
+    		'peso',
+    		'bgColor',
+    		'cambiarPeso',
+    		'textColor',
+    		'dibujarCero'
+    	];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<Peso> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('onClickArista' in $$props) $$invalidate(8, onClickArista = $$props.onClickArista);
+    		if ('posicion' in $$props) $$invalidate(1, posicion = $$props.posicion);
+    		if ('peso' in $$props) $$invalidate(0, peso = $$props.peso);
+    		if ('bgColor' in $$props) $$invalidate(2, bgColor = $$props.bgColor);
+    		if ('cambiarPeso' in $$props) $$invalidate(3, cambiarPeso = $$props.cambiarPeso);
+    		if ('textColor' in $$props) $$invalidate(4, textColor = $$props.textColor);
+    		if ('dibujarCero' in $$props) $$invalidate(5, dibujarCero = $$props.dibujarCero);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		onClickArista,
+    		posicion,
+    		peso,
+    		bgColor,
+    		cambiarPeso,
+    		textColor,
+    		dibujarCero,
+    		radiopeso,
+    		cambioPeso,
+    		onClick
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('onClickArista' in $$props) $$invalidate(8, onClickArista = $$props.onClickArista);
+    		if ('posicion' in $$props) $$invalidate(1, posicion = $$props.posicion);
+    		if ('peso' in $$props) $$invalidate(0, peso = $$props.peso);
+    		if ('bgColor' in $$props) $$invalidate(2, bgColor = $$props.bgColor);
+    		if ('cambiarPeso' in $$props) $$invalidate(3, cambiarPeso = $$props.cambiarPeso);
+    		if ('textColor' in $$props) $$invalidate(4, textColor = $$props.textColor);
+    		if ('dibujarCero' in $$props) $$invalidate(5, dibujarCero = $$props.dibujarCero);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*peso*/ 1) {
+    			if (peso === Infinity) {
+    				$$invalidate(0, peso = "∞");
+    			}
+    		}
+    	};
+
+    	return [
+    		peso,
+    		posicion,
+    		bgColor,
+    		cambiarPeso,
+    		textColor,
+    		dibujarCero,
+    		cambioPeso,
+    		onClick,
+    		onClickArista
+    	];
+    }
+
+    class Peso extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
+    			onClickArista: 8,
+    			posicion: 1,
+    			peso: 0,
+    			bgColor: 2,
+    			cambiarPeso: 3,
+    			textColor: 4,
+    			dibujarCero: 5
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Peso",
+    			options,
+    			id: create_fragment$3.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*onClickArista*/ ctx[8] === undefined && !('onClickArista' in props)) {
+    			console_1$1.warn("<Peso> was created without expected prop 'onClickArista'");
+    		}
+
+    		if (/*posicion*/ ctx[1] === undefined && !('posicion' in props)) {
+    			console_1$1.warn("<Peso> was created without expected prop 'posicion'");
+    		}
+
+    		if (/*peso*/ ctx[0] === undefined && !('peso' in props)) {
+    			console_1$1.warn("<Peso> was created without expected prop 'peso'");
+    		}
+
+    		if (/*bgColor*/ ctx[2] === undefined && !('bgColor' in props)) {
+    			console_1$1.warn("<Peso> was created without expected prop 'bgColor'");
+    		}
+    	}
+
+    	get onClickArista() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set onClickArista(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get posicion() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set posicion(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get peso() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set peso(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get bgColor() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set bgColor(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get cambiarPeso() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set cambiarPeso(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get textColor() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set textColor(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get dibujarCero() {
+    		throw new Error("<Peso>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set dibujarCero(value) {
+    		throw new Error("<Peso>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Grafo/Arista/Arista.svelte generated by Svelte v3.48.0 */
+    const file$2 = "src/components/Grafo/Arista/Arista.svelte";
+
+    // (277:4) {:else}
+    function create_else_block(ctx) {
+    	let line;
+    	let line_class_value;
+    	let line_x__value;
+    	let line_y__value;
+    	let line_x__value_1;
+    	let line_y__value_1;
+    	let flecha;
+    	let peso;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	flecha = new Flecha({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: /*posicionesArista*/ ctx[3].final,
+    				angulo: /*posicionesArista*/ ctx[3].angulo + Math.PI / 2,
+    				fillColor: /*arista*/ ctx[1] === /*aristaPrincipal*/ ctx[2]
+    				? /*colores*/ ctx[6].coloresFill.color
+    				: /*colores*/ ctx[6].coloresFill.colorInverso
+    			},
+    			$$inline: true
+    		});
+
+    	peso = new Peso({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: /*posicionesPesos*/ ctx[4].posicionPeso,
+    				peso: /*aristaPrincipal*/ ctx[2].peso,
+    				bgColor: /*arista*/ ctx[1] === /*aristaPrincipal*/ ctx[2]
+    				? /*colores*/ ctx[6].coloresBG.color
+    				: /*colores*/ ctx[6].coloresBG.colorInverso,
+    				cambiarPeso: /*aristaPrincipal*/ ctx[2].cambiarPeso.bind(/*aristaPrincipal*/ ctx[2])
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			line = svg_element("line");
+    			create_component(flecha.$$.fragment);
+    			create_component(peso.$$.fragment);
+
+    			attr_dev(line, "class", line_class_value = "" + ((/*arista*/ ctx[1] === /*aristaPrincipal*/ ctx[2]
+    			? /*colores*/ ctx[6].coloresStroke.color
+    			: /*colores*/ ctx[6].coloresStroke.colorInverso) + " stroke-2"));
+
+    			attr_dev(line, "x1", line_x__value = /*posicionesArista*/ ctx[3].inicio.x);
+    			attr_dev(line, "y1", line_y__value = /*posicionesArista*/ ctx[3].inicio.y);
+    			attr_dev(line, "x2", line_x__value_1 = /*posicionesArista*/ ctx[3].final.x);
+    			attr_dev(line, "y2", line_y__value_1 = /*posicionesArista*/ ctx[3].final.y);
+    			add_location(line, file$2, 277, 8, 10466);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, line, anchor);
+    			mount_component(flecha, target, anchor);
+    			mount_component(peso, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(line, "click", /*onClickArista*/ ctx[8], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*arista, aristaPrincipal, colores*/ 70 && line_class_value !== (line_class_value = "" + ((/*arista*/ ctx[1] === /*aristaPrincipal*/ ctx[2]
+    			? /*colores*/ ctx[6].coloresStroke.color
+    			: /*colores*/ ctx[6].coloresStroke.colorInverso) + " stroke-2"))) {
+    				attr_dev(line, "class", line_class_value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line_x__value !== (line_x__value = /*posicionesArista*/ ctx[3].inicio.x)) {
+    				attr_dev(line, "x1", line_x__value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line_y__value !== (line_y__value = /*posicionesArista*/ ctx[3].inicio.y)) {
+    				attr_dev(line, "y1", line_y__value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line_x__value_1 !== (line_x__value_1 = /*posicionesArista*/ ctx[3].final.x)) {
+    				attr_dev(line, "x2", line_x__value_1);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line_y__value_1 !== (line_y__value_1 = /*posicionesArista*/ ctx[3].final.y)) {
+    				attr_dev(line, "y2", line_y__value_1);
+    			}
+
+    			const flecha_changes = {};
+    			if (dirty & /*posicionesArista*/ 8) flecha_changes.posicion = /*posicionesArista*/ ctx[3].final;
+    			if (dirty & /*posicionesArista*/ 8) flecha_changes.angulo = /*posicionesArista*/ ctx[3].angulo + Math.PI / 2;
+
+    			if (dirty & /*arista, aristaPrincipal, colores*/ 70) flecha_changes.fillColor = /*arista*/ ctx[1] === /*aristaPrincipal*/ ctx[2]
+    			? /*colores*/ ctx[6].coloresFill.color
+    			: /*colores*/ ctx[6].coloresFill.colorInverso;
+
+    			flecha.$set(flecha_changes);
+    			const peso_changes = {};
+    			if (dirty & /*posicionesPesos*/ 16) peso_changes.posicion = /*posicionesPesos*/ ctx[4].posicionPeso;
+    			if (dirty & /*aristaPrincipal*/ 4) peso_changes.peso = /*aristaPrincipal*/ ctx[2].peso;
+
+    			if (dirty & /*arista, aristaPrincipal, colores*/ 70) peso_changes.bgColor = /*arista*/ ctx[1] === /*aristaPrincipal*/ ctx[2]
+    			? /*colores*/ ctx[6].coloresBG.color
+    			: /*colores*/ ctx[6].coloresBG.colorInverso;
+
+    			if (dirty & /*aristaPrincipal*/ 4) peso_changes.cambiarPeso = /*aristaPrincipal*/ ctx[2].cambiarPeso.bind(/*aristaPrincipal*/ ctx[2]);
+    			peso.$set(peso_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(flecha.$$.fragment, local);
+    			transition_in(peso.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(flecha.$$.fragment, local);
+    			transition_out(peso.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(line);
+    			destroy_component(flecha, detaching);
+    			destroy_component(peso, detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(277:4) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (229:4) {#if aristaBidireccional}
+    function create_if_block_2(ctx) {
+    	let line0;
+    	let line0_class_value;
+    	let line0_x__value;
+    	let line0_y__value;
+    	let line0_x__value_1;
+    	let line0_y__value_1;
+    	let line1;
+    	let line1_class_value;
+    	let line1_x__value;
+    	let line1_y__value;
+    	let line1_x__value_1;
+    	let line1_y__value_1;
+    	let flecha0;
+    	let flecha1;
+    	let peso0;
+    	let peso1;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	flecha0 = new Flecha({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: /*posicionesArista*/ ctx[3].inicio,
+    				angulo: /*posicionesArista*/ ctx[3].angulo - Math.PI / 2,
+    				fillColor: /*colores*/ ctx[6].coloresFill.colorInverso
+    			},
+    			$$inline: true
+    		});
+
+    	flecha1 = new Flecha({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: /*posicionesArista*/ ctx[3].final,
+    				angulo: /*posicionesArista*/ ctx[3].angulo + Math.PI / 2,
+    				fillColor: /*colores*/ ctx[6].coloresFill.color
+    			},
+    			$$inline: true
+    		});
+
+    	peso0 = new Peso({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: /*posicionesPesos*/ ctx[4].posicionPeso,
+    				peso: /*arista*/ ctx[1].peso,
+    				bgColor: /*colores*/ ctx[6].coloresBG.color,
+    				cambiarPeso: /*arista*/ ctx[1].cambiarPeso.bind(/*arista*/ ctx[1])
+    			},
+    			$$inline: true
+    		});
+
+    	peso1 = new Peso({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: /*posicionesPesos*/ ctx[4].posicionPesoInverso,
+    				peso: /*aristaInversa*/ ctx[0].peso,
+    				bgColor: /*colores*/ ctx[6].coloresBG.colorInverso,
+    				cambiarPeso: /*aristaInversa*/ ctx[0].cambiarPeso.bind(/*aristaInversa*/ ctx[0])
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			line0 = svg_element("line");
+    			line1 = svg_element("line");
+    			create_component(flecha0.$$.fragment);
+    			create_component(flecha1.$$.fragment);
+    			create_component(peso0.$$.fragment);
+    			create_component(peso1.$$.fragment);
+    			attr_dev(line0, "class", line0_class_value = "" + (/*colores*/ ctx[6].coloresStroke.colorInverso + " stroke-2"));
+    			attr_dev(line0, "x1", line0_x__value = /*posicionesArista*/ ctx[3].inicio.x);
+    			attr_dev(line0, "y1", line0_y__value = /*posicionesArista*/ ctx[3].inicio.y);
+    			attr_dev(line0, "x2", line0_x__value_1 = /*posicionesArista*/ ctx[3].puntoMedio.x);
+    			attr_dev(line0, "y2", line0_y__value_1 = /*posicionesArista*/ ctx[3].puntoMedio.y);
+    			add_location(line0, file$2, 229, 8, 8817);
+    			attr_dev(line1, "class", line1_class_value = "" + (/*colores*/ ctx[6].coloresStroke.color + " stroke-2"));
+    			attr_dev(line1, "x1", line1_x__value = /*posicionesArista*/ ctx[3].puntoMedio.x);
+    			attr_dev(line1, "y1", line1_y__value = /*posicionesArista*/ ctx[3].puntoMedio.y);
+    			attr_dev(line1, "x2", line1_x__value_1 = /*posicionesArista*/ ctx[3].final.x);
+    			attr_dev(line1, "y2", line1_y__value_1 = /*posicionesArista*/ ctx[3].final.y);
+    			add_location(line1, file$2, 238, 8, 9126);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, line0, anchor);
+    			insert_dev(target, line1, anchor);
+    			mount_component(flecha0, target, anchor);
+    			mount_component(flecha1, target, anchor);
+    			mount_component(peso0, target, anchor);
+    			mount_component(peso1, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(line0, "click", /*onClickArista*/ ctx[8], false, false, false),
+    					listen_dev(line1, "click", /*onClickArista*/ ctx[8], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*colores*/ 64 && line0_class_value !== (line0_class_value = "" + (/*colores*/ ctx[6].coloresStroke.colorInverso + " stroke-2"))) {
+    				attr_dev(line0, "class", line0_class_value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line0_x__value !== (line0_x__value = /*posicionesArista*/ ctx[3].inicio.x)) {
+    				attr_dev(line0, "x1", line0_x__value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line0_y__value !== (line0_y__value = /*posicionesArista*/ ctx[3].inicio.y)) {
+    				attr_dev(line0, "y1", line0_y__value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line0_x__value_1 !== (line0_x__value_1 = /*posicionesArista*/ ctx[3].puntoMedio.x)) {
+    				attr_dev(line0, "x2", line0_x__value_1);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line0_y__value_1 !== (line0_y__value_1 = /*posicionesArista*/ ctx[3].puntoMedio.y)) {
+    				attr_dev(line0, "y2", line0_y__value_1);
+    			}
+
+    			if (!current || dirty & /*colores*/ 64 && line1_class_value !== (line1_class_value = "" + (/*colores*/ ctx[6].coloresStroke.color + " stroke-2"))) {
+    				attr_dev(line1, "class", line1_class_value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line1_x__value !== (line1_x__value = /*posicionesArista*/ ctx[3].puntoMedio.x)) {
+    				attr_dev(line1, "x1", line1_x__value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line1_y__value !== (line1_y__value = /*posicionesArista*/ ctx[3].puntoMedio.y)) {
+    				attr_dev(line1, "y1", line1_y__value);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line1_x__value_1 !== (line1_x__value_1 = /*posicionesArista*/ ctx[3].final.x)) {
+    				attr_dev(line1, "x2", line1_x__value_1);
+    			}
+
+    			if (!current || dirty & /*posicionesArista*/ 8 && line1_y__value_1 !== (line1_y__value_1 = /*posicionesArista*/ ctx[3].final.y)) {
+    				attr_dev(line1, "y2", line1_y__value_1);
+    			}
+
+    			const flecha0_changes = {};
+    			if (dirty & /*posicionesArista*/ 8) flecha0_changes.posicion = /*posicionesArista*/ ctx[3].inicio;
+    			if (dirty & /*posicionesArista*/ 8) flecha0_changes.angulo = /*posicionesArista*/ ctx[3].angulo - Math.PI / 2;
+    			if (dirty & /*colores*/ 64) flecha0_changes.fillColor = /*colores*/ ctx[6].coloresFill.colorInverso;
+    			flecha0.$set(flecha0_changes);
+    			const flecha1_changes = {};
+    			if (dirty & /*posicionesArista*/ 8) flecha1_changes.posicion = /*posicionesArista*/ ctx[3].final;
+    			if (dirty & /*posicionesArista*/ 8) flecha1_changes.angulo = /*posicionesArista*/ ctx[3].angulo + Math.PI / 2;
+    			if (dirty & /*colores*/ 64) flecha1_changes.fillColor = /*colores*/ ctx[6].coloresFill.color;
+    			flecha1.$set(flecha1_changes);
+    			const peso0_changes = {};
+    			if (dirty & /*posicionesPesos*/ 16) peso0_changes.posicion = /*posicionesPesos*/ ctx[4].posicionPeso;
+    			if (dirty & /*arista*/ 2) peso0_changes.peso = /*arista*/ ctx[1].peso;
+    			if (dirty & /*colores*/ 64) peso0_changes.bgColor = /*colores*/ ctx[6].coloresBG.color;
+    			if (dirty & /*arista*/ 2) peso0_changes.cambiarPeso = /*arista*/ ctx[1].cambiarPeso.bind(/*arista*/ ctx[1]);
+    			peso0.$set(peso0_changes);
+    			const peso1_changes = {};
+    			if (dirty & /*posicionesPesos*/ 16) peso1_changes.posicion = /*posicionesPesos*/ ctx[4].posicionPesoInverso;
+    			if (dirty & /*aristaInversa*/ 1) peso1_changes.peso = /*aristaInversa*/ ctx[0].peso;
+    			if (dirty & /*colores*/ 64) peso1_changes.bgColor = /*colores*/ ctx[6].coloresBG.colorInverso;
+    			if (dirty & /*aristaInversa*/ 1) peso1_changes.cambiarPeso = /*aristaInversa*/ ctx[0].cambiarPeso.bind(/*aristaInversa*/ ctx[0]);
+    			peso1.$set(peso1_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(flecha0.$$.fragment, local);
+    			transition_in(flecha1.$$.fragment, local);
+    			transition_in(peso0.$$.fragment, local);
+    			transition_in(peso1.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(flecha0.$$.fragment, local);
+    			transition_out(flecha1.$$.fragment, local);
+    			transition_out(peso0.$$.fragment, local);
+    			transition_out(peso1.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(line0);
+    			if (detaching) detach_dev(line1);
+    			destroy_component(flecha0, detaching);
+    			destroy_component(flecha1, detaching);
+    			destroy_component(peso0, detaching);
+    			destroy_component(peso1, detaching);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(229:4) {#if aristaBidireccional}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (304:4) {#if arista && (arista.esCamino || arista.fueCamino)}
+    function create_if_block_1$1(ctx) {
+    	let peso;
+    	let current;
+
+    	peso = new Peso({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: {
+    					x: /*posicionesFlujos*/ ctx[5].posicionFlujo.x,
+    					y: /*posicionesFlujos*/ ctx[5].posicionFlujo.y
+    				},
+    				peso: /*arista*/ ctx[1].flujo,
+    				bgColor: bgPesoFlujo,
+    				textColor: "text-black",
+    				dibujarCero: false
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(peso.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(peso, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const peso_changes = {};
+
+    			if (dirty & /*posicionesFlujos*/ 32) peso_changes.posicion = {
+    				x: /*posicionesFlujos*/ ctx[5].posicionFlujo.x,
+    				y: /*posicionesFlujos*/ ctx[5].posicionFlujo.y
+    			};
+
+    			if (dirty & /*arista*/ 2) peso_changes.peso = /*arista*/ ctx[1].flujo;
+    			peso.$set(peso_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(peso.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(peso.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(peso, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(304:4) {#if arista && (arista.esCamino || arista.fueCamino)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (319:4) {#if aristaInversa && (aristaInversa.esCamino || aristaInversa.fueCamino)}
+    function create_if_block$1(ctx) {
+    	let peso;
+    	let current;
+
+    	peso = new Peso({
+    			props: {
+    				onClickArista: /*onClickArista*/ ctx[8],
+    				posicion: {
+    					x: /*posicionesFlujos*/ ctx[5].posicionFlujoInverso.x,
+    					y: /*posicionesFlujos*/ ctx[5].posicionFlujoInverso.y
+    				},
+    				peso: /*aristaInversa*/ ctx[0].flujo,
+    				bgColor: bgPesoFlujo,
+    				textColor: "text-black",
+    				dibujarCero: false
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(peso.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(peso, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const peso_changes = {};
+
+    			if (dirty & /*posicionesFlujos*/ 32) peso_changes.posicion = {
+    				x: /*posicionesFlujos*/ ctx[5].posicionFlujoInverso.x,
+    				y: /*posicionesFlujos*/ ctx[5].posicionFlujoInverso.y
+    			};
+
+    			if (dirty & /*aristaInversa*/ 1) peso_changes.peso = /*aristaInversa*/ ctx[0].flujo;
+    			peso.$set(peso_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(peso.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(peso.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(peso, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(319:4) {#if aristaInversa && (aristaInversa.esCamino || aristaInversa.fueCamino)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$2(ctx) {
+    	let svg;
+    	let current_block_type_index;
+    	let if_block0;
+    	let if_block0_anchor;
+    	let if_block1_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block_2, create_else_block];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*aristaBidireccional*/ ctx[7]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	let if_block1 = /*arista*/ ctx[1] && (/*arista*/ ctx[1].esCamino || /*arista*/ ctx[1].fueCamino) && create_if_block_1$1(ctx);
+    	let if_block2 = /*aristaInversa*/ ctx[0] && (/*aristaInversa*/ ctx[0].esCamino || /*aristaInversa*/ ctx[0].fueCamino) && create_if_block$1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			if_block0.c();
+    			if_block0_anchor = empty();
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
+    			if (if_block2) if_block2.c();
+    			add_location(svg, file$2, 227, 0, 8773);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, svg, anchor);
+    			if_blocks[current_block_type_index].m(svg, null);
+    			append_dev(svg, if_block0_anchor);
+    			if (if_block1) if_block1.m(svg, null);
+    			append_dev(svg, if_block1_anchor);
+    			if (if_block2) if_block2.m(svg, null);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block0 = if_blocks[current_block_type_index];
+
+    				if (!if_block0) {
+    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block0.c();
+    				} else {
+    					if_block0.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block0, 1);
+    				if_block0.m(svg, if_block0_anchor);
+    			}
+
+    			if (/*arista*/ ctx[1] && (/*arista*/ ctx[1].esCamino || /*arista*/ ctx[1].fueCamino)) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+
+    					if (dirty & /*arista*/ 2) {
+    						transition_in(if_block1, 1);
+    					}
+    				} else {
+    					if_block1 = create_if_block_1$1(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(svg, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (/*aristaInversa*/ ctx[0] && (/*aristaInversa*/ ctx[0].esCamino || /*aristaInversa*/ ctx[0].fueCamino)) {
+    				if (if_block2) {
+    					if_block2.p(ctx, dirty);
+
+    					if (dirty & /*aristaInversa*/ 1) {
+    						transition_in(if_block2, 1);
+    					}
+    				} else {
+    					if_block2 = create_if_block$1(ctx);
+    					if_block2.c();
+    					transition_in(if_block2, 1);
+    					if_block2.m(svg, null);
+    				}
+    			} else if (if_block2) {
+    				group_outros();
+
+    				transition_out(if_block2, 1, 1, () => {
+    					if_block2 = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block0);
+    			transition_in(if_block1);
+    			transition_in(if_block2);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block0);
+    			transition_out(if_block1);
+    			transition_out(if_block2);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(svg);
+    			if_blocks[current_block_type_index].d();
+    			if (if_block1) if_block1.d();
+    			if (if_block2) if_block2.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const bgPesoFlujo = "bg-yellow-300";
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	let aristaBidireccional;
+    	let aristaPrincipal;
+    	let eliminandoArista;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Arista', slots, []);
+    	let { arista } = $$props;
+    	let { aristaInversa } = $$props;
+    	let prevEliminandoArista = eliminandoArista;
+    	let posicionesArista;
+    	let posicionesPesos;
+    	let posicionesFlujos;
+    	let colores;
+    	let prevArista;
+    	let prevAristaInversa;
+
+    	function copiarValoresPrevArista() {
+    		prevEliminandoArista = eliminandoArista;
+
+    		if (arista) {
+    			prevArista = {
+    				origenPos: arista.origen.posicion,
+    				destinoPos: arista.destino.posicion,
+    				esCamino: arista.esCamino,
+    				peso: arista.peso,
+    				flujo: arista.flujo
+    			};
+    		}
+
+    		if (aristaInversa) {
+    			prevAristaInversa = {
+    				origenPos: aristaInversa.origen.posicion,
+    				destinoPos: aristaInversa.destino.posicion,
+    				esCamino: aristaInversa.esCamino,
+    				peso: aristaInversa.peso,
+    				flujo: aristaInversa.flujo
+    			};
+    		}
+    	}
+
+    	const coloresStroke = {
+    		"normal": "stroke-emerald-600",
+    		"inverso": "stroke-blue-600",
+    		"camino": "stroke-yellow-300",
+    		"fueCamino": "stroke-gray-600",
+    		"eliminando": "stroke-gray-700"
+    	};
+
+    	function calcularColoresStroke() {
+    		let color = coloresStroke.normal;
+
+    		let colorInverso = aristaBidireccional
+    		? coloresStroke.inverso
+    		: coloresStroke.normal;
+
+    		if (arista && arista.esCamino) {
+    			color = coloresStroke.camino;
+    		}
+
+    		if (aristaInversa && aristaInversa.esCamino) {
+    			colorInverso = coloresStroke.camino;
+    		}
+
+    		if (arista && arista.fueCamino) {
+    			color = coloresStroke.fueCamino;
+    		}
+
+    		if (aristaInversa && aristaInversa.fueCamino) {
+    			colorInverso = coloresStroke.fueCamino;
+    		}
+
+    		if (eliminandoArista) {
+    			color = coloresStroke.eliminando;
+    			colorInverso = coloresStroke.eliminando;
+    		}
+
+    		return { color, colorInverso };
+    	}
+
+    	const coloresFill = {
+    		"normal": "fill-emerald-600",
+    		"inverso": "fill-blue-600",
+    		"camino": "fill-yellow-300",
+    		"fueCamino": "fill-gray-600",
+    		"eliminando": "fill-gray-700"
+    	};
+
+    	function calcularColoresFill() {
+    		let color = coloresFill.normal;
+
+    		let colorInverso = aristaBidireccional
+    		? coloresFill.inverso
+    		: coloresFill.normal;
+
+    		if (arista && arista.esCamino) {
+    			color = coloresFill.camino;
+    		}
+
+    		if (aristaInversa && aristaInversa.esCamino) {
+    			colorInverso = coloresFill.camino;
+    		}
+
+    		if (arista && arista.fueCamino) {
+    			color = coloresFill.fueCamino;
+    		}
+
+    		if (aristaInversa && aristaInversa.fueCamino) {
+    			colorInverso = coloresFill.fueCamino;
+    		}
+
+    		if (eliminandoArista) {
+    			color = coloresFill.eliminando;
+    			colorInverso = coloresFill.eliminando;
+    		}
+
+    		return { color, colorInverso };
+    	}
+
+    	const coloresBG = {
+    		"normal": "bg-emerald-800",
+    		"inverso": "bg-blue-600",
+    		"eliminando": "bg-gray-700",
+    		"flujo": "bg-orange-700",
+    		"flujoCompleto": "bg-rose-700"
+    	};
+
+    	function calcularColoresBG() {
+    		let color = coloresBG.normal;
+
+    		let colorInverso = aristaBidireccional
+    		? coloresBG.inverso
+    		: coloresBG.normal;
+
+    		if (arista && arista.flujo !== 0) {
+    			color = coloresBG.flujo;
+    		}
+
+    		if (aristaInversa && aristaInversa.flujo !== 0) {
+    			colorInverso = coloresBG.flujo;
+    		}
+
+    		if (arista && arista.flujo === arista.peso) {
+    			color = coloresBG.flujoCompleto;
+    		}
+
+    		if (aristaInversa && aristaInversa.flujo === aristaInversa.peso) {
+    			colorInverso = coloresBG.flujoCompleto;
+    		}
+
+    		if (eliminandoArista) {
+    			color = coloresBG.eliminando;
+    			colorInverso = coloresBG.eliminando;
+    		}
+
+    		return { color, colorInverso };
+    	}
+
+    	function calcularPosicionesArista() {
+    		const posOrigen = aristaPrincipal.origen.posicion;
+    		const posDestino = aristaPrincipal.destino.posicion;
+    		const radioOrigen = aristaPrincipal.origen.radio;
+    		const radioDestino = aristaPrincipal.destino.radio;
+    		const angulo = Math.atan2(posDestino.y - posOrigen.y, posDestino.x - posOrigen.x);
+
+    		const inicio = {
+    			x: posOrigen.x + radioOrigen * Math.cos(angulo),
+    			y: posOrigen.y + radioOrigen * Math.sin(angulo)
+    		};
+
+    		const final = {
+    			x: posDestino.x - radioDestino * Math.cos(angulo),
+    			y: posDestino.y - radioDestino * Math.sin(angulo)
+    		};
+
+    		const puntoMedio = {
+    			x: (inicio.x + final.x) / 2,
+    			y: (inicio.y + final.y) / 2
+    		};
+
+    		return { inicio, puntoMedio, final, angulo };
+    	}
+
+    	function calcularPosicionesPesos() {
+    		if (aristaBidireccional) {
+    			const distancia = 0.75;
+
+    			const posicionPeso = {
+    				x: posicionesArista.inicio.x + (posicionesArista.final.x - posicionesArista.inicio.x) * distancia,
+    				y: posicionesArista.inicio.y + (posicionesArista.final.y - posicionesArista.inicio.y) * distancia
+    			};
+
+    			const posicionPesoInverso = {
+    				x: posicionesArista.final.x - (posicionesArista.final.x - posicionesArista.inicio.x) * distancia,
+    				y: posicionesArista.final.y - (posicionesArista.final.y - posicionesArista.inicio.y) * distancia
+    			};
+
+    			return { posicionPeso, posicionPesoInverso };
+    		}
+
+    		const puntoMedio = posicionesArista.puntoMedio;
+
+    		return {
+    			posicionPeso: puntoMedio,
+    			posicionPesoInverso: puntoMedio
+    		};
+    	}
+
+    	function calcularPosicionFlujos() {
+    		const diametro = 20 * 2;
+
+    		const posicionFlujo = {
+    			x: posicionesPesos.posicionPeso.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
+    			y: posicionesPesos.posicionPeso.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2)
+    		};
+
+    		const posicionFlujoInverso = {
+    			x: posicionesPesos.posicionPesoInverso.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
+    			y: posicionesPesos.posicionPesoInverso.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2)
+    		};
+
+    		return { posicionFlujo, posicionFlujoInverso };
+    	}
+
+    	function updateArista() {
+    		$$invalidate(3, posicionesArista = calcularPosicionesArista());
+    		$$invalidate(4, posicionesPesos = calcularPosicionesPesos());
+    		$$invalidate(5, posicionesFlujos = calcularPosicionFlujos());
+    		const coloresStroke = calcularColoresStroke();
+    		const coloresFill = calcularColoresFill();
+    		const coloresBG = calcularColoresBG();
+    		$$invalidate(6, colores = { coloresStroke, coloresFill, coloresBG });
+    	}
+
+    	beforeUpdate(() => {
+    		if (!prevArista && !prevAristaInversa) {
+    			copiarValoresPrevArista();
+    			updateArista();
+    			return;
+    		}
+
+    		//actualizamos los valores de la arista representada
+    		if (//si se inicia o finaliza la eliminacion de aristas
+    		prevEliminandoArista && !eliminandoArista || !prevEliminandoArista && eliminandoArista || (//si se crea una arista
+    		!prevArista && arista || !prevAristaInversa && aristaInversa) || (//si se elimina una arista
+    		prevArista && !arista || prevAristaInversa && !aristaInversa) || //si se cambia algun peso
+    		prevArista && arista && prevArista.peso !== arista.peso || prevAristaInversa && aristaInversa && prevAristaInversa.peso !== aristaInversa.peso || //si se cambia el flujo
+    		prevArista && arista && prevArista.flujo !== arista.flujo || prevAristaInversa && aristaInversa && prevAristaInversa.flujo !== aristaInversa.flujo || //si cambia el estado de camino
+    		prevArista && arista && prevArista.esCamino !== arista.esCamino || prevAristaInversa && aristaInversa && prevAristaInversa.esCamino !== aristaInversa.esCamino || //si cambia la posicion de un vertice
+    		prevArista && arista && (prevArista.origenPos.x !== arista.origen.posicion.x || prevArista.origenPos.y !== arista.origen.posicion.y || prevArista.destinoPos.x !== arista.destino.posicion.x || prevArista.destinoPos.y !== arista.destino.posicion.y) || prevAristaInversa && aristaInversa && (prevAristaInversa.origenPos.x !== aristaInversa.origen.posicion.x || prevAristaInversa.origenPos.y !== aristaInversa.origen.posicion.y || prevAristaInversa.destinoPos.x !== aristaInversa.destino.posicion.x || prevAristaInversa.destinoPos.y !== aristaInversa.destino.posicion.y)) {
+    			copiarValoresPrevArista();
+    			updateArista();
+    			return;
+    		}
+    	});
+
+    	function onClickArista() {
+    		if (eliminandoArista) {
+    			if (arista) {
+    				arista.eliminar();
+    			}
+
+    			if (aristaInversa) {
+    				aristaInversa.eliminar();
+    			}
+
+    			aristaPrincipal.grafo.finalizarEliminacionArista();
+    		}
+    	}
+
+    	const writable_props = ['arista', 'aristaInversa'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Arista> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('arista' in $$props) $$invalidate(1, arista = $$props.arista);
+    		if ('aristaInversa' in $$props) $$invalidate(0, aristaInversa = $$props.aristaInversa);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		beforeUpdate,
+    		afterUpdate,
+    		Flecha,
+    		Peso,
+    		arista,
+    		aristaInversa,
+    		prevEliminandoArista,
+    		posicionesArista,
+    		posicionesPesos,
+    		posicionesFlujos,
+    		colores,
+    		bgPesoFlujo,
+    		prevArista,
+    		prevAristaInversa,
+    		copiarValoresPrevArista,
+    		coloresStroke,
+    		calcularColoresStroke,
+    		coloresFill,
+    		calcularColoresFill,
+    		coloresBG,
+    		calcularColoresBG,
+    		calcularPosicionesArista,
+    		calcularPosicionesPesos,
+    		calcularPosicionFlujos,
+    		updateArista,
+    		onClickArista,
+    		aristaPrincipal,
+    		eliminandoArista,
+    		aristaBidireccional
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('arista' in $$props) $$invalidate(1, arista = $$props.arista);
+    		if ('aristaInversa' in $$props) $$invalidate(0, aristaInversa = $$props.aristaInversa);
+    		if ('prevEliminandoArista' in $$props) prevEliminandoArista = $$props.prevEliminandoArista;
+    		if ('posicionesArista' in $$props) $$invalidate(3, posicionesArista = $$props.posicionesArista);
+    		if ('posicionesPesos' in $$props) $$invalidate(4, posicionesPesos = $$props.posicionesPesos);
+    		if ('posicionesFlujos' in $$props) $$invalidate(5, posicionesFlujos = $$props.posicionesFlujos);
+    		if ('colores' in $$props) $$invalidate(6, colores = $$props.colores);
+    		if ('prevArista' in $$props) prevArista = $$props.prevArista;
+    		if ('prevAristaInversa' in $$props) prevAristaInversa = $$props.prevAristaInversa;
+    		if ('aristaPrincipal' in $$props) $$invalidate(2, aristaPrincipal = $$props.aristaPrincipal);
+    		if ('eliminandoArista' in $$props) eliminandoArista = $$props.eliminandoArista;
+    		if ('aristaBidireccional' in $$props) $$invalidate(7, aristaBidireccional = $$props.aristaBidireccional);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*arista, aristaInversa*/ 3) {
+    			$$invalidate(0, aristaInversa = arista === aristaInversa ? null : aristaInversa);
+    		}
+
+    		if ($$self.$$.dirty & /*arista, aristaInversa*/ 3) {
+    			$$invalidate(7, aristaBidireccional = arista && aristaInversa);
+    		}
+
+    		if ($$self.$$.dirty & /*arista, aristaInversa*/ 3) {
+    			$$invalidate(2, aristaPrincipal = arista || aristaInversa);
+    		}
+
+    		if ($$self.$$.dirty & /*aristaPrincipal*/ 4) {
+    			eliminandoArista = aristaPrincipal.grafo.eliminandoArista;
+    		}
+    	};
+
+    	return [
+    		aristaInversa,
+    		arista,
+    		aristaPrincipal,
+    		posicionesArista,
+    		posicionesPesos,
+    		posicionesFlujos,
+    		colores,
+    		aristaBidireccional,
+    		onClickArista
+    	];
+    }
+
+    class Arista extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, { arista: 1, aristaInversa: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Arista",
+    			options,
+    			id: create_fragment$2.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*arista*/ ctx[1] === undefined && !('arista' in props)) {
+    			console.warn("<Arista> was created without expected prop 'arista'");
+    		}
+
+    		if (/*aristaInversa*/ ctx[0] === undefined && !('aristaInversa' in props)) {
+    			console.warn("<Arista> was created without expected prop 'aristaInversa'");
+    		}
+    	}
+
+    	get arista() {
+    		throw new Error("<Arista>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set arista(value) {
+    		throw new Error("<Arista>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get aristaInversa() {
+    		throw new Error("<Arista>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set aristaInversa(value) {
+    		throw new Error("<Arista>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/Grafo/Grafo.svelte generated by Svelte v3.48.0 */
+
+    const { console: console_1 } = globals;
+    const file$1 = "src/components/Grafo/Grafo.svelte";
+
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[9] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[12] = list[i];
+    	child_ctx[14] = i;
+    	return child_ctx;
+    }
+
+    function get_each_context_2(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[12] = list[i];
+    	child_ctx[16] = i;
+    	return child_ctx;
+    }
+
+    // (46:20) {#if aristas[i][j] || aristas[j][i]}
+    function create_if_block_1(ctx) {
+    	let aristacomponent;
+    	let current;
+
+    	aristacomponent = new Arista({
+    			props: {
+    				arista: /*aristas*/ ctx[2][/*i*/ ctx[14]][/*j*/ ctx[16]],
+    				aristaInversa: /*aristas*/ ctx[2][/*j*/ ctx[16]][/*i*/ ctx[14]]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(aristacomponent.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(aristacomponent, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const aristacomponent_changes = {};
+    			if (dirty & /*aristas*/ 4) aristacomponent_changes.arista = /*aristas*/ ctx[2][/*i*/ ctx[14]][/*j*/ ctx[16]];
+    			if (dirty & /*aristas*/ 4) aristacomponent_changes.aristaInversa = /*aristas*/ ctx[2][/*j*/ ctx[16]][/*i*/ ctx[14]];
+    			aristacomponent.$set(aristacomponent_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(aristacomponent.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(aristacomponent.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(aristacomponent, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(46:20) {#if aristas[i][j] || aristas[j][i]}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (45:16) {#each Array(i+1) as _, j}
+    function create_each_block_2(ctx) {
+    	let if_block_anchor;
+    	let current;
+    	let if_block = (/*aristas*/ ctx[2][/*i*/ ctx[14]][/*j*/ ctx[16]] || /*aristas*/ ctx[2][/*j*/ ctx[16]][/*i*/ ctx[14]]) && create_if_block_1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*aristas*/ ctx[2][/*i*/ ctx[14]][/*j*/ ctx[16]] || /*aristas*/ ctx[2][/*j*/ ctx[16]][/*i*/ ctx[14]]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*aristas*/ 4) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block_1(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_2.name,
+    		type: "each",
+    		source: "(45:16) {#each Array(i+1) as _, j}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (44:12) {#each Array(aristas.length) as _, i}
+    function create_each_block_1(ctx) {
+    	let each_1_anchor;
+    	let current;
+    	let each_value_2 = Array(/*i*/ ctx[14] + 1);
+    	validate_each_argument(each_value_2);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_2.length; i += 1) {
+    		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*aristas*/ 4) {
+    				each_value_2 = Array(/*i*/ ctx[14] + 1);
+    				validate_each_argument(each_value_2);
+    				let i;
+
+    				for (i = 0; i < each_value_2.length; i += 1) {
+    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block_2(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value_2.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value_2.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(44:12) {#each Array(aristas.length) as _, i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (55:12) {#each vertices as vertice}
+    function create_each_block(ctx) {
+    	let verticecomponent;
+    	let current;
+
+    	verticecomponent = new Vertice({
+    			props: { vertice: /*vertice*/ ctx[9] },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(verticecomponent.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(verticecomponent, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const verticecomponent_changes = {};
+    			if (dirty & /*vertices*/ 8) verticecomponent_changes.vertice = /*vertice*/ ctx[9];
+    			verticecomponent.$set(verticecomponent_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(verticecomponent.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(verticecomponent.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(verticecomponent, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(55:12) {#each vertices as vertice}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (67:12) {#if consola}
+    function create_if_block(ctx) {
+    	let consolacomponent;
+    	let current;
+
+    	consolacomponent = new Consola({
+    			props: { consola: /*consola*/ ctx[4] },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(consolacomponent.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(consolacomponent, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const consolacomponent_changes = {};
+    			if (dirty & /*consola*/ 16) consolacomponent_changes.consola = /*consola*/ ctx[4];
+    			consolacomponent.$set(consolacomponent_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(consolacomponent.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(consolacomponent.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(consolacomponent, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(67:12) {#if consola}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$1(ctx) {
+    	let div;
+    	let svg1;
+    	let svg0;
+    	let each0_anchor;
+    	let foreignObject0;
+    	let menu;
+    	let foreignObject1;
+    	let current;
+    	let each_value_1 = Array(/*aristas*/ ctx[2].length);
+    	validate_each_argument(each_value_1);
+    	let each_blocks_1 = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	const out = i => transition_out(each_blocks_1[i], 1, 1, () => {
+    		each_blocks_1[i] = null;
+    	});
+
+    	let each_value = /*vertices*/ ctx[3];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	const out_1 = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	menu = new Menu({
+    			props: { grafo: /*grafo*/ ctx[5] },
+    			$$inline: true
+    		});
+
+    	let if_block = /*consola*/ ctx[4] && create_if_block(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			svg1 = svg_element("svg");
+    			svg0 = svg_element("svg");
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].c();
+    			}
+
+    			each0_anchor = empty();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			foreignObject0 = svg_element("foreignObject");
+    			create_component(menu.$$.fragment);
+    			foreignObject1 = svg_element("foreignObject");
+    			if (if_block) if_block.c();
+    			attr_dev(svg0, "height", /*height*/ ctx[1]);
+    			add_location(svg0, file$1, 42, 8, 1201);
+    			attr_dev(foreignObject0, "width", "100%");
+    			attr_dev(foreignObject0, "height", "40px");
+    			add_location(foreignObject0, file$1, 59, 8, 1765);
+    			attr_dev(foreignObject1, "width", "100%");
+    			attr_dev(foreignObject1, "height", "100%");
+    			attr_dev(foreignObject1, "class", "pointer-events-none");
+    			add_location(foreignObject1, file$1, 65, 8, 1907);
+    			attr_dev(svg1, "width", /*width*/ ctx[0]);
+    			attr_dev(svg1, "height", /*height*/ ctx[1]);
+    			attr_dev(svg1, "class", "select-none");
+    			add_location(svg1, file$1, 39, 4, 1127);
+    			add_location(div, file$1, 38, 0, 1117);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, svg1);
+    			append_dev(svg1, svg0);
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].m(svg0, null);
+    			}
+
+    			append_dev(svg0, each0_anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(svg0, null);
+    			}
+
+    			append_dev(svg1, foreignObject0);
+    			mount_component(menu, foreignObject0, null);
+    			append_dev(svg1, foreignObject1);
+    			if (if_block) if_block.m(foreignObject1, null);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*Array, aristas*/ 4) {
+    				each_value_1 = Array(/*aristas*/ ctx[2].length);
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks_1[i]) {
+    						each_blocks_1[i].p(child_ctx, dirty);
+    						transition_in(each_blocks_1[i], 1);
+    					} else {
+    						each_blocks_1[i] = create_each_block_1(child_ctx);
+    						each_blocks_1[i].c();
+    						transition_in(each_blocks_1[i], 1);
+    						each_blocks_1[i].m(svg0, each0_anchor);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+
+    			if (dirty & /*vertices*/ 8) {
+    				each_value = /*vertices*/ ctx[3];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(svg0, null);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value.length; i < each_blocks.length; i += 1) {
+    					out_1(i);
+    				}
+
+    				check_outros();
+    			}
+
+    			if (!current || dirty & /*height*/ 2) {
+    				attr_dev(svg0, "height", /*height*/ ctx[1]);
+    			}
+
+    			const menu_changes = {};
+    			if (dirty & /*grafo*/ 32) menu_changes.grafo = /*grafo*/ ctx[5];
+    			menu.$set(menu_changes);
+
+    			if (/*consola*/ ctx[4]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*consola*/ 16) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(foreignObject1, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (!current || dirty & /*width*/ 1) {
+    				attr_dev(svg1, "width", /*width*/ ctx[0]);
+    			}
+
+    			if (!current || dirty & /*height*/ 2) {
+    				attr_dev(svg1, "height", /*height*/ ctx[1]);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value_1.length; i += 1) {
+    				transition_in(each_blocks_1[i]);
+    			}
+
+    			for (let i = 0; i < each_value.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			transition_in(menu.$$.fragment, local);
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			each_blocks_1 = each_blocks_1.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				transition_out(each_blocks_1[i]);
+    			}
+
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			transition_out(menu.$$.fragment, local);
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks_1, detaching);
+    			destroy_each(each_blocks, detaching);
+    			destroy_component(menu);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$1.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$1($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Grafo', slots, []);
+    	let { width } = $$props;
+    	let prevWidth = width;
+    	let { height } = $$props;
+    	let prevHeight = width;
+    	let aristas = [];
+    	let vertices = [];
+    	let consola;
+    	let grafo;
+
+    	beforeUpdate(() => {
+    		if (prevWidth != width || prevHeight != height) {
+    			prevWidth = width;
+    			prevHeight = height;
+    			grafo.cambiarTamanio(width, height);
+    		}
+    	});
+
+    	//esta funcion son necesarias para decirle a Svelte que re-renderice el componente
+    	function recargarGrafo() {
+    		if (!grafo) return;
+    		$$invalidate(5, grafo);
+    		if (grafo.consola) $$invalidate(4, consola = grafo.consola);
+    		if (grafo.vertices) $$invalidate(3, vertices = grafo.vertices);
+    		if (aristas) $$invalidate(2, aristas = grafo.aristas);
+    	}
+
+    	grafo = generarGrafoAlAzar(5, width, height, recargarGrafo);
+    	recargarGrafo();
+    	console.log(grafo.matrizAdyacencia);
+    	const writable_props = ['width', 'height'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Grafo> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$$set = $$props => {
+    		if ('width' in $$props) $$invalidate(0, width = $$props.width);
+    		if ('height' in $$props) $$invalidate(1, height = $$props.height);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		generarGrafoAlAzar,
+    		Menu,
+    		ConsolaComponent: Consola,
+    		VerticeComponent: Vertice,
+    		AristaComponent: Arista,
+    		beforeUpdate,
+    		width,
+    		prevWidth,
+    		height,
+    		prevHeight,
+    		aristas,
+    		vertices,
+    		consola,
+    		grafo,
+    		recargarGrafo
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('width' in $$props) $$invalidate(0, width = $$props.width);
+    		if ('prevWidth' in $$props) prevWidth = $$props.prevWidth;
+    		if ('height' in $$props) $$invalidate(1, height = $$props.height);
+    		if ('prevHeight' in $$props) prevHeight = $$props.prevHeight;
+    		if ('aristas' in $$props) $$invalidate(2, aristas = $$props.aristas);
+    		if ('vertices' in $$props) $$invalidate(3, vertices = $$props.vertices);
+    		if ('consola' in $$props) $$invalidate(4, consola = $$props.consola);
+    		if ('grafo' in $$props) $$invalidate(5, grafo = $$props.grafo);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [width, height, aristas, vertices, consola, grafo];
+    }
+
+    class Grafo extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { width: 0, height: 1 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Grafo",
+    			options,
+    			id: create_fragment$1.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*width*/ ctx[0] === undefined && !('width' in props)) {
+    			console_1.warn("<Grafo> was created without expected prop 'width'");
+    		}
+
+    		if (/*height*/ ctx[1] === undefined && !('height' in props)) {
+    			console_1.warn("<Grafo> was created without expected prop 'height'");
+    		}
+    	}
+
+    	get width() {
+    		throw new Error("<Grafo>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set width(value) {
+    		throw new Error("<Grafo>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get height() {
+    		throw new Error("<Grafo>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set height(value) {
+    		throw new Error("<Grafo>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.48.0 */
+
+    const { window: window_1 } = globals;
+    const file = "src/App.svelte";
+
+    // (11:0) <Modal styleWindow={{ width: '70rem', height: '40rem' }}>
+    function create_default_slot(ctx) {
+    	let main;
+    	let grafo;
+    	let current;
+
+    	grafo = new Grafo({
+    			props: {
+    				width: /*innerWidth*/ ctx[1],
+    				height: /*innerHeight*/ ctx[0]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			create_component(grafo.$$.fragment);
+    			attr_dev(main, "class", "w-full h-full bg-stone-100 dark:bg-gray-800");
+    			add_location(main, file, 11, 0, 369);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, main, anchor);
+    			mount_component(grafo, main, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const grafo_changes = {};
+    			if (dirty & /*innerWidth*/ 2) grafo_changes.width = /*innerWidth*/ ctx[1];
+    			if (dirty & /*innerHeight*/ 1) grafo_changes.height = /*innerHeight*/ ctx[0];
+    			grafo.$set(grafo_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(grafo.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(grafo.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(main);
+    			destroy_component(grafo);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot.name,
+    		type: "slot",
+    		source: "(11:0) <Modal styleWindow={{ width: '70rem', height: '40rem' }}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment(ctx) {
+    	let tailwindcss;
+    	let t;
+    	let modal;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	add_render_callback(/*onwindowresize*/ ctx[2]);
+    	tailwindcss = new Tailwindcss({ $$inline: true });
+
+    	modal = new Modal({
+    			props: {
+    				styleWindow: { width: '70rem', height: '40rem' },
+    				$$slots: { default: [create_default_slot] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(tailwindcss.$$.fragment);
+    			t = space();
+    			create_component(modal.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(tailwindcss, target, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(modal, target, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(window_1, "resize", /*onwindowresize*/ ctx[2]);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const modal_changes = {};
+
+    			if (dirty & /*$$scope, innerWidth, innerHeight*/ 11) {
+    				modal_changes.$$scope = { dirty, ctx };
+    			}
+
+    			modal.$set(modal_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(tailwindcss.$$.fragment, local);
+    			transition_in(modal.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(tailwindcss.$$.fragment, local);
+    			transition_out(modal.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(tailwindcss, detaching);
+    			if (detaching) detach_dev(t);
+    			destroy_component(modal, detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let innerWidth;
+    	let innerHeight;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('App', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
+    	});
+
+    	function onwindowresize() {
+    		$$invalidate(1, innerWidth = window_1.innerWidth);
+    		$$invalidate(0, innerHeight = window_1.innerHeight);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		Modal,
+    		Tailwindcss,
+    		Grafo,
+    		innerHeight,
+    		innerWidth
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('innerHeight' in $$props) $$invalidate(0, innerHeight = $$props.innerHeight);
+    		if ('innerWidth' in $$props) $$invalidate(1, innerWidth = $$props.innerWidth);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$invalidate(1, innerWidth = window.innerWidth);
+    	$$invalidate(0, innerHeight = window.innerHeight);
+    	return [innerHeight, innerWidth, onwindowresize];
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance, create_fragment, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "App",
+    			options,
+    			id: create_fragment.name
+    		});
+    	}
+    }
+
+    const app = new App({
+        target: document.body,
+        props: {
+            name: 'world'
+        }
+    });
+
+    return app;
+
+})();
+//# sourceMappingURL=bundle.js.map

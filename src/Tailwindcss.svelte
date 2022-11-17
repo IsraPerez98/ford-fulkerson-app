@@ -21,7 +21,4 @@
   h6 {
     @apply text-sm font-bold text-center;
   }
-  img {
-    @apply mx-auto my-auto;
-  }
 </style>

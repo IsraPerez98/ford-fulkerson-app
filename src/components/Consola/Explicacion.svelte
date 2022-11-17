@@ -1,5 +1,6 @@
 <script lang="ts">
     import { afterUpdate } from "svelte";
+    import { twemoji } from 'twemoji-svelte-action';
 
     export let textoExplicativo: string[];
     let prevTextoExplicativo: string;
@@ -27,9 +28,17 @@
 <div bind:this={divScroll} class="overflow-auto ">
     {#each textoExplicativo as linea}
             <div class="min-h-12 py-3 mx-4 flex items-center text-clip">
-                <p class="text-slate-900 text-sm font-medium">
+                <p use:twemoji={{className: 'emoji-explicacion'}} class="flex flex-row text-slate-900 text-sm font-medium">
                     {linea}
                 </p>
             </div>
     {/each}
 </div>
+
+<style global>
+    img.emoji-explicacion {
+        height: 1.25em;
+        width: 1.25em;
+        margin-right: 1.25em;
+    }
+</style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { twemoji } from 'twemoji-svelte-action';
     import type Consola from "../../classes/Consola";
 
     import Explicacion from "./Explicacion.svelte";
@@ -55,15 +56,15 @@
                 </p>
             </div>
             <div class="flex flex-row">
-                <div class="flex flex-col h-auto py-2 space-y-4 w-12 bg-slate-900 text-xl text-center ">
+                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-auto py-2 space-y-4 w-12 bg-slate-900 text-xl text-center ">
                     <!--TODO: MENU PARA CATEGORIAS-->
-                    <button on:click={onClickButtonExplicacion} class:bg-violet-800={categoria === "EXPLICACION" } class="py-3 hover:bg-gray-700">
+                    <button on:click={onClickButtonExplicacion} class:bg-violet-800={categoria === "EXPLICACION" } class="p-2 hover:bg-gray-700">
                         🤔
                     </button>
-                    <button on:click={onClickButtonPseudocodigo} class:bg-violet-800={categoria === "PSEUDOCODIGO"} class="py-3 hover:bg-gray-700">
+                    <button on:click={onClickButtonPseudocodigo} class:bg-violet-800={categoria === "PSEUDOCODIGO"} class="p-2 hover:bg-gray-700">
                         🖥️
                     </button>
-                    <button on:click={onClickButtonRedAumentada} class:bg-violet-800={categoria === "RED_RESIDUAL"} class="py-3 hover:bg-gray-700">
+                    <button on:click={onClickButtonRedAumentada} class:bg-violet-800={categoria === "RED_RESIDUAL"} class="p-2 hover:bg-gray-700">
                         🕸️
                     </button>
                 </div>
