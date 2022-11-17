@@ -19,7 +19,8 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
             if(i === j) {
                 arreglo.push(0);
             } else {
-                if(Math.random() > 0.5) {
+                // 50% de probabilidad de que haya arista y no se generan hacia la fuente ni desde el destino
+                if(Math.random() > 0.5 && j !== 0 && i !== cantVertices - 1) {
                     arreglo.push(Math.floor(Math.random() * 100));
                 } else {
                     arreglo.push(0);
