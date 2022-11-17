@@ -43,17 +43,27 @@ function generarPosicionesVertices(cantVertices: number, width: number, height: 
         return [centro];
     }
 
+    //distancia desde el centro hasta el borde del circulo
     const distancia = Math.min(width, height) / 2 - verticeRadio * 2;
 
+    //angulo entre cada vertice
     const angulo = 2 * Math.PI / cantVertices;
 
     const posiciones: Posicion[] = [];
 
     for (let i = 0; i < cantVertices; i++) {
-        const x = centro.x + distancia * Math.cos(i * angulo);
-        const y = centro.y + distancia * Math.sin(i * angulo);
+        const x = centro.x - distancia * Math.cos(i * angulo);
+        const y = centro.y - distancia * Math.sin(i * angulo);
         posiciones.push({x, y});
     }
+
+    //dirty hack: intercambiamos la posicion del sumidero con el vertice central del arreglo para que aparezca a la derecha
+    const indiceCentral = Math.floor(cantVertices / 2);
+    
+    const aux = posiciones[indiceCentral];
+    posiciones[indiceCentral] = posiciones[cantVertices - 1];
+    posiciones[cantVertices - 1] = aux;
+
 
     return posiciones;
 }

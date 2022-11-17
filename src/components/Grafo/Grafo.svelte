@@ -42,7 +42,7 @@
         if (aristas) aristas = grafo.aristas;
     }
 
-    grafo = generarGrafoAlAzar(5, width, height, recargarGrafo);
+    grafo = generarGrafoAlAzar(6, width, height, recargarGrafo);
     recargarGrafo();
 
     console.log(grafo.matrizAdyacencia);
