@@ -8,6 +8,8 @@
 
     export let consola: Consola;
 
+    $: ejecutandoFlujoMaximo = consola.grafo.ejecutandoFlujoMaximo;
+
     $: categoria = consola.categoria;
 
     $: titulo = () => {
@@ -36,7 +38,9 @@
     }
 
     function onClickAbrir() {
-        consola.abrir();
+        if(ejecutandoFlujoMaximo){
+            consola.abrir();
+        }
     }
 
     function onClickCerrar() {
@@ -88,7 +92,12 @@
             </div>
     {:else} <!-- Consola cerrada / boton abrir -->
         <div class="bg-white rounded-full w-16 h-16 mr-4 mb-4">
-            <button on:click={onClickAbrir} class="w-full h-full flex items-center justify-center">
+            <button 
+                on:click={onClickAbrir} 
+                title={ejecutandoFlujoMaximo ? 'Explicación del algorítmo' : 'Se debe iniciar el algoritmo para ver la explicación' } 
+                disabled={!ejecutandoFlujoMaximo} 
+                class="w-full h-full flex items-center justify-center disabled:grayscale"
+            >
                 <div class="w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center">
                     <p class="text-2xl text-white">?</p>
                 </div>
