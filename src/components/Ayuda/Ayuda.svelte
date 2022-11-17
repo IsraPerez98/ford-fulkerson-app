@@ -125,7 +125,7 @@
             </div>
         {/each}
     </div>
-    <div class="w-3/4 h-full pb-2">
+    <div class="w-3/4 h-full pb-6">
         <div class="w-full h-9 overflow-hidden whitespace-nowrap border-b border-slate-300 shadow-2xl">
             <h1 class="text-2xl text-sky-600 font-bold text-center w-full">
                 {itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].titulo}
