@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { afterUpdate } from 'svelte';
 
     import type ItemsAyuda from "../../interfaces/ItemsAyuda";
 
@@ -51,7 +52,7 @@
                 ]
             },
             {
-                titulo: "Conceptos básicos de un grafo",
+                titulo: "Conceptos de grafos",
                 items: [
                     {
                         titulo: "Grafo",
@@ -79,7 +80,7 @@
                         componente: ProblemaFlujoMaximo,
                     },
                     {
-                        titulo: "Teorema de flujo máximo y corte mínimo",
+                        titulo: "Flujo máximo y corte mínimo",
                         componente: TeoremaFMCM,
                     },
                     {
@@ -91,6 +92,8 @@
         ]
     }
 
+    let bindScroll = null;
+
     let categoriaSeleccionada = 0;
     let itemSeleccionado = 0;
     let componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
@@ -101,22 +104,59 @@
 
         componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
     }
+
+    function onClickAnterior() {
+        itemSeleccionado--;
+        if (itemSeleccionado < 0) {
+            categoriaSeleccionada--;
+            if (categoriaSeleccionada < 0) {
+                categoriaSeleccionada = itemsAyuda.categorias.length - 1;
+            }
+            itemSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items.length - 1;
+        }
+
+        componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
+    }
+
+    function onClickSiguiente() {
+        itemSeleccionado++;
+        if (itemSeleccionado >= itemsAyuda.categorias[categoriaSeleccionada].items.length) {
+            categoriaSeleccionada++;
+            if (categoriaSeleccionada >= itemsAyuda.categorias.length) {
+                categoriaSeleccionada = 0;
+            }
+            itemSeleccionado = 0;
+        }
+
+        componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
+    }
+
+    afterUpdate(() => {
+        if(bindScroll) {
+            bindScroll.scrollTop = 0;
+        }
+    });
+
+
 </script>
 
 <div style={"height: 38rem"} class="w-full flex flex-row divide-x overflow-hidden">
-    <div class="w-1/4 h-full flex flex-col divide-y overflow-x-hidden overflow-y-scroll whitespace-nowrap">
+    <div class="w-1/4 h-full flex flex-col  overflow-x-hidden overflow-y-scroll whitespace-nowrap">
         {#each itemsAyuda.categorias as categoria, indexCategoria}
             <div class="w-full">
-                <div class="w-full h-12 p-2">
-                    <p class="text-lg font-semibold text-left">
+                <div class="w-full h-12 py-2 px-1 ">
+                    <p class="text-base font-semibold text-left text-slate-900">
                         {indexCategoria + 1} .- {categoria.titulo}
                     </p>
                 </div>
                 <hr class="w-full bg-black" />
-                <div class="flex flex-col w-full divide-y">
+                <div class="flex flex-col w-full ">
                     {#each categoria.items as item, indexItem}
-                        <button class="h-12 w-full p-2" on:click={() => {onClickItem(indexCategoria, indexItem)}}>
-                            <p class="text-base font-medium text-left">
+                        <button 
+                            class="h-12 w-full py-2 px- { (itemSeleccionado === indexItem && categoriaSeleccionada === indexCategoria) ? 'hover:text-violet-600 text-violet-600' : 'text-slate-600 hover:text-slate-900'}" 
+                            on:click={() => {onClickItem(indexCategoria, indexItem)}}
+                        >
+                            <p class="text-sm font-medium text-left ">
                                 {indexCategoria + 1}-{indexItem + 1}.- {item.titulo}
                             </p>
                         </button>
@@ -125,15 +165,35 @@
             </div>
         {/each}
     </div>
-    <div class="w-3/4 h-full pb-6">
+    <div class="w-3/4 h-full pb-10">
         <div class="w-full h-9 overflow-hidden whitespace-nowrap border-b border-slate-300 shadow-2xl">
-            <h1 class="text-2xl text-sky-600 font-bold text-center w-full">
+            <h1 class="text-2xl text-sky-500 font-bold text-center w-full">
                 {itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].titulo}
             </h1>
         </div>
-        <article class="w-full h-full overflow-y-scroll px-6">
-            <svelte:component this={componenteSeleccionado} />
-        </article>
+        <div bind:this={bindScroll} class="w-full h-full overflow-y-scroll px-6">
+            <article>
+                <svelte:component this={componenteSeleccionado} />
+            </article>
+            <div class="my-4 flex flex-row m-1/2 justify-around text-white text-xl font-bold text-center">
+                <button 
+                    class="py-2 px-3 rounded-lg shadow-md bg-sky-500 hover:bg-sky-700"
+                    on:click={onClickAnterior}
+                >
+                    <p >
+                        Anterior
+                    </p>
+                </button>
+                <button 
+                    class="py-2 px-3 rounded-lg shadow-md bg-sky-500 hover:bg-sky-700"
+                    on:click={onClickSiguiente}
+                >
+                    <p >
+                        Siguiente
+                    </p>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

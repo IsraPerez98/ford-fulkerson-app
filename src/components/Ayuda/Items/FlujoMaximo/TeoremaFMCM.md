@@ -1,4 +1,4 @@
-Este teorema fue propuesto inicialmente en 1956 por L. R. Ford y D. R. Fulkerson, el cual establece que el flujo máximo de una red de flujo es igual a la suma de las capacidades de las aristas, tales que si estas son eliminadas de la red, la fuente y el sumidero dejan de estar conectados.
+El teorema de flujo máximo y corte mínimo fue propuesto inicialmente en 1956 por L. R. Ford y D. R. Fulkerson, el cual establece que el flujo máximo de una red de flujo es igual a la suma de las capacidades de las aristas, tales que si estas son eliminadas de la red, la fuente y el sumidero dejan de estar conectados.
 
 
 
