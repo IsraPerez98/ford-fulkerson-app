@@ -176,7 +176,7 @@ class Grafo {
     }
 
     public eliminarVertice(vertice: Vertice): void {
-        console.log({vertice});
+        //console.log({vertice});
         
 
         //eliminamos el vertice de los arreglos
@@ -194,7 +194,7 @@ class Grafo {
         for(let i = 0; i < this.matrizAdyacencia.length; i++) {
             this.matrizAdyacencia[i].splice(vertice.id, 1);
         }
-        console.log(this.matrizAdyacencia);
+        //console.log(this.matrizAdyacencia);
         
 
         //eliminamos la columna y la fila de la matriz de aristas
@@ -452,7 +452,7 @@ class Grafo {
             const arista = this.aristas[vertice.id][verticeSiguiente.id];
     
             if(arista) {
-                console.log({arista});
+                //console.log({arista});
                 arista.esCamino = true;
                 arista.fueCamino = false;
                 //arista.flujo = flujo;
@@ -489,7 +489,7 @@ class Grafo {
             }
 
             this.recargarGrafo();
-            console.log("Esperando siguiente iteracion");
+            //console.log("Esperando siguiente iteracion");
 
             this.avanzarIteracionFlujoMaximo = false;
             this.recargarGrafo();
@@ -603,7 +603,11 @@ class Grafo {
                 await this.esperarProximaIteracion();
             }
         } catch(error) {
-            console.log(error);
+            if(error.message === "El flujo maximo fue abortado") {
+                console.log("El flujo maximo fue abortado");
+            } else {
+                console.error(error);
+            }
         }
     }
 

@@ -139,7 +139,7 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     asignarGrafoAVertices(vertices, grafo);
     asignarGrafoAAristas(aristas, grafo);
 
-    console.log({grafo});
+    //console.log({grafo});
 
     return grafo;
 }

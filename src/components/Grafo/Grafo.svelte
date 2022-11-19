@@ -45,7 +45,7 @@
     grafo = generarGrafoAlAzar(6, width, height, recargarGrafo);
     recargarGrafo();
 
-    console.log(grafo.matrizAdyacencia);
+    //console.log(grafo.matrizAdyacencia);
 
 </script>
 
