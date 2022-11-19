@@ -38,9 +38,12 @@
     }
 
     function onClickAbrir() {
+        /*
         if(ejecutandoFlujoMaximo){
             consola.abrir();
         }
+        */
+        consola.abrir();
     }
 
     function onClickCerrar() {
@@ -94,8 +97,8 @@
         <div class="bg-white rounded-full w-16 h-16 mr-4 mb-4">
             <button 
                 on:click={onClickAbrir} 
-                title={ejecutandoFlujoMaximo ? 'Explicación del algorítmo' : 'Se debe iniciar el algoritmo para ver la explicación' } 
-                disabled={!ejecutandoFlujoMaximo} 
+                title={'Explicación del algorítmo'} 
+                
                 class="w-full h-full flex items-center justify-center disabled:grayscale"
             >
                 <div class="w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center">

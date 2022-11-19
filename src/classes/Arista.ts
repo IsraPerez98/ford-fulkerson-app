@@ -21,11 +21,12 @@ class Arista {
 
         this.peso = peso;
         this.grafo.matrizAdyacencia[this.origen.id][this.destino.id] = peso;
-        this.grafo.recargarGrafo();
 
         if(this.peso === 0){
             this.grafo.eliminarArista(this);
         }
+
+        this.grafo.finalizarModificacionGrafo();
 
         return this.peso;
     }

@@ -45,6 +45,11 @@ class Grafo {
 
     public recargarGrafo: Function; // Funcion para recargar el grafo con svelte
 
+    public finalizarModificacionGrafo(): void {
+        this.recargarRedResidual();
+        this.recargarGrafo();
+    }
+
     public iniciarCreacionVertice(): void {
         this.creandoVertice = true;
         this.recargarGrafo();
@@ -89,7 +94,7 @@ class Grafo {
 
     public finalizarCreacionVertice(): void {
         this.creandoVertice = false;
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public iniciarEliminacionArista(): void {
@@ -107,7 +112,7 @@ class Grafo {
 
     public finalizarEliminacionArista(): void {
         this.eliminandoArista = false;
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public iniciarCreacionArista(): void {
@@ -166,7 +171,7 @@ class Grafo {
     public finalizarCreacionArista(): void {
         this.creandoArista = false;
         this.nuevaAristaVerticeOrigen = null;
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public iniciarEliminacionVertice(): void {
@@ -204,12 +209,12 @@ class Grafo {
         }
         
 
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public finalizarEliminacionVertice(): void {
         this.eliminandoVertice = false;
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public generarGrafoAlAzar(cantVertices: number): void {
@@ -221,7 +226,7 @@ class Grafo {
         this.vertices = grafo.vertices;
         this.aristas = grafo.aristas;
 
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public eliminarArista(arista: Arista): void { // funcion que elimina una arista del grafo
@@ -230,7 +235,7 @@ class Grafo {
         this.aristas[arista.origen.id][arista.destino.id] = null;
         //this.aristas[arista.destino.id][arista.origen.id] = null;
         
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public guardarGrafo(): void { // funcion que guarda el grafo en un archivo local
@@ -333,7 +338,7 @@ class Grafo {
             this.abortarFlujoMaximo = null;
         }
 
-        this.recargarRedResidual();
+        this.finalizarModificacionGrafo();
     }
     
     public generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Posicion[], fuentes: boolean[], sumideros: boolean[]): void { // funcion que genera un grafo a partir de parametros
@@ -346,7 +351,7 @@ class Grafo {
         this.aristas = grafo.aristas;
         this.ejecutandoFlujoMaximo = false;
         
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
     }
 
     public crearNuevoVertice(fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string, radio?: number): Vertice {
@@ -368,7 +373,7 @@ class Grafo {
             this.aristas[i].push(null);
         }
 
-        this.recargarGrafo();
+        this.finalizarModificacionGrafo();
         return nuevoVertice;
         
     }
@@ -646,6 +651,8 @@ class Grafo {
         if(recargarGrafo) {
             this.recargarGrafo = recargarGrafo;
         }
+
+        this.finalizarModificacionGrafo();
     }
 
     constructor(matrizAdyacencia: MatrizAdyacencia, fuentes: boolean[], sumideros: boolean[], vertices: Vertice[], aristas: Arista[][], consola: Consola, width: number, height: number, recargarGrafo: Function) {
