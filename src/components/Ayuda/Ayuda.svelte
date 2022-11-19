@@ -153,6 +153,7 @@
                 <div class="flex flex-col w-full ">
                     {#each categoria.items as item, indexItem}
                         <button 
+                            title={item.titulo}
                             class="h-12 w-full py-2 px- { (itemSeleccionado === indexItem && categoriaSeleccionada === indexCategoria) ? 'hover:text-violet-600 text-violet-600' : 'text-slate-600 hover:text-slate-900'}" 
                             on:click={() => {onClickItem(indexCategoria, indexItem)}}
                         >
@@ -177,6 +178,7 @@
             </article>
             <div class="my-4 flex flex-row m-1/2 justify-around text-white text-xl font-bold text-center">
                 <button 
+                    title={"Anterior"}
                     class="py-2 px-3 rounded-lg shadow-md bg-sky-500 hover:bg-sky-700"
                     on:click={onClickAnterior}
                 >
@@ -185,6 +187,7 @@
                     </p>
                 </button>
                 <button 
+                    title={"Siguiente"}
                     class="py-2 px-3 rounded-lg shadow-md bg-sky-500 hover:bg-sky-700"
                     on:click={onClickSiguiente}
                 >
