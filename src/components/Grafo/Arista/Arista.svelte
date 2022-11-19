@@ -18,6 +18,8 @@
     $: eliminandoArista = aristaPrincipal.grafo.eliminandoArista;
     let prevEliminandoArista = eliminandoArista;
 
+    $: fnCambiarPeso = ( arista && arista.grafo && !arista.grafo.eliminandoArista ) ? arista.cambiarPeso.bind(arista) :  null;
+
     let posicionesArista: {
         inicio: Posicion,
         puntoMedio: Posicion,
@@ -380,7 +382,7 @@
             posicion={posicionesPesos.posicionPeso}
             peso={arista.peso}
             bgColor={colores.coloresBG.color}
-            cambiarPeso={arista.cambiarPeso.bind(arista)}
+            cambiarPeso={fnCambiarPeso}
         />
 
         <Peso
@@ -388,7 +390,7 @@
             posicion={posicionesPesos.posicionPesoInverso}
             peso={aristaInversa.peso}
             bgColor={colores.coloresBG.colorInverso}
-            cambiarPeso={aristaInversa.cambiarPeso.bind(aristaInversa)}
+            cambiarPeso={fnCambiarPeso}
         />
     {:else} <!--Unidireccional-->
         <line
@@ -412,7 +414,7 @@
             posicion={posicionesPesos.posicionPeso}
             peso={aristaPrincipal.peso}
             bgColor={arista === aristaPrincipal ? colores.coloresBG.color : colores.coloresBG.colorInverso}
-            cambiarPeso={aristaPrincipal.cambiarPeso.bind(aristaPrincipal)}
+            cambiarPeso={fnCambiarPeso}
         />
     {/if}
 
