@@ -3,7 +3,7 @@
 	import Modal from 'svelte-simple-modal';
 
 	import Tailwindcss from './Tailwindcss.svelte';
-	import Grafo from './components/Grafo/Grafo.svelte';
+	import Canvas from './components/Canvas/Canvas.svelte';
 	
 	$: innerWidth = window.innerWidth;
 	$: innerHeight = window.innerHeight;
@@ -15,6 +15,6 @@
 
 <Modal styleWindow={{ width: '70rem', height: '40rem' }}>
 <main class="w-full h-full bg-stone-100 dark:bg-gray-800">
-	<Grafo width={innerWidth} height={innerHeight} />
+	<Canvas width={innerWidth} height={innerHeight} />
 </main>
 </Modal>
