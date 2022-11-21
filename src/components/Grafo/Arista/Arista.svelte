@@ -19,6 +19,7 @@
     let prevEliminandoArista = eliminandoArista;
 
     $: fnCambiarPeso = ( arista && arista.grafo && !arista.grafo.eliminandoArista ) ? arista.cambiarPeso.bind(arista) :  null;
+    $: fnCambiarPesoInverso = ( aristaInversa && aristaInversa.grafo && !aristaInversa.grafo.eliminandoArista ) ? aristaInversa.cambiarPeso.bind(aristaInversa) :  null;
 
     let posicionesArista: {
         inicio: Posicion,
@@ -390,7 +391,7 @@
             posicion={posicionesPesos.posicionPesoInverso}
             peso={aristaInversa.peso}
             bgColor={colores.coloresBG.colorInverso}
-            cambiarPeso={fnCambiarPeso}
+            cambiarPeso={fnCambiarPesoInverso}
         />
     {:else} <!--Unidireccional-->
         <line
@@ -414,7 +415,7 @@
             posicion={posicionesPesos.posicionPeso}
             peso={aristaPrincipal.peso}
             bgColor={arista === aristaPrincipal ? colores.coloresBG.color : colores.coloresBG.colorInverso}
-            cambiarPeso={fnCambiarPeso}
+            cambiarPeso={arista === aristaPrincipal ? fnCambiarPeso : fnCambiarPesoInverso}
         />
     {/if}
 
