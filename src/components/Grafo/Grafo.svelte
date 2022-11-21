@@ -2,6 +2,7 @@
     import { generarGrafoAlAzar } from '../../util/GeneracionGrafo';
 
     import Menu from '../Menu/Menu.svelte';
+    import GitHub from '../GitHub/GitHub.svelte';
     import ConsolaComponent from '../Consola/Consola.svelte';
     import VerticeComponent from './Vertice/Vertice.svelte';
     import AristaComponent from './Arista/Arista.svelte';
@@ -82,6 +83,10 @@
                     consola={consola}
                 />
             {/if}
+        </foreignObject>
+
+        <foreignObject width="100%" height="100%" class="pointer-events-none">
+            <GitHub />
         </foreignObject>
         
     </svg>
