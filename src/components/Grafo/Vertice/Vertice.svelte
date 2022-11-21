@@ -65,8 +65,13 @@
 
     function onMouseMove(e) {
         if(moviendo) {
+            /*
             const posX = vertice.posicion.x + e.movementX;
             const posY = vertice.posicion.y + e.movementY;
+            */
+
+            const posX = e.clientX;
+            const posY = e.clientY;
             
             vertice.mover({x: posX, y: posY});
             vertice = vertice;
