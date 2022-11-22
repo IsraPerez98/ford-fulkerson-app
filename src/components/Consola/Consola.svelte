@@ -54,24 +54,29 @@
 
 <div class="absolute bottom-0 right-0 pointer-events-auto">
     {#if consola.abierta }
-            <div class="flex rounded-t-lg bg-indigo-700 overflow-hidden h-8">
-                <button class="text-base bg-rose-700 ml-0 h-full w-12" on:click={onClickCerrar}>
-                    <p>X</p>
-                </button>
+            <div class="flex rounded-t-xl bg-neutral-900 overflow-hidden h-10">
+                <div class="ml-0 h-full w-12 flex items-center justify-center">
+                    <!--- Button is a circle with an x in the middle -->
+                    <button on:click={onClickCerrar} class="rounded-full bg-neutral-700 h-6 w-6 flex items-center justify-center">
+                        <svg class="h-4 w-4 text-stone-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
                 <p class="text-base m-auto">
                     {titulo()}
                 </p>
             </div>
             <div class="flex flex-row">
-                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-auto py-2 space-y-4 w-12 bg-slate-900 text-xl text-center ">
+                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-auto space-y-4 w-12 bg-neutral-900 text-xl text-center ">
                     <!--TODO: MENU PARA CATEGORIAS-->
-                    <button on:click={onClickButtonExplicacion} class:bg-violet-800={categoria === "EXPLICACION" } class="p-2 hover:bg-gray-700">
+                    <button on:click={onClickButtonExplicacion} class:bg-violet-800={categoria === "EXPLICACION" } title="Explicación" class="p-2 hover:bg-gray-700">
                         🤔
                     </button>
-                    <button on:click={onClickButtonPseudocodigo} class:bg-violet-800={categoria === "PSEUDOCODIGO"} class="p-2 hover:bg-gray-700">
+                    <button on:click={onClickButtonPseudocodigo} class:bg-violet-800={categoria === "PSEUDOCODIGO"} title="Pseudocodigo" class="p-2 hover:bg-gray-700">
                         🖥️
                     </button>
-                    <button on:click={onClickButtonRedAumentada} class:bg-violet-800={categoria === "RED_RESIDUAL"} class="p-2 hover:bg-gray-700">
+                    <button on:click={onClickButtonRedAumentada} class:bg-violet-800={categoria === "RED_RESIDUAL"} title="Red Residual" class="p-2 hover:bg-gray-700">
                         🕸️
                     </button>
                 </div>

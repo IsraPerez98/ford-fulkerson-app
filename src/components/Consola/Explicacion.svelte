@@ -25,7 +25,7 @@
 
 </script>
 
-<div bind:this={divScroll} class="overflow-auto h-full w-full">
+<div bind:this={divScroll} class="overflow-auto h-full w-full divide-y">
     {#if textoExplicativo.length === 0}
         <div class="text-center text-gray-500 h-full w-full flex">
             <p class="text-xl m-auto">
