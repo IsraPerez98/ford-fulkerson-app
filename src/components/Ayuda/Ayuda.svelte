@@ -69,7 +69,7 @@
                 ]
             },
             {
-                titulo: "Concetos del flujo maximo",
+                titulo: "Conceptos del flujo maximo",
                 items: [
                     {
                         titulo: "Red de flujo",
