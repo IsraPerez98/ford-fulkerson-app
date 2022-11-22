@@ -1,4 +1,4 @@
-interface MatrizAdyacencia extends Array<Array<number>> { } //arreglo blidimensional con los pesos de las aristas
+interface MatrizAdyacencia extends Array<Array<number>> { } //arreglo blidimensional con las capacidades de las aristas
 
 
 

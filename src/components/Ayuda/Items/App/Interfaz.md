@@ -18,7 +18,7 @@ En el menú superior se encuentran los elementos para ejecutar el algoritmo y re
 
 
 
-En la parte central de la interfaz se encuentra el grafo, cada vértice se representa por un círculo y cada arista por una línea con su respectivo peso. Los vértices se pueden arrastrar para modificar la posición del grafo. Además, se pueden agregar y eliminar vértices y aristas.
+En la parte central de la interfaz se encuentra el grafo, cada vértice se representa por un círculo y cada arista por una línea con su respectiva capacidad. Los vértices se pueden arrastrar para modificar la posición del grafo. Además, se pueden agregar y eliminar vértices y aristas.
 
 
 

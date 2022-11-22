@@ -378,8 +378,8 @@ class Grafo {
         
     }
 
-    public crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, peso: number): void {
-        //console.log({verticeOrigen, verticeDestino, peso});
+    public crearNuevaArista(verticeOrigen: Vertice, verticeDestino: Vertice, capacidad: number): void {
+        //console.log({verticeOrigen, verticeDestino, capacidad});
         //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
         if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
             alert("Ya existe esta arista");
@@ -388,9 +388,9 @@ class Grafo {
         }
         
         //Creamos la arista
-        const nuevaArista = new Arista(verticeOrigen, verticeDestino, false, false, peso, 0, this);
+        const nuevaArista = new Arista(verticeOrigen, verticeDestino, false, false, capacidad, 0, this);
         this.aristas[verticeOrigen.id][verticeDestino.id] = nuevaArista;
-        this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = peso;
+        this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] = capacidad;
         this.finalizarCreacionArista();
     }
 
@@ -565,10 +565,10 @@ class Grafo {
                     const vertice = camino[i];
                     const verticeSiguiente = camino[i + 1];
 
-                    const peso = this.redResidual[vertice.id][verticeSiguiente.id];
+                    const capacidad = this.redResidual[vertice.id][verticeSiguiente.id];
 
-                    if(peso < cuelloBotella) {
-                        cuelloBotella = peso;
+                    if(capacidad < cuelloBotella) {
+                        cuelloBotella = capacidad;
                     }
                 }
                 this.consola.printTextoExplicativo("🚰 El flujo minimo del camino es: " + cuelloBotella);

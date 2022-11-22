@@ -5,7 +5,7 @@
     import { beforeUpdate, afterUpdate } from 'svelte';
 
     import Flecha from "./Flecha.svelte";
-    import Peso from "./Peso.svelte";
+    import Capacidad from "./Capacidad.svelte";
 
     export let arista: Arista | null;
     export let aristaInversa: Arista | null;
@@ -18,8 +18,8 @@
     $: eliminandoArista = aristaPrincipal.grafo.eliminandoArista;
     let prevEliminandoArista = eliminandoArista;
 
-    $: fnCambiarPeso = ( arista && arista.grafo && !arista.grafo.eliminandoArista ) ? arista.cambiarPeso.bind(arista) :  null;
-    $: fnCambiarPesoInverso = ( aristaInversa && aristaInversa.grafo && !aristaInversa.grafo.eliminandoArista ) ? aristaInversa.cambiarPeso.bind(aristaInversa) :  null;
+    $: fnCambiarCapacidad = ( arista && arista.grafo && !arista.grafo.eliminandoArista ) ? arista.cambiarCapacidad.bind(arista) :  null;
+    $: fnCambiarCapacidadInversa = ( aristaInversa && aristaInversa.grafo && !aristaInversa.grafo.eliminandoArista ) ? aristaInversa.cambiarCapacidad.bind(aristaInversa) :  null;
 
     let posicionesArista: {
         inicio: Posicion,
@@ -28,9 +28,9 @@
         angulo: number,
     };
 
-    let posicionesPesos: {
-        posicionPeso: Posicion,
-        posicionPesoInverso: Posicion,
+    let posicionesCapacidades: {
+        posicionCapacidad: Posicion,
+        posicionCapacidadInversa: Posicion,
     };
 
     let posicionesFlujos: {
@@ -53,14 +53,14 @@
         },
     };
 
-    const bgPesoFlujo = "bg-yellow-300";
+    const bgCapacidadFlujo = "bg-yellow-300";
 
     let prevArista: {
         origenPos: Posicion,
         destinoPos: Posicion,
 
         esCamino: boolean,
-        peso: number,
+        capacidad: number,
         flujo: number,
     }
 
@@ -69,7 +69,7 @@
         destinoPos: Posicion,
 
         esCamino: boolean,
-        peso: number,
+        capacidad: number,
         flujo: number,
     }
 
@@ -81,7 +81,7 @@
                 destinoPos: arista.destino.posicion,
 
                 esCamino: arista.esCamino,
-                peso: arista.peso,
+                capacidad: arista.capacidad,
                 flujo: arista.flujo,
             }
         }
@@ -91,7 +91,7 @@
                 destinoPos: aristaInversa.destino.posicion,
 
                 esCamino: aristaInversa.esCamino,
-                peso: aristaInversa.peso,
+                capacidad: aristaInversa.capacidad,
                 flujo: aristaInversa.flujo,
             }
         }
@@ -187,11 +187,11 @@
             colorInverso = coloresBG.flujo;
         }
 
-        if(arista && arista.flujo === arista.peso) {
+        if(arista && arista.flujo === arista.capacidad) {
             color = coloresBG.flujoCompleto;
         }
 
-        if(aristaInversa && aristaInversa.flujo === aristaInversa.peso) {
+        if(aristaInversa && aristaInversa.flujo === aristaInversa.capacidad) {
             colorInverso = coloresBG.flujoCompleto;
         }
 
@@ -230,38 +230,38 @@
         return {inicio, puntoMedio, final, angulo};
     }
 
-    function calcularPosicionesPesos() : {posicionPeso: Posicion, posicionPesoInverso: Posicion} {
+    function calcularPosicionesCapacidades() : {posicionCapacidad: Posicion, posicionCapacidadInversa: Posicion} {
         if(aristaBidireccional) {
             const distancia = 0.75;
-            const posicionPeso = {
+            const posicionCapacidad = {
                 x: posicionesArista.inicio.x + ( posicionesArista.final.x - posicionesArista.inicio.x ) * distancia,
                 y: posicionesArista.inicio.y + ( posicionesArista.final.y - posicionesArista.inicio.y ) * distancia,
             };
 
-            const posicionPesoInverso = {
+            const posicionCapacidadInversa = {
                 x: posicionesArista.final.x - ( posicionesArista.final.x - posicionesArista.inicio.x ) * distancia,
                 y: posicionesArista.final.y - ( posicionesArista.final.y - posicionesArista.inicio.y ) * distancia,
             };
 
-            return {posicionPeso, posicionPesoInverso};
+            return {posicionCapacidad: posicionCapacidad, posicionCapacidadInversa: posicionCapacidadInversa};
         }
 
         const puntoMedio = posicionesArista.puntoMedio;
 
-        return {posicionPeso: puntoMedio, posicionPesoInverso: puntoMedio};
+        return {posicionCapacidad: puntoMedio, posicionCapacidadInversa: puntoMedio};
     }
 
     function calcularPosicionFlujos(): {posicionFlujo: Posicion, posicionFlujoInverso: Posicion} {
         const diametro = 20 * 2;
 
         const posicionFlujo = {
-            x: posicionesPesos.posicionPeso.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
-            y: posicionesPesos.posicionPeso.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2),
+            x: posicionesCapacidades.posicionCapacidad.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
+            y: posicionesCapacidades.posicionCapacidad.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2),
         }
 
         const posicionFlujoInverso = {
-            x: posicionesPesos.posicionPesoInverso.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
-            y: posicionesPesos.posicionPesoInverso.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2),
+            x: posicionesCapacidades.posicionCapacidadInversa.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
+            y: posicionesCapacidades.posicionCapacidadInversa.y + diametro * Math.sin(posicionesArista.angulo + Math.PI / 2),
         }
 
         return {posicionFlujo, posicionFlujoInverso};
@@ -269,7 +269,7 @@
 
     function updateArista(): void {
         posicionesArista = calcularPosicionesArista();
-        posicionesPesos = calcularPosicionesPesos();
+        posicionesCapacidades = calcularPosicionesCapacidades();
         posicionesFlujos = calcularPosicionFlujos();
 
         const coloresStroke = calcularColoresStroke();
@@ -302,9 +302,9 @@
         //si se elimina una arista
         (prevArista && !arista || prevAristaInversa && !aristaInversa) ||
 
-        //si se cambia algun peso
-        (prevArista && arista && prevArista.peso !== arista.peso) ||
-        (prevAristaInversa && aristaInversa && prevAristaInversa.peso !== aristaInversa.peso) ||
+        // si se cambia la capacidad
+        (prevArista && arista && prevArista.capacidad !== arista.capacidad) ||
+        (prevAristaInversa && aristaInversa && prevAristaInversa.capacidad !== aristaInversa.capacidad) ||
 
 
         //si se cambia el flujo
@@ -378,20 +378,20 @@
             fillColor={colores.coloresFill.color}
         />
 
-        <Peso
+        <Capacidad
             onClickArista={onClickArista}
-            posicion={posicionesPesos.posicionPeso}
-            peso={arista.peso}
+            posicion={posicionesCapacidades.posicionCapacidad}
+            capacidad={arista.capacidad}
             bgColor={colores.coloresBG.color}
-            cambiarPeso={fnCambiarPeso}
+            cambiarCapacidad={fnCambiarCapacidad}
         />
 
-        <Peso
+        <Capacidad
             onClickArista={onClickArista}
-            posicion={posicionesPesos.posicionPesoInverso}
-            peso={aristaInversa.peso}
+            posicion={posicionesCapacidades.posicionCapacidadInversa}
+            capacidad={aristaInversa.capacidad}
             bgColor={colores.coloresBG.colorInverso}
-            cambiarPeso={fnCambiarPesoInverso}
+            cambiarCapacidad={fnCambiarCapacidadInversa}
         />
     {:else} <!--Unidireccional-->
         <line
@@ -410,18 +410,18 @@
             fillColor={arista === aristaPrincipal ? colores.coloresFill.color : colores.coloresFill.colorInverso}
         />
 
-        <Peso
+        <Capacidad
             onClickArista={onClickArista}
-            posicion={posicionesPesos.posicionPeso}
-            peso={aristaPrincipal.peso}
+            posicion={posicionesCapacidades.posicionCapacidad}
+            capacidad={aristaPrincipal.capacidad}
             bgColor={arista === aristaPrincipal ? colores.coloresBG.color : colores.coloresBG.colorInverso}
-            cambiarPeso={arista === aristaPrincipal ? fnCambiarPeso : fnCambiarPesoInverso}
+            cambiarCapacidad={arista === aristaPrincipal ? fnCambiarCapacidad : fnCambiarCapacidadInversa}
         />
     {/if}
 
-    <!--Dibujamos el flujo reutilizando el componente peso-->
+    <!--Dibujamos el flujo reutilizando el componente de la capacidad -->
     {#if arista && (arista.esCamino || arista.fueCamino)}
-        <Peso
+        <Capacidad
             onClickArista={onClickArista}
             posicion={
                 {
@@ -429,14 +429,14 @@
                     y: posicionesFlujos.posicionFlujo.y,
                 }
             }
-            peso={arista.flujo}
-            bgColor={bgPesoFlujo}
+            capacidad={arista.flujo}
+            bgColor={bgCapacidadFlujo}
             textColor={"text-black"}
             dibujarCero={false}
         />
     {/if}
     {#if aristaInversa && (aristaInversa.esCamino || aristaInversa.fueCamino)}
-        <Peso
+        <Capacidad
             onClickArista={onClickArista}
             posicion={
                 {
@@ -444,8 +444,8 @@
                     y: posicionesFlujos.posicionFlujoInverso.y,
                 }
             }
-            peso={aristaInversa.flujo}
-            bgColor={bgPesoFlujo}
+            capacidad={aristaInversa.flujo}
+            bgColor={bgCapacidadFlujo}
             textColor={"text-black"}
             dibujarCero={false}
         />

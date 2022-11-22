@@ -51,7 +51,7 @@
                 grafo.seleccionarVerticeNuevaArista(vertice);
             }
             else {
-                grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE EL PESO
+                grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE LA CAPACIDAD
             }
         }
         else {

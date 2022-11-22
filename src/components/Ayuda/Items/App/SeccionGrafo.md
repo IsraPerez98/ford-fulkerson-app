@@ -41,7 +41,7 @@ Es posible cambiar el tipo de vértice haciendo click sobre el botón correspond
 
 
 
-Cada arista se representa por una línea con su respectivo peso, indicado en el centro de la misma.
+Cada arista se representa por una línea con su respectiva capacidad, indicado en el centro de la misma.
 
 
 
@@ -53,9 +53,9 @@ Algunas aristas son bidireccionales, lo que significa que el flujo puede pasar e
 
 
 
-Es posible modificar el peso de una arista seleccionando la misma y escribiendo el nuevo valor en el cuadro de texto.
+Es posible modificar la capacidad de una arista seleccionando la misma y escribiendo el nuevo valor en el cuadro de texto.
 
 
 
-![Modificar peso de arista](/img/Ayuda/App/Grafo/CambiarPeso.png)
+![Modificar la capacidad de la arista](/img/Ayuda/App/Grafo/CambiarCapacidad.png)
 
