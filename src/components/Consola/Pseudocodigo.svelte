@@ -1,5 +1,6 @@
 <script lang="ts">
     import { afterUpdate } from "svelte";
+    import autoAnimate from "../../util/autoAnimate";
 
     export let pseudoCodigo: string[];
     export let lineaActual: number;
@@ -26,7 +27,7 @@
 
 <div bind:this={divScroll} class="overflow-auto ">
     {#each pseudoCodigo as linea, index}
-        <div class="min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap">
+        <div use:autoAnimate class="min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap">
             {#if lineaActual === index}
                 <p class="text-slate-900 text-sm font-medium bg-yellow-300">
                     {linea}

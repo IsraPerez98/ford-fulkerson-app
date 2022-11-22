@@ -1,5 +1,6 @@
 <script lang="ts">
     import { afterUpdate } from "svelte";
+    import autoAnimate from "../../util/autoAnimate";
     import { twemoji } from 'twemoji-svelte-action';
 
     export let textoExplicativo: string[];
@@ -25,7 +26,7 @@
 
 </script>
 
-<div bind:this={divScroll} class="overflow-auto h-full w-full divide-y">
+<div bind:this={divScroll} use:autoAnimate class="overflow-auto h-full w-full divide-y">
     {#if textoExplicativo.length === 0}
         <div class="text-center text-gray-500 h-full w-full flex">
             <p class="text-xl m-auto">
