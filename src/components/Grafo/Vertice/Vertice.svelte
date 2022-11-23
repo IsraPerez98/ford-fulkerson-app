@@ -78,6 +78,16 @@
         }
     }
 
+    function onTouchMove(e: TouchEvent) {
+        if(moviendo) {
+            const posX = e.touches[0].clientX;
+            const posY = e.touches[0].clientY;
+            
+            vertice.mover({x: posX, y: posY});
+            vertice = vertice;
+        }
+    }
+
     function onMouseEnter() {
         mostrarMenu = true;
     }
@@ -100,7 +110,7 @@
 
 <foreignObject x={vertice.posicion.x - vertice.radio} y={vertice.posicion.y - vertice.radio} width={vertice.radio * 3} height={vertice.radio * 3} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
     <div class="flex h-full w-full">
-        <div style="width: {vertice.radio*2}px ;height: {vertice.radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:mousedown={onMouseDown}>
+        <div style="width: {vertice.radio*2}px ;height: {vertice.radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:mousedown={onMouseDown} on:touchstart={onMouseDown} >
             <p class="text-white text-center m-auto select-none">
                 {nombre}
             </p>
@@ -117,4 +127,4 @@
 </foreignObject>
 
 
-<svelte:window on:mousemove={onMouseMove} on:mouseup={onMouseUp}/>
+<svelte:window on:mousemove={onMouseMove} on:touchmove={onTouchMove} on:touchend={onMouseUp} on:mouseup={onMouseUp} />
