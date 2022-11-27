@@ -13,8 +13,12 @@
 <Tailwindcss />
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<Modal styleWindow={{ width: '70rem', height: '40rem' }}>
-<main class="w-full h-full bg-stone-100 dark:bg-gray-800">
+<Modal 
+	styleWindow={{ width: '70rem', height: '40rem', overflow: 'hidden' }}
+	styleCloseButton={{ right: '3rem', top: '12px' }}
+	styleContent={{ padding: '0' }}
+>
+<main class="w-full h-full">
 	<Canvas width={innerWidth} height={innerHeight} />
 </main>
 </Modal>

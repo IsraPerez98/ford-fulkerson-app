@@ -99,14 +99,14 @@
                 </div>
             </div>
     {:else} <!-- Consola cerrada / boton abrir -->
-        <div class="bg-white rounded-full w-16 h-16 mr-4 mb-4">
+        <div class="bg-indigo-700/95 dark:bg-white/80 backdrop-blur border border-slate-600/40 rounded-full w-16 h-16 mr-4 mb-4 shadow-xl">
             <button 
                 on:click={onClickAbrir} 
                 title={'Explicación del algorítmo'} 
                 
                 class="w-full h-full flex items-center justify-center disabled:grayscale"
             >
-                <div class="w-10 h-10 bg-indigo-700 rounded-full flex items-center justify-center">
+                <div class="w-10 h-10 bg-violet-800 dark:bg-indigo-700 border border-slate-700/40 rounded-full flex items-center justify-center">
                     <p class="text-2xl text-white">?</p>
                 </div>
             </button>

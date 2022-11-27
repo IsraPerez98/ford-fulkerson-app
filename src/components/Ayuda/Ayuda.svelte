@@ -140,77 +140,75 @@
 
 </script>
 
-<div style={"height: 38rem"} class="w-full flex flex-row divide-x overflow-hidden">
-    <div class="w-1/4 h-full flex flex-col  overflow-x-hidden overflow-y-scroll whitespace-nowrap">
-        {#each itemsAyuda.categorias as categoria, indexCategoria}
-            <div class="w-full">
-                <div class="w-full h-12 py-2 px-1 ">
-                    <p class="text-base font-semibold text-left text-slate-900">
-                        {indexCategoria + 1} .- {categoria.titulo}
-                    </p>
+<div style={"height: 40rem"} class="w-full flex bg-white dark:bg-gradient-to-br from-slate-800 to-indigo-900 flex-row overflow-hidden px-3">
+    <div class="w-1/4 h-full py-2 ">
+        <div class="w-full h-full flex flex-col overflow-x-hidden overflow-y-scroll whitespace-nowrap">
+            {#each itemsAyuda.categorias as categoria, indexCategoria}
+                <div class="w-full">
+                    <div class="w-full h-10 px-1 flex">
+                        <p class="text-base font-semibold text-left text-slate-900 dark:text-slate-300 my-auto">
+                            {indexCategoria + 1} .- {categoria.titulo}
+                        </p>
+                    </div>
+                    <hr class="w-full border-slate-400/50" />
+                    <div class="flex flex-col w-full ">
+                        {#each categoria.items as item, indexItem}
+                            <button 
+                                title={item.titulo}
+                                class="h-10 w-full py-2 { (itemSeleccionado === indexItem && categoriaSeleccionada === indexCategoria) ? 'hover:text-violet-600 text-violet-600 dark:text-violet-400 dark:hover:text-violet-400' : 'dark:text-slate-400 text-slate-600 hover:text-slate-900 dark:hover:text-slate-300' } " 
+                                on:click={() => {onClickItem(indexCategoria, indexItem)}}
+                            >
+                                <p class="text-sm font-medium text-left ">
+                                    {indexCategoria + 1}-{indexItem + 1}.- {item.titulo}
+                                </p>
+                            </button>
+                        {/each}
+                    </div>
                 </div>
-                <hr class="w-full bg-black" />
-                <div class="flex flex-col w-full ">
-                    {#each categoria.items as item, indexItem}
-                        <button 
-                            title={item.titulo}
-                            class="h-12 w-full py-2 px- { (itemSeleccionado === indexItem && categoriaSeleccionada === indexCategoria) ? 'hover:text-violet-600 text-violet-600' : 'text-slate-600 hover:text-slate-900'}" 
-                            on:click={() => {onClickItem(indexCategoria, indexItem)}}
-                        >
-                            <p class="text-sm font-medium text-left ">
-                                {indexCategoria + 1}-{indexItem + 1}.- {item.titulo}
-                            </p>
-                        </button>
-                    {/each}
-                </div>
-            </div>
-        {/each}
-    </div>
-    <div class="w-3/4 h-full pb-10">
-        <div class="w-full h-9 overflow-hidden whitespace-nowrap border-b border-slate-300 shadow-2xl">
-            <h1 class="text-2xl text-sky-500 font-bold text-center w-full">
-                {itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].titulo}
-            </h1>
+            {/each}
         </div>
-        <div bind:this={bindScroll} class="w-full h-full overflow-y-scroll px-6">
-            <article>
-                <svelte:component this={componenteSeleccionado} />
-            </article>
-            <div class="my-4 flex flex-row m-1/2 justify-around text-white text-xl font-bold text-center">
-                <button 
-                    title={"Anterior"}
-                    class="py-2 px-3 rounded-lg shadow-md bg-sky-500 hover:bg-sky-700"
-                    on:click={onClickAnterior}
-                >
-                    <p >
-                        Anterior
-                    </p>
-                </button>
-                <button 
-                    title={"Siguiente"}
-                    class="py-2 px-3 rounded-lg shadow-md bg-sky-500 hover:bg-sky-700"
-                    on:click={onClickSiguiente}
-                >
-                    <p >
-                        Siguiente
-                    </p>
-                </button>
+    </div>
+    <div class="w-3/4 h-full pb-4">
+        <div bind:this={bindScroll} class=" w-full h-full overflow-y-scroll ">
+            <div class="sticky top-0 dark:bg-slate-800/80 bg-white/60 backdrop-blur w-full pr-12 h-12 overflow-hidden whitespace-nowrap border-b border-slate-300 shadow-2xl flex">
+                <h1 class="text-2xl text-sky-500 font-bold text-center w-full my-auto">
+                    {itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].titulo}
+                </h1>
             </div>
+            <article class="px-6 dark:text-slate-200">
+                <svelte:component this={componenteSeleccionado} />
+                <div class="mb-4 mt-6 flex flex-row m-1/2 justify-around text-white text-lg font-bold text-center">
+                    <button 
+                        title={"Anterior"}
+                        class="h-12 w-24 rounded-xl shadow-lg bg-indigo-500 hover:bg-indigo-600 border border-slate-400/20 flex"
+                        on:click={onClickAnterior}
+                    >
+                        <span class="m-auto" >
+                            Anterior
+                        </span>
+                    </button>
+                    <button 
+                        title={"Siguiente"}
+                        class="h-12 w-24 rounded-xl shadow-lg bg-indigo-500 hover:bg-indigo-600 border border-slate-400/20 flex"
+                        on:click={onClickSiguiente}
+                    >
+                        <span class="m-auto " >
+                            Siguiente
+                        </span>
+                    </button>
+                </div>
+            </article>
         </div>
     </div>
 </div>
 
 <style>
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-
     article :global(h1) {
-        @apply text-2xl text-sky-600 font-bold text-center pb-2 mb-4 w-full border-b border-slate-300;
+        @apply text-2xl text-sky-500 font-bold text-center w-full ;
     }
 
     article :global(h2) {
-        @apply text-xl font-bold text-sky-600 text-justify mx-auto w-full my-4 pt-3 border-t border-slate-200;
+        @apply text-xl font-bold text-sky-500  text-justify mx-auto w-full my-4 pt-3 border-t border-slate-400/50;
     }
 
     article :global(h5) {
@@ -222,6 +220,6 @@
     }
 
     article :global(img) {
-        @apply rounded-2xl mx-auto border-2 border-indigo-500 my-4 max-w-2xl max-h-72 shadow-2xl;
+        @apply rounded-2xl mx-auto border-2 border-blue-600 my-4 max-w-2xl max-h-72 shadow-2xl;
     }
 </style>

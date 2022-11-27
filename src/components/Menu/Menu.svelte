@@ -122,7 +122,7 @@
 
 </script>
 
-<div class="w-full h-10 bg-slate-700 dark:bg-gray-900 flex">
+<div class="w-full h-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur flex shadow-2xl border-b border-slate-700/20">
     <div use:twemoji={{className: 'emoji-menu'}} class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?

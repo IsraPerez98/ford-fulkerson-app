@@ -48,7 +48,7 @@
 
 </script>
 
-<div>
+<div class="bg-white dark:bg-gray-800">
     <svg width={width} height={height} class="select-none">
 
         <Grafo {aristas} {vertices} />
