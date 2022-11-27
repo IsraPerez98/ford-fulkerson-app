@@ -140,7 +140,7 @@
 
 </script>
 
-<div style={"height: 40rem"} class="w-full flex bg-white dark:bg-gradient-to-br from-slate-800 to-indigo-900 flex-row overflow-hidden px-3">
+<div style={"height: 40rem"} class="w-full flex bg-white dark:bg-slate-800 flex-row overflow-hidden px-3">
     <div class="w-1/4 h-full py-2 ">
         <div class="w-full h-full flex flex-col overflow-x-hidden overflow-y-scroll whitespace-nowrap">
             {#each itemsAyuda.categorias as categoria, indexCategoria}
@@ -155,7 +155,7 @@
                         {#each categoria.items as item, indexItem}
                             <button 
                                 title={item.titulo}
-                                class="h-10 w-full py-2 { (itemSeleccionado === indexItem && categoriaSeleccionada === indexCategoria) ? 'hover:text-violet-600 text-violet-600 dark:text-violet-400 dark:hover:text-violet-400' : 'dark:text-slate-400 text-slate-600 hover:text-slate-900 dark:hover:text-slate-300' } " 
+                                class="h-10 w-full py-2 { (itemSeleccionado === indexItem && categoriaSeleccionada === indexCategoria) ? 'hover:text-violet-600 text-violet-600 dark:text-blue-400 dark:hover:text-blue-400' : 'dark:text-slate-400 text-slate-600 hover:text-slate-900 dark:hover:text-slate-300' } " 
                                 on:click={() => {onClickItem(indexCategoria, indexItem)}}
                             >
                                 <p class="text-sm font-medium text-left ">
