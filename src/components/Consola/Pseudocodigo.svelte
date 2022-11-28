@@ -26,13 +26,13 @@
 </script>
 
 <div bind:this={divScroll} class="overflow-auto ">
-    {#each pseudoCodigo as linea, index}
-        <div use:autoAnimate class="min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap text-slate-900 dark:text-slate-200">
-            <div class="w-full">
-                <p class="text-sm font-medium {lineaActual === index ? 'bg-green-500 dark:bg-green-700' : '' }">
-                    {linea}
-                </p>
-            </div>
-        </div>
-    {/each}
+    <div use:autoAnimate class="mx-4 flex flex-col items-center  text-slate-900 dark:text-slate-200 overflow-clip divide-y divide-slate-700/60 dark:divide-slate-300/60">
+        {#each pseudoCodigo as linea, index}
+                <div class="w-full mb-2 pt-2 md:mb-4 md:pt4">
+                    <p class="text-xs md:text-sm md:font-medium whitespace-pre-wrap {lineaActual === index ? 'bg-green-500 dark:bg-green-700' : '' }">
+                        {linea}
+                    </p>
+                </div>
+        {/each}
+    </div>
 </div>

@@ -19,30 +19,30 @@
 
 </script>
 
-<div class="overflow-auto text-slate-300  text-sm font-medium text-center p-2">
-    <div style="grid-template-columns: repeat({dimension + 1}, minmax(max-content, auto));" class="items-center grid auto-rows-max auto-cols-max gap-3">
+<div class="overflow-auto text-slate-300 text-xs md:text-sm font-medium text-center p-2">
+    <div style="grid-template-columns: repeat({dimension + 1}, minmax(max-content, auto));" class="items-center grid auto-rows-max auto-cols-max gap-2 md:gap-3">
         {#each Array(dimension + 1) as _, i}
             {#each Array(dimension + 1) as _, j}
                 {#if i === 0 && j === 0}
-                    <div class="py-2 rounded-lg shadow-lg bg-slate-800 dark:bg-blue-700 w-14">
+                    <div class="py-1 md:py-2 rounded-lg shadow-lg bg-slate-800 dark:bg-blue-700 w-10 md:w-14">
                         <p >
                             Índice
                         </p>
                     </div>
                 {:else if i === 0}
-                    <div class="py-2 rounded-lg shadow-lg bg-slate-800 dark:bg-blue-700 w-14">
+                    <div class="py-1 md:py-2 rounded-lg shadow-lg bg-slate-800 dark:bg-blue-700 w-10 md:w-14">
                         <p >
                             {j-1}
                         </p>
                     </div>
                 {:else if j === 0}
-                    <div class="py-2 rounded-lg shadow-lg bg-slate-800 dark:bg-blue-700 w-14 ">
+                    <div class="py-1 md:py-2 rounded-lg shadow-lg bg-slate-800 dark:bg-blue-700 w-10 md:w-14 ">
                         <p >
                             {i-1}
                         </p>
                     </div>
                 {:else}
-                    <div class="py-2 rounded-lg shadow-lg w-14 {matrizColores[i-1][j-1]}">
+                    <div class="py-1 md:py-2 rounded-lg shadow-lg w-10 md:w-14 {matrizColores[i-1][j-1]}">
                         <p>
                             {redResidual[i - 1][j - 1]}
                         </p>

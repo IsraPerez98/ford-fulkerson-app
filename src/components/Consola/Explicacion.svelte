@@ -28,8 +28,8 @@
 
 <div bind:this={divScroll} use:autoAnimate class="overflow-auto h-full w-full divide-y divide-slate-700/60 dark:divide-slate-300/60 text-slate-900 dark:text-slate-200">
     {#if textoExplicativo.length === 0}
-        <div class="text-center h-full w-full flex">
-            <p class="text-xl m-auto">
+        <div class="text-center h-full w-full flex p-4">
+            <p class="text-base md:text-xl m-auto">
                 Se debe iniciar el algoritmo para ver su explicación.
             </p>
         </div>

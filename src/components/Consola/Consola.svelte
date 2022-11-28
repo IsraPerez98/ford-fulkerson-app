@@ -54,9 +54,9 @@
 
 <div class="absolute bottom-0 right-0 pointer-events-auto">
     {#if consola.abierta }
-        <div class="rounded-t-xl overflow-hidden border-x border-t border-slate-600/40 shadow-2xl">
+        <div class="rounded-t-xl overflow-hidden border-x border-t border-slate-600/40 shadow-2xl max-w-screen">
             <div class="flex bg-neutral-200 dark:bg-neutral-900 h-10">
-                <div class="ml-0 h-full w-12 flex items-center justify-center">
+                <div class="ml-0 h-full w-10 md:w-12 flex items-center justify-center">
                     <button on:click={onClickCerrar} class="rounded-full bg-neutral-700 h-6 w-6 flex items-center justify-center">
                         <svg class="h-4 w-4 text-stone-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -68,7 +68,7 @@
                 </p>
             </div>
             <div class="flex flex-row h-full w-full">
-                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-72 space-y-4 w-12 bg-neutral-200 dark:bg-neutral-900 text-xl text-center  border-r border-slate-600/30">
+                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-40 md:h-72 space-y-4 w-10 md:w-12 bg-neutral-200 dark:bg-neutral-900 text-xl text-center  border-r border-slate-600/30">
                     <!--TODO: MENU PARA CATEGORIAS-->
                     <button on:click={onClickButtonExplicacion} title="Explicación" class="p-2 {categoria === "EXPLICACION" ? 'bg-gray-400 dark:bg-neutral-700' : 'hover:bg-gray-300 dark:hover:bg-neutral-800'}">
                         ℹ️
@@ -80,7 +80,7 @@
                         🔢
                     </button>
                 </div>
-                <div class="overflow-auto h-72 w-[32rem] shadow-lg flex flex-col divide-y bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+                <div class="overflow-auto h-40 md:h-72 w-72 md:w-[32rem] shadow-lg flex flex-col divide-y bg-white/80 dark:bg-slate-900/80 backdrop-blur">
                     {#if categoria === "EXPLICACION"}
                         <Explicacion 
                             textoExplicativo={consola.textoExplicativo}
