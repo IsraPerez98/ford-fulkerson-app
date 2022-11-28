@@ -122,12 +122,12 @@
 
 </script>
 
-<div class="w-full h-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur flex shadow-2xl border-b border-slate-700/20">
-    <div use:twemoji={{className: 'emoji-menu'}} class="flex my-auto ml-2 text-2xl text-center space-x-10 px-2 w-full text-white">
+<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20">
+    <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
         </button>
-        <div class="flex my-auto text-2xl space-x-4">
+        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4">
             <button title="Iniciar Algoritmo de Flujo Maximo" on:click={onClickIniciarFlujo} disabled={!puedeIniciarFlujoMaximo} class="disabled:grayscale" >
                 ▶️
             </button>
@@ -138,7 +138,7 @@
                 ⏹️
             </button>
         </div>
-        <div class="flex my-auto text-2xl space-x-4">
+        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4">
             <button title="Generar Grafo Aleatorio" on:click={onClickGenerarGrafoAleatorio } disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🎲
             </button>
@@ -149,36 +149,36 @@
                 📁
             </button>
         </div>
-        <div class="flex my-auto text-2xl space-x-4">
+        <div class="flex flex-col md:flex-row text-2xl space-y-2 md:space-y-0 md:space-x-4 my-auto h-full overflow-hidden md:py-1">
             <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
-                <div class="absolute bottom-1 ml-3 text-base" >
+                <div class="relative bottom-4 ml-3 text-base" >
                     ✨
                 </div>
             </button>
             <button title="Agregar Arista" on:click={onClickCrearNuevaArista} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔗
-                <div class="absolute bottom-1 ml-3 text-base" >
+                <div class="relative bottom-4 ml-3 text-base" >
                     ✨
                 </div>
             </button>
         </div>
-        <div class="flex my-auto text-2xl space-x-4">
-            <button title="Eliminar Vertice" on:click={onClickEliminarVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
+        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4 h-full overflow-hidden md:py-1">
+            <button title="Eliminar Vertice" on:click={onClickEliminarVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale ">
                 🔵
-                <div class="absolute bottom-1 ml-3 text-base" >
+                <div class="relative bottom-4 ml-3 text-base" >
                     ❌
                 </div>
             </button>
-            <button title="Eliminar Arista" on:click={onClickEliminarArista} disabled={!puedeModificarGrafo} class="disabled:grayscale">
+            <button title="Eliminar Arista" on:click={onClickEliminarArista} disabled={!puedeModificarGrafo} class="disabled:grayscale ">
                 🔗
-                <div class="absolute bottom-1 ml-3 text-base" >
+                <div class="relative bottom-4 ml-3 text-base" >
                     ❌
                 </div>
             </button>
         </div>
     </div>
-    <div class="my-auto ml-auto mr-4">
+    <div class="mx-auto mb-4 md:my-auto md:ml-auto md:mr-4">
         <ModeSwitcher />
     </div>
 </div>

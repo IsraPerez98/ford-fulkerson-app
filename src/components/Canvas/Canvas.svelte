@@ -53,7 +53,7 @@
 
         <Grafo {aristas} {vertices} />
 
-        <foreignObject width="100%" height="40px" >
+        <foreignObject class="h-full w-10 md:w-full md:h-10" >
             <Menu 
                 grafo={grafo}
             />
