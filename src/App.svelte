@@ -19,9 +19,12 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <Modal 
-	styleWindow={{ width: '70rem', height: '40rem', overflow: 'hidden' }}
-	styleCloseButton={{ right: '3rem', top: '12px' }}
-	styleContent={{ padding: '0' }}
+	unstyled={true}
+	classWindowWrap="fixed inset-0 z-50 flex items-center justify-center backdrop-blur bg-black bg-opacity-50"
+	classWindow="w-4/5 h-4/5 lg:w-[70rem] lg:h-[40rem] "
+	classBg=""
+	classContent="w-full h-full rounded-lg overflow-hidden"
+	classCloseButton=""
 >
 <main class="w-full h-full">
 	<Canvas width={innerWidth} height={innerHeight} />

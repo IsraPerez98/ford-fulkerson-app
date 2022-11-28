@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte';
+    import { afterUpdate, getContext } from 'svelte';
+    import autoAnimate from "../../util/autoAnimate";
 
     import type ItemsAyuda from "../../interfaces/ItemsAyuda";
 
@@ -27,6 +28,9 @@
     import TeoremaFMCM from "./Items/FlujoMaximo/TeoremaFMCM.md";
     //@ts-ignore
     import AlgoritmoFordFulkerson from "./Items/FlujoMaximo/AlgoritmoFordFulkerson.md";
+
+    //@ts-ignore
+    const { close } = getContext('simple-modal');
 
     const itemsAyuda: ItemsAyuda = {
         categorias: [
@@ -94,6 +98,8 @@
 
     let bindScroll = null;
 
+    let mostrandoContenido = false;
+
     let categoriaSeleccionada = 0;
     let itemSeleccionado = 0;
     let componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
@@ -103,6 +109,15 @@
         itemSeleccionado = indexItem;
 
         componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
+        mostrandoContenido = true;
+    }
+
+    function onClickAtrasMenu(): void {
+        mostrandoContenido = false;
+    }
+
+    function onClickCerrar(): void {
+        close();
     }
 
     function onClickAnterior() {
@@ -116,6 +131,7 @@
         }
 
         componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
+        mostrandoContenido = true;
     }
 
     function onClickSiguiente() {
@@ -129,6 +145,7 @@
         }
 
         componenteSeleccionado = itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].componente;
+        mostrandoContenido = true;
     }
 
     afterUpdate(() => {
@@ -140,9 +157,17 @@
 
 </script>
 
-<div style={"height: 40rem"} class="w-full flex bg-white dark:bg-slate-800 flex-row overflow-hidden px-3">
-    <div class="w-1/4 h-full py-2 ">
-        <div class="w-full h-full flex flex-col overflow-x-hidden overflow-y-scroll whitespace-nowrap">
+<div use:autoAnimate class="h-full w-full flex bg-white dark:bg-slate-800 flex-row overflow-hidden px-3">
+    <div class="transition-[width] duration-300 lg:w-1/4 h-full py-2 { mostrandoContenido ? 'w-0 ' : 'w-full' } ">
+        <div class="w-full h-full flex flex-col overflow-x-hidden overflow-y-scroll whitespace-nowrap ">
+            <button 
+                    class="ml-auto lg:hidden h-12 w-12 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 "
+                    title="Cerrar"
+                    on:click={() => {onClickCerrar()}}>
+                    <svg class="w-6 h-6 text-slate-600 dark:text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+            </button>
             {#each itemsAyuda.categorias as categoria, indexCategoria}
                 <div class="w-full">
                     <div class="w-full h-10 px-1 flex">
@@ -168,19 +193,35 @@
             {/each}
         </div>
     </div>
-    <div class="w-3/4 h-full pb-4">
+    <div class="transition-[width] duration-300 lg:w-3/4 h-full pb-4  { mostrandoContenido ? 'w-full' : 'w-0' } ">
         <div bind:this={bindScroll} class=" w-full h-full overflow-y-scroll ">
-            <div class="sticky top-0 dark:bg-slate-800/80 bg-white/60 backdrop-blur w-full pr-12 h-12 overflow-hidden whitespace-nowrap border-b border-slate-300 shadow-2xl flex">
-                <h1 class="text-2xl text-sky-500 font-bold text-center w-full my-auto">
+            <div class="sticky top-0 dark:bg-slate-800/80 bg-white/60 backdrop-blur w-full h-12 overflow-hidden whitespace-nowrap border-b border-slate-300 shadow-2xl flex">
+                <button 
+                    class="lg:hidden h-full w-12 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700"
+                    title="Atrás"
+                    on:click={() => {onClickAtrasMenu()}}>
+                    <svg class="w-6 h-6 text-slate-600 dark:text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <h1 class="text-xs md:text-base lg:text-2xl text-sky-500 font-bold text-center w-full my-auto">
                     {itemsAyuda.categorias[categoriaSeleccionada].items[itemSeleccionado].titulo}
                 </h1>
+                <button 
+                    class="h-full w-12 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 "
+                    title="Cerrar"
+                    on:click={() => {onClickCerrar()}}>
+                    <svg class="w-6 h-6 text-slate-600 dark:text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
-            <article class="px-6 dark:text-slate-200">
+            <article class="px-3 lg:px-6 dark:text-slate-200">
                 <svelte:component this={componenteSeleccionado} />
-                <div class="mb-4 mt-6 flex flex-row m-1/2 justify-around text-white text-lg font-bold text-center">
-                    <button 
+                <div class="mb-4 mt-6 flex flex-row m-1/2 justify-around text-white lg:text-lg font-bold text-center">
+                    <button
                         title={"Anterior"}
-                        class="h-12 w-24 rounded-xl shadow-lg bg-indigo-500 hover:bg-indigo-600 border border-slate-400/20 flex"
+                        class="h-10 w-20 lg:h-12 lg:w-24 rounded-xl shadow-lg bg-indigo-500 hover:bg-indigo-600 border border-slate-400/20 flex"
                         on:click={onClickAnterior}
                     >
                         <span class="m-auto" >
@@ -189,7 +230,7 @@
                     </button>
                     <button 
                         title={"Siguiente"}
-                        class="h-12 w-24 rounded-xl shadow-lg bg-indigo-500 hover:bg-indigo-600 border border-slate-400/20 flex"
+                        class="h-10 w-20 lg:h-12 lg:w-24 rounded-xl shadow-lg bg-indigo-500 hover:bg-indigo-600 border border-slate-400/20 flex"
                         on:click={onClickSiguiente}
                     >
                         <span class="m-auto " >
@@ -216,10 +257,19 @@
     }
 
     article :global(p) {
-        @apply text-lg my-4 text-justify font-sans;
+        @apply text-base my-4 text-justify font-sans;
     }
 
     article :global(img) {
-        @apply rounded-2xl mx-auto border-2 border-blue-600 my-4 max-w-2xl max-h-72 shadow-2xl;
+        @apply rounded-2xl mx-auto border-2 border-blue-600 my-4 max-w-full shadow-2xl;
+
+        
+    }
+
+    @media (min-width: 1024px) {
+        
+        article :global(img) {
+            max-height: 20rem;
+        }
     }
 </style>
