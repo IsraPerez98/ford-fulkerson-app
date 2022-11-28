@@ -3,7 +3,6 @@
 
     import Grafo from '../Grafo/Grafo.svelte';
     import Menu from '../Menu/Menu.svelte';
-    import GitHub from '../GitHub/GitHub.svelte';
     import ConsolaComponent from '../Consola/Consola.svelte';
 
     import type Consola from '../../classes/Consola';
@@ -65,10 +64,6 @@
                     consola={consola}
                 />
             {/if}
-        </foreignObject>
-
-        <foreignObject width="100%" height="100%" class="pointer-events-none">
-            <GitHub />
         </foreignObject>
         
     </svg>
