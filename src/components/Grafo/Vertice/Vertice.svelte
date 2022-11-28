@@ -97,11 +97,19 @@
     }
 
     function toggleFuente() {
+        if(vertice.sumidero) {
+            alert('No se puede marcar un vértice como fuente y sumidero a la vez');
+            return;
+        }
         vertice.toggleFuente();
         vertice = vertice;
     }
 
     function toggleSumidero() {
+        if(vertice.fuente) {
+            alert('No se puede marcar un vértice como fuente y sumidero a la vez');
+            return;
+        }
         vertice.toggleSumidero();
         vertice = vertice;
     }
