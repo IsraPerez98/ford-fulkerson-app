@@ -251,8 +251,29 @@
         return {posicionCapacidad: puntoMedio, posicionCapacidadInversa: puntoMedio};
     }
 
+    let radioCapacidad = 20;
+
+    function actualizarRadioCapacidad(): void {
+        let nuevoRadioCapacidad = 20; // default
+
+
+        if(window.innerWidth < 768) { //md
+            nuevoRadioCapacidad = 12;
+        }
+
+        else if(window.innerWidth < 1024) { //lg
+            nuevoRadioCapacidad = 15;
+        }
+
+        radioCapacidad = nuevoRadioCapacidad;
+    }
+
+    actualizarRadioCapacidad();
+
+    window.addEventListener('resize', actualizarRadioCapacidad);
+
     function calcularPosicionFlujos(): {posicionFlujo: Posicion, posicionFlujoInverso: Posicion} {
-        const diametro = 20 * 2;
+        const diametro = radioCapacidad * 2;
 
         const posicionFlujo = {
             x: posicionesCapacidades.posicionCapacidad.x + diametro * Math.cos(posicionesArista.angulo + Math.PI / 2),
@@ -266,6 +287,8 @@
 
         return {posicionFlujo, posicionFlujoInverso};
     }
+
+    window.addEventListener('resize', calcularPosicionFlujos);
 
     function updateArista(): void {
         posicionesArista = calcularPosicionesArista();
@@ -384,6 +407,7 @@
             capacidad={arista.capacidad}
             bgColor={colores.coloresBG.color}
             cambiarCapacidad={fnCambiarCapacidad}
+            radio={radioCapacidad}
         />
 
         <Capacidad
@@ -392,6 +416,7 @@
             capacidad={aristaInversa.capacidad}
             bgColor={colores.coloresBG.colorInverso}
             cambiarCapacidad={fnCambiarCapacidadInversa}
+            radio={radioCapacidad}
         />
     {:else} <!--Unidireccional-->
         <line
@@ -416,6 +441,7 @@
             capacidad={aristaPrincipal.capacidad}
             bgColor={arista === aristaPrincipal ? colores.coloresBG.color : colores.coloresBG.colorInverso}
             cambiarCapacidad={arista === aristaPrincipal ? fnCambiarCapacidad : fnCambiarCapacidadInversa}
+            radio={radioCapacidad}
         />
     {/if}
 
@@ -433,6 +459,7 @@
             bgColor={bgCapacidadFlujo}
             textColor={"text-black"}
             dibujarCero={false}
+            radio={radioCapacidad}
         />
     {/if}
     {#if aristaInversa && (aristaInversa.esCamino || aristaInversa.fueCamino)}
@@ -448,6 +475,7 @@
             bgColor={bgCapacidadFlujo}
             textColor={"text-black"}
             dibujarCero={false}
+            radio={radioCapacidad}
         />
     {/if}
 </svg>

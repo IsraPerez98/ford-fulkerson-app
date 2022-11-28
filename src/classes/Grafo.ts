@@ -624,6 +624,33 @@ class Grafo {
         for(let i = 0; i < this.vertices.length; i++) {
             this.vertices[i].reposicionarLimites(width, height);
         }
+
+        this.ajustarRadioVertices();
+    }
+
+    public ajustarRadioVertices(): void {
+        
+        let nuevoRadio = 35; // default
+        
+        if(window.innerWidth < 640) { //sm
+            nuevoRadio = 20;
+        }
+
+        else if(window.innerWidth < 768) { //md
+            nuevoRadio = 25;
+        }
+
+        else if(window.innerWidth < 1024) { //lg
+            nuevoRadio = 30;
+        }
+
+        for (const vertice of this.vertices) {
+                
+            if(vertice.radio === 0) continue;
+
+            vertice.radio = nuevoRadio;
+        }
+
     }
 
     public actualizarComponentes(matrizAdyacencia?: MatrizAdyacencia, fuentes?: boolean[], sumideros?: boolean[], vertices?: Vertice[], aristas?: Arista[][], width?: number, height?: number, recargarGrafo?: Function) {

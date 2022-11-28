@@ -18,7 +18,7 @@
 
     export let dibujarCero: boolean = true;
     
-    const radio = 20;
+    export let radio: number;
     
     function cambioCapacidad() {
         const capacidadActual = capacidad;
@@ -53,7 +53,7 @@
 
 {#if (capacidad == "∞" || (!isNaN(Number(capacidad)) && capacidad > 0 )) && (dibujarCero || Number(capacidad) !== 0 ) }
     <foreignObject on:click={onClick} x={posicion.x - radio} y={posicion.y - radio} width={radio * 2} height={radio * 2}>
-        <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20">
+        <div class="flex w-full h-full {textColor} text-center {bgColor} rounded-full border border-white/20 text-xs sm:text-sm md:text-base">
             
             {#if cambiarCapacidad}
                 <input type="text" class="w-full h-full text-center bg-transparent appearance-none border-none outline-none " value={capacidad} on:change={cambioCapacidad} />
