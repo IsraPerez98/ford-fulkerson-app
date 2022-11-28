@@ -100,7 +100,7 @@
     const coloresStroke = {
         "normal": "stroke-emerald-600",
         "inverso": "stroke-blue-600",
-        "camino": "stroke-yellow-300",
+        "camino": "stroke-yellow-500 dark:stroke-yellow-300",
         "fueCamino": "stroke-gray-600",
         "eliminando": "stroke-gray-700",
     }
@@ -135,7 +135,7 @@
     const coloresFill = {
         "normal": "fill-emerald-600",
         "inverso": "fill-blue-600",
-        "camino": "fill-yellow-300",
+        "camino": "fill-yellow-500 dark:fill-yellow-300",
         "fueCamino": "fill-gray-600",
         "eliminando": "fill-gray-700",
     }
