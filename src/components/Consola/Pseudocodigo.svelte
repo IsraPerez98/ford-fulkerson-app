@@ -27,16 +27,12 @@
 
 <div bind:this={divScroll} class="overflow-auto ">
     {#each pseudoCodigo as linea, index}
-        <div use:autoAnimate class="min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap">
-            {#if lineaActual === index}
-                <p class="text-slate-900 text-sm font-medium bg-yellow-300">
+        <div use:autoAnimate class="min-h-12 py-3 mx-4 flex items-center whitespace-pre-wrap text-slate-900 dark:text-slate-200">
+            <div class="w-full">
+                <p class="text-sm font-medium {lineaActual === index ? 'bg-green-500 dark:bg-green-700' : '' }">
                     {linea}
                 </p>
-            {:else}
-                <p class="text-slate-900 text-sm font-medium">
-                    {linea}
-                </p>
-            {/if}
+            </div>
         </div>
     {/each}
 </div>

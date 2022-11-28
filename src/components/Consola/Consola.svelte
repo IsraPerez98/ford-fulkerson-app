@@ -54,9 +54,9 @@
 
 <div class="absolute bottom-0 right-0 pointer-events-auto">
     {#if consola.abierta }
-            <div class="flex rounded-t-xl bg-neutral-900 overflow-hidden h-10">
+        <div class="rounded-t-xl overflow-hidden border-x border-t border-slate-600/40 shadow-2xl">
+            <div class="flex bg-neutral-200 dark:bg-neutral-900 h-10 border-b border-slate-600/30">
                 <div class="ml-0 h-full w-12 flex items-center justify-center">
-                    <!--- Button is a circle with an x in the middle -->
                     <button on:click={onClickCerrar} class="rounded-full bg-neutral-700 h-6 w-6 flex items-center justify-center">
                         <svg class="h-4 w-4 text-stone-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -67,20 +67,20 @@
                     {titulo()}
                 </p>
             </div>
-            <div class="flex flex-row">
-                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-auto space-y-4 w-12 bg-neutral-900 text-xl text-center ">
+            <div class="flex flex-row h-full w-full">
+                <div use:twemoji={{className: 'emoji'}} class="flex flex-col h-72 space-y-4 w-12 bg-neutral-200 dark:bg-neutral-900 text-xl text-center  border-r border-slate-600/30">
                     <!--TODO: MENU PARA CATEGORIAS-->
-                    <button on:click={onClickButtonExplicacion} class:bg-violet-800={categoria === "EXPLICACION" } title="Explicación" class="p-2 hover:bg-gray-700">
-                        🤔
+                    <button on:click={onClickButtonExplicacion} title="Explicación" class="p-2 {categoria === "EXPLICACION" ? 'bg-gray-400 dark:bg-neutral-700' : 'hover:bg-gray-300 dark:hover:bg-neutral-800'}">
+                        ℹ️
                     </button>
-                    <button on:click={onClickButtonPseudocodigo} class:bg-violet-800={categoria === "PSEUDOCODIGO"} title="Pseudocodigo" class="p-2 hover:bg-gray-700">
-                        🖥️
+                    <button on:click={onClickButtonPseudocodigo} title="Pseudocodigo" class="p-2 {categoria === "PSEUDOCODIGO" ? 'bg-gray-400 dark:bg-neutral-700' : 'hover:bg-gray-300 dark:hover:bg-neutral-800'}">
+                        🧑‍💻
                     </button>
-                    <button on:click={onClickButtonRedAumentada} class:bg-violet-800={categoria === "RED_RESIDUAL"} title="Red Residual" class="p-2 hover:bg-gray-700">
-                        🕸️
+                    <button on:click={onClickButtonRedAumentada} title="Red Residual" class="p-2 {categoria === "RED_RESIDUAL" ? 'bg-gray-400 dark:bg-neutral-700' : 'hover:bg-gray-300 dark:hover:bg-neutral-800'}">
+                        🔢
                     </button>
                 </div>
-                <div class="bg-white overflow-auto h-72 w-[32rem] shadow-lg ring-1 flex flex-col divide-y ">
+                <div class="overflow-auto h-72 w-[32rem] shadow-lg flex flex-col divide-y bg-white dark:bg-slate-900/80">
                     {#if categoria === "EXPLICACION"}
                         <Explicacion 
                             textoExplicativo={consola.textoExplicativo}
@@ -98,6 +98,7 @@
                     {/if}
                 </div>
             </div>
+        </div>
     {:else} <!-- Consola cerrada / boton abrir -->
         <div class="bg-indigo-600/90 dark:bg-white/80 backdrop-blur border border-slate-600/40 rounded-full w-16 h-16 mr-4 mb-4 shadow-xl">
             <button 

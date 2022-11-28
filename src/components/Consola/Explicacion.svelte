@@ -26,9 +26,9 @@
 
 </script>
 
-<div bind:this={divScroll} use:autoAnimate class="overflow-auto h-full w-full divide-y">
+<div bind:this={divScroll} use:autoAnimate class="overflow-auto h-full w-full divide-y divide-slate-700/60 dark:divide-slate-300/60 text-slate-900 dark:text-slate-200">
     {#if textoExplicativo.length === 0}
-        <div class="text-center text-gray-500 h-full w-full flex">
+        <div class="text-center h-full w-full flex">
             <p class="text-xl m-auto">
                 Se debe iniciar el algoritmo para ver su explicación.
             </p>
@@ -36,7 +36,7 @@
     {:else}
         {#each textoExplicativo as linea}
             <div class="min-h-12 py-3 mx-4 flex items-center text-clip">
-                <p use:twemoji={{className: 'emoji-explicacion'}} class="flex flex-row text-slate-900 text-sm font-medium">
+                <p use:twemoji={{className: 'emoji-explicacion'}} class="flex flex-row text-sm font-medium">
                     {linea}
                 </p>
             </div>
