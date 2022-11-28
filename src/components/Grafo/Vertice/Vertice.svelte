@@ -45,18 +45,26 @@
         if(eliminandoVertice) {
             vertice.eliminar();
             grafo.finalizarEliminacionVertice();
+            return;
         }
-        else if(creandoArista) {
+
+        if(creandoArista) {
+            
             if(grafo.nuevaAristaVerticeOrigen == null) {
                 grafo.seleccionarVerticeNuevaArista(vertice);
+                return;
             }
-            else {
-                grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE LA CAPACIDAD
+            
+            if(grafo.nuevaAristaVerticeOrigen === vertice) {
+                alert('No puedes crear una arista que conecte un vértice consigo mismo');
+                return;
             }
+
+            grafo.crearNuevaArista(grafo.nuevaAristaVerticeOrigen, vertice, 1); //TODO: PERMITIR QUE EL USUARIO INGRESE LA CAPACIDAD
+            return;
         }
-        else {
-            moviendo = true;
-        }
+        
+        moviendo = true;
     }
 
     function onMouseUp() {
