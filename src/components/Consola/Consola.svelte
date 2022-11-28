@@ -55,7 +55,7 @@
 <div class="absolute bottom-0 right-0 pointer-events-auto">
     {#if consola.abierta }
         <div class="rounded-t-xl overflow-hidden border-x border-t border-slate-600/40 shadow-2xl">
-            <div class="flex bg-neutral-200 dark:bg-neutral-900 h-10 border-b border-slate-600/30">
+            <div class="flex bg-neutral-200 dark:bg-neutral-900 h-10">
                 <div class="ml-0 h-full w-12 flex items-center justify-center">
                     <button on:click={onClickCerrar} class="rounded-full bg-neutral-700 h-6 w-6 flex items-center justify-center">
                         <svg class="h-4 w-4 text-stone-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +80,7 @@
                         🔢
                     </button>
                 </div>
-                <div class="overflow-auto h-72 w-[32rem] shadow-lg flex flex-col divide-y bg-white dark:bg-slate-900/80">
+                <div class="overflow-auto h-72 w-[32rem] shadow-lg flex flex-col divide-y bg-white/80 dark:bg-slate-900/80 backdrop-blur">
                     {#if categoria === "EXPLICACION"}
                         <Explicacion 
                             textoExplicativo={consola.textoExplicativo}
