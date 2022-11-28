@@ -44,6 +44,10 @@
     grafo = generarGrafoAlAzar(6, width, height, recargarGrafo);
     recargarGrafo();
 
+    function esPantallaMD() {
+        return window.innerWidth < 768;
+    }
+
 
 </script>
 
@@ -52,7 +56,7 @@
 
         <Grafo {aristas} {vertices} />
 
-        <foreignObject class="h-full w-10 md:w-full md:h-10" >
+        <foreignObject width={esPantallaMD ? '2.5rem' : width } height={esPantallaMD ? height : '2.5rem'} class="h-full w-10 md:w-full md:h-10" >
             <Menu 
                 grafo={grafo}
             />
