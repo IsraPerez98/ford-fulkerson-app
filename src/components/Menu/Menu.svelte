@@ -10,6 +10,9 @@
 
     import ModeSwitcher from './ModeSwitcher.svelte';
 
+    const githubLogo = "./img/GitHub-Mark-64px.png"
+    const repoURL = "https://github.com/IsraPerez98/app-titulo";
+
     //@ts-ignore
     const { open } = getContext('simple-modal');
 
@@ -119,6 +122,10 @@
         if(!puedeModificarGrafo) return;
         grafo.iniciarEliminacionArista();
     }
+    
+    function onClickAbrirGithub() {
+        window.open(repoURL, "_blank");
+    }
 
 </script>
 
@@ -149,7 +156,7 @@
                 📁
             </button>
         </div>
-        <div class="flex flex-col md:flex-row text-2xl space-y-2 md:space-y-0 md:space-x-4 my-auto h-full overflow-hidden md:py-1">
+        <div class="flex flex-col md:flex-row text-2xl space-y-2 md:space-y-0 md:space-x-4 my-auto md:h-full overflow-hidden md:py-1">
             <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
                 <div class="relative bottom-4 ml-3 text-base" >
@@ -163,7 +170,7 @@
                 </div>
             </button>
         </div>
-        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4 h-full overflow-hidden md:py-1">
+        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4 md:h-full overflow-hidden md:py-1">
             <button title="Eliminar Vertice" on:click={onClickEliminarVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale ">
                 🔵
                 <div class="relative bottom-4 ml-3 text-base" >
@@ -178,8 +185,20 @@
             </button>
         </div>
     </div>
-    <div class="mx-auto mb-4 md:my-auto md:ml-auto md:mr-4">
-        <ModeSwitcher />
+    <div class="mt-auto md:ml-auto mb-6 md:mb-auto md:mr-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
+        <button 
+                on:click={onClickAbrirGithub} 
+                title={'Repositorio de GitHub'}
+                
+                class="w-6 h-6"
+            >
+                <img alt="GitHub" src={githubLogo} 
+                class="w-6 h-6 invert-0 dark:invert" 
+            />
+        </button>
+        <div>
+            <ModeSwitcher />
+        </div>
     </div>
 </div>
 
