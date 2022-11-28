@@ -10,9 +10,17 @@ import Consola from '../classes/Consola';
 
 const verticeRadio = 35;
 
-function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
-    const matrizAdyacencia: MatrizAdyacencia = [];
+function generarArista(verticeA: number, verticeB: number, matrizAdyacencia: MatrizAdyacencia) {
+    const capacidadArista = Math.floor(Math.random() * 100);
 
+    matrizAdyacencia[verticeA][verticeB] = capacidadArista;
+}
+
+function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
+    //generamos una matriz vacia de tamaño cantVertices x cantVertices
+    const matrizAdyacencia: MatrizAdyacencia = new Array(cantVertices).fill(0).map(() => new Array(cantVertices).fill(0));
+
+    /*
     for (let i = 0; i < cantVertices; i++) {
         const arreglo: number[] = [];
         for (let j = 0; j < cantVertices; j++) {
@@ -29,7 +37,33 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
         }
         matrizAdyacencia.push(arreglo);
     }
-    //console.log({matrizAdyacencia});
+    */
+    // Generamos una lista de caminos de la fuente al destino
+    let aristasRestantes = cantVertices - 1;
+
+    while(aristasRestantes > 0) {
+        //asumimos que la fuente es el vertice 0 y el destino es el vertice cantVertices - 1
+        let verticeActual = 0;
+
+        //establecemos un camino desde la fuente al destino
+        while(true) {
+            let siguienteVertice = Math.floor(Math.random() * (cantVertices - 1)) + 1;
+            
+            if(siguienteVertice === verticeActual) continue;
+            
+            generarArista(verticeActual, siguienteVertice, matrizAdyacencia);
+
+            aristasRestantes--;
+
+            if(siguienteVertice === cantVertices - 1) {
+                break;
+            }
+
+            verticeActual = siguienteVertice;
+
+        }
+    }
+
     return matrizAdyacencia;
 }
 
