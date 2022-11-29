@@ -28,6 +28,7 @@
     }
 
     const margenMenu = convertRemToPixels(2.5);
+    const margenConsola = convertRemToPixels(3);
 
     let grafoWidth: number;
     let grafoHeight: number;
@@ -36,14 +37,16 @@
 
 
     function calcularDimensionesGrafo() : void {
-        grafoWidth = windowWidth - (esPantallaMD() ? 0 : margenMenu);
-        grafoHeight = windowHeight;
+        grafoWidth = windowWidth - (esPantallaMD() ? margenMenu : 0 );
+        grafoHeight = windowHeight - (esPantallaMD() ? margenConsola : 0 ) ;
     }
     calcularDimensionesGrafo();
 
     function calcularPosicionGrafo() : void {
-        grafoX = esPantallaMD() ? 0 : margenMenu;
+        grafoX = esPantallaMD() ? margenMenu : 0;
         grafoY = 0;
+
+        console.log({grafoX, grafoY});
     }
     calcularPosicionGrafo();
 

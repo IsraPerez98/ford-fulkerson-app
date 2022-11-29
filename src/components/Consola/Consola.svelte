@@ -100,15 +100,15 @@
             </div>
         </div>
     {:else} <!-- Consola cerrada / boton abrir -->
-        <div class="bg-indigo-600/90 dark:bg-white/80 backdrop-blur border border-slate-600/40 rounded-full w-16 h-16 mr-4 mb-4 shadow-xl">
+        <div class="bg-indigo-600/90 dark:bg-white/80 backdrop-blur border border-slate-600/40 rounded-full w-10 h-10 lg:w-16 lg:h-16 mb-2 mr-2 lg:mr-4 lg:mb-4 shadow-xl">
             <button 
                 on:click={onClickAbrir} 
                 title={'Explicación del algorítmo'} 
                 
                 class="w-full h-full flex items-center justify-center disabled:grayscale"
             >
-                <div class="w-10 h-10 bg-violet-700 dark:bg-indigo-700 border border-slate-700/40 rounded-full flex items-center justify-center">
-                    <p class="text-2xl text-white">?</p>
+                <div class="w-[62.5%] h-[62.5%] bg-violet-700 dark:bg-indigo-700 border border-slate-700/40 rounded-full flex items-center justify-center">
+                    <p class="text-lg lg:text-2xl text-white">?</p>
                 </div>
             </button>
         </div>
