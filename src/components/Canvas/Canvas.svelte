@@ -9,7 +9,6 @@
     import type Vertice from '../../classes/Vertice';
     import type TypeGrafo from '../../classes/Grafo';
     import type Arista from '../../classes/Arista';
-    import { beforeUpdate } from 'svelte';
 
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
@@ -28,25 +27,38 @@
         return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
 
-    const margenMenu = convertRemToPixels(2.5)
+    const margenMenu = convertRemToPixels(2.5);
+
+    let grafoWidth: number;
+    let grafoHeight: number;
+    let grafoX: number;
+    let grafoY: number;
+
+
+    function calcularDimensionesGrafo() : void {
+        grafoWidth = windowWidth - (esPantallaMD() ? 0 : margenMenu);
+        grafoHeight = windowHeight;
+    }
+    calcularDimensionesGrafo();
+
+    function calcularPosicionGrafo() : void {
+        grafoX = esPantallaMD() ? 0 : margenMenu;
+        grafoY = 0;
+    }
+    calcularPosicionGrafo();
 
     function actualizarTamanioGrafo() {
-        let nuevoTamanio = {
-            posicion: {
-                x: 0,
-                y: 0
-            },
-            width: windowWidth,
-            height: windowHeight
-        }
-
-        if(esPantallaMD()) {
-            nuevoTamanio.posicion.x = margenMenu;
-            
-            nuevoTamanio.width = windowWidth - margenMenu;
-        }
+        calcularDimensionesGrafo();
+        calcularPosicionGrafo();
         
-        grafo.cambiarTamanio(nuevoTamanio);
+        grafo.cambiarTamanio({
+            width: grafoWidth,
+            height: grafoHeight,
+            posicion: {
+                x: grafoX,
+                y: grafoY
+            }
+        });
     }
 
     //esta funcion son necesarias para decirle a Svelte que re-renderice el componente
@@ -60,7 +72,7 @@
     }
 
     // TODO: CAMBIAR ESTO
-    grafo = generarGrafoAlAzar(6, windowWidth, windowHeight, recargarGrafo);
+    grafo = generarGrafoAlAzar(6, grafoWidth, grafoHeight, recargarGrafo);
     recargarGrafo();
     actualizarTamanioGrafo();
 
@@ -79,10 +91,10 @@
         <Grafo 
             {aristas} 
             {vertices} 
-            x={grafo.posicion.x}
-            y={grafo.posicion.y}
-            width={grafo.width}
-            height={grafo.height}
+            x={grafoX}
+            y={grafoY}
+            width={grafoWidth}
+            height={grafoHeight}
         />
 
         <foreignObject width={esPantallaMD() ? margenMenu : windowWidth } height={esPantallaMD() ? windowHeight : margenMenu} class="h-full w-10 md:w-full md:h-10" >
