@@ -31,11 +31,19 @@ class Vertice {
     
     
     public toggleFuente(): void { // Funcion para cambiar el estado de fuente del vertice
+        if(this.grafo.ejecutandoFlujoMaximo) {
+            alert('No se puede cambiar el estado de fuente mientras se este ejecutando el algoritmo de flujo maximo');
+            return;
+        }
         this.fuente = !this.fuente;
         this.grafo.fuentes[this.id] = this.fuente;
     }
     
     public toggleSumidero(): void { // Funcion para cambiar el estado de sumidero del vertice
+        if(this.grafo.ejecutandoFlujoMaximo) {
+            alert('No se puede cambiar el estado de un sumidero mientras se esta ejecutando el algoritmo de flujo maximo');
+            return;
+        }
         this.sumidero = !this.sumidero;
         this.grafo.sumideros[this.id] = this.sumidero;
     }

@@ -10,6 +10,8 @@
     $: creandoArista = grafo.creandoArista;
     $: eliminandoVertice = grafo.eliminandoVertice;
 
+    $: puedeCambiarSumideroyFuente =  !grafo.ejecutandoFlujoMaximo;
+
     let color = 'bg-purple-800';
 
     let moviendo = false;
@@ -131,14 +133,16 @@
                 {nombre}
             </p>
         </div>
-        <div style="width: {vertice.radio}px ;height: {vertice.radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
-            <button on:click={() => { toggleFuente(); }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
-                🔼
-            </button>
-            <button on:click={() => { toggleSumidero(); }} style="{vertice.sumidero ? "" : "filter:grayscale(1);"}" title="Convertir en sumidero" >
-                🔽
-            </button>
-        </div>
+        {#if puedeCambiarSumideroyFuente}
+            <div style="width: {vertice.radio}px ;height: {vertice.radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
+                <button on:click={() => { toggleFuente(); }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
+                    🔼
+                </button>
+                <button on:click={() => { toggleSumidero(); }} style="{vertice.sumidero ? "" : "filter:grayscale(1);"}" title="Convertir en sumidero" >
+                    🔽
+                </button>
+            </div>
+        {/if}
     </div>
 </foreignObject>
 
