@@ -27,6 +27,8 @@ class Grafo {
 
     public consola: Consola; //Consola para mostrar mensajes del algoritmo
 
+    public posicion: Posicion; // posicion del grafo en la pantalla
+
     public width: number; // representa el ancho del grafo
     public height: number; // representa el alto del grafo
 
@@ -69,7 +71,10 @@ class Grafo {
     
         //hacemos que el nuevo grafo siga al mouse
         const mousemove = (e: MouseEvent) => {
-            nuevoVertice.mover({ x: e.clientX, y: e.clientY });
+            nuevoVertice.mover({ 
+                x: e.clientX - this.posicion.x,
+                y: e.clientY - this.posicion.y,
+            });
         }
     
         window.addEventListener("mousemove", mousemove);
@@ -80,7 +85,7 @@ class Grafo {
             this.vertices.splice(this.vertices.indexOf(nuevoVertice), 1);
     
             //creamos el vertice real
-            this.crearNuevoVertice(false, false, { x: e.clientX, y: e.clientY }, null, null);
+            this.crearNuevoVertice(false, false, { x: e.clientX - this.posicion.x , y: e.clientY - this.posicion.y }, null, null);
 
             this.finalizarCreacionVertice();
     
@@ -616,7 +621,9 @@ class Grafo {
         }
     }
 
-    public cambiarTamanio(width: number, height: number ) {
+    public cambiarTamanio({ posicion, width, height }: { posicion: Posicion, width: number, height: number }) : void {
+
+        this.posicion = posicion;
         
         this.width = width;
         this.height = height;
@@ -630,26 +637,11 @@ class Grafo {
 
     public ajustarRadioVertices(): void {
         
-        let nuevoRadio = 35; // default
-        
-        if(window.innerWidth < 640) { //sm
-            nuevoRadio = 20;
+        for(const vertice of this.vertices) {
+            vertice.recalcularRadio();
         }
 
-        else if(window.innerWidth < 768) { //md
-            nuevoRadio = 25;
-        }
-
-        else if(window.innerWidth < 1024) { //lg
-            nuevoRadio = 30;
-        }
-
-        for (const vertice of this.vertices) {
-                
-            if(vertice.radio === 0) continue;
-
-            vertice.radio = nuevoRadio;
-        }
+        this.recargarGrafo();
 
     }
 

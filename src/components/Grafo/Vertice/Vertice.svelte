@@ -42,7 +42,6 @@
     }
 
     function onMouseDown() {
-        console.log("Click on ", vertice.id);
         if(eliminandoVertice) {
             vertice.eliminar();
             grafo.finalizarEliminacionVertice();
@@ -79,8 +78,8 @@
             const posY = vertice.posicion.y + e.movementY;
             */
 
-            const posX = e.clientX;
-            const posY = e.clientY;
+            const posX = e.clientX - vertice.grafo.posicion.x;
+            const posY = e.clientY - vertice.grafo.posicion.y;
             
             vertice.mover({x: posX, y: posY});
             vertice = vertice;
@@ -89,8 +88,8 @@
 
     function onTouchMove(e: TouchEvent) {
         if(moviendo) {
-            const posX = e.touches[0].clientX;
-            const posY = e.touches[0].clientY;
+            const posX = e.touches[0].clientX - vertice.grafo.posicion.x;
+            const posY = e.touches[0].clientY - vertice.grafo.posicion.y;
             
             vertice.mover({x: posX, y: posY});
             vertice = vertice;

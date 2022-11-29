@@ -11,10 +11,8 @@
     import type Arista from '../../classes/Arista';
     import { beforeUpdate } from 'svelte';
 
-    export let width: number ;
-    let prevWidth: number = width;
-    export let height: number ;
-    let prevHeight: number = width;
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
 
     let aristas: Arista[][] = [];
     let vertices: Vertice[] = [];
@@ -22,14 +20,34 @@
     let consola: Consola;
     let grafo: TypeGrafo;
 
-    beforeUpdate(() => {
-        if(prevWidth != width || prevHeight != height) {
-            prevWidth = width;
-            prevHeight = height;
-            
-            grafo.cambiarTamanio(width, height);
+    function esPantallaMD() {
+        return windowWidth < 768;
+    }
+
+    function convertRemToPixels(rem) : number {
+        return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    }
+
+    const margenMenu = convertRemToPixels(2.5)
+
+    function actualizarTamanioGrafo() {
+        let nuevoTamanio = {
+            posicion: {
+                x: 0,
+                y: 0
+            },
+            width: windowWidth,
+            height: windowHeight
         }
-    });
+
+        if(esPantallaMD()) {
+            nuevoTamanio.posicion.x = margenMenu;
+            
+            nuevoTamanio.width = windowWidth - margenMenu;
+        }
+        
+        grafo.cambiarTamanio(nuevoTamanio);
+    }
 
     //esta funcion son necesarias para decirle a Svelte que re-renderice el componente
     function recargarGrafo() {
@@ -41,22 +59,33 @@
         if (grafo.aristas) aristas = grafo.aristas;
     }
 
-    grafo = generarGrafoAlAzar(6, width, height, recargarGrafo);
+    // TODO: CAMBIAR ESTO
+    grafo = generarGrafoAlAzar(6, windowWidth, windowHeight, recargarGrafo);
     recargarGrafo();
-
-    function esPantallaMD() {
-        return window.innerWidth < 768;
-    }
-
+    actualizarTamanioGrafo();
 
 </script>
 
+<svelte:window on:resize={() => {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+
+    actualizarTamanioGrafo();
+}} />
+
 <div class="bg-white dark:bg-gray-800">
-    <svg width={width} height={height} class="select-none">
+    <svg width={windowWidth} height={windowHeight} class="select-none">
 
-        <Grafo {aristas} {vertices} />
+        <Grafo 
+            {aristas} 
+            {vertices} 
+            x={grafo.posicion.x}
+            y={grafo.posicion.y}
+            width={grafo.width}
+            height={grafo.height}
+        />
 
-        <foreignObject width={esPantallaMD ? '2.5rem' : width } height={esPantallaMD ? height : '2.5rem'} class="h-full w-10 md:w-full md:h-10" >
+        <foreignObject width={esPantallaMD() ? margenMenu : windowWidth } height={esPantallaMD() ? windowHeight : margenMenu} class="h-full w-10 md:w-full md:h-10" >
             <Menu 
                 grafo={grafo}
             />

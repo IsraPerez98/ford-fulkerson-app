@@ -53,6 +53,32 @@ class Vertice {
         }
     }
 
+    public recalcularRadio() : void {
+        if(this.radio === 0 ) return;
+
+        const nuevoRadio = this.calcularRadioDefault();
+
+        this.radio = nuevoRadio;
+    }
+
+    private calcularRadioDefault(): number {
+        let nuevoRadio = 35; // default
+        
+        if(window.innerWidth < 640) { //sm
+            nuevoRadio = 25;
+        }
+
+        else if(window.innerWidth < 768) { //md
+            nuevoRadio = 25;
+        }
+
+        else if(window.innerWidth < 1024) { //lg
+            nuevoRadio = 30;
+        }
+
+        return nuevoRadio;
+    }
+
     constructor(id: number, fuente: boolean, sumidero: boolean, posicion: Posicion, nombre?: string , radio?: number, grafo?: Grafo) {
         this.id = id;
         this.nombre = nombre || null;
@@ -60,7 +86,7 @@ class Vertice {
         this.sumidero = sumidero;
         this.posicion = posicion;
 
-        this.radio = (radio === undefined || radio === null) ? 35 : radio;
+        this.radio = (radio === undefined || radio === null) ? this.calcularRadioDefault() : radio;
 
         this.grafo = grafo || null;
     }

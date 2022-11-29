@@ -5,9 +5,6 @@
 	import Canvas from './components/Canvas/Canvas.svelte';
 
 	import mobile from 'is-mobile';
-	
-	$: innerWidth = window.innerWidth;
-	$: innerHeight = window.innerHeight;
 
 	if (mobile()) {
 		window.alert("Este sitio no está optimizado para dispositivos móviles. Se recomienda acceder desde un dispositivo de escritorio.");
@@ -16,7 +13,6 @@
 </script>
 
 <Tailwindcss />
-<svelte:window bind:innerWidth bind:innerHeight />
 
 <Modal 
 	unstyled={true}
@@ -27,6 +23,6 @@
 	classCloseButton=""
 >
 <main class="w-full h-full">
-	<Canvas width={innerWidth} height={innerHeight} />
+	<Canvas />
 </main>
 </Modal>
