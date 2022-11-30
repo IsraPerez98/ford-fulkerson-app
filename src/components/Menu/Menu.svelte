@@ -91,9 +91,20 @@
                         }
                     }
                 }
-                const posicionesVertices: Posicion[] = json.posicionesVertices;
+                const posicionesRelativasVertices: Posicion[] = json.posicionesVertices;
                 const fuentes: boolean[] = json.fuentes;
                 const sumideros: boolean[] = json.sumideros;
+
+                const posicionesVertices: Posicion[] = [];
+
+                for(let i = 0; i < posicionesRelativasVertices.length; i++) {
+                    const posicionRelativa = posicionesRelativasVertices[i];
+                    const posicion = {
+                        x: posicionRelativa.x * grafo.width,
+                        y: posicionRelativa.y * grafo.height
+                    }
+                    posicionesVertices.push(posicion);
+                }
 
                 grafo.generarGrafo(matrizAdyacencia, posicionesVertices, fuentes, sumideros);
                 grafo.recargarGrafo();

@@ -257,7 +257,12 @@ class Grafo {
         //copiamos las posiciones de los vertices
         const posicionesVertices: Posicion[] = [];
         for (let i = 0; i < this.vertices.length; i++) {
-            posicionesVertices.push(this.vertices[i].posicion);
+            //posicionesVertices.push(this.vertices[i].posicion);
+            //copiamos la posicion relativa al borde del grafo
+            posicionesVertices.push({
+                x: this.vertices[i].posicion.x / this.width,
+                y: this.vertices[i].posicion.y / this.height
+            });
         }
 
         const grafo = {
