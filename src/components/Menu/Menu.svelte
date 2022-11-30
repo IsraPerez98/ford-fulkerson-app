@@ -129,8 +129,8 @@
 
 </script>
 
-<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20">
-    <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center">
+<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 ">
+    <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center overflow-auto">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
         </button>
@@ -184,20 +184,20 @@
                 </div>
             </button>
         </div>
-    </div>
-    <div class="mt-auto md:ml-auto mb-6 md:mb-auto md:mr-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
-        <button 
-                on:click={onClickAbrirGithub} 
-                title={'Repositorio de GitHub'}
-                
-                class="w-6 h-6"
-            >
-                <img alt="GitHub" src={githubLogo} 
-                class="w-6 h-6 invert-0 dark:invert" 
-            />
-        </button>
-        <div>
-            <ModeSwitcher />
+        <div class="mt-auto md:ml-auto mb-6 md:mb-auto md:mr-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
+            <button 
+                    on:click={onClickAbrirGithub} 
+                    title={'Repositorio de GitHub'}
+                    
+                    class="w-6 h-6"
+                >
+                    <img alt="GitHub" src={githubLogo} 
+                    class="w-6 h-6 invert-0 dark:invert" 
+                />
+            </button>
+            <div>
+                <ModeSwitcher />
+            </div>
         </div>
     </div>
 </div>
