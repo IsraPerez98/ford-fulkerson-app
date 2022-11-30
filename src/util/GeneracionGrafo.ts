@@ -91,8 +91,10 @@ function generarPosicionesVertices(cantVertices: number, width: number, height: 
     const posiciones: Posicion[] = [];
 
     for (let i = 0; i < cantVertices; i++) {
-        const x = centro.x - distancia * Math.cos(i * angulo);
-        const y = centro.y - distancia * Math.sin(i * angulo);
+        const distanciaOffset = distancia + ((Math.random() - 0.5) * distancia / 4 );
+
+        const x = centro.x - distanciaOffset * Math.cos(i * angulo);
+        const y = centro.y - distanciaOffset * Math.sin(i * angulo);
         posiciones.push({x, y});
     }
 
