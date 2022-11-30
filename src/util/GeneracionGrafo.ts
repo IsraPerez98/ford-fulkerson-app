@@ -38,28 +38,33 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
         matrizAdyacencia.push(arreglo);
     }
     */
-    // Generamos una lista de caminos de la fuente al destino
-    let aristasRestantes = cantVertices - 1;
+    // Dejamos los vertices como restantes, ignorando la fuente
+    let verticesRestantes = new Array(cantVertices - 1 ).fill(0).map((_, i) => i+1);
 
-    while(aristasRestantes > 0) {
+    console.log({verticesRestantes});
+
+    while(verticesRestantes.length > 1) {
         //asumimos que la fuente es el vertice 0 y el destino es el vertice cantVertices - 1
+        let verticeAnterior = -1;
         let verticeActual = 0;
 
         //establecemos un camino desde la fuente al destino
         while(true) {
-            let siguienteVertice = Math.floor(Math.random() * (cantVertices - 1)) + 1;
-            
-            if(siguienteVertice === verticeActual) continue;
+            let siguienteVertice = Math.floor(Math.random() * cantVertices);
+
+            if(siguienteVertice === 0) continue; // no podemos volver a la fuente
+            if(siguienteVertice === verticeAnterior) continue; // no podemos volver al vertice anterior
+            if(siguienteVertice === verticeActual) continue; // no podemos hacer un loop con el vetice actual
             
             generarArista(verticeActual, siguienteVertice, matrizAdyacencia);
 
-            aristasRestantes--;
-
-            if(siguienteVertice === cantVertices - 1) {
+            if(siguienteVertice === verticesRestantes[verticesRestantes.length - 1]) {
                 break;
+            } else {
+                verticeAnterior = verticeActual;
+                verticeActual = siguienteVertice;
+                verticesRestantes = verticesRestantes.filter(v => v !== verticeActual);
             }
-
-            verticeActual = siguienteVertice;
 
         }
     }
