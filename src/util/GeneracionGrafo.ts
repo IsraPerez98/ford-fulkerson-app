@@ -178,6 +178,20 @@ function generarGrafo(matrizAdyacencia: MatrizAdyacencia, posicionesVertices: Po
     return grafo;
 }
 
+async function generarPosicionesVerticesAnimacion(grafo: Grafo): Promise<void> {
+    
+    const nuevasPosiciones = generarPosicionesVertices(grafo.vertices.length, grafo.width, grafo.height);
+
+
+    for(const vertice of grafo.vertices) {
+        const nuevaPosicion = nuevasPosiciones[vertice.id];
+        vertice.moverAnimado(nuevaPosicion, 200);
+
+        await new Promise(resolve => setTimeout(resolve, 200));
+    }
+
+}
+
 function generarGrafoAlAzar(cantVertices: number, width: number, height: number, recargarGrafo: Function, grafo?: Grafo): Grafo {
     const matrizAdyacencia = generarMatrizAlAzar(cantVertices);
 
@@ -191,9 +205,15 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
     fuentes[0] = true;
     sumideros[cantVertices - 1] = true;
 
-    const posiciones = generarPosicionesVertices(cantVertices, width, height);
+    //const posiciones = generarPosicionesVertices(cantVertices, width, height);
+    const posiciones: Posicion[] = new Array(cantVertices).fill({x: width / 2, y: height / 2});
 
-    return generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarGrafo, grafo);
+    const nuevoGrafo = generarGrafo(matrizAdyacencia, posiciones, fuentes, sumideros , width, height, recargarGrafo, grafo);
+
+    generarPosicionesVerticesAnimacion(nuevoGrafo);
+
+    return nuevoGrafo;
+
 }
 
 export {

@@ -25,6 +25,34 @@ class Vertice {
         this.grafo.recargarGrafo();
     }
 
+    public async moverAnimado(posicion: Posicion, duracion: number): Promise<void> {
+        const posicionActual = this.posicion;
+        const posicionTarget = posicion;
+
+        //interpolate
+
+        const tiempoInicio = performance.now();
+        while(true) {
+            if(performance.now() - tiempoInicio >= duracion) {
+                this.mover(posicionTarget);
+                return;
+            }
+
+            const tiempoTranscurrido = performance.now() - tiempoInicio;
+            const porcentajeTranscurrido = tiempoTranscurrido / duracion;
+
+            const nuevaPosX = posicionActual.x + ((posicionTarget.x - posicionActual.x) * porcentajeTranscurrido);
+            const nuevaPosY = posicionActual.y + ((posicionTarget.y - posicionActual.y) * porcentajeTranscurrido);
+
+            this.mover({ x: nuevaPosX, y: nuevaPosY });
+
+            await new Promise(resolve => setTimeout(resolve, 1));
+
+        }
+
+
+    }
+
     public eliminar(): void { // elimina el vertice del grafo
         this.grafo.eliminarVertice(this);
     }

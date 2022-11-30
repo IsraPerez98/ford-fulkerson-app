@@ -74,7 +74,6 @@
         if (grafo.aristas) aristas = grafo.aristas;
     }
 
-    // TODO: CAMBIAR ESTO
     grafo = generarGrafoAlAzar(6, grafoWidth, grafoHeight, recargarGrafo);
     recargarGrafo();
     actualizarTamanioGrafo();
