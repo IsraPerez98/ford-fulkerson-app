@@ -128,21 +128,34 @@
 
 </script>
 
-<foreignObject x={vertice.posicion.x - vertice.radio} y={vertice.posicion.y - vertice.radio} width={vertice.radio * 3} height={vertice.radio * 2} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<foreignObject x={vertice.posicion.x - vertice.radio} y={vertice.posicion.y - vertice.radio} width={vertice.radio * 4} height={vertice.radio * 2} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
     <div class="h-full w-full flex flex-row">
-        <div style="width: {vertice.radio*2}px ;height: {vertice.radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:pointerdown={onMouseDown} >
+        <div style="width: {vertice.radio*2}px ;height: {vertice.radio*2}px ;" class="flex cursor-pointer {color} rounded-full border border-white/20 overflow:hidden" on:pointerdown={onMouseDown} >
             <p class="text-white text-center m-auto text-xs sm:text-sm md:text-base select-none">
                 {nombre}
             </p>
         </div>
         {#if puedeCambiarSumideroyFuente}
-            <div use:twemoji class="h-full w-6 ml-1 {mostrarMenu? '': 'hidden'}">
-                <button on:click={() => { toggleFuente(); }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
-                    🔼
-                </button>
-                <button on:click={() => { toggleSumidero(); }} style="{vertice.sumidero ? "" : "filter:grayscale(1);"}" title="Convertir en sumidero" >
-                    🔽
-                </button>
+
+            <div class="w-4 lg:w-6 h-full flex-col space-y-1 ml-1 justify-center {mostrarMenu? 'flex': 'hidden'}">
+                {#if vertice.fuente}
+                    <button use:twemoji on:click={() => { toggleFuente(); }} title="Desmarcar como fuente" >
+                        🔽
+                    </button>
+                {:else if vertice.sumidero}
+                    <button use:twemoji on:click={() => { toggleSumidero(); }} title="Desmarcar como sumidero" >
+                        🔼
+                    </button>
+                {:else}
+                    <button use:twemoji on:click={() => { toggleFuente(); }} title="Convertir en fuente" >
+                        🔼
+                    </button>
+                    
+                    <button use:twemoji on:click={() => { toggleSumidero(); }} title="Convertir en sumidero" >
+                        🔽
+                    </button>
+                {/if}
+                
             </div>
         {/if}
     </div>
