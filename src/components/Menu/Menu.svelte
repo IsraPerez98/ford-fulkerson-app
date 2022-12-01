@@ -140,7 +140,7 @@
 
 </script>
 
-<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 ">
+<div class="h-screen w-10 md:w-screen md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 ">
     <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 last:space-y-none md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center overflow-auto">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
