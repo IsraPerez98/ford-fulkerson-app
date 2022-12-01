@@ -283,8 +283,6 @@ class Grafo {
     }
     
     public inciarFlujoMaximo() {
-        this.ejecutandoFlujoMaximo = true;
-        this.avanzarIteracionFlujoMaximo = false;
 
         const fuentes = this.vertices.filter(vertice => vertice.fuente);
         const sumideros = this.vertices.filter(vertice => vertice.sumidero);
@@ -310,8 +308,11 @@ class Grafo {
                 return;
             }
 
+            const xCentroFuentes = fuentes.reduce((acum, fuente) => acum + fuente.posicion.x, 0) / fuentes.length;
+            const yCentroFuentes = fuentes.reduce((acum, fuente) => acum + fuente.posicion.y, 0) / fuentes.length;
+
             if(fuentes.length > 1) {
-                const verticeNuevo = this.crearNuevoVertice(true, false, {x: this.width / 3, y: this.height / 2});
+                const verticeNuevo = this.crearNuevoVertice(true, false, {x: xCentroFuentes, y: yCentroFuentes});
                 for(let i = 0; i < fuentes.length; i++) {
                     this.crearNuevaArista(verticeNuevo, fuentes[i], Infinity);
                     fuentes[i].toggleFuente();
@@ -320,8 +321,11 @@ class Grafo {
                 fuente = verticeNuevo;
             }
 
+            const xCentroSumideros = sumideros.reduce((acum, sumidero) => acum + sumidero.posicion.x, 0) / sumideros.length;
+            const yCentroSumideros = sumideros.reduce((acum, sumidero) => acum + sumidero.posicion.y, 0) / sumideros.length;
+
             if(sumideros.length > 1) {
-                const verticeNuevo = this.crearNuevoVertice(false, true, {x: this.width * 2 / 3, y: this.height / 2});
+                const verticeNuevo = this.crearNuevoVertice(false, true, {x: xCentroSumideros, y: yCentroSumideros});
                 for(let i = 0; i < sumideros.length; i++) {
                     this.crearNuevaArista(sumideros[i], verticeNuevo, Infinity);
                     sumideros[i].toggleSumidero();
@@ -513,6 +517,9 @@ class Grafo {
     }
 
     private async calcularFlujoMaximo(fuente: Vertice, sumidero: Vertice): Promise<void> { // funcion que ejecuta el algoritmo de flujo maximo
+
+        this.ejecutandoFlujoMaximo = true;
+        this.avanzarIteracionFlujoMaximo = false;
 
         if(!this.consola.abierta) {
             this.consola.abrir();
