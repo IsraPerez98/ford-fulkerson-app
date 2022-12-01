@@ -4,12 +4,6 @@
 	import Tailwindcss from './Tailwindcss.svelte';
 	import Canvas from './components/Canvas/Canvas.svelte';
 
-	import mobile from 'is-mobile';
-
-	if (mobile()) {
-		window.alert("Este sitio no está optimizado para dispositivos móviles. Se recomienda acceder desde un dispositivo de escritorio.");
-	}
-
 </script>
 
 <Tailwindcss />
