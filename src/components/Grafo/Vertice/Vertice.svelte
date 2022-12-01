@@ -1,5 +1,7 @@
 <script lang="ts">
 
+    import { twemoji } from 'twemoji-svelte-action';
+
     import type  Vertice  from '../../../classes/Vertice';
 
     export let vertice: Vertice;
@@ -126,15 +128,15 @@
 
 </script>
 
-<foreignObject x={vertice.posicion.x - vertice.radio} y={vertice.posicion.y - vertice.radio} width={vertice.radio * 3} height={vertice.radio * 3} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
-    <div class="flex h-full w-full">
+<foreignObject x={vertice.posicion.x - vertice.radio} y={vertice.posicion.y - vertice.radio} width={vertice.radio * 3} height={vertice.radio * 2} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+    <div class="h-full w-full flex flex-row">
         <div style="width: {vertice.radio*2}px ;height: {vertice.radio*2}px ;" class="cursor-pointer flex {color} rounded-full border border-white/20 overflow:hidden" on:pointerdown={onMouseDown} >
-            <p class="text-white text-center m-auto select-none text-xs sm:text-sm md:text-base">
+            <p class="text-white text-center m-auto text-xs sm:text-sm md:text-base select-none">
                 {nombre}
             </p>
         </div>
         {#if puedeCambiarSumideroyFuente}
-            <div style="width: {vertice.radio}px ;height: {vertice.radio}px ; {mostrarMenu? "display:block": "display:none"}" class="text-lg">
+            <div use:twemoji class="h-full w-6 ml-1 {mostrarMenu? '': 'hidden'}">
                 <button on:click={() => { toggleFuente(); }} style="{vertice.fuente ? "" : "filter:grayscale(1);"}" title="Convertir en fuente" >
                     🔼
                 </button>
