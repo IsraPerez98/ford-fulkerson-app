@@ -58,7 +58,7 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
             
             generarArista(verticeActual, siguienteVertice, matrizAdyacencia);
 
-            if(siguienteVertice === verticesRestantes[verticesRestantes.length - 1]) {
+            if(siguienteVertice === cantVertices - 1) {
                 break;
             } else {
                 verticeAnterior = verticeActual;
