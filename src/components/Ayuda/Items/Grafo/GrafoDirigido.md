@@ -4,13 +4,7 @@ Un grafo dirigido corresponde a un grafo en el que las aristas tienen una direcc
 
 Generalmente se representa un grafo dirigido con una flecha que indica la dirección de la arista.
 
-
-
-<img src="https://www.techiedelight.com/wp-content/uploads/Eulerian-path-for-directed-graphs.png" width="300" height="300" alt="Grafo dirigido" />
-
-##### Fuente: [Techie Delight](https://www.techiedelight.com/eulerian-path-directed-graph/)
-
-
+![Grafo dirigido](/img/Ayuda/Grafo/GrafoDirigido/grafoDirigido.png)
 
 En la imagen anterior, se presenta un grafo dirigido, en el que cada arista tiene una dirección representada por una flecha.
 
