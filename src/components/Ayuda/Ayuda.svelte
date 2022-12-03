@@ -313,7 +313,7 @@
     @media (min-width: 1024px) {
         
         article :global(img) {
-            max-height: 20rem;
+            max-height: 40rem;
         }
     }
 </style>

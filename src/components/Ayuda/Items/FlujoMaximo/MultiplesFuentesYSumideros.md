@@ -5,4 +5,8 @@ De igual forma es necesario agregar un super-destino con aristas de capacidad in
 
 En la imagen que se presenta a continuación se presenta un ejemplo de un problema de flujo máximo con 5 fuentes y 3 destinos reducido a un problema con una sola fuente y un destino.
 
-# IMAGEN PENDIENTE 
+![Red con múltiples fuentes y destinos](/img/Ayuda/FlujoMaximo/MultiplesFuentesYSumideros/grafoOriginal.png)
+
+Luego de realizar las modificaciones se obtiene la siguiente red:
+
+![Red con una sola fuente y un destino](/img/Ayuda/FlujoMaximo/MultiplesFuentesYSumideros/grafoModificado.png)
