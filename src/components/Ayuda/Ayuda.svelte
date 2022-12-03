@@ -32,6 +32,15 @@
     import MultiplesFuentesYSumideros from "./Items/FlujoMaximo/MultiplesFuentesYSumideros.md";
 
     //@ts-ignore
+    import ApareamientosGrafosBipartitos from "./Items/Aplicaciones/ApareamientosGrafosBipartitos.md";
+    //@ts-ignore
+    import ProblemaDeRepresentantes from "./Items/Aplicaciones/ProblemaDeRepresentantes.md";
+    //@ts-ignore
+    import AsignacionDeBarcos from "./Items/Aplicaciones/AsignacionDeBarcos.md";
+    //@ts-ignore
+    import ComputacionDistribuida from "./Items/Aplicaciones/ComputacionDistribuida.md";
+
+    //@ts-ignore
     const { close } = getContext('simple-modal');
 
     const itemsAyuda: ItemsAyuda = {
@@ -96,6 +105,27 @@
                     {
                         titulo: "Múltiples fuentes y sumideros",
                         componente: MultiplesFuentesYSumideros,
+                    }
+                ]
+            },
+            {
+                titulo: "Ejemplos de aplicaciones",
+                items : [
+                    {
+                        titulo: "Apareamientos en grafos bipartitos",
+                        componente: ApareamientosGrafosBipartitos,
+                    },
+                    {
+                        titulo: "Problema de representantes",
+                        componente: ProblemaDeRepresentantes,
+                    },
+                    {
+                        titulo: "Asignación de barcos",
+                        componente: AsignacionDeBarcos,
+                    },
+                    {
+                        titulo: "Computación distribuida",
+                        componente: ComputacionDistribuida,
                     }
                 ]
             }
@@ -263,6 +293,14 @@
     }
 
     article :global(p) {
+        @apply text-base my-4 text-justify font-sans;
+    }
+
+    article :global(ul) {
+        @apply text-base my-4 text-justify font-sans ml-4 list-disc;
+    }
+
+    article :global(li) {
         @apply text-base my-4 text-justify font-sans;
     }
 
