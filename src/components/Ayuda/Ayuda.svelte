@@ -28,6 +28,8 @@
     import TeoremaFMCM from "./Items/FlujoMaximo/TeoremaFMCM.md";
     //@ts-ignore
     import AlgoritmoFordFulkerson from "./Items/FlujoMaximo/AlgoritmoFordFulkerson.md";
+    //@ts-ignore
+    import MultiplesFuentesYSumideros from "./Items/FlujoMaximo/MultiplesFuentesYSumideros.md";
 
     //@ts-ignore
     const { close } = getContext('simple-modal');
@@ -90,6 +92,10 @@
                     {
                         titulo: "Algoritmo de Ford-Fulkerson",
                         componente: AlgoritmoFordFulkerson,
+                    },
+                    {
+                        titulo: "Múltiples fuentes y sumideros",
+                        componente: MultiplesFuentesYSumideros,
                     }
                 ]
             }
