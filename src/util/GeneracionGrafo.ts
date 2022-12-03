@@ -210,7 +210,9 @@ function generarGrafoAlAzar(cantVertices: number, width: number, height: number,
         sumideros.push(false);
     }
     fuentes[0] = true;
-    sumideros[cantVertices - 1] = true;
+    if(cantVertices > 1) { 
+        sumideros[cantVertices - 1] = true
+    };
 
     //const posiciones = generarPosicionesVertices(cantVertices, width, height);
     const posiciones: Posicion[] = new Array(cantVertices).fill({x: width / 2, y: height / 2});
