@@ -2,17 +2,17 @@ Una compañía de transporte marítimo necesita transportar bienes perecibles en
 
 Como ejemplo se consideran cuatro cargamentos, las características de los cargamentos, los tiempos de tránsito y los tiempos de retorno se incluyen en las tablas siguientes.
 
-Características de los cargamentos:
+#### Características de los cargamentos:
 
-![Características de cargamentos](/img/Ayuda/Aplicaciones/AsignacionDeBarcos/CaracteristicasCargamentos.png)
+<img alt="Características de cargamentos" src="/img/Ayuda/Aplicaciones/AsignacionDeBarcos/CaracteristicasCargamentos.png" width="500em" />
 
-Tiempos de tránsito:
+#### Tiempos de tránsito:
 
-![Tiempos de tránsito](/img/Ayuda/Aplicaciones/AsignacionDeBarcos/TiemposDeTransito.png)
+<img alt="Tiempos de tránsito" src="/img/Ayuda/Aplicaciones/AsignacionDeBarcos/TiemposDeTransito.png" width="200em" />
 
-Tiempos de retorno:
+#### Tiempos de retorno:
 
-![Tiempos de retorno](/img/Ayuda/Aplicaciones/AsignacionDeBarcos/TiemposDeRetorno.png)
+<img alt="Tiempos de retorno" src="/img/Ayuda/Aplicaciones/AsignacionDeBarcos/TiemposDeRetorno.png" width="200em" />
 
 Para resolver este problema se construye la red de flujo que se muestra en la figura. Esta red contiene un vértice para cada cargamento y una arista desde el vértice *i* hacia el vértice *j* en caso de que sea posible realizar la entrega *j* después de la entrega *i*, es decir el tiempo de inicio del cargamento *j *es menor o igual al tiempo de entrega de *i* más el tiempo de tránsito de *i* a *j*. Un camino dirigido en esta red corresponde a una posible secuencia de entregas. El problema requiere identificar el número mínimo de caminos dirigidos que contengan cada uno de los vértices en exactamente un camino.
 

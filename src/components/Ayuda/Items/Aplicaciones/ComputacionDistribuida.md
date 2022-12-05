@@ -16,14 +16,13 @@ Se puede formular este problema como un problema de corte mínimo en una red no 
 
 Como ejemplo se tiene el programa definido en las tablas a continuación donde se definen los costos del programa:
 
-Costos de computación:
+#### Costos de computación:
 
-![Costos de computación](/img/Ayuda/Aplicaciones/ComputacionDistribuida/CostosDeComputacion.png)
+<img alt="Costos de computación" src="/img/Ayuda/Aplicaciones/ComputacionDistribuida/CostosDeComputacion.png" width="300em">
 
-Costos de comunicación:
+#### Costos de comunicación:
 
-![Costos de comunicación](/img/Ayuda/Aplicaciones/ComputacionDistribuida/CostosDeComunicacion.png)
-
+<img alt="Costos de comunicación" src="/img/Ayuda/Aplicaciones/ComputacionDistribuida/CostosDeComunicacion.png" width="300em">
 
 En la figura se presenta la red de flujo resultante para el ejemplo.
 
@@ -31,7 +30,7 @@ En la figura se presenta la red de flujo resultante para el ejemplo.
 De esta forma se observa una correspondencia entre los cortes *s-t* de la red y las asignaciones de módulos a procesadores. La capacidad de un corte equivale al costo de la asignación correspondiente.
 Para establecer este resultado, sean *A<sub>1</sub>* y *A<sub>2</sub>* asignaciones de módulos a los procesadores *1* y *2* respectivamente. El costo de esta asignación es:
 
-![Costo de la asignación](/img/Ayuda/Aplicaciones/ComputacionDistribuida/EcuacionCostoAsignacion.png)
+<img alt="Costo de la asignación" src="/img/Ayuda/Aplicaciones/ComputacionDistribuida/EcuacionCostoAsignacion.png" width="500em">
 
 El corte *s-t* correspondiente a esta asignacion es *(｛s｝ ∪ A<sub>1</sub>, ｛t｝ ∪ A<sub>2</sub>)*. Este corte contiene una arista *(i,t)* para cada módulo *i ∈ A<sub>1</sub>* de capacidad *α<sub>i</sub>* y una arista *(s,i)*  para cada modulo *i ∈ A<sub>2</sub>* de capacidad *β<sub>i</sub>* y todas las aristas *(i,j)* de *i \∈ A<sub>1</sub>* y *j ∈ A<sub>2</sub>* con capacidad *c<sub>ij</sub>*. 
 

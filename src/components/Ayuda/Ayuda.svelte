@@ -288,6 +288,10 @@
         @apply text-xl font-bold text-sky-500  text-justify mx-auto w-full my-4 pt-3 border-t border-slate-400/50;
     }
 
+    article :global(h4) {
+        @apply text-base font-bold text-sky-500 text-center mx-auto w-full my-4 pt-3;
+    }
+
     article :global(h5) {
         @apply text-sm font-bold text-slate-500 text-center w-full my-4 ;
     }
@@ -305,15 +309,8 @@
     }
 
     article :global(img) {
-        @apply rounded-2xl mx-auto border-2 border-blue-600 my-4 max-w-full shadow-2xl;
+        @apply rounded-2xl mx-auto border-2 border-blue-600 my-4 shadow-2xl;
 
         
-    }
-
-    @media (min-width: 1024px) {
-        
-        article :global(img) {
-            max-height: 40rem;
-        }
     }
 </style>
