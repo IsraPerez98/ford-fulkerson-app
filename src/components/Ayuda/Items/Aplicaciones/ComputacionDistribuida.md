@@ -26,6 +26,7 @@ Como ejemplo se tiene el programa definido en las tablas a continuación donde s
 
 En la figura se presenta la red de flujo resultante para el ejemplo.
 
+<img alt="Red de flujo para el problema de computación." src="/img/Ayuda/Aplicaciones/ComputacionDistribuida/RedProcesos.png" width="600em">
 
 De esta forma se observa una correspondencia entre los cortes *s-t* de la red y las asignaciones de módulos a procesadores. La capacidad de un corte equivale al costo de la asignación correspondiente.
 Para establecer este resultado, sean *A<sub>1</sub>* y *A<sub>2</sub>* asignaciones de módulos a los procesadores *1* y *2* respectivamente. El costo de esta asignación es:

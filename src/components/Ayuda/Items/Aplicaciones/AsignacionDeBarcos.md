@@ -16,6 +16,8 @@ Como ejemplo se consideran cuatro cargamentos, las características de los carga
 
 Para resolver este problema se construye la red de flujo que se muestra en la figura. Esta red contiene un vértice para cada cargamento y una arista desde el vértice *i* hacia el vértice *j* en caso de que sea posible realizar la entrega *j* después de la entrega *i*, es decir el tiempo de inicio del cargamento *j *es menor o igual al tiempo de entrega de *i* más el tiempo de tránsito de *i* a *j*. Un camino dirigido en esta red corresponde a una posible secuencia de entregas. El problema requiere identificar el número mínimo de caminos dirigidos que contengan cada uno de los vértices en exactamente un camino.
 
+<img alt="Red de flujo del problema de planificación de barcos" src="/img/Ayuda/Aplicaciones/AsignacionDeBarcos/RedBarcos.png" width="300em" />
+
 Este problema puede ser transformado a uno de flujo máximo de la siguiente forma:
 
 * Dividimos cada vértice *i* en dos vértices *i'* y *i''*.
@@ -25,5 +27,6 @@ Este problema puede ser transformado a uno de flujo máximo de la siguiente form
 * Añadimos el sumidero *t* y conectamos cada destino de cada cargamento al sumidero.
 * Fijamos la capacidad de cada arista de la red a un valor de *1*.
 
-
 En la figura se representa la red de flujo resultante para el ejemplo. En esta red cada camino dirigido desde la fuente *s* hacia el sumidero *t* corresponde a una posible planificación para cada barco. Como resultado un flujo factible de valor *v* en esta red corresponde a una planificación de *v* barcos. De esta forma este problema se reduce en encontrar un flujo de valor mínimo, al ser un problema de valor mínimo puede ser resuelto con el algoritmo de flujo máximo.
+
+<img alt="Red de flujo del problema de planificación de barcos" src="/img/Ayuda/Aplicaciones/AsignacionDeBarcos/RedCompletaBarcos.png" width="600em" />
