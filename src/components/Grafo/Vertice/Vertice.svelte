@@ -6,7 +6,7 @@
 
     export let vertice: Vertice;
 
-    $: nombre = (vertice.nombre) ? vertice.nombre : `Vert. ${vertice.id}` ;
+    $: nombre = (vertice.nombre) ? vertice.nombre : `${vertice.id}` ;
     $: grafo = vertice.grafo;
     
     $: creandoArista = grafo.creandoArista;
