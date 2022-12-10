@@ -32,6 +32,8 @@
     import MultiplesFuentesYSumideros from "./Items/FlujoMaximo/MultiplesFuentesYSumideros.md";
 
     //@ts-ignore
+    import AplicacionesSimples from "./Items/Aplicaciones/AplicacionesSimples.md";
+    //@ts-ignore
     import ApareamientosGrafosBipartitos from "./Items/Aplicaciones/ApareamientosGrafosBipartitos.md";
     //@ts-ignore
     import ProblemaDeRepresentantes from "./Items/Aplicaciones/ProblemaDeRepresentantes.md";
@@ -111,6 +113,10 @@
             {
                 titulo: "Ejemplos de aplicaciones",
                 items : [
+                    {
+                        titulo: "Aplicaciones simples",
+                        componente: AplicacionesSimples,
+                    },
                     {
                         titulo: "Apareamientos en grafos bipartitos",
                         componente: ApareamientosGrafosBipartitos,
