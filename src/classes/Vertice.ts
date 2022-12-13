@@ -1,3 +1,5 @@
+import { toast } from 'svelte-cool-toast';
+
 import type Grafo from './Grafo';
 import type Posicion from '../interfaces/Posicion';
 
@@ -60,7 +62,12 @@ class Vertice {
     
     public toggleFuente(): void { // Funcion para cambiar el estado de fuente del vertice
         if(this.grafo.ejecutandoFlujoMaximo) {
-            alert('No se puede cambiar el estado de fuente mientras se este ejecutando el algoritmo de flujo maximo');
+            //alert('No se puede cambiar el estado de una fuente mientras se este ejecutando el algoritmo de flujo maximo');
+            toast("No se puede cambiar el estado de una fuente mientras se este ejecutando el algoritmo de flujo maximo", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return;
         }
         this.fuente = !this.fuente;
@@ -69,7 +76,12 @@ class Vertice {
     
     public toggleSumidero(): void { // Funcion para cambiar el estado de sumidero del vertice
         if(this.grafo.ejecutandoFlujoMaximo) {
-            alert('No se puede cambiar el estado de un sumidero mientras se esta ejecutando el algoritmo de flujo maximo');
+            //alert('No se puede cambiar el estado de un sumidero mientras se esta ejecutando el algoritmo de flujo maximo');
+            toast("No se puede cambiar el estado de un sumidero mientras se esta ejecutando el algoritmo de flujo maximo", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return;
         }
         this.sumidero = !this.sumidero;

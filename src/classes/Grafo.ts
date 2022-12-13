@@ -1,3 +1,5 @@
+import { toast } from 'svelte-cool-toast';
+
 import type MatrizAdyacencia from "../interfaces/MatrizAdyacencia";
 import Vertice from "./Vertice";
 import Arista from "./Arista";
@@ -6,8 +8,6 @@ import type Posicion from "../interfaces/Posicion";
 import type Consola from "./Consola";
 
 import { generarGrafoAlAzar, generarGrafo } from "../util/GeneracionGrafo";
-
-import { toast } from 'svelte-cool-toast';
 
 function cancelarConClick(callback: Function) {
     const mousedown = (e: MouseEvent) => {
@@ -290,13 +290,23 @@ class Grafo {
         const sumideros = this.vertices.filter(vertice => vertice.sumidero);
 
         if(fuentes.length === 0) {
-            alert("Debe haber al menos una fuente");
+            //alert("Se debe definir al menos una fuente");
+            toast("Se debe definir al menos una fuente", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             this.finalizarFlujoMaximo();
             return;
         }
 
         if(sumideros.length === 0) {
-            alert("Debe haber al menos un sumidero");
+            //alert("Se debe definir al menos un sumidero");
+            toast("Se debe definir al menos un sumidero", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             this.finalizarFlujoMaximo();
             return;
         }
@@ -398,7 +408,12 @@ class Grafo {
         //console.log({verticeOrigen, verticeDestino, capacidad});
         //Si la matriz ya existe y es bidireccional, entonces no se puede crear una nueva
         if(this.matrizAdyacencia[verticeOrigen.id][verticeDestino.id] !== 0) {
-            alert("Ya existe esta arista");
+            //alert("Ya existe esta arista");
+            toast("Ya existe esta arista", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             this.finalizarCreacionArista();
             return;
         }

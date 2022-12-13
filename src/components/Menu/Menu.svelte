@@ -1,5 +1,6 @@
 <script lang="ts">
     import { getContext } from 'svelte';
+    import { toast } from 'svelte-cool-toast';
     import { twemoji } from 'twemoji-svelte-action';
 
     import Ayuda from '../Ayuda/Ayuda.svelte';
@@ -51,13 +52,23 @@
         const numeroVertices = prompt("Ingrese el número de vértices del grafo");
         if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
             console.log("Numero invalido de vertices");
-            alert("Ingrese un número válido");
+            //alert("Ingrese un número válido");
+            toast("Número invalido de vertices", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return;
         }
 
         if(Number(numeroVertices) > 15) {
             console.error("El número de vértices no puede ser mayor a 15");
-            alert("El número de vértices no puede ser mayor a 15");
+            //alert("El número de vértices no puede ser mayor a 15");
+            toast( "El número de vértices no puede ser mayor a 15", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return;
         }
 

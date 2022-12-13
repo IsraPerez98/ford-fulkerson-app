@@ -1,5 +1,5 @@
 <script lang="ts">
-
+    import { toast } from 'svelte-cool-toast';
     import { twemoji } from 'twemoji-svelte-action';
 
     import type  Vertice  from '../../../classes/Vertice';
@@ -60,7 +60,12 @@
             }
             
             if(grafo.nuevaAristaVerticeOrigen === vertice) {
-                alert('No puedes crear una arista que conecte un vértice consigo mismo');
+                //alert('No puedes crear una arista que conecte un vértice consigo mismo');
+                toast( "No se puede crear una arista que conecte un vértice consigo mismo", {
+                    title: "Error",
+                    type: "error",
+                    duration: 5000,
+                });
                 return;
             }
 
@@ -110,7 +115,12 @@
 
     function toggleFuente() {
         if(vertice.sumidero) {
-            alert('No se puede marcar un vértice como fuente y sumidero a la vez');
+            //alert('No se puede definir un vértice como fuente y sumidero a la vez');
+            toast( "No se puede definir un vértice como fuente y sumidero a la vez", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return;
         }
         vertice.toggleFuente();
@@ -119,7 +129,12 @@
 
     function toggleSumidero() {
         if(vertice.fuente) {
-            alert('No se puede marcar un vértice como fuente y sumidero a la vez');
+            //alert('No se puede definir un vértice como fuente y sumidero a la vez');
+            toast( "No se puede definir un vértice como fuente y sumidero a la vez", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return;
         }
         vertice.toggleSumidero();

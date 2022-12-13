@@ -1,3 +1,5 @@
+import { toast } from 'svelte-cool-toast';
+
 import type Vertice from "./Vertice";
 import type Grafo from "./Grafo";
 
@@ -15,7 +17,11 @@ class Arista {
     public cambiarCapacidad(capacidadNueva: number): number{ // funcion que cambia la capacidad de la arista
         //si se esta ejecutando el algoritmo no se puede cambiar la capacidad
         if(this.grafo?.ejecutandoFlujoMaximo) {
-            alert("No se puede cambiar la capacidad de una arista mientras se esta ejecutando el algoritmo");
+            toast( "No se puede cambiar la capacidad de una arista mientras se esta ejecutando el algoritmo", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             return this.capacidad;
         }
 

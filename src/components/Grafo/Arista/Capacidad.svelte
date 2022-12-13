@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { toast } from 'svelte-cool-toast';
 
     export let onClickArista: Function;
     
@@ -28,14 +29,24 @@
         //si la capacidad nueva no es un numero valido no se cambia
         if(isNaN(capacidadNueva) || capacidadNueva < 0 ) {
             console.error("Nueva capacidad no es un numero valido");
-            alert("Nueva capacidad no es un numero valido");
+            //alert("Nueva capacidad no es un numero valido");
+            toast( "Nueva capacidad no es un numero valido", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             this.value = capacidadActual;
             return;
         }
 
         if( capacidadNueva > 999 ) {
             console.error("La capacidad no puede ser mayor a 1000");
-            alert("La capacidad no puede ser mayor a 1000");
+            //alert("La capacidad no puede ser mayor a 1000");
+            toast( "La capacidad no puede ser mayor a 1000", {
+                title: "Error",
+                type: "error",
+                duration: 5000,
+            });
             this.value = capacidadActual;
             return;
         }
