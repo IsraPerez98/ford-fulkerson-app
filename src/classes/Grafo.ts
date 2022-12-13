@@ -7,6 +7,8 @@ import type Consola from "./Consola";
 
 import { generarGrafoAlAzar, generarGrafo } from "../util/GeneracionGrafo";
 
+import { toast } from 'svelte-cool-toast';
+
 function cancelarConClick(callback: Function) {
     const mousedown = (e: MouseEvent) => {
         callback();
@@ -562,7 +564,13 @@ class Grafo {
                     
                     this.consola.printTextoExplicativo("🎉 El flujo maximo es: " + flujoMaximo);
                     this.consola.setUbicacionPseudoCodigo("RETORNAR FLUJO_MAXIMO");
-                    await this.esperarProximaIteracion();
+                    //await this.esperarProximaIteracion();
+
+                    toast("🎉 El flujo maximo es: " + flujoMaximo, {
+                        title: 'Algortimo finalizado',
+                        duration: 5000,
+                        type: 'success'
+                      });
 
                     this.finalizarFlujoMaximo();
                     return;

@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { ToastProvider } from 'svelte-cool-toast';
+    import "svelte-cool-toast/css/theme.css";
+
     import { generarGrafoAlAzar } from '../../util/GeneracionGrafo';
 
     import Grafo from '../Grafo/Grafo.svelte';
@@ -88,30 +91,32 @@
 }} />
 
 <div class="bg-white dark:bg-gray-800">
-    <svg width={windowWidth} height={windowHeight} class="select-none">
+    <ToastProvider placement="bottom-center">
+        <svg width={windowWidth} height={windowHeight} class="select-none">
 
-        <Grafo 
-            {aristas} 
-            {vertices} 
-            x={grafoX}
-            y={grafoY}
-            width={grafoWidth}
-            height={grafoHeight}
-        />
-
-        <foreignObject width={esPantallaMD() ? margenMenu : windowWidth } height={esPantallaMD() ? windowHeight : margenMenu} class="h-full w-10 md:w-full md:h-10" >
-            <Menu 
-                grafo={grafo}
+            <Grafo 
+                {aristas} 
+                {vertices} 
+                x={grafoX}
+                y={grafoY}
+                width={grafoWidth}
+                height={grafoHeight}
             />
-        </foreignObject>
 
-        <foreignObject width="100%" height="100%" class="pointer-events-none">
-            {#if consola}
-                <ConsolaComponent 
-                    consola={consola}
+            <foreignObject width={esPantallaMD() ? margenMenu : windowWidth } height={esPantallaMD() ? windowHeight : margenMenu} class="h-full w-10 md:w-full md:h-10" >
+                <Menu 
+                    grafo={grafo}
                 />
-            {/if}
-        </foreignObject>
-        
-    </svg>
+            </foreignObject>
+
+            <foreignObject width="100%" height="100%" class="pointer-events-none">
+                {#if consola}
+                    <ConsolaComponent 
+                        consola={consola}
+                    />
+                {/if}
+            </foreignObject>
+            
+        </svg>
+    </ToastProvider>
 </div>
