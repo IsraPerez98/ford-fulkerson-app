@@ -34,8 +34,8 @@ La sección de creación de componentes incluye dos ítems, los cuales al ser se
 
 En la sección de eliminación de componentes se encuentran dos ítems, los cuales permiten eliminar un vertice o una arista respectivamente.
 
-## Sección de cambio de tema
+## Sección de repositorio y cambio de tema
 
-<img alt="Sección de Cambio de Tema" src="/img/Ayuda/App/MenuSuperior/SeccionCambioTema.png" width="100em">
+<img alt="Sección de Repositorio y Cambio de Tema" src="/img/Ayuda/App/MenuSuperior/SeccionCambioTema.png" width="200em">
 
-La sección de cambio de tema contiene solo un ítem que permite al usuario alternar entre el tema oscuro y claro de la aplicación.
+La sección de repositorio y cambio de tema contiene dos ítems, el primero permite acceder al repositorio de la aplicación y el segundo permite al usuario alternar entre el tema oscuro y claro de la aplicación.

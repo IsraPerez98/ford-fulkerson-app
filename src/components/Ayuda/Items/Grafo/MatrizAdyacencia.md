@@ -2,7 +2,7 @@ Una matriz de adyacencia es una matriz cuadrada que representa un grafo. Cada en
 
 Como ejemplo se muestra un grafo con 4 vértices y 5 aristas.
 
-<img alt="Grafo con 4 vértices y 4 aristas" src="/img/Ayuda/Grafo/MatrizAdyacencia/grafo.png" width="500em" />
+<img alt="Grafo con 4 vértices y 4 aristas" src="/img/Ayuda/Grafo/MatrizAdyacencia/grafo.png" width="350em" />
 
 Para el grafo de la imagen anterior, la matriz de adyacencia es:
 

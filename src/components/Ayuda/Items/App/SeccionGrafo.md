@@ -1,10 +1,10 @@
-<img alt="Grafo" src="/img/Ayuda/App/Grafo/Grafo.png" width="500em" />
+<img alt="Grafo" src="/img/Ayuda/App/Grafo/Grafo.png" width="400em" />
 
 En la parte central de la interfaz se encuentra el grafo, que contiene los vértices y las aristas.
 
 ## Vértices
 
-<img alt="Vértices" src="/img/Ayuda/App/Grafo/Vertices.png" width="500em" />
+<img alt="Vértices" src="/img/Ayuda/App/Grafo/Vertices.png" width="300em" />
 
 Cada vértice se representa por un círculo, el cual puede ser arrastrado para modificar la posición del grafo.
 El color denota el tipo de vértice, siendo:
@@ -15,7 +15,7 @@ El color denota el tipo de vértice, siendo:
 
 Es posible cambiar el tipo de vértice haciendo click sobre el botón correspondiente.
 
-<img alt="Cambiar tipo de vértice" src="/img/Ayuda/App/Grafo/ModificarVertices.png" width="500em" />
+<img alt="Cambiar tipo de vértice" src="/img/Ayuda/App/Grafo/ModificarVertices.png" width="350em" />
 
 ## Aristas
 
