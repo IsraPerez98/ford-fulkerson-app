@@ -153,8 +153,8 @@
 
 </script>
 
-<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 ">
-    <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 last:space-y-none md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center overflow-auto">
+<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 overflow-y-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden">
+    <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 last:space-y-none md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
         </button>
@@ -180,7 +180,7 @@
                 📁
             </button>
         </div>
-        <div class="flex flex-col md:flex-row text-2xl space-y-2 md:space-y-0 md:space-x-4 my-auto md:h-full overflow-hidden md:py-1">
+        <div class="flex flex-col md:flex-row text-2xl space-y-2 md:space-y-0 md:space-x-4 my-auto md:h-full md:py-1">
             <button title="Agregar Vertice" on:click={onClickCrearNuevoVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale">
                 🔵
                 <div class="relative bottom-4 ml-3 text-base" >
@@ -194,7 +194,7 @@
                 </div>
             </button>
         </div>
-        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4 md:h-full overflow-hidden md:py-1">
+        <div class="flex flex-col md:flex-row my-auto text-2xl space-y-2 md:space-y-0 md:space-x-4 md:h-full md:py-1">
             <button title="Eliminar Vertice" on:click={onClickEliminarVertice} disabled={!puedeModificarGrafo} class="disabled:grayscale ">
                 🔵
                 <div class="relative bottom-4 ml-3 text-base" >
