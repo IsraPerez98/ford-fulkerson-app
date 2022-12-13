@@ -43,7 +43,7 @@ class Consola {
 
     public cambiarCategoria(categoria: string) {
         if(this.categorias.indexOf(categoria) === -1) {
-            console.log("Categoría no valida: " + categoria);
+            console.error("Categoría no valida: " + categoria);
             return;
         }
 
@@ -55,7 +55,7 @@ class Consola {
         const posicion = this.pseudoCodigo.indexOf(pseudocidigo);
 
         if(posicion === -1) {
-            console.log("Pseudocódigo no valido: " + pseudocidigo);
+            console.error("Pseudocódigo no valido: " + pseudocidigo);
             return;
         }
 

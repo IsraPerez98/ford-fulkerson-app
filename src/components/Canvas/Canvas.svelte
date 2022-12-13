@@ -49,7 +49,7 @@
         grafoX = esPantallaMD() ? margenMenu : 0;
         grafoY = 0;
 
-        console.log({grafoX, grafoY});
+        //console.log({grafoX, grafoY});
     }
     calcularPosicionGrafo();
 

@@ -27,14 +27,14 @@
         
         //si la capacidad nueva no es un numero valido no se cambia
         if(isNaN(capacidadNueva) || capacidadNueva < 0 ) {
-            console.log("Nueva capacidad no es un numero valido");
+            console.error("Nueva capacidad no es un numero valido");
             alert("Nueva capacidad no es un numero valido");
             this.value = capacidadActual;
             return;
         }
 
         if( capacidadNueva > 999 ) {
-            console.log("La capacidad no puede ser mayor a 1000");
+            console.error("La capacidad no puede ser mayor a 1000");
             alert("La capacidad no puede ser mayor a 1000");
             this.value = capacidadActual;
             return;

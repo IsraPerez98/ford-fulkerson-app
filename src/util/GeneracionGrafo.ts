@@ -41,7 +41,7 @@ function generarMatrizAlAzar(cantVertices: number): MatrizAdyacencia {
     // Dejamos los vertices como restantes, ignorando la fuente
     let verticesRestantes = new Array(cantVertices - 1 ).fill(0).map((_, i) => i+1);
 
-    console.log({verticesRestantes});
+    //console.log({verticesRestantes});
 
     while(verticesRestantes.length > 1) {
         //asumimos que la fuente es el vertice 0 y el destino es el vertice cantVertices - 1

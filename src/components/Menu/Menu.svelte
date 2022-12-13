@@ -50,11 +50,13 @@
 
         const numeroVertices = prompt("Ingrese el número de vértices del grafo");
         if(numeroVertices === null || numeroVertices === ""  || isNaN(Number(numeroVertices)) || Number(numeroVertices) < 1) {
+            console.log("Numero invalido de vertices");
             alert("Ingrese un número válido");
             return;
         }
 
         if(Number(numeroVertices) > 15) {
+            console.error("El número de vértices no puede ser mayor a 15");
             alert("El número de vértices no puede ser mayor a 15");
             return;
         }
