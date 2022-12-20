@@ -124,11 +124,17 @@
 </div>
 
 <style global lang="scss">
-    .toast-container {
-      @apply bg-white dark:bg-neutral-800 text-slate-900 dark:text-slate-100;
-
-      p {
-        @apply text-slate-900 dark:text-slate-100;
-      }
+    .toasts-container {
+        pointer-events: none !important;
+        
+        .toast-container {
+            pointer-events: all !important;
+            @apply bg-white dark:bg-neutral-800 text-slate-900 dark:text-slate-100;
+            
+            p {
+                @apply text-slate-900 dark:text-slate-100;
+            }
+        }
     }
-  </style>
+    
+</style>
