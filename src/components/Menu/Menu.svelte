@@ -153,7 +153,7 @@
 
 </script>
 
-<div class="h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 overflow-y-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden">
+<div class="barra-menu h-full w-10 md:w-full md:h-10 flex flex-col md:flex-row bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-2xl border-r md:border-b border-slate-700/20 overflow-y-auto overflow-x-hidden md:overflow-x-auto md:overflow-y-hidden">
     <div use:twemoji={{className: 'emoji-menu'}} class="h-full md:w-full flex flex-col md:flex-row mx-auto text-2xl text-center space-y-4 last:space-y-none md:space-y-0 md:space-x-10 md:mx-8 my-8 md:my-auto text-white items-center">
         <button title="Ayuda" class="bg-indigo-600 w-8 h-8 rounded-lg " on:click={onClickAyuda}>
             ?
@@ -231,4 +231,16 @@
         height: 1.25em;
         width: 1.25em;
     }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .barra-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .barra-menu {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
 </style>
