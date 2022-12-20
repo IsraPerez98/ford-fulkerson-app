@@ -2,6 +2,8 @@
     import { ToastProvider } from 'svelte-cool-toast';
     import "svelte-cool-toast/css/theme.css";
 
+    import ToastDismiss from '../utils/ToastDismiss.svelte';
+
     import { generarGrafoAlAzar } from '../../util/GeneracionGrafo';
 
     import Grafo from '../Grafo/Grafo.svelte';
@@ -91,7 +93,7 @@
 }} />
 
 <div class="bg-white dark:bg-gray-800">
-    <ToastProvider placement="bottom-center">
+    <ToastProvider placement="bottom-center" dismissComponent={ToastDismiss}>
         <svg width={windowWidth} height={windowHeight} class="select-none">
 
             <Grafo 
@@ -120,3 +122,13 @@
         </svg>
     </ToastProvider>
 </div>
+
+<style global lang="scss">
+    .toast-container {
+      @apply bg-white dark:bg-neutral-800 text-slate-900 dark:text-slate-100;
+
+      p {
+        @apply text-slate-900 dark:text-slate-100;
+      }
+    }
+  </style>
